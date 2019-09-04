@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:gunsel/data/constants.dart';
 
 class GunselSplash extends StatefulWidget {
   @override
@@ -10,23 +10,30 @@ class _GunselSplashState extends State<GunselSplash> {
   @override
   void initState() {
     super.initState();
-    new Future.delayed(
+    getToken();
+    Future.delayed(
       const Duration(seconds: 3),
-      () => Navigator.pushReplacementNamed(context, 'OneWayScreen'),
+      () => Navigator.pushNamed(context, homeScreen),
     );
+  }
+
+  Future<Timer> getToken() async {
+    return Timer(Duration(seconds: 3), onReceivingToken);
+  }
+
+  onReceivingToken() async {
+    Navigator.of(context).pushReplacementNamed(homeScreen);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
-      fit: StackFit.expand,
-      children: <Widget>[
-        Image(
-          image: AssetImage("images/logo.jpeg"),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: splashImg,
           fit: BoxFit.cover,
         ),
-      ],
-    ));
+      ),
+    );
   }
 }
