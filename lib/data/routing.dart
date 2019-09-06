@@ -20,7 +20,7 @@ class Router {
       case homeScreen:
         return MaterialPageRoute(builder: (BuildContext context) => OneWay());
       case loginScreen:
-        return MaterialPageRoute(builder: (_) => Login());
+        return MaterialPageRoute(builder: (_) => LoginScreen());
       case searchTicketScreen:
         return MaterialPageRoute(builder: (_) => SearchTicket());
       case selectSeatScreen:
@@ -49,8 +49,16 @@ class Router {
         return MaterialPageRoute(builder: (_) => GunselSplash());
       default:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(child: Text('No route defined for ${settings.name}')),
+          builder: (_) => GunselScaffold(
+            bodyWidget: Center(
+              child: Text(
+                'No route defined for ${settings.name}',
+              ),
+            ),
+            appBarIncluded: true,
+            backgroundImage: scaffoldImg,
+            drawerIncluded: false,
+            appBarTitleIncluded: false,
           ),
         );
     }

@@ -1,6 +1,9 @@
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/Drawer/account_container.dart';
 import 'package:gunsel/screens/Drawer/drawer_list.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+bool accountIncluded = false;
 
 class SideDrawer extends StatelessWidget {
   @override
@@ -11,19 +14,24 @@ class SideDrawer extends StatelessWidget {
         elevation: 0.0,
         child: ListView(
           children: <Widget>[
-            DrawerAccount(),
-            DrawerList(),
+            DrawerAccount(
+              accountIncluded: accountIncluded,
+            ),
+            DrawerList(
+              accountIncluded: accountIncluded,
+            ),
             SizedBox(
-              height: 20.0,
+              height: 10.0,
             ),
             Align(
               alignment:
-                  Alignment.lerp(Alignment.centerLeft, Alignment.center, 0.6),
+                  Alignment.lerp(Alignment.centerLeft, Alignment.center, 0.8),
               child: Container(
-                width: MediaQuery.of(context).size.width / 1.4,
-                height: MediaQuery.of(context).size.height / 15,
+                width: ScreenUtil().setWidth(400),
+                height: 30.0,
                 child: ButtonTheme(
                   buttonColor: Colors.yellow,
+                  padding: EdgeInsets.only(left: ScreenUtil().setSp(25)),
                   child: RaisedButton(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -31,9 +39,9 @@ class SideDrawer extends StatelessWidget {
                         bottomRight: Radius.circular(30.0),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {launch('tel:${0800303010}');},
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Align(
@@ -41,7 +49,7 @@ class SideDrawer extends StatelessWidget {
                               Alignment.centerLeft, Alignment.centerRight, 0.0),
                           child: Icon(
                             Icons.phone_in_talk,
-                            size: MediaQuery.of(context).size.height / 25,
+                            size: ScreenUtil().setSp(30),
                             color: gunselColor,
                           ),
                         ),
@@ -50,7 +58,7 @@ class SideDrawer extends StatelessWidget {
                           "0 800 30 30 10",
                           style: TextStyle(
                             color: gunselColor,
-                            fontSize: MediaQuery.of(context).size.height / 30,
+                            fontSize: ScreenUtil().setSp(30),
                           ),
                         ))
                       ],

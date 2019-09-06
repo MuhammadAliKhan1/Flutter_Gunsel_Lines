@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gunsel/screens/ticket_container.dart';
 
@@ -215,9 +214,6 @@ class DetailFormState extends State<DetailForm> {
                     icon: Container(
                       width: 50.0,
                       color: Colors.white,
-                      child: CountryCodePicker(
-                        showFlag: false,
-                      ),
                     ),
                     contentPadding: EdgeInsets.all(10.0),
                     hintStyle: TextStyle(color: Colors.grey),

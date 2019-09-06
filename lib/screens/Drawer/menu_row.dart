@@ -13,13 +13,13 @@ class MenuRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, routeTo),
+      onTap: () => Navigator.pushReplacementNamed(context, '$routeTo'),
       child: ListTile(
         contentPadding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width / 6, top: 10.0),
+            left: ScreenUtil().setSp(120), bottom: ScreenUtil().setSp(5)),
         leading: Icon(
           icon,
-          size: MediaQuery.of(context).size.height / 25,
+          size: ScreenUtil().setSp(40),
           color: gunselColor,
         ),
         title: Row(
@@ -30,7 +30,7 @@ class MenuRow extends StatelessWidget {
               "$title",
               style: TextStyle(
                 color: gunselColor,
-                fontSize: MediaQuery.of(context).size.height / 30,
+                fontSize: ScreenUtil().setSp(30),
               ),
             ),
           ],

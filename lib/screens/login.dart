@@ -1,10 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:gunsel/screens/Drawer/drawer.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gunsel/screens/sign_up.dart';
+import 'package:gunsel/data/constants.dart';
 
-class Login extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GunselScaffold(
+      appBarIncluded: true,
+      backgroundImage: loginImgBG,
+      bodyWidget: LoginForm(),
+      drawerIncluded: true,
+      appBarTitleIncluded: true,
+      appBarTitle: 'Login',
+      appBarColor: gunselColor,
+    );
+  }
+}
+
+class LoginForm extends StatefulWidget {
+  @override
+  _LoginFormState createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  AssetImage _selectedCountry = loginFlags[0];
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        height: ScreenUtil().setHeight(700),
+        color: Colors.black,
+        child: Form(
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  DropdownButton<AssetImage>(
+                    items: loginFlags.map((flag) {
+                      return DropdownMenuItem(
+                        value: flag,
+                        child: Image(
+                          image: flag,
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (AssetImage value) {},
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/* class Login extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _LoginState();
@@ -234,3 +285,4 @@ class _LoginState extends State<Login> {
     );
   }
 }
+ */
