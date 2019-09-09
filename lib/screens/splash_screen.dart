@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'package:gunsel/data/constants.dart';
+
 
 class GunselSplash extends StatefulWidget {
   @override
@@ -11,10 +11,6 @@ class _GunselSplashState extends State<GunselSplash> {
   void initState() {
     super.initState();
     getToken();
-    Future.delayed(
-      const Duration(seconds: 3),
-      () => Navigator.pushNamed(context, homeScreen),
-    );
   }
 
   Future<Timer> getToken() async {
@@ -36,4 +32,11 @@ class _GunselSplashState extends State<GunselSplash> {
       ),
     );
   }
+
+ /*  _getAndSaveToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = await _getTokenFromHttp();
+    await prefs.setString('token', token);
+  } */
+
 }

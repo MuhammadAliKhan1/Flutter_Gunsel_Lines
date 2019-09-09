@@ -263,18 +263,18 @@ class _RoundWayFormState extends State<RoundWayForm> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               GunselButton(
-                btnWidth: 2.5,
+                btnWidth: 250,
                 btnText: 'Change Station',
-                btnTextFontSize: 35.0,
+                btnTextFontSize: 27,
                 btnTextColor: gunselColor,
                 whenPressed: () {},
               ),
               GunselButton(
-                btnWidth: 2.7,
-                btnText: 'Search',
-                btnTextFontSize: 30.0,
-                btnTextColor: gunselColor,
                 whenPressed: () {},
+                btnWidth: 250,
+                btnText: 'Search',
+                btnTextFontSize: 30,
+                btnTextColor: gunselColor,
               ),
             ],
           )

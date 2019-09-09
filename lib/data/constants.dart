@@ -1,7 +1,13 @@
+import 'package:flutter/widgets.dart';
 export 'package:flutter/material.dart';
 export 'package:gunsel/widgets/scaffold.dart';
-import 'package:flutter/widgets.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
+export 'dart:async';
+export 'dart:convert';
+export 'package:gunsel/data/publictoken_model.dart';
+export 'package:gunsel/data/stationlist_model.dart';
+export  'package:gunsel/data/data_model.dart';
+export 'package:shared_preferences/shared_preferences.dart';
 
 const int defaultScreenWidth = 640;
 const int defaultScreenHeight = 1136;
@@ -13,11 +19,21 @@ const AssetImage drawerAccountHeaderImg =
     AssetImage('assets/DrawerImage/DrawerBG.png');
 const AssetImage drawerlogoutImg = AssetImage('assets/logout.png');
 const AssetImage userImg = AssetImage('assets/user.png');
-const List<AssetImage> loginFlags = [
-  AssetImage('assets/poland.png'),
-  AssetImage('assets/czech.png'),
-  AssetImage('assets/ukraine.png')
-];
+const AssetImage polandFlag = AssetImage('assets/poland.png');
+const AssetImage czechFlag = AssetImage('assets/czech.png');
+const AssetImage ukraineFlag = AssetImage('assets/ukraine.png');
+const AssetImage googleLogo = AssetImage('assets/google.png');
+const AssetImage facebookLogo = AssetImage('assets/facebook.png');
+const countryCode = {
+  '+48': polandFlag,
+  '+42(0': czechFlag,
+  '+38(0': ukraineFlag
+};
+const facebookAPI = 'https://test-api.gunsel.ua/Public.svc/LoginWithFacebook';
+const tokenAPI =
+    'https://test-api.gunsel.ua/Public.svc/GetPublicToken?c0=30&c1=0';
+const stationListAPI = 'https://test-api.gunsel.ua/Public.svc/GetStationList';
+
 //Routes
 const String homeScreen = '/';
 const String loginScreen = '/login';

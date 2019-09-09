@@ -1,10 +1,10 @@
 import 'package:gunsel/data/constants.dart';
 
 class GunselButton extends StatelessWidget {
-  final double btnWidth;
+  final int btnWidth;
   final double btnHeight;
   @required
-  final double btnTextFontSize;
+  final int btnTextFontSize;
   final String btnText;
   final Color btnTextColor;
   Function whenPressed;
@@ -21,8 +21,8 @@ class GunselButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: btnWidth == null
-          ? 100.0
-          : (MediaQuery.of(context).size.width / btnWidth),
+          ? ScreenUtil().setWidth(50)
+          : ScreenUtil().setWidth(btnWidth),
       height: btnHeight,
       child: ButtonTheme(
         shape: RoundedRectangleBorder(
@@ -39,7 +39,7 @@ class GunselButton extends StatelessWidget {
             style: TextStyle(
               fontSize: btnTextFontSize == null
                   ? 5.0
-                  : MediaQuery.of(context).size.height / btnTextFontSize,
+                  : ScreenUtil(allowFontScaling: true).setSp(btnTextFontSize),
               color: btnTextColor,
             ),
           ),

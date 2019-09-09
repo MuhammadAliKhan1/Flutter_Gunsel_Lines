@@ -1,6 +1,10 @@
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/widgets/button.dart';
-import 'package:gunsel/screens/Drawer/drawer.dart';
+import 'package:gunsel/data/publictoken_model.dart';
+import 'package:gunsel/data/stationlist_model.dart';
+import 'package:gunsel/data/data_model.dart';
+import 'package:http/http.dart' as http;
 
 class OneWay extends StatelessWidget {
   @override
@@ -88,6 +92,37 @@ class OneWayForm extends StatefulWidget {
 class _OneWayFormState extends State<OneWayForm> {
   String date;
   int passengers;
+  Map<String, dynamic> data;
+  Token gunselToken;
+  StationList stationList;
+  DataStatusSeperator gunselDataToken;
+  DataStatusSeperator gunselDataStation;
+  final TextEditingController _typeAheadController = TextEditingController();
+  String _selectedStation;
+  Future<void> _getToken() async {
+    http.Response response = await http.get(
+      Uri.encodeFull(tokenAPI),
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
+    gunselDataToken = DataStatusSeperator.fromJson(jsonDecode(response.body));
+    gunselToken = Token.fromJson(jsonDecode(gunselDataToken.data));
+  }
+
+  Future<void> _getStationList() async {
+    http.Response response = await http.get(
+      Uri.encodeFull(stationListAPI),
+      headers: {
+        'token': gunselToken.token,
+      },
+    );
+
+    var stations = jsonDecode(jsonDecode(response.body)['Data']);
+    var stationMap = {'Data': stations};
+    stationList = StationList.fromJson(stationMap);
+  }
+
   Future _selectDate() async {
     DateTime picked = await showDatePicker(
       context: context,
@@ -104,9 +139,21 @@ class _OneWayFormState extends State<OneWayForm> {
   //For number counter
   @override
   void initState() {
+    // _getData();
+    //print_token();
     super.initState();
     this.date = "2019/01/01";
     this.passengers = 0;
+  }
+
+  void print_token() {
+    Token a;
+    a.getToken();
+  }
+
+  void _getData() async {
+    await _getToken();
+    _getStationList();
   }
 
   @override
@@ -144,21 +191,30 @@ class _OneWayFormState extends State<OneWayForm> {
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width / 1.2,
-              child: TextFormField(
+              child: TypeAheadFormField(
+                textFieldConfiguration: TextFieldConfiguration(
+                  controller: this._typeAheadController,
+                ),
                 validator: (String passengers) {
                   if (passengers.isEmpty) {
                     return "Please enter departure city";
                   }
                 },
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  prefixIcon: Icon(Icons.location_on),
-                  hintText: 'Enter Arrival city',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
+                suggestionsCallback: (String pattern) {
+                  return _getSuggestion(pattern);
+                },
+                itemBuilder: (BuildContext context, itemData) {
+                  return ListTile(
+                    title: Text(itemData),
+                  );
+                },
+                transitionBuilder: (context, suggestionsBox, controller) {
+                  return suggestionsBox;
+                },
+                onSuggestionSelected: (suggestion) {
+                  this._typeAheadController.text = suggestion;
+                },
+                onSaved: (value) => this._selectedStation = value,
               ),
             ),
           ),
@@ -267,17 +323,17 @@ class _OneWayFormState extends State<OneWayForm> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               GunselButton(
-                btnWidth: 2.5,
+                btnWidth: 250,
                 btnText: 'Change Station',
-                btnTextFontSize: ScreenUtil().setSp(65),
+                btnTextFontSize: 27,
                 btnTextColor: gunselColor,
                 whenPressed: () {},
               ),
               GunselButton(
                 whenPressed: () {},
-                btnWidth: 2.7,
+                btnWidth: 250,
                 btnText: 'Search',
-                btnTextFontSize: 30.0,
+                btnTextFontSize: 30,
                 btnTextColor: gunselColor,
               ),
             ],
@@ -285,5 +341,16 @@ class _OneWayFormState extends State<OneWayForm> {
         ],
       ),
     );
+  }
+
+  _getSuggestion(String pattern) {
+    pattern = pattern.toUpperCase();
+    Map<String, dynamic> stationMap = stationList.toJson();
+    var list = [];
+    for (var station in stationMap['Data']) {
+      if ((station['StationName'].toUpperCase()).contains(pattern))
+        list.add(station['StationName']);
+    }
+    return list;
   }
 }
