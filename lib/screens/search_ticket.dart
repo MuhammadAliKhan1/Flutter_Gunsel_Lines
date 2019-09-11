@@ -156,7 +156,7 @@ class _TicketState extends State<Ticket> {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: ScreenUtil().setSp(35),
+                  fontSize: ScreenUtil(allowFontScaling: true).setSp(35),
                 ),
               ),
             ),
@@ -191,7 +191,8 @@ class _TicketState extends State<Ticket> {
                             style: TextStyle(
                                 color: darkBlue,
                                 fontWeight: FontWeight.bold,
-                                fontSize: ScreenUtil().setSp(60),
+                                fontSize: ScreenUtil(allowFontScaling: true)
+                                    .setSp(60),
                                 letterSpacing: -1),
                           ),
                           Text(
@@ -200,8 +201,18 @@ class _TicketState extends State<Ticket> {
                               color: Colors.black,
                             ),
                           ),
-                          Text('09.09.2015'),
-                          Text('15 seats'),
+                          Text(
+                            '09.09.2015',
+                            style: TextStyle(
+                                fontSize: ScreenUtil(allowFontScaling: true)
+                                    .setSp(20)),
+                          ),
+                          Text(
+                            '15 seats',
+                            style: TextStyle(
+                                fontSize: ScreenUtil(allowFontScaling: true)
+                                    .setSp(20)),
+                          ),
                         ],
                       ))),
               Align(
@@ -217,7 +228,8 @@ class _TicketState extends State<Ticket> {
                             style: TextStyle(
                                 color: darkBlue,
                                 fontWeight: FontWeight.bold,
-                                fontSize: ScreenUtil().setSp(60),
+                                fontSize: ScreenUtil(allowFontScaling: true)
+                                    .setSp(60),
                                 letterSpacing: -1),
                           ),
                           Text(
@@ -226,7 +238,12 @@ class _TicketState extends State<Ticket> {
                               color: Colors.black,
                             ),
                           ),
-                          Text('09.09.2015'),
+                          Text(
+                            '09.09.2015',
+                            style: TextStyle(
+                                fontSize: ScreenUtil(allowFontScaling: true)
+                                    .setSp(20)),
+                          ),
                           SizedBox(height: 15)
                         ],
                       ))),
@@ -249,7 +266,7 @@ class _TicketState extends State<Ticket> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Container(
-                            height: ScreenUtil().setHeight(140),
+                            height: 80,
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:
@@ -260,14 +277,18 @@ class _TicketState extends State<Ticket> {
                                     style: TextStyle(
                                         color: darkBlue,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: ScreenUtil().setSp(75),
+                                        fontSize:
+                                            ScreenUtil(allowFontScaling: true)
+                                                .setSp(75),
                                         letterSpacing: -1),
                                   ),
                                   Text(
                                     'UAH',
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: ScreenUtil().setSp(30)),
+                                        fontSize:
+                                            ScreenUtil(allowFontScaling: true)
+                                                .setSp(30)),
                                   )
                                 ]),
                           ),
@@ -277,9 +298,6 @@ class _TicketState extends State<Ticket> {
                                 fontSize: ScreenUtil(allowFontScaling: true)
                                     .setSp(17)),
                           ),
-                          SizedBox(
-                            height: 1,
-                          )
                         ],
                       ))),
             ],
