@@ -11,7 +11,10 @@ class Profile extends StatelessWidget {
         appBarTitle: 'Profile',
         drawerIncluded: true,
         backgroundImage: profileScreenBackground,
-        bodyWidget: ProfileScreen(),
+        bodyWidget: SingleChildScrollView(
+          child: ProfileScreen(),
+          padding: EdgeInsets.only(top: 30.0),
+        ),
       ),
     );
   }
@@ -29,6 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Container(
       width: ScreenUtil().setWidth(490),
       height: ScreenUtil().setHeight(900),
+      color: Colors.amber,
       child: Stack(
         children: <Widget>[
           Center(
@@ -37,7 +41,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Align(
-            alignment: Alignment.topCenter,
+            alignment:
+                Alignment.lerp(Alignment.topCenter, Alignment.center, 0.01),
             child: ClipRRect(
               borderRadius: BorderRadius.all(
                 Radius.circular(70),
@@ -147,4 +152,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ));
   }
 }
-

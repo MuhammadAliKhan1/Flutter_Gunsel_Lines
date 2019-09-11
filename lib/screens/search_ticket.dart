@@ -43,13 +43,13 @@ class TicketViewState extends State<TicketView> {
           ],
         ),
         Container(
+          height: ScreenUtil().setHeight(190),
           color: Colors.red,
           margin: EdgeInsets.only(top: 10.0),
           child: Stack(
             children: <Widget>[
               Image(
                 image: smallTicket,
-                height: 115,
               ),
               Container(
                 child: Center(
@@ -74,20 +74,22 @@ class TicketViewState extends State<TicketView> {
               Center(
                   child: Container(
                       child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
+                  SizedBox(
+                    width: 5.0,
+                  ),
                   Align(
                       alignment: Alignment.topCenter,
                       child: Container(
-                          color: Colors.yellow,
                           height: ScreenUtil().setHeight(190),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Text(
-                                '19:50',
+                                '13:40',
                                 style: TextStyle(
                                     color: darkBlue,
                                     fontWeight: FontWeight.bold,
@@ -130,29 +132,54 @@ class TicketViewState extends State<TicketView> {
                               SizedBox(height: ScreenUtil().setHeight(30))
                             ],
                           ))),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        color: Colors.grey,
+                        width: 1,
+                        height: 70,
+                      )
+                    ],
+                  ),
                   Align(
-                      alignment: Alignment.topCenter,
                       child: Container(
-                          height: ScreenUtil().setHeight(150),
+                          height: ScreenUtil().setHeight(190),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              Text(
-                                '19:50',
-                                style: TextStyle(
-                                    color: darkBlue,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: ScreenUtil().setSp(60),
-                                    letterSpacing: -1),
+                              Container(
+                                height: ScreenUtil().setHeight(140),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      Text(
+                                        '480',
+                                        style: TextStyle(
+                                            color: darkBlue,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: ScreenUtil().setSp(75),
+                                            letterSpacing: -1),
+                                      ),
+                                      Text(
+                                        'UAH',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: ScreenUtil().setSp(30)),
+                                      )
+                                    ]),
                               ),
                               Text(
-                                'ARRIVAL',
+                                'MAN FORTUNA (32 Seats)',
                                 style: TextStyle(
-                                  color: Colors.black,
-                                ),
+                                    fontSize: ScreenUtil(allowFontScaling: true)
+                                        .setSp(17)),
                               ),
-                              Text('09.09.2015'),
                             ],
                           ))),
                 ],
