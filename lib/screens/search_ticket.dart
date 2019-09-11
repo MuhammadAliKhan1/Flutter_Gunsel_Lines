@@ -45,12 +45,7 @@ class TicketViewState extends State<TicketView> {
         Container(
           color: Colors.yellow,
           child: Stack(
-            children: <Widget>[
-              Image(
-                image: smallTicket,
-                fit: BoxFit.fill,
-              ),
-            ],
+            children: <Widget>[],
           ),
         ),
       ],

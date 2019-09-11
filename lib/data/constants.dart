@@ -33,7 +33,6 @@ const AssetImage profileScreenLanguageIcon =
 const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
 const AssetImage profileScreenPerson = AssetImage('assets/profile_image.jpg');
 const AssetImage calenderIcon = AssetImage('assets/calender.png');
-const AssetImage smallTicket = AssetImage('assets/smallticket.png');
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,

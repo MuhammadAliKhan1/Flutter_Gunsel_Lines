@@ -70,7 +70,6 @@ class _LoginFormState extends State<LoginForm> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
-                    width: ScreenUtil().setWidth(130),
                     child: Theme(
                       data: ThemeData(
                         canvasColor: Colors.transparent,
