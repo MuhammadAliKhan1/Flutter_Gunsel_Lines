@@ -266,8 +266,7 @@ class _TicketState extends State<Ticket> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Container(
-                            height: ScreenUtil(allowFontScaling: true)
-                                .setHeight(140),
+                            height: 80,
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:
