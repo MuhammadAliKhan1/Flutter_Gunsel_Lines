@@ -12,7 +12,7 @@ class OneWay extends StatelessWidget {
       appBarTitleIncluded: true,
       appBarTitle: 'Search Ticket',
       appBarIncluded: true,
-      bodyWidget: SearchTicketContainer(),
+      bodyWidget: SingleChildScrollView(child: SearchTicketContainer()),
       drawerIncluded: true,
     );
   }

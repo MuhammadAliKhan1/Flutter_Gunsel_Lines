@@ -62,12 +62,7 @@ flutter:
     - assets/DrawerImage/2.0x/DrawerBG.png
     - assets/DrawerImage/3.0x/DrawerBG.png
     - assets/DrawerImage/4.0x/DrawerBG.png
-    - assets/SmallTicket/smallt.png
-    - assets/SmallTicket//smallt.png
-    - assets/SmallTicket/1.0x/smallt.png
-    - assets/SmallTicket//smallt.png
-    - assets/SmallTicket//smallt.png
-    - assets/SmallTicket//smallt.png
+    - assets/ticketsmall/st.png
     - assets/user.png
     - assets/czech.png
     - assets/ukraine.png

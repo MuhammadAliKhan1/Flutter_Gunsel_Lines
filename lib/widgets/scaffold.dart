@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/Drawer/drawer.dart';
 
@@ -47,7 +46,6 @@ class _GunselScaffoldState extends State<GunselScaffold> {
           width: double.infinity,
         ),
         Scaffold(
-          resizeToAvoidBottomPadding: false,
           drawer: (widget.drawerIncluded && widget.appBarIncluded)
               ? SideDrawer()
               : null,
