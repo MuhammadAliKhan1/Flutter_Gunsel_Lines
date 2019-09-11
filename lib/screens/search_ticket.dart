@@ -43,8 +43,7 @@ class TicketViewState extends State<TicketView> {
           ],
         ),
         Container(
-          height: ScreenUtil().setHeight(190),
-          color: Colors.red,
+          height: 125,
           margin: EdgeInsets.only(top: 10.0),
           child: Stack(
             children: <Widget>[
@@ -134,7 +133,7 @@ class TicketViewState extends State<TicketView> {
                           ))),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Container(
                         color: Colors.grey,
