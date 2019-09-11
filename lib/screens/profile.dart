@@ -1,215 +1,224 @@
-import 'package:flutter/material.dart';
-import 'package:gunsel/screens/Drawer/drawer.dart';
+import 'package:gunsel/data/constants.dart';
 
-final Color gunselColor = Color(0xff035EA7);
-
-class Profile extends StatefulWidget {
+class Profile extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return ProfileState();
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: GunselScaffold(
+        appBarIncluded: true,
+        bodyWidget: ProfileScreen(),
+        appBarColor: gunselColor,
+        appBarTitleIncluded: true,
+        appBarTitle: 'Profile',
+        drawerIncluded: true,
+        backgroundImage: whiteImage,
+      ),
+    );
   }
 }
 
-class ProfileState extends State<Profile> {
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-        backgroundColor: gunselColor,
-        drawer: SideDrawer(),
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          backgroundColor: gunselColor,
-          centerTitle: true,
-          title: Text("Profile"),
-        ),
-        body: Center(
-            child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 70.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Image.asset(
-                      "images/WP.png",
+    return SafeArea(
+      child: Stack(
+        children: <Widget>[
+          Container(
+            child: Image(
+              image: profileBG,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: ScreenUtil().setHeight(800),
+            ),
+          ),
+          Align(
+            alignment: Alignment.lerp(
+                Alignment.bottomCenter, Alignment.topCenter, 0.4),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
+              height: ScreenUtil().setHeight(800),
+              width: ScreenUtil().setWidth(550),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    height: ScreenUtil().setHeight(430),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0),
+                      ),
                     ),
-                  ),
-                ),
-                Positioned(
-                  left: 120.0,
-                  top: 20.0,
-                  child: CircleAvatar(
-                    radius: 60.0,
-                    backgroundImage:
-                        NetworkImage('https://via.placeholder.com/150'),
-                  ),
-                ),
-                Positioned(
-                  top: 140.0,
-                  left: 110.0,
-                  child: Text(
-                    "Erhan Ozturk",
-                    style:
-                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Positioned(
-                  top: 165.0,
-                  left: 110.0,
-                  child: Text(
-                    "erhan786@gmail.com",
-                  ),
-                ),
-                Positioned(
-                  top: 185.0,
-                  left: 130.0,
-                  child: Text(
-                    "+03133175222",
-                  ),
-                ),
-                Positioned(
-                  top: 200.0,
-                  left: 20.0,
-                  child: Icon(
-                    Icons.language,
-                    size: 40.0,
-                  ),
-                ),
-                Positioned(
-                  top: 200.0,
-                  left: 160.0,
-                  child: Icon(
-                    Icons.language,
-                    size: 40.0,
-                  ),
-                ),
-                Positioned(
-                  top: 200.0,
-                  left: 300.0,
-                  child: Icon(
-                    Icons.language,
-                    size: 40.0,
-                  ),
-                ),
-                Positioned(
-                  right: 10.0,
-                  top: 60.0,
-                  left: 300.0,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.edit,
-                      color: Colors.black,
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                                backgroundColor: gunselColor,
-                                title: Text(
-                                  "Edit Profile Information",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
+                    child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Container(
+                            height: ScreenUtil().setHeight(370),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: <Widget>[
-                                    Padding(
-                                        padding: EdgeInsets.only(top: 50.0),
-                                        child: Row(
+                                    Container(
+                                      height: ScreenUtil().setWidth(50),
+                                      width: ScreenUtil().setHeight(50),
+                                      child: Image(
+                                        image: editProfileIcon,
+                                        color: gunselColor,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                        height: ScreenUtil().setHeight(150),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
                                             Text(
-                                              "First Name                    ",
+                                              'Ethan Ozturk',
                                               style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 10.0),
+                                                fontSize:
+                                                    ScreenUtil().setSp(30),
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                            Text(
-                                              "Last Name",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 10.0),
-                                            ),
+                                            Text('eozturk782@gmail.com'),
+                                            Text('+036724123')
                                           ],
-                                        )),
-                                    TextFormField(
-                                      validator: (String value) {
-                                        if (value.isEmpty) {
-                                          return "Please enter your first name";
-                                        }
-                                      },
-                                      keyboardType: TextInputType.text,
-                                      decoration: InputDecoration(
-                                        enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white)),
-                                      ),
-                                    ),
-                                    TextFormField(
-                                      validator: (String value) {
-                                        if (value.isEmpty) {
-                                          return "Please enter your first name";
-                                        }
-                                      },
-                                      keyboardType: TextInputType.text,
-                                      decoration: InputDecoration(
-                                        enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white)),
-                                      ),
-                                    ),
-                                    TextFormField(
-                                      validator: (String value) {
-                                        if (value.isEmpty) {
-                                          return "Please enter your first name";
-                                        }
-                                      },
-                                      keyboardType: TextInputType.text,
-                                      decoration: InputDecoration(
-                                        enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.white)),
-                                      ),
-                                    ),
-                                    Padding(
-                                        padding: EdgeInsets.only(top: 30.0),
-                                        child: RaisedButton(
-                                          child: Text(
-                                            "Save Changes",
-                                            textScaleFactor: 1.5,
-                                            style:
-                                                TextStyle(color: gunselColor),
-                                          ),
-                                          highlightColor: Colors.yellow,
-                                          color: Colors.yellow,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                                bottomRight:
-                                                    Radius.circular(10.0),
-                                                topLeft: Radius.circular(10.0)),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              //TODO: Send mail button
-                                              debugPrint(
-                                                  "Send button is pressed");
-                                            });
-                                          },
                                         ))
                                   ],
-                                ));
-                          });
-                    },
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Column(
+                                      children: <Widget>[
+                                        Image(
+                                          image: profileScreenLanguageIcon,
+                                          height: ScreenUtil().setSp(50),
+                                        ),
+                                        Text('Ru'),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: <Widget>[
+                                        Image(
+                                          image: profileScreenLanguageIcon,
+                                          height: ScreenUtil().setSp(50),
+                                        ),
+                                        Text('Ua'),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: <Widget>[
+                                        Image(
+                                          image: profileScreenLanguageIcon,
+                                          height: ScreenUtil().setSp(50),
+                                        ),
+                                        Text('En'),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ))),
                   ),
-                )
-              ],
-            )
-          ],
-        )));
+                  Container(
+                    height: ScreenUtil().setHeight(370),
+                    child: Stack(
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10.0),
+                            bottomRight: Radius.circular(10.0),
+                          ),
+                          child: Image(
+                            image: profileScreenPerson,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment(0, 2),
+                                colors: [
+                                  Colors.white.withOpacity(1),
+                                  Colors.white.withOpacity(0.9),
+                                  Colors.white.withOpacity(0.8),
+                                  Colors.white.withOpacity(0.7),
+                                  Colors.white.withOpacity(0.6),
+                                  Colors.white.withOpacity(0.5),
+                                  Colors.white.withOpacity(0.4),
+                                  Colors.white.withOpacity(0.3),
+                                  Colors.white.withOpacity(0.2),
+                                  Colors.white.withOpacity(0.1),
+                                  Colors.white.withOpacity(0.0),
+                                ],
+                                stops: [
+                                  0.00,
+                                  0.01,
+                                  0.02,
+                                  0.03,
+                                  0.04,
+                                  0.05,
+                                  0.06,
+                                  0.07,
+                                  0.08,
+                                  0.09,
+                                  0.010,
+                                  
+                                ]),
+                          ),
+                        ),
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10.0),
+                        bottomRight: Radius.circular(10.0),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.lerp(
+                Alignment.topCenter, Alignment.bottomCenter, 0.04),
+            child: ClipRRect(
+                borderRadius: new BorderRadius.circular(50.0),
+                child: Image(
+                  image: profileHolder,
+                  fit: BoxFit.cover,
+                  height: ScreenUtil().setHeight(150),
+                )),
+          )
+        ],
+      ),
+    );
   }
 }

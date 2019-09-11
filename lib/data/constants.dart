@@ -6,7 +6,7 @@ export 'dart:async';
 export 'dart:convert';
 export 'package:gunsel/data/publictoken_model.dart';
 export 'package:gunsel/data/stationlist_model.dart';
-export  'package:gunsel/data/data_model.dart';
+export 'package:gunsel/data/data_model.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 
 const int defaultScreenWidth = 640;
@@ -24,6 +24,16 @@ const AssetImage czechFlag = AssetImage('assets/czech.png');
 const AssetImage ukraineFlag = AssetImage('assets/ukraine.png');
 const AssetImage googleLogo = AssetImage('assets/google.png');
 const AssetImage facebookLogo = AssetImage('assets/facebook.png');
+const AssetImage whiteImage = AssetImage('assets/white.jpg');
+const AssetImage profileBG = AssetImage('assets/profileBG.png');
+const AssetImage place = AssetImage('assets/profileBG.png');
+const AssetImage profileHolder = AssetImage('assets/profileholder.jpg');
+const AssetImage profileScreenLanguageIcon =
+    AssetImage('assets/profileicon.png');
+const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
+const AssetImage profileScreenPerson = AssetImage('assets/profile_image.jpg');
+const AssetImage calenderIcon = AssetImage('assets/calender.png');
+const AssetImage smallTicket = AssetImage('assets/smallticket.png');
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,

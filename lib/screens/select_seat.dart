@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/screens/details.dart';
-import 'package:gunsel/screens/ticket_container.dart';
 
 class SelectSeat extends StatefulWidget {
   @override
@@ -101,7 +100,6 @@ class ScreenState extends State<Screen> {
             SizedBox(
               height: 10.0,
             ),
-            TicketContainer(),
             ListTile(
               contentPadding:
                   EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),

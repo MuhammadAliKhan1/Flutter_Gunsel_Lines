@@ -22,26 +22,6 @@ class Token {
     }
     return data;
   }
-
-  Future<void> getToken() async {
-    Map<String, dynamic> seperator;
-    Token token;
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    http.Response response = await http.get(
-      Uri.encodeFull(tokenAPI),
-      headers: {
-        'Accept': 'application/json',
-      },
-    );
-    seperator = (DataStatusSeperator.fromJson(
-      jsonDecode(response.body),
-    ))
-        .toJson();
-    print(seperator['Data']);
-    /* seperator = seperator
-    token = Token.fromJson(jsonDecode(seperator.data));
-    prefs.s */
-  }
 }
 
 class SystemParameters {
@@ -134,5 +114,24 @@ class SystemParameters {
     data['Office_MaxTicketDayCount'] = this.officeMaxTicketDayCount;
     data['Public_MaxTicketDayCount'] = this.publicMaxTicketDayCount;
     return data;
+  }
+}
+
+class TokenGetter {
+  Future<void> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    http.Response response = await http.get(
+      Uri.encodeFull(tokenAPI),
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
+    prefs.setString(
+        'Token',
+        (Token.fromJson(jsonDecode((DataStatusSeperator.fromJson(
+          jsonDecode(response.body),
+        ))
+                .toJson()['Data']))
+            .toJson()['Token']));
   }
 }

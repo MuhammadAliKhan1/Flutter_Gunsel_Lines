@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gunsel/screens/ticket_container.dart';
 
 class Detail extends StatefulWidget {
   @override
@@ -96,7 +95,6 @@ class DetailScreenState extends State<DetailScreen> {
         SizedBox(
           height: 10.0,
         ),
-        TicketContainer(),
         Container(
           height: 55.0,
           child: ListTile(

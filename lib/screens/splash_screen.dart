@@ -1,12 +1,12 @@
 import 'package:gunsel/data/constants.dart';
 
-
 class GunselSplash extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _GunselSplashState();
 }
 
 class _GunselSplashState extends State<GunselSplash> {
+  TokenGetter token = TokenGetter();
   @override
   void initState() {
     super.initState();
@@ -14,6 +14,7 @@ class _GunselSplashState extends State<GunselSplash> {
   }
 
   Future<Timer> getToken() async {
+    token.getToken();
     return Timer(Duration(seconds: 3), onReceivingToken);
   }
 
@@ -33,10 +34,5 @@ class _GunselSplashState extends State<GunselSplash> {
     );
   }
 
- /*  _getAndSaveToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = await _getTokenFromHttp();
-    await prefs.setString('token', token);
-  } */
 
 }

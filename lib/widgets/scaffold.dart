@@ -26,7 +26,6 @@ class GunselScaffold extends StatefulWidget {
 }
 
 class _GunselScaffoldState extends State<GunselScaffold> {
- 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil(
@@ -48,6 +47,7 @@ class _GunselScaffoldState extends State<GunselScaffold> {
           width: double.infinity,
         ),
         Scaffold(
+          resizeToAvoidBottomPadding: false,
           drawer: (widget.drawerIncluded && widget.appBarIncluded)
               ? SideDrawer()
               : null,
@@ -62,7 +62,9 @@ class _GunselScaffoldState extends State<GunselScaffold> {
                       ? Text(
                           "${widget.appBarTitle}",
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: ScreenUtil().setSp(30)),
+                          style: TextStyle(
+                            fontSize: ScreenUtil().setSp(30),
+                          ),
                         )
                       : null,
                   elevation: 0.0,

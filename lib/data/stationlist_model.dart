@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 class StationList {
   List<Data> data;
 
   StationList({this.data});
-  
+
   StationList.fromJson(Map<String, dynamic> json) {
     if (json['Data'] != null) {
       data = new List<Data>();
@@ -83,3 +81,4 @@ class Data {
     return data;
   }
 }
+

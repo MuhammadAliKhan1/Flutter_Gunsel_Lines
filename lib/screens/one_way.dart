@@ -1,9 +1,7 @@
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:gunsel/data/constants.dart';
-import 'package:gunsel/widgets/button.dart';
-import 'package:gunsel/data/publictoken_model.dart';
 import 'package:gunsel/data/stationlist_model.dart';
-import 'package:gunsel/data/data_model.dart';
+import 'package:gunsel/widgets/button.dart';
 import 'package:http/http.dart' as http;
 
 class OneWay extends StatelessWidget {
@@ -27,60 +25,53 @@ class SearchTicketContainer extends StatelessWidget {
         alignment:
             Alignment.lerp(Alignment.topCenter, Alignment.bottomCenter, 0.2),
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Colors.white),
-          ),
-          height: MediaQuery.of(context).size.height / 1.5,
-          width: MediaQuery.of(context).size.width / 1.05,
-          child: ListView(
+          height: ScreenUtil().setHeight(730),
+          child: Stack(
             children: <Widget>[
-              SwitchBar(),
-              OneWayForm(),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(color: Colors.white),
+                      color: Colors.black26),
+                  height: ScreenUtil().setHeight(700),
+                  width: ScreenUtil().setWidth(610),
+                  child: ListView(
+                    children: <Widget>[
+                      OneWayForm(),
+                    ],
+                  ),
+                ),
+              ),
+              Column(
+                children: <Widget>[
+                  Container(
+                    height: ScreenUtil(allowFontScaling: false).setSp(120),
+                    child: Align(
+                      alignment: Alignment.lerp(
+                          Alignment.centerLeft, Alignment.centerRight, 0.25),
+                      child: SizedBox(
+                        height: ScreenUtil(allowFontScaling: false).setSp(90),
+                        child: RaisedButton(
+                          child: Text(
+                            "ONE WAY",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          color: Colors.yellow,
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ));
-  }
-}
-
-class SwitchBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        RaisedButton(
-          child: Text(
-            "ONE WAY",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          color: Colors.yellow,
-          onPressed: () {},
-        ),
-        RaisedButton(
-          child: Text(
-            "ROUND WAY",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          elevation: 0.0,
-          splashColor: Colors.yellow,
-          highlightElevation: 0.0,
-          color: Colors.transparent,
-          onPressed: () {
-            Navigator.of(context).pushReplacementNamed(
-              '$roundWayScreen',
-            );
-          },
-        ),
-      ],
-    );
   }
 }
 
@@ -90,156 +81,177 @@ class OneWayForm extends StatefulWidget {
 }
 
 class _OneWayFormState extends State<OneWayForm> {
-  String date;
+  final _oneWayForm = GlobalKey<FormState>();
+  TextEditingController _arrivalStation = TextEditingController();
+  TextEditingController _departureStation = TextEditingController();
+  TextEditingController _travelInputDate;
+  String _arrivalStationVal;
+  String _departureStationVal;
+  List<String> stationList;
   int passengers;
-  Map<String, dynamic> data;
-  Token gunselToken;
-  StationList stationList;
-  DataStatusSeperator gunselDataToken;
-  DataStatusSeperator gunselDataStation;
-  final TextEditingController _typeAheadController = TextEditingController();
-  String _selectedStation;
-  Future<void> _getToken() async {
-    http.Response response = await http.get(
-      Uri.encodeFull(tokenAPI),
-      headers: {
-        'Accept': 'application/json',
-      },
-    );
-    gunselDataToken = DataStatusSeperator.fromJson(jsonDecode(response.body));
-    gunselToken = Token.fromJson(jsonDecode(gunselDataToken.data));
-  }
-
-  Future<void> _getStationList() async {
-    http.Response response = await http.get(
-      Uri.encodeFull(stationListAPI),
-      headers: {
-        'token': gunselToken.token,
-      },
-    );
-
-    var stations = jsonDecode(jsonDecode(response.body)['Data']);
-    var stationMap = {'Data': stations};
-    stationList = StationList.fromJson(stationMap);
-  }
-
-  Future _selectDate() async {
-    DateTime picked = await showDatePicker(
-      context: context,
-      initialDate: new DateTime.now(),
-      firstDate: new DateTime(2019),
-      lastDate: new DateTime(2050),
-    );
-    if (picked != null)
-      setState(
-        () => date = picked.toString(),
-      );
-  }
-
-  //For number counter
+  bool stationListFetched = false;
   @override
   void initState() {
-    // _getData();
-    //print_token();
     super.initState();
-    this.date = "2019/01/01";
-    this.passengers = 0;
-  }
-
-  void print_token() {
-    Token a;
-    a.getToken();
-  }
-
-  void _getData() async {
-    await _getToken();
-    _getStationList();
+    this.passengers = 1;
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _oneWayForm,
       child: Column(
         children: <Widget>[
-          SizedBox(
-            height: 10.0,
+          Align(
+            alignment: Alignment.lerp(
+              Alignment.topLeft,
+              Alignment.topRight,
+              0.75,
+            ),
+            child: RoundWayButton(),
           ),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width / 1.2,
-              child: TextFormField(
-                validator: (String passengers) {
-                  if (passengers.isEmpty) {
-                    return "Please enter departure city";
-                  }
-                },
+          SizedBox(
+            height: 20.0,
+          ),
+          Container(
+            width: ScreenUtil().setWidth(550),
+            child: TypeAheadFormField(
+              textFieldConfiguration: TextFieldConfiguration(
+                keyboardType: TextInputType.text,
+                controller: this._arrivalStation,
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                   fillColor: Colors.white,
                   filled: true,
                   prefixIcon: Icon(Icons.location_on),
-                  hintText: 'Enter departure city',
+                  hintText: "Enter Arrival City",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
               ),
-            ),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width / 1.2,
-              child: TypeAheadFormField(
-                textFieldConfiguration: TextFieldConfiguration(
-                  controller: this._typeAheadController,
-                ),
-                validator: (String passengers) {
-                  if (passengers.isEmpty) {
-                    return "Please enter departure city";
-                  }
-                },
-                suggestionsCallback: (String pattern) {
-                  return _getSuggestion(pattern);
-                },
-                itemBuilder: (BuildContext context, itemData) {
-                  return ListTile(
-                    title: Text(itemData),
-                  );
-                },
-                transitionBuilder: (context, suggestionsBox, controller) {
-                  return suggestionsBox;
-                },
-                onSuggestionSelected: (suggestion) {
-                  this._typeAheadController.text = suggestion;
-                },
-                onSaved: (value) => this._selectedStation = value,
-              ),
+              suggestionsCallback: (pattern) {
+                return filterStations(pattern);
+              },
+              itemBuilder: (context, suggestion) {
+                return ListTile(
+                  title: Text(
+                    suggestion,
+                  ),
+                );
+              },
+              transitionBuilder: (context, suggestionsBox, controller) {
+                return suggestionsBox;
+              },
+              onSuggestionSelected: (suggestion) {
+                this._arrivalStation.text = suggestion;
+              },
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please select an arrival station';
+                }
+              },
+              onSaved: (value) => this._arrivalStationVal = value,
             ),
           ),
           SizedBox(
             height: 10.0,
           ),
           Container(
-            width: MediaQuery.of(context).size.width / 1.2,
+            width: ScreenUtil().setWidth(550),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {
+                    setState(
+                      () {
+                        var temp = this._arrivalStation;
+                        this._arrivalStation = this._departureStation;
+                        this._departureStation = temp;
+                      },
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.yellow,
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.repeat,
+                      color: Colors.yellow,
+                      size: ScreenUtil().setSp(50),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Container(
+            width: ScreenUtil().setWidth(550),
+            child: TypeAheadFormField(
+              textFieldConfiguration: TextFieldConfiguration(
+                keyboardType: TextInputType.text,
+                controller: this._departureStation,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                  fillColor: Colors.white,
+                  filled: true,
+                  prefixIcon: Icon(Icons.location_on),
+                  hintText: "Enter Departure City",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                ),
+              ),
+              suggestionsCallback: (pattern) {
+                return filterStations(pattern);
+              },
+              itemBuilder: (context, suggestion) {
+                return ListTile(
+                  title: Text(
+                    suggestion,
+                  ),
+                );
+              },
+              transitionBuilder: (context, suggestionsBox, controller) {
+                return suggestionsBox;
+              },
+              onSuggestionSelected: (suggestion) {
+                this._departureStation.text = suggestion;
+              },
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please select an departure station';
+                }
+              },
+              onSaved: (value) => this._departureStationVal = value,
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Container(
+            width: ScreenUtil().setWidth(550),
             child: InkWell(
               onTap: () {
-                _selectDate();
+                _travelSelectedDate(context);
               },
-              child: IgnorePointer(
+              child: AbsorbPointer(
                 child: TextFormField(
-                  //validator: validateDob,
-                  validator: (String date) {
-                    debugPrint("$passengers");
-                  },
                   keyboardType: TextInputType.datetime,
-                  //controller: ,
+                  controller: this._travelInputDate,
                   decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Icon(Icons.date_range),
-                      hintText: "${this.date}",
+                      prefixIcon: Icon(Icons.calendar_today),
+                      hintText: "Select the travel date",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 ),
@@ -250,20 +262,16 @@ class _OneWayFormState extends State<OneWayForm> {
             height: 10.0,
           ),
           Container(
-            width: MediaQuery.of(context).size.width / 1.2,
+            width: ScreenUtil().setWidth(550),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "Number Of Passenger:",
-                  textScaleFactor: this.passengers > 10 ? 1.0 : 1.1,
+                  'Number of Passengers:',
                   style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
+                      color: Colors.white, fontSize: ScreenUtil().setSp(24)),
                 ),
-                Container(width: 5.0),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
@@ -271,86 +279,142 @@ class _OneWayFormState extends State<OneWayForm> {
                   ),
                   child: Row(
                     children: <Widget>[
-                      //Plus icon
                       IconButton(
                         icon: Icon(
                           Icons.add,
                           color: Colors.black,
                         ),
                         onPressed: () {
-                          setState(
-                            () {
-                              this.passengers++;
-                            },
-                          );
+                          setState(() {
+                            if (this.passengers < 4) this.passengers++;
+                          });
                         },
                       ),
-
-                      //Number
                       Text(
                         this.passengers.toString(),
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
                       ),
-
-                      //Minus icon
                       IconButton(
                         icon: Icon(
                           Icons.remove,
                           color: Colors.black,
                         ),
                         onPressed: () {
-                          setState(
-                            () {
-                              if (this.passengers > 0) this.passengers--;
-                            },
-                          );
+                          setState(() {
+                            if (this.passengers > 1) this.passengers--;
+                          });
                         },
                       ),
                     ],
                   ),
-                ),
+                )
               ],
             ),
           ),
           SizedBox(
             height: 10.0,
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              GunselButton(
-                btnWidth: 250,
-                btnText: 'Change Station',
-                btnTextFontSize: 27,
-                btnTextColor: gunselColor,
-                whenPressed: () {},
-              ),
-              GunselButton(
-                whenPressed: () {},
-                btnWidth: 250,
-                btnText: 'Search',
-                btnTextFontSize: 30,
-                btnTextColor: gunselColor,
-              ),
-            ],
-          )
+          GunselButton(
+            btnWidth: 500,
+            btnText: 'Search',
+            btnTextColor: gunselColor,
+            btnTextFontSize: 35,
+            whenPressed: () {
+              setState(() {
+                if (_oneWayForm.currentState.validate()) {
+                  Navigator.pushNamed(context, searchTicketScreen);
+                }
+              });
+            },
+          ),
         ],
       ),
     );
   }
 
-  _getSuggestion(String pattern) {
-    pattern = pattern.toUpperCase();
-    Map<String, dynamic> stationMap = stationList.toJson();
-    var list = [];
-    for (var station in stationMap['Data']) {
-      if ((station['StationName'].toUpperCase()).contains(pattern))
-        list.add(station['StationName']);
+  //Functions
+  Future<List<String>> getStationsFromAPI() async {
+    print('entered');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String gunselToken = prefs.getString('Token');
+    List<String> list = [];
+    http.Response response = await http.get(
+      Uri.encodeFull(stationListAPI),
+      headers: {
+        'token': gunselToken,
+      },
+    );
+    Map<String, dynamic> stationMap = {
+      'Data': (jsonDecode(jsonDecode(response.body)['Data']))
+    };
+    for (var station in (StationList.fromJson(stationMap).toJson()['Data'])) {
+      list.add(station['StationName']);
     }
     return list;
+  }
+
+  Future<bool> setStationList() async {
+    this.stationList = await getStationsFromAPI();
+    return true;
+  }
+
+  Future<List<String>> filterStations(String pattern) async {
+    List<String> list = [];
+    pattern = pattern.toUpperCase();
+    if (this.stationListFetched) {
+      for (String station in this.stationList) {
+        if ((station.toUpperCase()).contains(pattern))
+          list.add(
+            station,
+          );
+      }
+    } else {
+      this.stationListFetched = await setStationList();
+      if (this.stationListFetched) {
+        for (String station in this.stationList) {
+          if ((station.toUpperCase()).contains(pattern))
+            list.add(
+              station,
+            );
+        }
+      }
+    }
+    return list;
+  }
+
+  Future _travelSelectedDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: new DateTime(2019),
+        lastDate: new DateTime(2020));
+    if (picked != null)
+      setState(() {
+        this._travelInputDate = new TextEditingController(
+            text: "${picked.month}.${picked.day}.${picked.year}");
+      });
+  }
+}
+
+class RoundWayButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      child: Text(
+        "ROUND WAY",
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      elevation: 0.0,
+      splashColor: Colors.yellow,
+      highlightElevation: 0.0,
+      color: Colors.transparent,
+      onPressed: () {
+        Navigator.of(context).pushReplacementNamed(
+          roundWayScreen,
+        );
+      },
+    );
   }
 }

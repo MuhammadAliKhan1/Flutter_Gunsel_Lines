@@ -1,27 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:gunsel/screens/ticket_container.dart';
+import 'package:gunsel/data/constants.dart';
+import 'package:gunsel/screens/select_seat.dart';
 
-final Color gunselColor = Color(0xff035EA7);
-
-class SearchTicket extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return SearchTicketState();
-  }
-}
-
-class SearchTicketState extends State<SearchTicket> {
-  @override
+class SearchTicket extends StatelessWidget {
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: gunselColor,
-      appBar: AppBar(
-        backgroundColor: gunselColor,
-        title: Text("Search Ticket"),
-        centerTitle: true,
-        elevation: 0.0,
-      ),
-      body: TicketView(),
+    return GunselScaffold(
+      appBarIncluded: true,
+      backgroundImage: scaffoldImg,
+      appBarColor: gunselColor,
+      appBarTitle: 'Search Ticket',
+      appBarTitleIncluded: true,
+      drawerIncluded: false,
+      bodyWidget: TicketView(),
     );
   }
 }
@@ -52,12 +42,17 @@ class TicketViewState extends State<TicketView> {
             )
           ],
         ),
-        TicketContainer(),
-        TicketContainer(),
-        TicketContainer(),
-        TicketContainer(),
-        TicketContainer(),
-        TicketContainer(),
+        Container(
+          color: Colors.yellow,
+          child: Stack(
+            children: <Widget>[
+              Image(
+                image: smallTicket,
+                fit: BoxFit.fill,
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -121,7 +116,7 @@ class TicketViewState extends State<TicketView> {
   getTicketContainer() {
     return Center(
       child: Container(
-        width: 400,
+        width: ScreenUtil().setWidth(400),
         height: 80.0,
         color: Colors.black.withOpacity(0.4),
         alignment: Alignment.center,
