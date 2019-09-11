@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/Drawer/drawer.dart';
 
 final Color gunselColor = Color(0xff035EA7);
@@ -35,7 +36,7 @@ class SignUpState extends State<SignUp> {
         Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("images/BG.jpg"),
+              image: scaffoldImg,
               fit: BoxFit.cover,
             ),
           ),
@@ -253,7 +254,7 @@ class SignUpState extends State<SignUp> {
             ),
             GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, "LoginScreen");
+                  Navigator.pop(context);
                 },
                 child: Text(
                   "Back to login",
