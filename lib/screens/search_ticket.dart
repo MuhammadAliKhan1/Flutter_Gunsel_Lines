@@ -181,7 +181,7 @@ class _TicketState extends State<Ticket> {
               Align(
                   alignment: Alignment.topCenter,
                   child: Container(
-                      height: ScreenUtil().setHeight(190),
+                      height: 110,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -207,7 +207,7 @@ class _TicketState extends State<Ticket> {
               Align(
                   alignment: Alignment.topCenter,
                   child: Container(
-                      height: ScreenUtil().setHeight(190),
+                      height: 110,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -227,7 +227,7 @@ class _TicketState extends State<Ticket> {
                             ),
                           ),
                           Text('09.09.2015'),
-                          SizedBox(height: ScreenUtil().setHeight(30))
+                          SizedBox(height: 15)
                         ],
                       ))),
               Column(
@@ -243,7 +243,7 @@ class _TicketState extends State<Ticket> {
               ),
               Align(
                   child: Container(
-                      height: ScreenUtil().setHeight(190),
+                      height: 110,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -277,6 +277,9 @@ class _TicketState extends State<Ticket> {
                                 fontSize: ScreenUtil(allowFontScaling: true)
                                     .setSp(17)),
                           ),
+                          SizedBox(
+                            height: 1,
+                          )
                         ],
                       ))),
             ],
