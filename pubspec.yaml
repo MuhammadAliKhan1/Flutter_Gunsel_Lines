@@ -70,7 +70,8 @@ flutter:
     - assets/profileicon.png
     - assets/profileholder.jpg
     - assets/profile_edit.png
-    - assets/calender.png
+    - assets/updated_schedule.svg
+    - assets/news_icon.svg
     #- images/front.webp
     #- images/news1.webp
     - images/WP.png
@@ -95,6 +96,7 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
+  
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

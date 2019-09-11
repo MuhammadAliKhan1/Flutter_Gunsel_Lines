@@ -254,52 +254,36 @@ class _TicketState extends State<Ticket> {
                   Container(
                     color: Colors.grey,
                     width: 1,
-                    height: 70,
+                    height: 60,
                   )
                 ],
               ),
-              Align(
-                  child: Container(
-                      height: 110,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            height: 80,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text(
-                                    '480',
-                                    style: TextStyle(
-                                        color: darkBlue,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize:
-                                            ScreenUtil(allowFontScaling: true)
-                                                .setSp(75),
-                                        letterSpacing: -1),
-                                  ),
-                                  Text(
-                                    'UAH',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize:
-                                            ScreenUtil(allowFontScaling: true)
-                                                .setSp(30)),
-                                  )
-                                ]),
-                          ),
-                          Text(
-                            'MAN FORTUNA (32 Seats)',
-                            style: TextStyle(
-                                fontSize: ScreenUtil(allowFontScaling: true)
-                                    .setSp(17)),
-                          ),
-                        ],
-                      ))),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.values[2],
+                children: <Widget>[
+                  RichText(
+                    text: TextSpan(
+                      text: '480 ',
+                      style: TextStyle(
+                          fontSize: ScreenUtil().setSp(70),
+                          color: darkBlue,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Text(
+                    'UAH',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: ScreenUtil(allowFontScaling: true).setSp(30)),
+                  ),
+                  Text(
+                    'MAN FORTUNA (32 Seats)',
+                    style: TextStyle(
+                        fontSize: ScreenUtil(allowFontScaling: true).setSp(17)),
+                  ),
+                ],
+              ),
             ],
           )))
         ],
