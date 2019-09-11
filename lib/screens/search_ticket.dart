@@ -43,13 +43,13 @@ class TicketViewState extends State<TicketView> {
           ],
         ),
         Container(
+          height: ScreenUtil().setHeight(190),
           color: Colors.red,
           margin: EdgeInsets.only(top: 10.0),
           child: Stack(
             children: <Widget>[
               Image(
                 image: smallTicket,
-                height: 115,
               ),
               Container(
                 child: Center(
@@ -74,95 +74,116 @@ class TicketViewState extends State<TicketView> {
               Center(
                   child: Container(
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Align(
-                              alignment: Alignment.topCenter,
-                              child: Container(
-                                color: Colors.yellow,
-                                  height: ScreenUtil().setHeight(190),
-                                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  SizedBox(
+                    width: 5.0,
+                  ),
+                  Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                          height: ScreenUtil().setHeight(190),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Text(
+                                '13:40',
+                                style: TextStyle(
+                                    color: darkBlue,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: ScreenUtil().setSp(60),
+                                    letterSpacing: -1),
+                              ),
+                              Text(
+                                'DEPARTURE',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text('09.09.2015'),
+                              Text('15 seats'),
+                            ],
+                          ))),
+                  Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                          height: ScreenUtil().setHeight(190),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Text(
+                                '19:50',
+                                style: TextStyle(
+                                    color: darkBlue,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: ScreenUtil().setSp(60),
+                                    letterSpacing: -1),
+                              ),
+                              Text(
+                                'ARRIVAL',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text('09.09.2015'),
+                              SizedBox(height: ScreenUtil().setHeight(30))
+                            ],
+                          ))),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        color: Colors.grey,
+                        width: 1,
+                        height: 70,
+                      )
+                    ],
+                  ),
+                  Align(
+                      child: Container(
+                          height: ScreenUtil().setHeight(190),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Container(
+                                height: ScreenUtil().setHeight(140),
+                                child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
                                       Text(
-                                        '19:50',
+                                        '480',
                                         style: TextStyle(
                                             color: darkBlue,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: ScreenUtil().setSp(60),
+                                            fontSize: ScreenUtil().setSp(75),
                                             letterSpacing: -1),
                                       ),
                                       Text(
-                                        'DEPARTURE',
+                                        'UAH',
                                         style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Text('09.09.2015'),
-                                      Text('15 seats'),
-                                    ],
-                                  ))),
-                          Align(
-                              alignment: Alignment.topCenter,
-                              child: Container(
-                                  height: ScreenUtil().setHeight(190),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Text(
-                                        '19:50',
-                                        style: TextStyle(
-                                            color: darkBlue,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: ScreenUtil().setSp(60),
-                                            letterSpacing: -1),
-                                      ),
-                                      Text(
-                                        'ARRIVAL',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Text('09.09.2015'),
-                                      SizedBox(height:ScreenUtil().setHeight(30))
-                                    ],
-                                  ))),
-                          Align(
-                              alignment: Alignment.topCenter,
-                              child: Container(
-                                  height: ScreenUtil().setHeight(150),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: <Widget>[
-                                      Text(
-                                        '19:50',
-                                        style: TextStyle(
-                                            color: darkBlue,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: ScreenUtil().setSp(60),
-                                            letterSpacing: -1),
-                                      ),
-                                      Text(
-                                        'ARRIVAL',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Text('09.09.2015'),
-                                    ],
-                                  ))),
-                        ],
-                      )))
+                                            color: Colors.black,
+                                            fontSize: ScreenUtil().setSp(30)),
+                                      )
+                                    ]),
+                              ),
+                              Text(
+                                'MAN FORTUNA (32 Seats)',
+                                style: TextStyle(
+                                    fontSize: ScreenUtil(allowFontScaling: true)
+                                        .setSp(17)),
+                              ),
+                            ],
+                          ))),
+                ],
+              )))
             ],
           ),
         ),
