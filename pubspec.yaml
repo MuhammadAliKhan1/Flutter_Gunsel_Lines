@@ -56,13 +56,13 @@ flutter:
     - assets/logout.png
     - assets/loginBG.jpg
     - assets/BG.jpg
-    - assets/DrawerImage/DrawerBG.png
-    - assets/DrawerImage/1.0x/DrawerBG.png
-    - assets/DrawerImage/1.5x/DrawerBG.png
-    - assets/DrawerImage/2.0x/DrawerBG.png
-    - assets/DrawerImage/3.0x/DrawerBG.png
-    - assets/DrawerImage/4.0x/DrawerBG.png
-    - assets/ticketsmall/st.png
+    - assets/DrawerBG.png
+    - assets/1.0x/DrawerBG.png
+    - assets/1.5x/DrawerBG.png
+    - assets/2.0x/DrawerBG.png
+    - assets/3.0x/DrawerBG.png
+    - assets/4.0x/DrawerBG.png
+    - assets/st.png
     - assets/user.png
     - assets/czech.png
     - assets/ukraine.png
@@ -70,11 +70,11 @@ flutter:
     - assets/google.png
     - assets/facebook.png
     - assets/profileBG.png
+    - assets/person.png
     - assets/white.jpg
     - assets/profileicon.png
     - assets/profileholder.jpg
     - assets/profile_edit.png
-    - assets/profile_image.jpg
     - assets/calender.png
     - images/front.webp
     - images/news1.webp
@@ -98,12 +98,12 @@ flutter:
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
-  flutter:
-    fonts:
-      - family: Roboto
-        fonts:
-          - asset: fonts/Roboto-Regular.ttf
-          - asset: fonts/Roboto-Bold.ttf
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
