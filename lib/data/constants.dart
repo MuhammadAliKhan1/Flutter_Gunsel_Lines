@@ -53,13 +53,14 @@ const String signUpScreen = '/signup';
 const String roundWayScreen = '/roundway';
 const String cancelTicketScreen = '/cancelticket';
 const String oneWayScreen = '/oneway';
-const String finalCancelTicketScreen = '/finalCancelTicket';
+const String finalCancelTicketScreen = '/finalCancelTicketScreen';
 const String newsScreen = '/newsscreen';
 const String articleScreen = '/articlescreen';
 const String profileScreen = '/profilescreen';
 const String aboutCompanyScreen = '/aboutcompany';
 const String ticketSummaryScreen = '/ticketsummary';
 const String splashScreen = '/splash';
+const String languageScreen = '/languageScreen';
 
 //Colors
 const gunselColor = Color(0xff035EA7);

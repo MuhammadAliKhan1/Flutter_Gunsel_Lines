@@ -13,6 +13,7 @@ import 'package:gunsel/screens/article.dart';
 import 'package:gunsel/screens/profile.dart';
 import 'package:gunsel/screens/about_company.dart';
 import 'package:gunsel/screens/ticket_summary.dart';
+import 'package:gunsel/screens/language.dart';
 
 class Router {
   Route<dynamic> generateRoute(RouteSettings settings) {
@@ -47,6 +48,11 @@ class Router {
         return MaterialPageRoute(builder: (_) => TicketSummary());
       case splashScreen:
         return MaterialPageRoute(builder: (_) => GunselSplash());
+      case languageScreen:
+        return MaterialPageRoute(builder: (_) => Language());
+      case finalCancelTicketScreen:
+        return MaterialPageRoute(builder: (_) => FinalCancelTicket());
+
       default:
         return MaterialPageRoute(
           builder: (_) => GunselScaffold(

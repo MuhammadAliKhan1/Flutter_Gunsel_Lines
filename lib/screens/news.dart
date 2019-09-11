@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/Drawer/drawer.dart';
 
 final Color gunselColor = Color(0xff035EA7);
@@ -6,7 +7,6 @@ final Color gunselColor = Color(0xff035EA7);
 class News extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return NewsState();
   }
 }
@@ -35,7 +35,7 @@ class NewsState extends State<News> {
                   )),
               InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, "ArticleScreen");
+                    Navigator.pushNamed(context, articleScreen);
                   },
                   child: Row(
                     children: <Widget>[
@@ -65,7 +65,7 @@ class NewsState extends State<News> {
                   )),
               InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, "ArticleScreen");
+                    Navigator.pushNamed(context, articleScreen);
                   },
                   child: Row(
                     children: <Widget>[
@@ -95,7 +95,7 @@ class NewsState extends State<News> {
                   )),
               InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, "ArticleScreen");
+                    Navigator.pushNamed(context, articleScreen);
                   },
                   child: Row(
                     children: <Widget>[
@@ -125,7 +125,7 @@ class NewsState extends State<News> {
                   )),
               InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, "ArticleScreen");
+                    Navigator.pushNamed(context, articleScreen);
                   },
                   child: Row(
                     children: <Widget>[
@@ -155,7 +155,7 @@ class NewsState extends State<News> {
                   )),
               InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, "ArticleScreen");
+                    Navigator.pushNamed(context, articleScreen);
                   },
                   child: Row(
                     children: <Widget>[

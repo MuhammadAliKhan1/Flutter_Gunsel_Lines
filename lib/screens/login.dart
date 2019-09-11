@@ -11,7 +11,7 @@ class LoginScreen extends StatelessWidget {
     return GunselScaffold(
       appBarIncluded: true,
       backgroundImage: loginImgBG,
-      bodyWidget: SingleChildScrollView(padding: EdgeInsets.only(top: 50.0),
+      bodyWidget: SingleChildScrollView(padding: EdgeInsets.only(top:ScreenUtil().setHeight(250)),
         child: LoginForm(),
       ),
       drawerIncluded: true,

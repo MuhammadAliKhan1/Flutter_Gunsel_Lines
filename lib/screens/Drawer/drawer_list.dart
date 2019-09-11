@@ -43,7 +43,7 @@ class _DrawerListState extends State<DrawerList> {
           routeTo: newsScreen,
         ),
         MenuRow(
-          title: 'About Company',
+          title: 'About Gunsel Lines',
           icon: Icons.access_alarms,
           routeTo: aboutCompanyScreen,
         ),
@@ -54,6 +54,11 @@ class _DrawerListState extends State<DrawerList> {
   accountNotIncluded() {
     return Column(
       children: <Widget>[
+        MenuRow(
+          title: 'My Profile',
+          icon: Icons.person,
+          routeTo: profileScreen,
+        ),
         MenuRow(
           title: 'Buy Ticket',
           icon: Icons.credit_card,
@@ -72,10 +77,10 @@ class _DrawerListState extends State<DrawerList> {
         MenuRow(
           title: 'Language',
           icon: Icons.language,
-          routeTo: null,
+          routeTo: languageScreen,
         ),
         MenuRow(
-          title: 'About Company',
+          title: 'About Gunsel Lines',
           icon: Icons.subject,
           routeTo: aboutCompanyScreen,
         ),
