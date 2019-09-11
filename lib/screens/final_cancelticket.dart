@@ -26,6 +26,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
           backgroundColor: gunselColor,
           centerTitle: true,
           title: Text("Cancel Ticket"),
+          elevation: 0.0,
         ),
         body: Column(children: <Widget>[
           Container(
@@ -48,7 +49,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                 child: Center(
                     child: Text(
                   "Ticket 123-AB-1333-45",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
                   textScaleFactor: 1.5,
                 )),
               ),
@@ -250,9 +252,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
             margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
             child: RaisedButton(
               child: Text(
-                "Cancel",
-                textScaleFactor: 1.5,
-                style: TextStyle(color: Colors.white),
+                "Cancel ticket",
+                style: TextStyle(color: Colors.white, fontSize: 30.0),
               ),
               highlightColor: Colors.red,
               color: Colors.red,

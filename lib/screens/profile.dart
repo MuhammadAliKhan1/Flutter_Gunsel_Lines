@@ -76,7 +76,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       width: ScreenUtil().setHeight(50),
                                       child: Image(
                                         image: editProfileIcon,
-                                        color: gunselColor,
                                       ),
                                     )
                                   ],
@@ -118,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           image: profileScreenLanguageIcon,
                                           height: ScreenUtil().setSp(50),
                                         ),
-                                        Text('Ru'),
+                                        Text('RU'),
                                       ],
                                     ),
                                     Column(
@@ -127,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           image: profileScreenLanguageIcon,
                                           height: ScreenUtil().setSp(50),
                                         ),
-                                        Text('Ua'),
+                                        Text('UA'),
                                       ],
                                     ),
                                     Column(
@@ -136,7 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           image: profileScreenLanguageIcon,
                                           height: ScreenUtil().setSp(50),
                                         ),
-                                        Text('En'),
+                                        Text('EN'),
                                       ],
                                     ),
                                   ],
@@ -189,7 +188,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   0.08,
                                   0.09,
                                   0.010,
-                                  
                                 ]),
                           ),
                         ),

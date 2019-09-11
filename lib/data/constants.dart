@@ -33,6 +33,7 @@ const AssetImage profileScreenLanguageIcon =
 const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
 const AssetImage profileScreenPerson = AssetImage('assets/profile_image.jpg');
 const AssetImage calenderIcon = AssetImage('assets/calender.png');
+const AssetImage smallTicket = AssetImage('assets/smallticket.png');
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,
@@ -52,13 +53,14 @@ const String signUpScreen = '/signup';
 const String roundWayScreen = '/roundway';
 const String cancelTicketScreen = '/cancelticket';
 const String oneWayScreen = '/oneway';
-const String finalCancelTicketScreen = '/finalCancelTicket';
+const String finalCancelTicketScreen = '/finalCancelTicketScreen';
 const String newsScreen = '/newsscreen';
 const String articleScreen = '/articlescreen';
 const String profileScreen = '/profilescreen';
 const String aboutCompanyScreen = '/aboutcompany';
 const String ticketSummaryScreen = '/ticketsummary';
 const String splashScreen = '/splash';
+const String languageScreen = '/languageScreen';
 
 //Colors
 const gunselColor = Color(0xff035EA7);

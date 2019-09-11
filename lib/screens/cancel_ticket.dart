@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/Drawer/drawer.dart';
 
 final Color gunselColor = Color(0xff035EA7);
@@ -11,26 +12,6 @@ class CancelTicket extends StatefulWidget {
 }
 
 class CancelTicketState extends State<CancelTicket> {
-  //For Calendar
-  String _value = "";
-  Future _selectDate() async {
-    DateTime picked = await showDatePicker(
-      context: context,
-      initialDate: new DateTime.now(),
-      firstDate: new DateTime(2019),
-      lastDate: new DateTime(2050),
-    );
-    if (picked != null) setState(() => _value = picked.toString());
-  }
-
-  //For number counter
-  int value;
-  @override
-  void initState() {
-    super.initState();
-    this.value = 0;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -38,7 +19,7 @@ class CancelTicketState extends State<CancelTicket> {
         Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("images/BG.jpg"),
+              image: scaffoldImg,
               fit: BoxFit.cover,
             ),
           ),
@@ -51,7 +32,7 @@ class CancelTicketState extends State<CancelTicket> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            title: Text("Search Ticket"),
+            title: Text("Cancel Ticket"),
             elevation: 0.0,
             centerTitle: true,
           ),
@@ -79,7 +60,7 @@ class CancelTicketState extends State<CancelTicket> {
                         decoration: InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
-                            hintText: "Secure Code",
+                            hintText: "Secure code",
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0))),
                       )),
@@ -108,7 +89,7 @@ class CancelTicketState extends State<CancelTicket> {
                     child: RaisedButton(
                       child: Text(
                         "Cancel",
-                        textScaleFactor: 1.5,
+                        style: TextStyle(color: gunselColor, fontSize: 25.0),
                       ),
                       highlightColor: Colors.yellow,
                       color: Colors.yellow,
@@ -119,9 +100,8 @@ class CancelTicketState extends State<CancelTicket> {
                       ),
                       onPressed: () {
                         setState(() {
-                          Navigator.pushNamed(
-                              context, 'FinalCancelTicketScreen');
-                          debugPrint("Sreach button is pressed");
+                          Navigator.pushNamed(context, finalCancelTicketScreen);
+                          debugPrint("Cancel button is pressed");
                         });
                       },
                     ),
