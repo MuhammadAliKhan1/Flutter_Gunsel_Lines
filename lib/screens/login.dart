@@ -49,7 +49,6 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void initState() {
-    //this.getData();
     _dropDownMenuItems = getDropDownMenuItems();
     _currentFlag = _dropDownMenuItems[0].value;
     _currentCode = countryCode.keys
@@ -205,13 +204,18 @@ class _LoginFormState extends State<LoginForm> {
                         color: Colors.white,
                         fontSize: ScreenUtil(allowFontScaling: true).setSp(25)),
                   ),
-                  Text(
-                    "Sign Up",
-                    style: TextStyle(
-                      color: Colors.yellow,
-                      fontSize: ScreenUtil(allowFontScaling: true).setSp(30),
-                    ),
-                  ),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, signUpScreen);
+                      },
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          color: Colors.yellow,
+                          fontSize:
+                              ScreenUtil(allowFontScaling: true).setSp(30),
+                        ),
+                      )),
                 ],
               )
             ],

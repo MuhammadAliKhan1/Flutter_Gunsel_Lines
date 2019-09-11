@@ -56,28 +56,23 @@ flutter:
     - assets/logout.png
     - assets/loginBG.jpg
     - assets/BG.jpg
-    - assets/DrawerImage/DrawerBG.png
-    - assets/DrawerImage/1.0x/DrawerBG.png
-    - assets/DrawerImage/1.5x/DrawerBG.png
-    - assets/DrawerImage/2.0x/DrawerBG.png
-    - assets/DrawerImage/3.0x/DrawerBG.png
-    - assets/DrawerImage/4.0x/DrawerBG.png
-    - assets/ticketsmall/st.png
+    - assets/DrawerBG.png
+    - assets/person.png
+    - assets/st.png
     - assets/user.png
     - assets/czech.png
     - assets/ukraine.png
     - assets/poland.png
     - assets/google.png
     - assets/facebook.png
-    - assets/profileBG.png
     - assets/white.jpg
+    - assets/profileBG.png
     - assets/profileicon.png
     - assets/profileholder.jpg
     - assets/profile_edit.png
-    - assets/profile_image.jpg
     - assets/calender.png
-    - images/front.webp
-    - images/news1.webp
+    #- images/front.webp
+    #- images/news1.webp
     - images/WP.png
     - images/green_seat.png
     - images/red_seat.png

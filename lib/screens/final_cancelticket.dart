@@ -167,9 +167,13 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                 ),
               ),
               Container(
-                color: Colors.grey,
                 height: 50.0,
                 width: 390,
+                decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10.0),
+                        bottomRight: Radius.circular(10.0))),
                 child: Center(
                     child: Text("448.6 UAH",
                         textScaleFactor: 1.5,
@@ -188,18 +192,19 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Text(
-                      "Canel fees:",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 30.0,
-                      ),
-                    ),
+                    Padding(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Canel fees:",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold),
+                        )),
                     Padding(
                         padding: EdgeInsets.only(left: 85.0),
                         child: Text(
                           "14.4 UAH %3",
-                          textScaleFactor: 1.2,
                           style: TextStyle(
                               color: Colors.red, fontWeight: FontWeight.bold),
                         ))
@@ -211,7 +216,10 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                         padding: EdgeInsets.only(left: 10.0),
                         child: Text(
                           "Total Cut:",
-                          style: TextStyle(color: Colors.red, fontSize: 30.0),
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold),
                         )),
                     Padding(
                         padding: EdgeInsets.only(left: 120.0),
@@ -224,23 +232,31 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                   ],
                 ),
                 Container(
-                  color: Colors.orange,
-                  height: 49.0,
+                  decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0))),
+                  height: 50.0,
                   child: Row(
                     children: <Widget>[
-                      Text(
-                        "Paid back:",
-                        style: TextStyle(color: Colors.white, fontSize: 30.0),
-                      ),
                       Padding(
-                          padding: EdgeInsets.only(left: 120.0),
+                          padding: EdgeInsets.only(left: 10.0),
                           child: Text(
-                            "448.6 UAH",
-                            textScaleFactor: 1.2,
+                            "Paid back:",
                             style: TextStyle(
                                 color: Colors.white,
+                                fontSize: 20.0,
                                 fontWeight: FontWeight.bold),
-                          ))
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(left: 80.0),
+                          child: Text("448.6 UAH",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30.0,
+                              )))
                     ],
                   ),
                 )
@@ -249,6 +265,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
           ),
           Container(
             width: 380.0,
+            height: 50.0,
             margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
             child: RaisedButton(
               child: Text(
