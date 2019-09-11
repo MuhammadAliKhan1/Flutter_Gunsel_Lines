@@ -14,7 +14,6 @@ import 'package:gunsel/screens/profile.dart';
 import 'package:gunsel/screens/about_company.dart';
 import 'package:gunsel/screens/ticket_summary.dart';
 import 'package:gunsel/screens/language.dart';
-import 'package:gunsel/screens/final_cancelticket.dart';
 
 class Router {
   Route<dynamic> generateRoute(RouteSettings settings) {

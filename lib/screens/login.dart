@@ -11,7 +11,10 @@ class LoginScreen extends StatelessWidget {
     return GunselScaffold(
       appBarIncluded: true,
       backgroundImage: loginImgBG,
-      bodyWidget: LoginForm(),
+      bodyWidget: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 50.0),
+        child: LoginForm(),
+      ),
       drawerIncluded: true,
       appBarTitleIncluded: true,
       appBarTitle: 'Login',
@@ -82,7 +85,9 @@ class _LoginFormState extends State<LoginForm> {
                           icon: Icon(
                             Icons.keyboard_arrow_down,
                             color: Colors.white,
-                            size: ScreenUtil().setHeight(20),
+                            size: ScreenUtil(
+                              allowFontScaling: true,
+                            ).setHeight(45),
                           ),
                           elevation: 0,
                           value: _currentFlag,
@@ -100,7 +105,7 @@ class _LoginFormState extends State<LoginForm> {
                         color: Colors.white,
                       ),
                       Container(
-                        width: ScreenUtil().setWidth(350),
+                        width: ScreenUtil().setWidth(300),
                         child: TextFormField(
                           keyboardType: TextInputType.number,
                           style: TextStyle(
