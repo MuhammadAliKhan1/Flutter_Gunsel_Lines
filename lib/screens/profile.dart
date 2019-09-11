@@ -30,8 +30,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Center(
         child: Container(
-      width: ScreenUtil().setWidth(490),
-      height: 500,
+      width: ScreenUtil().setWidth(700),
+      height: 550,
       child: Stack(
         children: <Widget>[
           Center(
@@ -55,8 +55,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(right: ScreenUtil().setSp(40)),
-            height: 70,
+            padding: EdgeInsets.only(right: ScreenUtil().setSp(100)),
+            height: 80,
             child: Align(
               alignment: Alignment.bottomRight,
               child: Image(
