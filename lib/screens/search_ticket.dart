@@ -227,7 +227,7 @@ class _TicketState extends State<Ticket> {
                             ),
                           ),
                           Text('09.09.2015'),
-                          SizedBox(height: ScreenUtil().setHeight(30))
+                          SizedBox(height: 15)
                         ],
                       ))),
               Column(
