@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               height: ScreenUtil().setHeight(800),
-              width: ScreenUtil().setWidth(550),
+              width: ScreenUtil().setWidth(400),
               child: Column(
                 children: <Widget>[
                   Container(

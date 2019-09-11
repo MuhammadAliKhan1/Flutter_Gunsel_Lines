@@ -56,7 +56,9 @@ class SearchTicketContainer extends StatelessWidget {
                         child: RaisedButton(
                           child: Text(
                             "ONE WAY",
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Roboto-Regular'),
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),

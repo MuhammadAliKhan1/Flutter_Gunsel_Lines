@@ -7,7 +7,6 @@ final Color gunselColor = Color(0xff035EA7);
 class News extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return NewsState();
   }
 }
