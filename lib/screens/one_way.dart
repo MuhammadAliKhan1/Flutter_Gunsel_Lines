@@ -242,7 +242,14 @@ class _OneWayFormState extends State<OneWayForm> {
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
+<<<<<<< HEAD
                       prefixIcon: Image(image: calendarIcon),
+=======
+                      prefixIcon: Icon(
+                        Icons.calendar_today,
+                        size: 25.0,
+                      ),
+>>>>>>> bca9b419fa274c69da690c8ee8ffba44a98c6d6c
                       hintText: "Select the travel date",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),

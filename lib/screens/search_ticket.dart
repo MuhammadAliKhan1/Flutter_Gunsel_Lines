@@ -42,9 +42,90 @@ class TicketViewState extends State<TicketView> {
             ),
           ],
         ),
+        SizedBox(
+          height: 10,
+        ),
         SingleChildScrollView(
-          child: Ticket(),
-        )
+          child: InkWell(
+            child: Ticket(),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                selectSeatScreen,
+              );
+            },
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        SingleChildScrollView(
+          child: InkWell(
+            child: Ticket(),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                selectSeatScreen,
+              );
+            },
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        SingleChildScrollView(
+          child: InkWell(
+            child: Ticket(),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                selectSeatScreen,
+              );
+            },
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        SingleChildScrollView(
+          child: InkWell(
+            child: Ticket(),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                selectSeatScreen,
+              );
+            },
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        SingleChildScrollView(
+          child: InkWell(
+            child: Ticket(),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                selectSeatScreen,
+              );
+            },
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        SingleChildScrollView(
+          child: InkWell(
+            child: Ticket(),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                selectSeatScreen,
+              );
+            },
+          ),
+        ),
       ],
     );
   }
@@ -220,7 +301,11 @@ class _TicketState extends State<Ticket> {
                 ],
               ),
               SizedBox(
+<<<<<<< HEAD
                 width: 20,
+=======
+                width: 17,
+>>>>>>> bca9b419fa274c69da690c8ee8ffba44a98c6d6c
               ),
               Column(
                 children: <Widget>[
@@ -268,7 +353,11 @@ class _TicketState extends State<Ticket> {
                   )
                 ],
               ),
+<<<<<<< HEAD
               SizedBox(width: 30 //,
+=======
+              SizedBox(width: 35 //,
+>>>>>>> bca9b419fa274c69da690c8ee8ffba44a98c6d6c
                   ),
               Column(
                 children: <Widget>[

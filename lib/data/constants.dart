@@ -32,9 +32,18 @@ const AssetImage profileScreenLanguageIcon =
 const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
 const AssetImage calenderIcon = AssetImage('assets/calender.png');
 const AssetImage smallTicket = AssetImage('assets/st.png');
+<<<<<<< HEAD
 const AssetImage swappingIcon = AssetImage("assets/swapping_icon.png");
 const AssetImage calendarIcon = AssetImage("assets/calender.png");
 const AssetImage aboutCompany = AssetImage("assets/aboutCompany.png");
+=======
+const AssetImage calendarIcon = AssetImage('assets/updated_schedule.svg');
+const AssetImage refreshIcon = AssetImage('assets/news_icon.svg');
+const AssetImage wizardOne = AssetImage('assets/1.png');
+const AssetImage wizardTwo = AssetImage('assets/2.png');
+const AssetImage wizardThree = AssetImage('assets/3.png');
+const AssetImage wizardFour = AssetImage('assets/4.png');
+>>>>>>> bca9b419fa274c69da690c8ee8ffba44a98c6d6c
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,
