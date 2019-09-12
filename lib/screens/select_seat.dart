@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/details.dart';
+import 'package:gunsel/widgets/button.dart';
 
 class SelectSeat extends StatelessWidget {
   @override
@@ -24,14 +25,26 @@ class SelectSeatScreen extends StatefulWidget {
 class _SelectSeatScreenState extends State<SelectSeatScreen> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.only(left: 5.0, right: 5.0),
+    return Stack(
       children: <Widget>[
-        Image(
-          image: wizardOne,
-        ),
-        SingleChildScrollView(
-          child: Ticket(),
+        ListView(
+            padding: EdgeInsets.only(left: 5.0, right: 5.0),
+            children: <Widget>[
+              Image(
+                image: wizardOne,
+              ),
+              SingleChildScrollView(
+                child: Ticket(),
+              )
+            ]),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: GunselButton(
+            whenPressed: () {},
+            btnWidth: 500,
+            btnText: 'Search',
+            btnTextFontSize: 40,
+          ),
         )
       ],
     );
