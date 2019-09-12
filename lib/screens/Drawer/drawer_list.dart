@@ -81,8 +81,9 @@ class _DrawerListState extends State<DrawerList> {
         ),
         MenuRow(
           title: 'About Gunsel Lines',
-          icon: Icons.subject,
+          icon: Icons.ac_unit,
           routeTo: aboutCompanyScreen,
+          image: Image(image: aboutCompany),
         ),
       ],
     );

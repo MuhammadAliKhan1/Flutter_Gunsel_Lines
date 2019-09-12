@@ -141,167 +141,168 @@ class Ticket extends StatefulWidget {
 class _TicketState extends State<Ticket> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 125,
-      margin: EdgeInsets.only(top: 10.0),
+    return FittedBox(
+      fit: BoxFit.fitWidth,
       child: Stack(
         children: <Widget>[
           Image(
             image: smallTicket,
           ),
-          Container(
-            child: Center(
-              child: Text(
-                'i',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: ScreenUtil(allowFontScaling: true).setSp(35),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              child: Center(
+                child: Text(
+                  'i',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: ScreenUtil(allowFontScaling: true).setSp(35),
+                  ),
                 ),
               ),
+              height: 25,
+              width: 25,
+              decoration: BoxDecoration(
+                  color: darkBlue.withOpacity(0.92),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10),
+                    topLeft: Radius.circular(8),
+                  )),
             ),
-            height: 25,
-            width: 25,
-            decoration: BoxDecoration(
-                color: darkBlue.withOpacity(0.92),
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(10),
-                  topLeft: Radius.circular(8),
-                )),
           ),
-          Center(
-              child: Container(
-                  child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               SizedBox(
-                width: 5.0,
+                width: 35,
               ),
-              Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                      height: 110,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(
-                            '13:40',
-                            style: TextStyle(
-                                color: darkBlue,
-                                fontWeight: FontWeight.bold,
-                                fontSize: ScreenUtil(allowFontScaling: true)
-                                    .setSp(60),
-                                letterSpacing: -1),
-                          ),
-                          Text(
-                            'DEPARTURE',
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            '09.09.2015',
-                            style: TextStyle(
-                                fontSize: ScreenUtil(allowFontScaling: true)
-                                    .setSp(20)),
-                          ),
-                          Text(
-                            '15 seats',
-                            style: TextStyle(
-                                fontSize: ScreenUtil(allowFontScaling: true)
-                                    .setSp(20)),
-                          ),
-                        ],
-                      ))),
-              Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                      height: 110,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(
-                            '19:50',
-                            style: TextStyle(
-                                color: darkBlue,
-                                fontWeight: FontWeight.bold,
-                                fontSize: ScreenUtil(allowFontScaling: true)
-                                    .setSp(60),
-                                letterSpacing: -1),
-                          ),
-                          Text(
-                            'ARRIVAL',
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            '09.09.2015',
-                            style: TextStyle(
-                                fontSize: ScreenUtil(allowFontScaling: true)
-                                    .setSp(20)),
-                          ),
-                          SizedBox(height: 15)
-                        ],
-                      ))),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Container(
-                    color: Colors.grey,
-                    width: 1,
-                    height: 70,
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '14:50',
+                    style: TextStyle(
+                      fontSize: 45,
+                      color: darkBlue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'DEPARTURE',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '19.5.2019',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '15 Seats',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: darkBlue,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '19:50',
+                    style: TextStyle(
+                      fontSize: 45,
+                      color: darkBlue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'ARRIVAL',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '19.5.2019',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 23,
                   )
                 ],
               ),
-              Align(
-                  child: Container(
-                      height: 110,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            height: 80,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text(
-                                    '480',
-                                    style: TextStyle(
-                                        color: darkBlue,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize:
-                                            ScreenUtil(allowFontScaling: true)
-                                                .setSp(75),
-                                        letterSpacing: -1),
-                                  ),
-                                  Text(
-                                    'UAH',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize:
-                                            ScreenUtil(allowFontScaling: true)
-                                                .setSp(30)),
-                                  )
-                                ]),
-                          ),
-                          Text(
-                            'MAN FORTUNA (32 Seats)',
-                            style: TextStyle(
-                                fontSize: ScreenUtil(allowFontScaling: true)
-                                    .setSp(17)),
-                          ),
-                        ],
-                      ))),
+              SizedBox(
+                width: 20,
+              ),
+              Column(
+                children: <Widget>[
+                  Container(
+                    color: Colors.grey,
+                    height: 90,
+                    width: 1,
+                  )
+                ],
+              ),
+              SizedBox(width: 30 //,
+                  ),
+              Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 13,
+                  ),
+                  Text(
+                    '420',
+                    style: TextStyle(
+                      fontSize: 50,
+                      color: darkBlue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'UAH',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'MAN FORTUNA 19',
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
             ],
-          )))
+          )
         ],
       ),
     );

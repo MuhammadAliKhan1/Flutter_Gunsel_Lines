@@ -12,14 +12,12 @@ export 'package:shared_preferences/shared_preferences.dart';
 const int defaultScreenWidth = 640;
 const int defaultScreenHeight = 1136;
 //Images
-const AssetImage person =
-    AssetImage('assets/person.png');
+const AssetImage person = AssetImage('assets/person.png');
 const AssetImage profileScreenBackground = AssetImage('assets/profileBG.png');
 const AssetImage splashImg = AssetImage("assets/splash_image.jpeg");
 const AssetImage loginImgBG = AssetImage("assets/loginBG.jpg");
 const AssetImage scaffoldImg = AssetImage("assets/BG.jpg");
-const AssetImage drawerAccountHeaderImg =
-    AssetImage('assets/DrawerBG.png');
+const AssetImage drawerAccountHeaderImg = AssetImage('assets/DrawerBG.png');
 const AssetImage drawerlogoutImg = AssetImage('assets/logout.png');
 const AssetImage userImg = AssetImage('assets/user.png');
 const AssetImage polandFlag = AssetImage('assets/poland.png');
@@ -34,6 +32,9 @@ const AssetImage profileScreenLanguageIcon =
 const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
 const AssetImage calenderIcon = AssetImage('assets/calender.png');
 const AssetImage smallTicket = AssetImage('assets/st.png');
+const AssetImage swappingIcon = AssetImage("assets/swapping_icon.png");
+const AssetImage calendarIcon = AssetImage("assets/calender.png");
+const AssetImage aboutCompany = AssetImage("assets/aboutCompany.png");
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/Drawer/drawer.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 final Color gunselColor = Color(0xff035EA7);
 
@@ -33,6 +34,23 @@ class NewsState extends State<News> {
                   child: Image.asset(
                     "images/front.webp",
                   )),
+              CarouselSlider(
+                height: 400.0,
+                items: [1, 2, 3, 4, 5].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(color: Colors.amber),
+                          child: Text(
+                            'text $i',
+                            style: TextStyle(fontSize: 16.0),
+                          ));
+                    },
+                  );
+                }).toList(),
+              ),
               InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, articleScreen);

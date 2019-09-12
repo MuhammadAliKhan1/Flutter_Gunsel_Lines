@@ -175,18 +175,7 @@ class _OneWayFormState extends State<OneWayForm> {
                       },
                     );
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.yellow,
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.repeat,
-                      color: Colors.yellow,
-                      size: ScreenUtil().setSp(50),
-                    ),
-                  ),
+                  child: Image(image: swappingIcon, height: 35.0),
                 ),
               ],
             ),
@@ -246,13 +235,14 @@ class _OneWayFormState extends State<OneWayForm> {
               },
               child: AbsorbPointer(
                 child: TextFormField(
+                  style: TextStyle(color: Colors.lightBlue),
                   keyboardType: TextInputType.datetime,
                   controller: this._travelInputDate,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Icon(Icons.calendar_today),
+                      prefixIcon: Image(image: calendarIcon),
                       hintText: "Select the travel date",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
