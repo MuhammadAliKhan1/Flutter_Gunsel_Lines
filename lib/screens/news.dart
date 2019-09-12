@@ -1,7 +1,7 @@
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/Drawer/drawer.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 final Color gunselColor = Color(0xff035EA7);
 
@@ -29,27 +29,17 @@ class NewsState extends State<News> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-                  child: Image.asset(
-                    "images/front.webp",
-                  )),
-              CarouselSlider(
-                height: 400.0,
-                items: [1, 2, 3, 4, 5].map((i) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(color: Colors.amber),
-                          child: Text(
-                            'text $i',
-                            style: TextStyle(fontSize: 16.0),
-                          ));
-                    },
-                  );
-                }).toList(),
+              Container(
+                padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
+                height: 200.0,
+                child: Carousel(
+                  images: [frontNews, frontNews],
+                  autoplay: true,
+                  indicatorBgPadding: 10.0,
+                  dotColor: Colors.blueAccent,
+                  dotBgColor: Colors.transparent,
+                  dotSize: 5.0,
+                ),
               ),
               InkWell(
                   onTap: () {
@@ -58,10 +48,10 @@ class NewsState extends State<News> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                          child: Image.asset(
-                            "images/news1.webp",
-                            height: 150.0,
+                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                          child: Image(
+                            image: news,
+                            height: 140.0,
                             width: 150.0,
                           )),
                       Flexible(
@@ -88,12 +78,9 @@ class NewsState extends State<News> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                          child: Image.asset(
-                            "images/news1.webp",
-                            height: 150.0,
-                            width: 150.0,
-                          )),
+                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                          child:
+                              Image(image: news, height: 120.0, width: 150.0)),
                       Flexible(
                         child: RichText(
                             text: TextSpan(children: <TextSpan>[
@@ -118,12 +105,9 @@ class NewsState extends State<News> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                          child: Image.asset(
-                            "images/news1.webp",
-                            height: 150.0,
-                            width: 150.0,
-                          )),
+                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                          child:
+                              Image(image: news, height: 120.0, width: 150.0)),
                       Flexible(
                         child: RichText(
                             text: TextSpan(children: <TextSpan>[
@@ -148,12 +132,9 @@ class NewsState extends State<News> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                          child: Image.asset(
-                            "images/news1.webp",
-                            height: 150.0,
-                            width: 150.0,
-                          )),
+                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                          child:
+                              Image(image: news, height: 120.0, width: 150.0)),
                       Flexible(
                         child: RichText(
                             text: TextSpan(children: <TextSpan>[
@@ -178,12 +159,9 @@ class NewsState extends State<News> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                          child: Image.asset(
-                            "images/news1.webp",
-                            height: 150.0,
-                            width: 150.0,
-                          )),
+                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                          child:
+                              Image(image: news, height: 120.0, width: 150.0)),
                       Flexible(
                         child: RichText(
                             text: TextSpan(children: <TextSpan>[
