@@ -5,132 +5,110 @@ import 'package:gunsel/screens/payment_result.dart';
 class TicketSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: scaffoldImg,
-              fit: BoxFit.cover,
-            ),
-          ),
-          height: double.infinity,
-          width: double.infinity,
-        ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: PaymentScreen(),
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            title: Text("Payment Info"),
-            elevation: 0.0,
-            centerTitle: true,
-          ),
-        )
-      ],
+    return GunselScaffold(
+      appBarIncluded: true,
+      backgroundImage: scaffoldImg,
+      appBarTitle: 'Payment info',
+      appBarTitleIncluded: true,
+      bodyWidget: TicketSummaryScreen(),
+      drawerIncluded: false,
     );
   }
 }
 
-class PaymentScreen extends StatelessWidget {
+class TicketSummaryScreen extends StatefulWidget {
+  @override
+  _TicketSummaryScreenState createState() => _TicketSummaryScreenState();
+}
+
+class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: EdgeInsets.only(left: 5.0, right: 5.0),
       children: <Widget>[
-        Center(
-          child: Container(
-            child: Column(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Text(
-                      "Your seat",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "Details",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "Purchase Details",
-                      style: TextStyle(color: Colors.yellow),
-                    ),
-                    Text(
-                      "Purchase",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
+                Text(
+                  "Your seat",
+                  style: TextStyle(color: Colors.yellow),
                 ),
-                SizedBox(
-                  height: 5.0,
+                Text(
+                  "Details",
+                  style: TextStyle(color: Colors.yellow),
                 ),
-                Row(
-                  children: <Widget>[
-                    Center(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Image.asset("assets/3.png"),
-                      ),
-                    ),
-                  ],
-                )
+                Text(
+                  "Purchase Details",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  "Purchase",
+                  style: TextStyle(color: Colors.white),
+                ),
               ],
             ),
-          ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image(
+                  image: wizardThree,
+                  height: ScreenUtil().setHeight(50),
+                ),
+              ],
+            ),
+          ],
         ),
         SizedBox(
           height: 10.0,
         ),
-        Center(
-          child: Container(
-            height: 240.0,
-            width: MediaQuery.of(context).size.width - 20,
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  "images/bigticket.png",
-                  fit: BoxFit.cover,
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: RaisedButton(
-                    color: Colors.yellow,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25.0),
-                        bottomRight: Radius.circular(25.0),
-                      ),
+        Container(
+          height: 240.0,
+          width: MediaQuery.of(context).size.width - 20,
+          child: Stack(
+            children: <Widget>[
+              Image.asset(
+                "images/bigticket.png",
+                fit: BoxFit.cover,
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: RaisedButton(
+                  color: Colors.yellow,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      bottomRight: Radius.circular(25.0),
                     ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width - 70,
-                      child: ListTile(
-                        trailing: Text(
-                          "The night between Mon. and Tu.",
-                          style: TextStyle(fontSize: 12.0, color: Colors.red),
-                        ),
-                        title: Text(
-                          "Transfer via Dnipro",
-                          style: TextStyle(fontSize: 13.0, color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    elevation: 3.0,
-                    onPressed: () {},
                   ),
-                )
-              ],
-            ),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 70,
+                    child: ListTile(
+                      trailing: Text(
+                        "The night between Mon. and Tu.",
+                        style: TextStyle(fontSize: 12.0, color: Colors.red),
+                      ),
+                      title: Text(
+                        "Transfer via Dnipro",
+                        style: TextStyle(fontSize: 13.0, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  elevation: 3.0,
+                  onPressed: () {},
+                ),
+              ),
+            ],
           ),
         ),
-        Center(
-          child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 200.0,
-              child: Image(
-                image: moneyImage,
-              )),
+        Image(
+          image: moneyImage,
         ),
         Center(
           child: Container(
@@ -138,9 +116,9 @@ class PaymentScreen extends StatelessWidget {
               child: Text(
                 "Total Price:         1900 UAH",
                 style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.blue,
-                ),
+                    fontSize: 20.0,
+                    color: darkBlue,
+                    fontWeight: FontWeight.w600),
               ),
             ),
             width: MediaQuery.of(context).size.width - 20,
@@ -153,9 +131,6 @@ class PaymentScreen extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          height: 30,
-        ),
         Center(
           child: ButtonTheme(
             buttonColor: Colors.yellow,
@@ -163,17 +138,14 @@ class PaymentScreen extends StatelessWidget {
             child: RaisedButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                bottomRight: Radius.circular(20.0),
+                topLeft: Radius.circular(15.0),
+                bottomRight: Radius.circular(15.0),
               )),
               child: Text("Pay",
-                  style: TextStyle(color: Colors.blue, fontSize: 18.0)),
+                  style: TextStyle(color: darkBlue, fontSize: 18.0)),
               elevation: 3.0,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PaymentResult()),
-                );
+                Navigator.pushNamed(context, paymentResultScreen);
               },
             ),
           ),

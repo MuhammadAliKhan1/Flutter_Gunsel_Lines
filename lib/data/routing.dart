@@ -1,4 +1,5 @@
 import 'package:gunsel/screens/details.dart';
+import 'package:gunsel/screens/payment_result.dart';
 
 import 'constants.dart';
 import 'package:gunsel/screens/splash_screen.dart';
@@ -24,6 +25,9 @@ class Router {
         return MaterialPageRoute(builder: (BuildContext context) => OneWay());
       case detailScreen:
         return MaterialPageRoute(builder: (BuildContext context) => Detail());
+      case paymentResultScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => PaymentResult());
       case loginScreen:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case searchTicketScreen:
