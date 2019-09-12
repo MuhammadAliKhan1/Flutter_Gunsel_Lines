@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
-import 'package:gunsel/screens/details.dart';
 import 'package:gunsel/widgets/button.dart';
 
 class SelectSeat extends StatelessWidget {
@@ -63,7 +62,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                       Container(
                         child: Image(
                           image: wizardOne,
-                          height: ScreenUtil().setHeight(55),
+                          height: ScreenUtil().setSp(50),
                         ),
                       )
                     ],
@@ -85,6 +84,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                 ),
                 trailing: Image(
                   image: bus,
+                  height: ScreenUtil().setSp(70),
                 ),
               ),
               Row(
@@ -195,7 +195,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
           child: Center(
             child: Text(
               "$n",
-              style: TextStyle(fontSize: 25.0),
+              style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w700),
             ),
           ),
         )
@@ -207,26 +207,26 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
     return Padding(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          SizedBox(
-            width: 30.0,
-          ),
-          getSeat(n1),
-          SizedBox(
-            width: 10.0,
-          ),
-          getSeat(n2),
-          SizedBox(
-            width: 100.0,
-          ),
-          getSeat(n3),
-          SizedBox(
-            width: 10.0,
-          ),
-          getSeat(n4),
-          SizedBox(
-            width: 50.0,
+          Container(
+            width: ScreenUtil().setWidth(200),
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  getSeat(n1),
+                  getSeat(n2),
+                ]),
+          ),Container(
+            width: ScreenUtil().setWidth(200),
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  getSeat(n3),
+                  getSeat(n4),
+                ]),
           ),
         ],
       ),

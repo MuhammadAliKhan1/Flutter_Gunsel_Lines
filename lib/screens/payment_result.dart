@@ -59,7 +59,7 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
               children: <Widget>[
                 Image(
                   image: wizardFour,
-                  height: ScreenUtil().setHeight(50),
+                  height: ScreenUtil().setSp(50),
                 ),
               ],
             ),

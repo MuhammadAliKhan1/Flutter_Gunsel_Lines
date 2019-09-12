@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
-import 'package:gunsel/screens/payment_result.dart';
 
 class TicketSummary extends StatelessWidget {
   @override
@@ -59,7 +58,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
               children: <Widget>[
                 Image(
                   image: wizardThree,
-                  height: ScreenUtil().setHeight(50),
+                  height: ScreenUtil().setSp(40),
                 ),
               ],
             ),
@@ -69,12 +68,11 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
           height: 10.0,
         ),
         Container(
-          height: 240.0,
-          width: MediaQuery.of(context).size.width - 20,
+          height: ScreenUtil().setSp(400),
           child: Stack(
             children: <Widget>[
               Image.asset(
-                "images/bigticket.png",
+                "assets/bigticket.png",
                 fit: BoxFit.cover,
               ),
               Align(
@@ -109,6 +107,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
         ),
         Image(
           image: moneyImage,
+          height: ScreenUtil().setSp(300),
         ),
         Center(
           child: Container(

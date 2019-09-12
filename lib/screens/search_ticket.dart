@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
-import 'package:gunsel/screens/select_seat.dart';
 
 class SearchTicket extends StatelessWidget {
   Widget build(BuildContext context) {

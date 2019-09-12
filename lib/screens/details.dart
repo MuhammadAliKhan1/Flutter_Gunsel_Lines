@@ -64,7 +64,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     children: <Widget>[
                       Image(
                         image: wizardTwo,
-                        height: ScreenUtil().setHeight(50),
+                        height: ScreenUtil().setSp(50),
                       ),
                     ],
                   ),
