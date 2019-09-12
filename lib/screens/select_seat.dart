@@ -25,9 +25,13 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: EdgeInsets.only(left: 5.0, right: 5.0),
       children: <Widget>[
         Image(
           image: wizardOne,
+        ),
+        SingleChildScrollView(
+          child: Ticket(),
         )
       ],
     );
@@ -42,7 +46,44 @@ class Ticket extends StatefulWidget {
 class _TicketState extends State<Ticket> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return FittedBox(
+      fit: BoxFit.fitWidth,
+      child: Stack(
+        children: <Widget>[
+          Image(
+            image: smallTicket,
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              child: Center(
+                child: Text(
+                  'i',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: ScreenUtil(allowFontScaling: true).setSp(35),
+                  ),
+                ),
+              ),
+              height: 25,
+              width: 25,
+              decoration: BoxDecoration(
+                  color: darkBlue.withOpacity(0.92),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10),
+                    topLeft: Radius.circular(8),
+                  )),
+            ),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[],
+          )
+        ],
+      ),
+    );
   }
 }
 /* class SelectSeat extends StatefulWidget {
