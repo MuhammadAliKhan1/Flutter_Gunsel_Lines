@@ -56,9 +56,7 @@ class SearchTicketContainer extends StatelessWidget {
                         child: RaisedButton(
                           child: Text(
                             "ONE WAY",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Roboto-Regular'),
+                            style: TextStyle(color: Colors.black),
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
@@ -126,7 +124,7 @@ class _OneWayFormState extends State<OneWayForm> {
                   fillColor: Colors.white,
                   filled: true,
                   prefixIcon: Icon(Icons.location_on),
-                  hintText: "Enter Arrival City",
+                  hintText: "Enter departure city",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -194,7 +192,7 @@ class _OneWayFormState extends State<OneWayForm> {
                   fillColor: Colors.white,
                   filled: true,
                   prefixIcon: Icon(Icons.location_on),
-                  hintText: "Enter Departure City",
+                  hintText: "Enter arrival city",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -242,14 +240,7 @@ class _OneWayFormState extends State<OneWayForm> {
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
-<<<<<<< HEAD
                       prefixIcon: Image(image: calendarIcon),
-=======
-                      prefixIcon: Icon(
-                        Icons.calendar_today,
-                        size: 25.0,
-                      ),
->>>>>>> bca9b419fa274c69da690c8ee8ffba44a98c6d6c
                       hintText: "Select the travel date",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),

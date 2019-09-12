@@ -124,7 +124,7 @@ class _OneWayFormState extends State<RoundWayForm> {
                   fillColor: Colors.white,
                   filled: true,
                   prefixIcon: Icon(Icons.location_on),
-                  hintText: "Enter Arrival City",
+                  hintText: "Enter departure city",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -192,7 +192,7 @@ class _OneWayFormState extends State<RoundWayForm> {
                   fillColor: Colors.white,
                   filled: true,
                   prefixIcon: Icon(Icons.location_on),
-                  hintText: "Enter Departure City",
+                  hintText: "Enter arrival city",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -242,14 +242,8 @@ class _OneWayFormState extends State<RoundWayForm> {
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
-<<<<<<< HEAD
                       prefixIcon: Image(image: calendarIcon),
-=======
-                      prefixIcon: Icon(
-                        Icons.calendar_today,
-                        size: 25.0,
-                      ),
-                      hintText: "Select the travel date",
+                      hintText: "Select the departure date",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 ),
@@ -273,12 +267,8 @@ class _OneWayFormState extends State<RoundWayForm> {
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Icon(
-                        Icons.calendar_today,
-                        size: 25.0,
-                      ),
->>>>>>> bca9b419fa274c69da690c8ee8ffba44a98c6d6c
-                      hintText: "Select the travel date",
+                      prefixIcon: Image(image: calendarIcon),
+                      hintText: "Select the return date",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 ),
