@@ -1,161 +1,114 @@
 import 'package:flutter/material.dart';
-
-final Color gunselColor = Color(0xff035EA7);
+import 'package:gunsel/data/constants.dart';
+import 'package:gunsel/widgets/scaffold.dart';
 
 class PaymentResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/BG.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          height: double.infinity,
-          width: double.infinity,
-        ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: PaymentResultScreen(),
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            title: Text("Passenger Details"),
-            elevation: 0.0,
-            centerTitle: true,
-          ),
-        )
-      ],
+    return GunselScaffold(
+      appBarIncluded: true,
+      backgroundImage: scaffoldImg,
+      appBarTitle: 'Passenger Details',
+      appBarTitleIncluded: true,
+      drawerIncluded: false,
+      bodyWidget: PaymentResultScreen(),
     );
   }
 }
 
 class PaymentResultScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return PaymentResultScreenState();
-  }
+  _PaymentResultScreenState createState() => _PaymentResultScreenState();
 }
 
-class PaymentResultScreenState extends State<PaymentResultScreen> {
+class _PaymentResultScreenState extends State<PaymentResultScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: EdgeInsets.only(left: 5.0, right: 5.0),
       children: <Widget>[
-        Center(
-          child: Container(
-            child: Column(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Text(
-                      "Your seat",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "Details",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "Purchase Details",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "Purchase",
-                      style: TextStyle(color: Colors.yellow),
-                    ),
-                  ],
+                Text(
+                  "Your seat",
+                  style: TextStyle(color: Colors.yellow),
                 ),
-                SizedBox(
-                  height: 5.0,
+                Text(
+                  "Details",
+                  style: TextStyle(color: Colors.yellow),
                 ),
-                Row(
-                  children: <Widget>[
-                    Center(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Image.asset("images/4.png"),
-                      ),
-                    ),
-                  ],
-                )
+                Text(
+                  "Purchase Details",
+                  style: TextStyle(color: Colors.yellow),
+                ),
+                Text(
+                  "Purchase",
+                  style: TextStyle(color: Colors.yellow),
+                ),
               ],
             ),
-          ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image(
+                  image: wizardFour,
+                  height: ScreenUtil().setHeight(50),
+                ),
+              ],
+            ),
+          ],
         ),
         SizedBox(
-          height: 30.0,
+          height: 10.0,
         ),
-        Center(
-          child: Container(
-            height: 270.0,
-            width: MediaQuery.of(context).size.width - 20,
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                  child: Image.asset(
-                    "images/bigticket.png",
-                    fit: BoxFit.cover,
+        Container(
+          height: 260.0,
+          width: MediaQuery.of(context).size.width - 20,
+          child: Stack(
+            children: <Widget>[
+              Image(
+                image: purchasedTicket,
+                fit: BoxFit.cover,
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: RaisedButton(
+                  color: Colors.yellow,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      bottomRight: Radius.circular(25.0),
+                    ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.topCenter,
                   child: Container(
-                    child: Center(
-                      child: Text(
-                        "Ticket Number: 123-AB-1333-45",
-                        style: TextStyle(fontSize: 17.0, color: Colors.white),
+                    width: MediaQuery.of(context).size.width - 70,
+                    child: ListTile(
+                      trailing: Text(
+                        "The night between Mon. and Tu.",
+                        style: TextStyle(fontSize: 12.0, color: Colors.red),
+                      ),
+                      title: Text(
+                        "Transfer via Dnipro",
+                        style: TextStyle(fontSize: 13.0, color: Colors.black),
                       ),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0),
-                      ),
-                    ),
-                    width: MediaQuery.of(context).size.width - 50,
-                    height: 40.0,
                   ),
+                  elevation: 3.0,
+                  onPressed: () {},
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: RaisedButton(
-                    color: Colors.yellow,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25.0),
-                        bottomRight: Radius.circular(25.0),
-                      ),
-                    ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width - 70,
-                      child: ListTile(
-                        trailing: Text(
-                          "The night between Mon. and Tu.",
-                          style: TextStyle(fontSize: 12.0, color: Colors.red),
-                        ),
-                        title: Text(
-                          "Transfer via Dnipro",
-                          style: TextStyle(fontSize: 13.0, color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    elevation: 3.0,
-                    onPressed: () {},
-                  ),
-                )
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         SizedBox(
-          height: 30.0,
+          height: 30,
         ),
         Center(
           child: Container(
@@ -178,7 +131,8 @@ class PaymentResultScreenState extends State<PaymentResultScreen> {
                                 child: Text(
                                   "Payment was successfull",
                                   style: TextStyle(
-                                      fontSize: 20.0, color: Colors.blue),
+                                      fontSize: 20.0,
+                                      color: darkBlue.withOpacity(0.9)),
                                 ),
                               ),
                               Center(
@@ -194,7 +148,7 @@ class PaymentResultScreenState extends State<PaymentResultScreen> {
                               ),
                               Center(
                                 child: ButtonTheme(
-                                  buttonColor: Colors.blue,
+                                  buttonColor: darkBlue,
                                   minWidth:
                                       MediaQuery.of(context).size.width - 40,
                                   child: RaisedButton(

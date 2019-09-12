@@ -7,5 +7,9 @@ void main(List<String> args) => runApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: Router().generateRoute,
         initialRoute: splashScreen,
+        theme: ThemeData(
+          primaryColor: gunselColor,
+          accentColor: gunselColor,
+        ),
       ),
     );

@@ -46,14 +46,18 @@ const AssetImage aboutCompanyIcon = AssetImage('assets/aboutCompany.png');
 const AssetImage news = AssetImage("images/news1.webp");
 const AssetImage frontNews = AssetImage("images/front.webp");
 const AssetImage newsIcon = AssetImage("assets/newIcon.png");
-const AssetImage buyIcon = AssetImage("assets/ticket.png");
-const AssetImage cancelIcon = AssetImage("assets/cancelIcon.png");
-const AssetImage profileIcon = AssetImage("assets/profile_icon.png");
-const AssetImage languageIcon = AssetImage("assets/languageIcon.png");
-const AssetImage telephone = AssetImage("assets/phone.png");
+const AssetImage buyIcon = AssetImage("assets/buyIcon.png");
+const AssetImage cancelIcon = AssetImage("assets/cencelIcon.png");
+const AssetImage moneyImage = AssetImage('assets/money.png');
+const AssetImage bigTicket = AssetImage('assets/bigticket.png');
+const AssetImage purchasedTicket = AssetImage('assets/purchasedticket.png');
 const AssetImage locationIcon = AssetImage("assets/map_icon.png");
-const AssetImage aboutImage = AssetImage("assets/about-Image.jpg");
 const AssetImage uncheckedBox = AssetImage("assets/unchecked.png");
+const AssetImage aboutImage = AssetImage("assets/about-Image.jpg");
+const AssetImage languageIcon = AssetImage("assets/languageIcon.png");
+const AssetImage profileIcon = AssetImage("assets/profile_icon.png");
+const AssetImage telephone = AssetImage("assets/phone.png");
+
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,
@@ -82,6 +86,7 @@ const String ticketSummaryScreen = '/ticketsummary';
 const String splashScreen = '/splash';
 const String languageScreen = '/languageScreen';
 const String detailScreen = '/detailScreen';
+const String paymentResultScreen = '/paymentresultscreen';
 
 //Colors
 const gunselColor = Color(0xff035EA7);

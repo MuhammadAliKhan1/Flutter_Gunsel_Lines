@@ -83,17 +83,18 @@ flutter:
     - assets/3.png
     - assets/4.png
     - assets/bus.png
-    - assets/aboutCompany.png
+    - assets/aboutcompany.png
+    - assets/money.png
+    - assets/newIcon.png
+    - assets/purchasedticket.png
     - images/front.webp
     - images/seat.png
     - images/news1.webp
     - images/WP.png
     - images/green_seat.png
     - images/red_seat.png
-    - images/bigticket.png
+    - assets/bigticket.png
     - images/thumbIcon.png
-    - assets/newIcon.png
-    - assets/ticket.png
     - assets/cancelIcon.png
     - assets/profile_icon.png
     - assets/languageIcon.png

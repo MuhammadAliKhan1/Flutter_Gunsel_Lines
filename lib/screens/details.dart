@@ -10,7 +10,7 @@ class Detail extends StatelessWidget {
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       bodyWidget: DetailScreen(),
-      appBarTitle: 'Select Seat',
+      appBarTitle: 'Voyagers Information',
       appBarTitleIncluded: true,
       drawerIncluded: false,
     );
@@ -23,6 +23,8 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  bool checkOneVal = false;
+  bool checkTwoVal = false;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -44,7 +46,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                       Text(
                         "Details",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.yellow),
                       ),
                       Text(
                         "Purchase Details",
@@ -62,6 +64,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     children: <Widget>[
                       Image(
                         image: wizardTwo,
+                        height: ScreenUtil().setHeight(50),
                       ),
                     ],
                   ),
@@ -74,160 +77,65 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: Ticket(),
               ),
               ListTile(
-                contentPadding:
-                    EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                contentPadding: EdgeInsets.only(
+                  top: 10.0,
+                  left: 15.0,
+                  right: 15.0,
+                ),
+                leading: Text(
+                  "1.Voyager Information",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                  ),
+                ),
+                trailing: Text(
+                  "Seat: 34",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                  ),
+                ),
+              ),
+              DetailForm(),
+              CheckboxListTile(
                 title: Text(
-                  "Bus Info:",
-                  style: TextStyle(color: Colors.white),
+                  "I read the agreement and I agree",
+                  style: TextStyle(color: Colors.red),
                 ),
-                trailing: Image(
-                  image: bus,
-                ),
+                onChanged: (bool value) {
+                  setState(() {
+                    checkTwoVal = value;
+                  });
+                },
+                value: checkTwoVal,
               ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    width: 100.0,
-                    height: 20.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Container(
-                          width: 20.0,
-                          height: 20.0,
-                          color: red,
-                        ),
-                        Text(
-                          "Occupied",
-                          style: TextStyle(fontSize: 14.0, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 100.0,
-                    height: 20.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Container(
-                          width: 20.0,
-                          height: 20.0,
-                          color: Colors.white,
-                        ),
-                        Text(
-                          "Free",
-                          style: TextStyle(fontSize: 14.0, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 100.0,
-                    height: 20.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Container(
-                          width: 20.0,
-                          height: 20.0,
-                          color: green,
-                        ),
-                        Text(
-                          "Selected",
-                          style: TextStyle(fontSize: 14.0, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              CheckboxListTile(
+                title: Text("I want to be subscriber",
+                    style: TextStyle(color: Colors.red)),
+                onChanged: (bool value) {
+                  setState(() {
+                    checkOneVal = value;
+                  });
+                },
+                value: checkOneVal,
               ),
-              getSeatRow(1, 2, 3, 4),
-              getSeatRow(5, 6, 7, 8),
-              getSeatRow(9, 10, 11, 12),
-              getSeatRow(13, 14, 15, 16),
-              getSeatRow(17, 18, 19, 20),
-              getSeatRow(21, 22, 23, 24),
-              getSeatRow(25, 26, 27, 28),
-              getSeatRow(29, 30, 31, 32),
               SizedBox(
-                height: 80,
+                height: ScreenUtil().setHeight(100),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: GunselButton(
+                  whenPressed: () {
+                    Navigator.pushNamed(context, ticketSummaryScreen);
+                  },
+                  btnWidth: 500,
+                  btnText: 'Continue',
+                  btnTextFontSize: 40,
+                ),
               )
             ]),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: GunselButton(
-            whenPressed: () {
-              Navigator.pushNamed(context, detailScreen);
-            },
-            btnWidth: 500,
-            btnText: 'Search',
-            btnTextFontSize: 40,
-          ),
-        )
       ],
-    );
-  }
-
-  getSeat(n) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          width: 40.0,
-          height: 50.0,
-          child: Image.asset(
-            "images/seat.png",
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Container(
-          alignment: Alignment.topCenter,
-          width: 40.0,
-          height: 40.0,
-          child: Center(
-            child: Text(
-              "$n",
-              style: TextStyle(fontSize: 25.0),
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  getSeatRow(n1, n2, n3, n4) {
-    return Padding(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          SizedBox(
-            width: 30.0,
-          ),
-          getSeat(n1),
-          SizedBox(
-            width: 10.0,
-          ),
-          getSeat(n2),
-          SizedBox(
-            width: 100.0,
-          ),
-          getSeat(n3),
-          SizedBox(
-            width: 10.0,
-          ),
-          getSeat(n4),
-          SizedBox(
-            width: 50.0,
-          ),
-        ],
-      ),
-      padding: EdgeInsets.only(top: 20.0),
     );
   }
 }
@@ -386,274 +294,177 @@ class _TicketState extends State<Ticket> {
     );
   }
 }
-/* class Detail extends StatefulWidget {
+
+class DetailForm extends StatefulWidget {
+  List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
+  AssetImage _currentFlag;
+  String _currentCode = '';
   @override
-  State<StatefulWidget> createState() {
-    return DetailState();
-  }
+  _DetailFormState createState() => _DetailFormState();
 }
 
-class DetailState extends State<Detail> {
+class _DetailFormState extends State<DetailForm> {
+  final _detailForm = GlobalKey<FormState>();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _surname = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _number = TextEditingController();
+  List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
+  AssetImage _currentFlag;
+
+  @override
+  void initState() {
+    _dropDownMenuItems = getDropDownMenuItems();
+    _currentFlag = _dropDownMenuItems[0].value;
+    _currentCode = countryCode.keys
+        .firstWhere((k) => countryCode[k] == _currentFlag, orElse: () => '');
+    super.initState();
+  }
+
+  String _currentCode = '';
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/BG.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          height: double.infinity,
-          width: double.infinity,
-        ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            title: Text("Select Seat"),
-            elevation: 0.0,
-            centerTitle: true,
-          ),
-          body: Screen(),
-        )
-      ],
-    );
-  }
-}
-
-class Screen extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return ScreenState();
-  }
-}
-
-class ScreenState extends State<Screen> {
-  var red = Color(0xffFF0000);
-  var green = Color(0xff07D603);
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        ListView(
+    return Form(
+        key: _detailForm,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Center(
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  width: ScreenUtil().setWidth(300),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter your name.';
+                      }
+                    },
+                    controller: this._name,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: " Name",
                     ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Center(
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: Image.asset("images/1.png"),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+                  ),
                 ),
-              ),
+                Container(
+                  width: ScreenUtil().setWidth(300),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter your surname.';
+                      }
+                    },
+                    controller: this._surname,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: " Surname",
+                    ),
+                  ),
+                )
+              ],
             ),
             SizedBox(
-              height: 10.0,
+              height: 10,
             ),
-            ListTile(
-              contentPadding:
-                  EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-              title: Text(
-                "Bus Info:",
-                style: TextStyle(color: Colors.white),
-              ),
-              trailing: Image.asset("images/bus.png"),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 20.0,
-              padding: EdgeInsets.only(
-                left: 10.0,
-                right: 5.0,
-              ),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    width: 100.0,
-                    height: 20.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Container(
-                          width: 20.0,
-                          height: 20.0,
-                          color: red,
-                        ),
-                        Text(
-                          "Occupied",
-                          style: TextStyle(fontSize: 14.0, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 100.0,
-                    height: 20.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Container(
-                          width: 20.0,
-                          height: 20.0,
-                          color: Colors.white,
-                        ),
-                        Text(
-                          "Free",
-                          style: TextStyle(fontSize: 14.0, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 100.0,
-                    height: 20.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Container(
-                          width: 20.0,
-                          height: 20.0,
-                          color: green,
-                        ),
-                        Text(
-                          "Selected",
-                          style: TextStyle(fontSize: 14.0, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            getSeatRow(1, 2, 3, 4),
-            getSeatRow(5, 6, 7, 8),
-            getSeatRow(9, 10, 11, 12),
-            getSeatRow(13, 14, 15, 16),
-            getSeatRow(17, 18, 19, 20),
-            getSeatRow(21, 22, 23, 24),
-            getSeatRow(25, 26, 27, 28),
-            getSeatRow(29, 30, 31, 32),
-          ],
-        ),
-        Padding(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: ButtonTheme(
-              minWidth: MediaQuery.of(context).size.width - 50,
-              child: RaisedButton(
-                child: Text(
-                  "Search",
-                  textScaleFactor: 1.5,
-                ),
-                highlightColor: Colors.yellow,
-                color: Colors.yellow,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(20.0),
-                      topLeft: Radius.circular(20.0)),
-                ),
-                onPressed: () {
-                  setState(
-                    () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Detail()));
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  width: ScreenUtil().setWidth(300),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter your email.';
+                      }
                     },
-                  );
-                },
-              ),
+                    keyboardType: TextInputType.emailAddress,
+                    controller: this._email,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: " Email",
+                    ),
+                  ),
+                ),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      width: ScreenUtil().setWidth(300),
+                      height: 39,
+                      color: Colors.white,
+                      child: ButtonTheme(
+                          alignedDropdown: true,
+                          child: Row(
+                            children: <Widget>[
+                              FittedBox(
+                                child: DropdownButton(
+                                  icon: Text(
+                                    ' ${this._currentCode} ',
+                                    style: TextStyle(fontSize: 17),
+                                  ),
+                                  elevation: 0,
+                                  value: _currentFlag,
+                                  items: _dropDownMenuItems,
+                                  onChanged: changedDropDownItem,
+                                ),
+                              ),
+                              Flexible(
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please enter your number.';
+                                    }
+                                  },
+                                  controller: this._number,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 10.0),
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                    )
+                  ],
+                )
+              ],
             ),
-          ),
-          padding: EdgeInsets.only(top: 50.0),
-        ),
-      ],
-    );
+          ],
+        ));
   }
 
-  getSeat(n) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          width: 40.0,
-          height: 50.0,
-          child: Image.asset(
-            "images/seat.png",
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Container(
-          alignment: Alignment.topCenter,
-          width: 40.0,
-          height: 40.0,
-          child: Center(
-            child: Text(
-              "$n",
-              style: TextStyle(fontSize: 25.0),
-            ),
-          ),
-        )
-      ],
-    );
+  List<DropdownMenuItem<AssetImage>> getDropDownMenuItems() {
+    List<DropdownMenuItem<AssetImage>> items = new List();
+    for (AssetImage flag in countryCode.values) {
+      // here we are creating the drop down menu items, you can customize the item right here
+      // but I'll just use a simple text for this
+      items.add(DropdownMenuItem(
+          value: flag,
+          child: new Image(
+            image: flag,
+            height: 20,
+          )));
+    }
+    return items;
   }
 
-  getSeatRow(n1, n2, n3, n4) {
-    return Padding(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          SizedBox(
-            width: 30.0,
-          ),
-          getSeat(n1),
-          SizedBox(
-            width: 10.0,
-          ),
-          getSeat(n2),
-          SizedBox(
-            width: 100.0,
-          ),
-          getSeat(n3),
-          SizedBox(
-            width: 10.0,
-          ),
-          getSeat(n4),
-          SizedBox(
-            width: 50.0,
-          ),
-        ],
-      ),
-      padding: EdgeInsets.only(top: 20.0),
-    );
+  void changedDropDownItem(AssetImage selectedFlag) {
+    setState(() {
+      _currentFlag = selectedFlag;
+      _currentCode = countryCode.keys
+          .firstWhere((k) => countryCode[k] == selectedFlag, orElse: () => '');
+    });
   }
 }
-
-class Seat extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return null;
-  }
-}
- */
