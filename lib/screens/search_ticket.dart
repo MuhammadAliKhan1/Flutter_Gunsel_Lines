@@ -348,8 +348,7 @@ class _TicketState extends State<Ticket> {
                   )
                 ],
               ),
-              SizedBox(width: 35 //,
-                  ),
+              SizedBox(width: 35),
               Column(
                 children: <Widget>[
                   SizedBox(

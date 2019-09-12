@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: <Widget>[
           Center(
             child: Image(
-              image: person,
+              image: personImage,
             ),
           ),
           Align(
@@ -55,8 +55,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(right: ScreenUtil().setSp(100)),
-            height: 80,
+            padding: EdgeInsets.only(right: ScreenUtil().setSp(50)),
+            height: 60,
             child: Align(
               alignment: Alignment.bottomRight,
               child: Image(

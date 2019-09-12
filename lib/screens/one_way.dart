@@ -123,7 +123,10 @@ class _OneWayFormState extends State<OneWayForm> {
                   contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                   fillColor: Colors.white,
                   filled: true,
-                  prefixIcon: Icon(Icons.location_on),
+                  prefixIcon: Image(
+                    image: locationIcon,
+                    height: 10.0,
+                  ),
                   hintText: "Enter departure city",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -191,7 +194,10 @@ class _OneWayFormState extends State<OneWayForm> {
                   contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                   fillColor: Colors.white,
                   filled: true,
-                  prefixIcon: Icon(Icons.location_on),
+                  prefixIcon: Image(
+                    image: locationIcon,
+                    height: 10.0,
+                  ),
                   hintText: "Enter arrival city",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -240,7 +246,9 @@ class _OneWayFormState extends State<OneWayForm> {
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Image(image: calendarIcon),
+                      prefixIcon: Image(
+                        image: calendarIcon,
+                      ),
                       hintText: "Select the travel date",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),

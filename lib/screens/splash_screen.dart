@@ -33,6 +33,4 @@ class _GunselSplashState extends State<GunselSplash> {
       ),
     );
   }
-
-
 }

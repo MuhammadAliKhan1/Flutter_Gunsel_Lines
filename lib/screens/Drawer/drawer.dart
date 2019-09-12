@@ -28,7 +28,7 @@ class SideDrawer extends StatelessWidget {
                   Alignment.lerp(Alignment.centerLeft, Alignment.center, 0.8),
               child: Container(
                 width: ScreenUtil().setWidth(400),
-                height: 30.0,
+                height: 40.0,
                 child: ButtonTheme(
                   buttonColor: Colors.yellow,
                   padding: EdgeInsets.only(left: ScreenUtil().setSp(25)),
@@ -39,7 +39,9 @@ class SideDrawer extends StatelessWidget {
                         bottomRight: Radius.circular(30.0),
                       ),
                     ),
-                    onPressed: () {launch('tel:${0800303010}');},
+                    onPressed: () {
+                      launch('tel:${0800303010}');
+                    },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -47,15 +49,14 @@ class SideDrawer extends StatelessWidget {
                         Align(
                           alignment: Alignment.lerp(
                               Alignment.centerLeft, Alignment.centerRight, 0.0),
-                          child: Icon(
-                            Icons.phone_in_talk,
-                            size: ScreenUtil().setSp(30),
-                            color: gunselColor,
+                          child: Image(
+                            image: telephone,
+                            height: 25.0,
                           ),
                         ),
                         Align(
                             child: Text(
-                          "0 800 30 30 10",
+                          "800 30 30 10",
                           style: TextStyle(
                             color: gunselColor,
                             fontSize: ScreenUtil().setSp(30),

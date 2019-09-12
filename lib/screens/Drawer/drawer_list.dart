@@ -19,21 +19,21 @@ class _DrawerListState extends State<DrawerList> {
       children: <Widget>[
         MenuRow(
           title: 'My Profile',
-          icon: Icons.person,
           routeTo: profileScreen,
-          pngImageAllow: false,
+          pngImageAllow: true,
+          pngImage: profileIcon,
         ),
         MenuRow(
           title: 'Buy Ticket',
-          icon: Icons.credit_card,
           routeTo: oneWayScreen,
-          pngImageAllow: false,
+          pngImageAllow: true,
+          pngImage: buyIcon,
         ),
         MenuRow(
           title: 'Cancel Ticket',
-          icon: Icons.cancel,
           routeTo: cancelTicketScreen,
-          pngImageAllow: false,
+          pngImageAllow: true,
+          pngImage: cancelIcon,
         ),
         MenuRow(
           title: 'History Of travels',
@@ -43,15 +43,15 @@ class _DrawerListState extends State<DrawerList> {
         ),
         MenuRow(
           title: 'News',
-          icon: Icons.new_releases,
           routeTo: newsScreen,
-          pngImageAllow: false,
+          pngImageAllow: true,
+          pngImage: newsIcon,
         ),
         MenuRow(
           title: 'About Gunsel Lines',
           routeTo: aboutCompanyScreen,
-          pngImageAllow: false,
-          icon: Icons.date_range,
+          pngImageAllow: true,
+          pngImage: aboutCompanyIcon,
         ),
       ],
     );
@@ -62,20 +62,18 @@ class _DrawerListState extends State<DrawerList> {
       children: <Widget>[
         MenuRow(
           title: 'My Profile',
-          icon: Icons.person,
+          pngImage: profileIcon,
           routeTo: profileScreen,
-          pngImageAllow: false,
+          pngImageAllow: true,
         ),
         MenuRow(
           title: 'Buy Ticket',
-          icon: Icons.credit_card,
           routeTo: oneWayScreen,
           pngImageAllow: true,
           pngImage: buyIcon,
         ),
         MenuRow(
           title: 'Cancel Ticket',
-          icon: Icons.cancel,
           routeTo: cancelTicketScreen,
           pngImageAllow: true,
           pngImage: cancelIcon,
@@ -89,9 +87,9 @@ class _DrawerListState extends State<DrawerList> {
         ),
         MenuRow(
           title: 'Language',
-          icon: Icons.language,
           routeTo: languageScreen,
-          pngImageAllow: false,
+          pngImageAllow: true,
+          pngImage: languageIcon,
         ),
         MenuRow(
           title: 'About Gunsel Lines',

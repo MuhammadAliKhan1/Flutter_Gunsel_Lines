@@ -53,10 +53,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/calender.png
+    - assets/calendar_icon.png
     - assets/swapping_icon.png
-    - assets/splash_image.jpeg
-    - assets/logout.png
+    - assets/splash_image.jpg
     - assets/loginBG.jpg
     - assets/BG.jpg
     - assets/DrawerBG.png
@@ -72,11 +71,12 @@ flutter:
     - assets/poland.png
     - assets/google.png
     - assets/facebook.png
-    - assets/profileBG.png
+    - assets/profileBG.jpg
     - assets/person.png
+    - assets/person-image.png
     - assets/white.jpg
     - assets/profileicon.png
-    - assets/profileholder.jpg
+    - assets/profileholder.png
     - assets/profile_edit.png
     - assets/1.png
     - assets/2.png
@@ -93,11 +93,18 @@ flutter:
     - images/WP.png
     - images/green_seat.png
     - images/red_seat.png
-    - images/gunselline.jpg
     - assets/bigticket.png
     - images/thumbIcon.png
-    - assets/buyIcon.png
     - assets/cancelIcon.png
+    - assets/profile_icon.png
+    - assets/languageIcon.png
+    - assets/phone.png
+    - assets/map_icon.png
+    - assets/about-Image.jpg
+    - assets/log_out_icon.png
+    - assets/unchecked.png
+    - assets/logo_light.png
+    - assets/ticket.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
