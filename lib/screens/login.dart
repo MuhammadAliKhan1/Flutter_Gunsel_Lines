@@ -84,9 +84,6 @@ class _LoginFormState extends State<LoginForm> {
                           icon: Icon(
                             Icons.keyboard_arrow_down,
                             color: Colors.white,
-                            size: ScreenUtil(
-                              allowFontScaling: true,
-                            ).setHeight(45),
                           ),
                           elevation: 0,
                           value: _currentFlag,

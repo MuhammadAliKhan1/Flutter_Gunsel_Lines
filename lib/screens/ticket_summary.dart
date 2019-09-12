@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/payment_result.dart';
 
 class TicketSummary extends StatelessWidget {
@@ -9,7 +10,7 @@ class TicketSummary extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("images/BG.jpg"),
+              image: scaffoldImg,
               fit: BoxFit.cover,
             ),
           ),
@@ -70,7 +71,7 @@ class PaymentScreen extends StatelessWidget {
                     Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: Image.asset("images/3.png"),
+                        child: Image.asset("assets/3.png"),
                       ),
                     ),
                   ],
@@ -127,7 +128,9 @@ class PaymentScreen extends StatelessWidget {
           child: Container(
               width: MediaQuery.of(context).size.width,
               height: 200.0,
-              child: Image.asset("images/money.png")),
+              child: Image(
+                image: moneyImage,
+              )),
         ),
         Center(
           child: Container(
