@@ -70,20 +70,18 @@ flutter:
     - assets/profileicon.png
     - assets/profileholder.jpg
     - assets/profile_edit.png
-    - assets/updated_schedule.svg
-    - assets/news_icon.svg
+    - assets/1.png
+    - assets/2.png
+    - assets/3.png
+    - assets/4.png
     #- images/front.webp
+    - images/seat.png
     #- images/news1.webp
     - images/WP.png
     - images/green_seat.png
     - images/red_seat.png
-    - images/seat.png
     - images/gunselline.jpg
-    - images/1.png
-    - images/2.png
-    - images/3.png
     - images/bigticket.png
-    - images/4.png
     - images/bus.png
     - images/thumbIcon.png
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -96,7 +94,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-  
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

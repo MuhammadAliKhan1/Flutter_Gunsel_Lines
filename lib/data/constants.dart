@@ -36,6 +36,10 @@ const AssetImage calenderIcon = AssetImage('assets/calender.png');
 const AssetImage smallTicket = AssetImage('assets/st.png');
 const AssetImage calendarIcon = AssetImage('assets/updated_schedule.svg');
 const AssetImage refreshIcon = AssetImage('assets/news_icon.svg');
+const AssetImage wizardOne = AssetImage('assets/1.png');
+const AssetImage wizardTwo = AssetImage('assets/2.png');
+const AssetImage wizardThree = AssetImage('assets/3.png');
+const AssetImage wizardFour = AssetImage('assets/4.png');
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,

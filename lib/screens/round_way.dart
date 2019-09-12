@@ -25,7 +25,7 @@ class SearchTicketContainer extends StatelessWidget {
         alignment:
             Alignment.lerp(Alignment.topCenter, Alignment.bottomCenter, 0.2),
         child: Container(
-          height: ScreenUtil().setHeight(730),
+          height: ScreenUtil().setHeight(800),
           child: Stack(
             children: <Widget>[
               Align(
@@ -35,7 +35,7 @@ class SearchTicketContainer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(color: Colors.white),
                       color: Colors.black26),
-                  height: ScreenUtil().setHeight(700),
+                  height: ScreenUtil().setHeight(770),
                   width: ScreenUtil().setWidth(610),
                   child: ListView(
                     children: <Widget>[
@@ -231,6 +231,34 @@ class _OneWayFormState extends State<RoundWayForm> {
                 }
               },
               onSaved: (value) => this._departureStationVal = value,
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Container(
+            width: ScreenUtil().setWidth(550),
+            child: InkWell(
+              onTap: () {
+                _travelSelectedDate(context);
+              },
+              child: AbsorbPointer(
+                child: TextFormField(
+                  keyboardType: TextInputType.datetime,
+                  controller: this._travelInputDate,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                      fillColor: Colors.white,
+                      filled: true,
+                      prefixIcon: Icon(
+                        Icons.calendar_today,
+                        size: 25.0,
+                      ),
+                      hintText: "Select the travel date",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0))),
+                ),
+              ),
             ),
           ),
           SizedBox(

@@ -1,7 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/details.dart';
 
-class SelectSeat extends StatefulWidget {
+class SelectSeat extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GunselScaffold(
+      appBarIncluded: true,
+      backgroundImage: scaffoldImg,
+      bodyWidget: SelectSeatScreen(),
+      appBarTitle: 'Select Seat',
+      appBarTitleIncluded: true,
+      drawerIncluded: false,
+    );
+  }
+}
+
+class SelectSeatScreen extends StatefulWidget {
+  @override
+  _SelectSeatScreenState createState() => _SelectSeatScreenState();
+}
+
+class _SelectSeatScreenState extends State<SelectSeatScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        Image(
+          image: wizardOne,
+        )
+      ],
+    );
+  }
+}
+
+class Ticket extends StatefulWidget {
+  @override
+  _TicketState createState() => _TicketState();
+}
+
+class _TicketState extends State<Ticket> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+/* class SelectSeat extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return SelectSeatState();
@@ -288,3 +332,4 @@ class Seat extends StatefulWidget {
     return null;
   }
 }
+ */
