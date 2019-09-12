@@ -93,6 +93,9 @@ flutter:
     - images/gunselline.jpg
     - images/bigticket.png
     - images/thumbIcon.png
+    - assets/newIcon.png
+    - assets/buyIcon.png
+    - assets/cancelIcon.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
