@@ -37,12 +37,10 @@ const AssetImage wizardOne = AssetImage('assets/1.png');
 const AssetImage wizardTwo = AssetImage('assets/2.png');
 const AssetImage wizardThree = AssetImage('assets/3.png');
 const AssetImage wizardFour = AssetImage('assets/4.png');
-<<<<<<< HEAD
 const AssetImage bus = AssetImage('assets/bus.png');
-=======
->>>>>>> dd81a530dc42a3f2b3a9502786a8d37ee5a2d48a
 const AssetImage swappingIcon = AssetImage("assets/swapping_icon.png");
 const AssetImage calendarIcon = AssetImage("assets/calender.png");
+const AssetImage aboutCompanyIcon = AssetImage('assets/aboutcompany.png');
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,
