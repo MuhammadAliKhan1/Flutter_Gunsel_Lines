@@ -1,3 +1,5 @@
+import 'package:gunsel/screens/details.dart';
+
 import 'constants.dart';
 import 'package:gunsel/screens/splash_screen.dart';
 import 'package:gunsel/screens/login.dart';
@@ -20,6 +22,8 @@ class Router {
     switch (settings.name) {
       case homeScreen:
         return MaterialPageRoute(builder: (BuildContext context) => OneWay());
+      case detailScreen:
+        return MaterialPageRoute(builder: (BuildContext context) => Detail());
       case loginScreen:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case searchTicketScreen:

@@ -29,6 +29,7 @@ dependencies:
   shared_preferences: ^0.5.3+4
   flutter_facebook_login: ^1.2.0
   flutter_typeahead: ^1.6.1
+  carousel_slider: ^1.3.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.2"
@@ -47,17 +48,24 @@ flutter_icons:
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
-  # the material Icons class.
+  # the material Icons class.a
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/aboutCompany.png
+    - assets/calender.png
+    - assets/swapping_icon.png
     - assets/splash_image.jpeg
     - assets/logout.png
     - assets/loginBG.jpg
     - assets/BG.jpg
     - assets/DrawerBG.png
-    - assets/person.png
+    - assets/1.0x/DrawerBG.png
+    - assets/1.5x/DrawerBG.png
+    - assets/2.0x/DrawerBG.png
+    - assets/3.0x/DrawerBG.png
+    - assets/4.0x/DrawerBG.png
     - assets/st.png
     - assets/user.png
     - assets/czech.png
@@ -65,8 +73,9 @@ flutter:
     - assets/poland.png
     - assets/google.png
     - assets/facebook.png
-    - assets/white.jpg
     - assets/profileBG.png
+    - assets/person.png
+    - assets/white.jpg
     - assets/profileicon.png
     - assets/profileholder.jpg
     - assets/profile_edit.png
@@ -74,15 +83,16 @@ flutter:
     - assets/2.png
     - assets/3.png
     - assets/4.png
+    - assets/bus.png
     #- images/front.webp
+    - images/front.webp
     - images/seat.png
-    #- images/news1.webp
+    - images/news1.webp
     - images/WP.png
     - images/green_seat.png
     - images/red_seat.png
     - images/gunselline.jpg
     - images/bigticket.png
-    - images/bus.png
     - images/thumbIcon.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

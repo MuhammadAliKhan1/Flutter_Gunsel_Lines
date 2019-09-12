@@ -12,14 +12,12 @@ export 'package:shared_preferences/shared_preferences.dart';
 const int defaultScreenWidth = 640;
 const int defaultScreenHeight = 1136;
 //Images
-const AssetImage person =
-    AssetImage('assets/person.png');
+const AssetImage person = AssetImage('assets/person.png');
 const AssetImage profileScreenBackground = AssetImage('assets/profileBG.png');
 const AssetImage splashImg = AssetImage("assets/splash_image.jpeg");
 const AssetImage loginImgBG = AssetImage("assets/loginBG.jpg");
 const AssetImage scaffoldImg = AssetImage("assets/BG.jpg");
-const AssetImage drawerAccountHeaderImg =
-    AssetImage('assets/DrawerBG.png');
+const AssetImage drawerAccountHeaderImg = AssetImage('assets/DrawerBG.png');
 const AssetImage drawerlogoutImg = AssetImage('assets/logout.png');
 const AssetImage userImg = AssetImage('assets/user.png');
 const AssetImage polandFlag = AssetImage('assets/poland.png');
@@ -34,12 +32,14 @@ const AssetImage profileScreenLanguageIcon =
 const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
 const AssetImage calenderIcon = AssetImage('assets/calender.png');
 const AssetImage smallTicket = AssetImage('assets/st.png');
-const AssetImage calendarIcon = AssetImage('assets/updated_schedule.svg');
 const AssetImage refreshIcon = AssetImage('assets/news_icon.svg');
 const AssetImage wizardOne = AssetImage('assets/1.png');
 const AssetImage wizardTwo = AssetImage('assets/2.png');
 const AssetImage wizardThree = AssetImage('assets/3.png');
 const AssetImage wizardFour = AssetImage('assets/4.png');
+const AssetImage bus = AssetImage('assets/bus.png');
+const AssetImage swappingIcon = AssetImage("assets/swapping_icon.png");
+const AssetImage calendarIcon = AssetImage("assets/calender.png");
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,
@@ -67,7 +67,10 @@ const String aboutCompanyScreen = '/aboutcompany';
 const String ticketSummaryScreen = '/ticketsummary';
 const String splashScreen = '/splash';
 const String languageScreen = '/languageScreen';
+const String detailScreen = '/detailScreen';
 
 //Colors
 const gunselColor = Color(0xff035EA7);
 const darkBlue = Color(0xff000080);
+const red = Color(0xffFF0000);
+const green = Color(0xff07D603);

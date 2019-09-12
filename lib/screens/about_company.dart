@@ -18,7 +18,7 @@ class AboutCompanyState extends State<AboutCompany> {
         appBar: AppBar(
           backgroundColor: gunselColor,
           centerTitle: true,
-          title: Text("About Company"),
+          title: Text("About Gunsel Lines"),
           elevation: 0.0,
         ),
         body: Center(
