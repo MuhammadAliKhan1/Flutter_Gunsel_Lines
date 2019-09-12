@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gunsel/data/constants.dart';
+import 'package:gunsel/screens/Drawer/drawer.dart';
 
 final Color gunselColor = Color(0xff035EA7);
 
@@ -15,6 +17,7 @@ class AboutCompanyState extends State<AboutCompany> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
+        drawer: SideDrawer(),
         appBar: AppBar(
           backgroundColor: gunselColor,
           centerTitle: true,
@@ -29,14 +32,16 @@ class AboutCompanyState extends State<AboutCompany> {
               Padding(
                   padding: EdgeInsets.only(top: 10.0, left: 10.0),
                   child: Text(
-                    "Brother set had private his letters",
+                    "About Gunsel Lines",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 20.0),
                   )),
               Container(
-                child: Image.asset("images/gunselline.jpg"),
+                child: Image(
+                  image: aboutImage,
+                ),
                 padding: EdgeInsets.only(
                     top: 10.0, bottom: 10.0, left: 10.0, right: 10.0),
               ),

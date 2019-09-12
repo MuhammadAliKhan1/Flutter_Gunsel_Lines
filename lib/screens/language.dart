@@ -12,10 +12,6 @@ class Language extends StatefulWidget {
 }
 
 class LanguageState extends State<Language> {
-  bool firstLanguage = false;
-  bool secondLanguage = false;
-  bool thirdLanguage = false;
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -41,41 +37,29 @@ class LanguageState extends State<Language> {
             centerTitle: true,
           ),
           body: ListView(children: <Widget>[
-            CheckboxListTile(
+            ListTile(
               title: Row(children: <Widget>[
                 Image.asset("assets/ukraine.png"),
-                Text("    ykpaïHcbka", style: TextStyle(color: Colors.white))
+                Text("    ykpaïHcbka                           ",
+                    style: TextStyle(color: Colors.white, fontSize: 20.0)),
+                Image(image: uncheckedBox)
               ]),
-              value: firstLanguage,
-              onChanged: (bool value) {
-                setState(() {
-                  firstLanguage = value;
-                });
-              },
             ),
-            CheckboxListTile(
+            ListTile(
               title: Row(children: <Widget>[
                 Image.asset("assets/czech.png"),
-                Text("    English", style: TextStyle(color: Colors.white))
+                Text("    English                                   ",
+                    style: TextStyle(color: Colors.white, fontSize: 20.0)),
+                Image(image: uncheckedBox)
               ]),
-              value: secondLanguage,
-              onChanged: (bool value) {
-                setState(() {
-                  secondLanguage = value;
-                });
-              },
             ),
-            CheckboxListTile(
+            ListTile(
               title: Row(children: <Widget>[
                 Image.asset("assets/poland.png"),
-                Text("    pyccknn", style: TextStyle(color: Colors.white))
+                Text("    pyccknn                                 ",
+                    style: TextStyle(color: Colors.white, fontSize: 20.0)),
+                Image(image: uncheckedBox)
               ]),
-              value: thirdLanguage,
-              onChanged: (bool value) {
-                setState(() {
-                  thirdLanguage = value;
-                });
-              },
             )
           ]),
         )

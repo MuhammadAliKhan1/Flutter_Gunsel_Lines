@@ -13,12 +13,14 @@ const int defaultScreenWidth = 640;
 const int defaultScreenHeight = 1136;
 //Images
 const AssetImage person = AssetImage('assets/person.png');
-const AssetImage profileScreenBackground = AssetImage('assets/profileBG.png');
-const AssetImage splashImg = AssetImage("assets/splash_image.jpeg");
+
+const AssetImage personImage = AssetImage('assets/person-image.png');
+const AssetImage profileScreenBackground = AssetImage('assets/profileBG.jpg');
+const AssetImage splashImg = AssetImage("assets/splash_image.jpg");
 const AssetImage loginImgBG = AssetImage("assets/loginBG.jpg");
 const AssetImage scaffoldImg = AssetImage("assets/BG.jpg");
 const AssetImage drawerAccountHeaderImg = AssetImage('assets/DrawerBG.png');
-const AssetImage drawerlogoutImg = AssetImage('assets/logout.png');
+const AssetImage drawerLogoutImg = AssetImage("assets/log_out_icon.png");
 const AssetImage userImg = AssetImage('assets/user.png');
 const AssetImage polandFlag = AssetImage('assets/poland.png');
 const AssetImage czechFlag = AssetImage('assets/czech.png');
@@ -26,7 +28,7 @@ const AssetImage ukraineFlag = AssetImage('assets/ukraine.png');
 const AssetImage googleLogo = AssetImage('assets/google.png');
 const AssetImage facebookLogo = AssetImage('assets/facebook.png');
 const AssetImage whiteImage = AssetImage('assets/white.jpg');
-const AssetImage profileHolder = AssetImage('assets/profileholder.jpg');
+const AssetImage profileHolder = AssetImage('assets/profileholder.png');
 const AssetImage profileScreenLanguageIcon =
     AssetImage('assets/profileicon.png');
 const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
@@ -39,13 +41,19 @@ const AssetImage wizardThree = AssetImage('assets/3.png');
 const AssetImage wizardFour = AssetImage('assets/4.png');
 const AssetImage bus = AssetImage('assets/bus.png');
 const AssetImage swappingIcon = AssetImage("assets/swapping_icon.png");
-const AssetImage calendarIcon = AssetImage("assets/calender.png");
-const AssetImage aboutCompanyIcon = AssetImage('assets/aboutcompany.png');
+const AssetImage calendarIcon = AssetImage("assets/calendar_icon.png");
+const AssetImage aboutCompanyIcon = AssetImage('assets/aboutCompany.png');
 const AssetImage news = AssetImage("images/news1.webp");
 const AssetImage frontNews = AssetImage("images/front.webp");
 const AssetImage newsIcon = AssetImage("assets/newIcon.png");
-const AssetImage buyIcon = AssetImage("assets/buyIcon.png");
-const AssetImage cancelIcon = AssetImage("assets/cencelIcon.png");
+const AssetImage buyIcon = AssetImage("assets/ticket.png");
+const AssetImage cancelIcon = AssetImage("assets/cancelIcon.png");
+const AssetImage profileIcon = AssetImage("assets/profile_icon.png");
+const AssetImage languageIcon = AssetImage("assets/languageIcon.png");
+const AssetImage telephone = AssetImage("assets/phone.png");
+const AssetImage locationIcon = AssetImage("assets/map_icon.png");
+const AssetImage aboutImage = AssetImage("assets/about-Image.jpg");
+const AssetImage uncheckedBox = AssetImage("assets/unchecked.png");
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,

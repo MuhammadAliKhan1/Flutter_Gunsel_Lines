@@ -67,6 +67,13 @@ class _LoginFormState extends State<LoginForm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              Container(
+                child: Image.asset(
+                  "assets/logo_light.png",
+                  width: ScreenUtil().setWidth(400),
+                ),
+                padding: EdgeInsets.only(bottom: 50.0),
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -123,7 +123,10 @@ class _OneWayFormState extends State<RoundWayForm> {
                   contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                   fillColor: Colors.white,
                   filled: true,
-                  prefixIcon: Icon(Icons.location_on),
+                  prefixIcon: Image(
+                    image: locationIcon,
+                    height: 10.0,
+                  ),
                   hintText: "Enter departure city",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -191,7 +194,10 @@ class _OneWayFormState extends State<RoundWayForm> {
                   contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                   fillColor: Colors.white,
                   filled: true,
-                  prefixIcon: Icon(Icons.location_on),
+                  prefixIcon: Image(
+                    image: locationIcon,
+                    height: 10.0,
+                  ),
                   hintText: "Enter arrival city",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -261,6 +267,9 @@ class _OneWayFormState extends State<RoundWayForm> {
               },
               child: AbsorbPointer(
                 child: TextFormField(
+                  style: TextStyle(
+                    color: Colors.lightBlue,
+                  ),
                   keyboardType: TextInputType.datetime,
                   controller: this._travelInputDate,
                   decoration: InputDecoration(

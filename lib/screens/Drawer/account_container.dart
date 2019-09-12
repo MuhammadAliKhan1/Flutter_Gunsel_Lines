@@ -53,7 +53,7 @@ class _DrawerAccountState extends State<DrawerAccount> {
                 alignment:
                     Alignment.lerp(Alignment.topRight, Alignment.topLeft, 0.07),
                 child: Image(
-                  image: drawerlogoutImg,
+                  image: drawerLogoutImg,
                   height: ScreenUtil().setSp(30),
                   color: Colors.white,
                 ),
@@ -100,7 +100,7 @@ class _DrawerAccountState extends State<DrawerAccount> {
                       onTap: () =>
                           Navigator.pushReplacementNamed(context, loginScreen),
                       child: Image(
-                        image: drawerlogoutImg,
+                        image: drawerLogoutImg,
                         height: ScreenUtil().setSp(30),
                         color: Colors.white,
                       ),
