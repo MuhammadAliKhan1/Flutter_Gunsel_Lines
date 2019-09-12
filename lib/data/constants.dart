@@ -68,7 +68,10 @@ const String aboutCompanyScreen = '/aboutcompany';
 const String ticketSummaryScreen = '/ticketsummary';
 const String splashScreen = '/splash';
 const String languageScreen = '/languageScreen';
+const String detailScreen = '/detailScreen';
 
 //Colors
 const gunselColor = Color(0xff035EA7);
 const darkBlue = Color(0xff000080);
+const red = Color(0xffFF0000);
+const green = Color(0xff07D603);

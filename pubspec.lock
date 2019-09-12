@@ -28,8 +28,16 @@ packages:
       name: boolean_selector
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
+    version: "1.0.4"
+=======
     version: "1.0.5"
+<<<<<<< HEAD
   carousel_pro:
+=======
+>>>>>>> dd81a530dc42a3f2b3a9502786a8d37ee5a2d48a
+  carousel_slider:
+>>>>>>> ec18fd5547092425a0dde79ada340cbf4b72e674
     dependency: "direct main"
     description:
       name: carousel_pro
