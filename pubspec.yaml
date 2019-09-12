@@ -83,8 +83,11 @@ flutter:
     - assets/2.png
     - assets/3.png
     - assets/4.png
+<<<<<<< HEAD
     - assets/bus.png
     #- images/front.webp
+=======
+>>>>>>> dd81a530dc42a3f2b3a9502786a8d37ee5a2d48a
     - images/front.webp
     - images/seat.png
     - images/news1.webp
