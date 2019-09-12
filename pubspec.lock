@@ -30,16 +30,13 @@ packages:
     source: hosted
     version: "1.0.4"
 <<<<<<< HEAD
+<<<<<<< HEAD
 :=======
     version: "1.0.5"
 <<<<<<< HEAD
+=======
+>>>>>>> e3e380a4daec2dac191ed7a54ade0fe060ce9b6d
   carousel_pro:
-=======
->>>>>>> dd81a530dc42a3f2b3a9502786a8d37ee5a2d48a
-=======
->>>>>>> 5d2f5eef8aa887602b5b704d0f11a5d9e297e90e
-  carousel_slider:
->>>>>>> ec18fd5547092425a0dde79ada340cbf4b72e674
     dependency: "direct main"
     description:
       name: carousel_pro
