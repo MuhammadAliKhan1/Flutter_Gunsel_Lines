@@ -31,6 +31,12 @@ class CancelTicketState extends State<CancelTicket> {
           drawer: SideDrawer(),
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            leading: GestureDetector(
+              child: Image(image: backArrow),
+              onTap: () {
+                Navigator.pushNamed(context, oneWayScreen);
+              },
+            ),
             backgroundColor: Colors.transparent,
             title: Text("Cancel Ticket"),
             elevation: 0.0,

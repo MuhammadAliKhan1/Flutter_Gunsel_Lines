@@ -32,7 +32,6 @@ const AssetImage profileHolder = AssetImage('assets/profileholder.png');
 const AssetImage profileScreenLanguageIcon =
     AssetImage('assets/profileicon.png');
 const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
-const AssetImage calenderIcon = AssetImage('assets/calender.png');
 const AssetImage smallTicket = AssetImage('assets/st.png');
 const AssetImage refreshIcon = AssetImage('assets/news_icon.svg');
 const AssetImage wizardOne = AssetImage('assets/1.png');
@@ -41,7 +40,7 @@ const AssetImage wizardThree = AssetImage('assets/3.png');
 const AssetImage wizardFour = AssetImage('assets/4.png');
 const AssetImage bus = AssetImage('assets/bus.png');
 const AssetImage swappingIcon = AssetImage("assets/swapping_icon.png");
-const AssetImage calendarIcon = AssetImage("assets/calendar_icon.png");
+const AssetImage calendarIcon = AssetImage("assets/calendar_icon_1.png");
 const AssetImage aboutCompanyIcon = AssetImage('assets/aboutCompany.png');
 const AssetImage news = AssetImage("images/news1.webp");
 const AssetImage frontNews = AssetImage("images/front.webp");
@@ -57,6 +56,8 @@ const AssetImage aboutImage = AssetImage("assets/about-Image.jpg");
 const AssetImage languageIcon = AssetImage("assets/languageIcon.png");
 const AssetImage profileIcon = AssetImage("assets/profile_icon.png");
 const AssetImage telephone = AssetImage("assets/phone.png");
+const AssetImage backArrow = AssetImage("assets/backArrow_2.png");
+const AssetImage menuIcon = AssetImage("assets/menu_icon_2.png");
 
 const countryCode = {
   '+48': polandFlag,
@@ -87,6 +88,7 @@ const String splashScreen = '/splash';
 const String languageScreen = '/languageScreen';
 const String detailScreen = '/detailScreen';
 const String paymentResultScreen = '/paymentresultscreen';
+const String sideDrawer = '/sideDrawer';
 
 //Colors
 const gunselColor = Color(0xff035EA7);

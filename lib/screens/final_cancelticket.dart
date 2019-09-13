@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gunsel/data/constants.dart';
 
 final Color gunselColor = Color(0xff035EA7);
 
@@ -17,9 +18,9 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
         backgroundColor: gunselColor,
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
+          leading: GestureDetector(
+            child: Image(image: backArrow),
+            onTap: () {
               Navigator.pop(context);
             },
           ),
@@ -28,7 +29,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
           title: Text("Cancel Ticket"),
           elevation: 0.0,
         ),
-        body: Column(children: <Widget>[
+        body: ListView(children: <Widget>[
           Container(
             height: 402.0,
             margin: EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),
@@ -43,8 +44,6 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10.0),
                         topRight: Radius.circular(10.0))),
-
-                //width: 338.0,
                 height: 50.0,
                 child: Center(
                     child: Text(

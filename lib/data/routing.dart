@@ -1,3 +1,4 @@
+import 'package:gunsel/screens/Drawer/drawer.dart';
 import 'package:gunsel/screens/details.dart';
 import 'package:gunsel/screens/payment_result.dart';
 
@@ -60,6 +61,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => Language());
       case finalCancelTicketScreen:
         return MaterialPageRoute(builder: (_) => FinalCancelTicket());
+      case sideDrawer:
+        return MaterialPageRoute(builder: (_) => SideDrawer());
 
       default:
         return MaterialPageRoute(

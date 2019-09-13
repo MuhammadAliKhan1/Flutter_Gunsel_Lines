@@ -33,6 +33,7 @@ class SideDrawer extends StatelessWidget {
                   buttonColor: Colors.yellow,
                   padding: EdgeInsets.only(left: ScreenUtil().setSp(25)),
                   child: RaisedButton(
+                    elevation: 0.0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30.0),
