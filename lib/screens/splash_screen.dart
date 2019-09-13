@@ -1,4 +1,5 @@
 import 'package:gunsel/data/constants.dart';
+import 'package:gunsel/screens/one_way.dart';
 
 class GunselSplash extends StatefulWidget {
   @override
@@ -19,7 +20,8 @@ class _GunselSplashState extends State<GunselSplash> {
   }
 
   onReceivingToken() async {
-    Navigator.of(context).pushReplacementNamed(homeScreen);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(homeScreen, (Route<dynamic> route) => false);
   }
 
   @override

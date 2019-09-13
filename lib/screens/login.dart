@@ -9,6 +9,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GunselScaffold(
+      appBarIcon: menuIcon,
       appBarIncluded: true,
       backgroundImage: loginImgBG,
       bodyWidget: SingleChildScrollView(

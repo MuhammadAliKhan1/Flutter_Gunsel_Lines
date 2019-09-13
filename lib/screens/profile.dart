@@ -5,6 +5,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: GunselScaffold(
+        appBarIcon: menuIcon,
         appBarIncluded: true,
         appBarColor: gunselColor,
         appBarTitleIncluded: true,

@@ -99,16 +99,15 @@ flutter:
     - assets/ticket.png
     - assets/bigticket.png
     - assets/selectseatscreen.png
-    - images/front.webp
-    - images/seat.png
-    - images/news1.webp
-    - images/WP.png
-    - images/green_seat.png
-    - images/red_seat.png
-    - images/thumbIcon.png
     - assets/backArrow_2.png
     - assets/menu_icon_2.png
     - assets/england.png
+    - assets/payment_thumb.png
+    - images/front.webp
+    - images/seat.png
+    - images/news1.webp
+    - images/green_seat.png
+    - images/red_seat.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

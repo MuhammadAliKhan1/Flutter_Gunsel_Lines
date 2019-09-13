@@ -8,6 +8,7 @@ class RoundWay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GunselScaffold(
+      appBarIcon: menuIcon,
       backgroundImage: scaffoldImg,
       appBarTitleIncluded: true,
       appBarTitle: 'Search Ticket',
@@ -435,9 +436,9 @@ class OneWayButton extends StatelessWidget {
       highlightElevation: 0.0,
       color: Colors.transparent,
       onPressed: () {
-        Navigator.of(context).pushReplacementNamed(
-          oneWayScreen,
-        );
+        Navigator.canPop(context)
+            ? Navigator.popAndPushNamed(context, oneWayScreen)
+            : Navigator.pushNamed(context, oneWayScreen);
       },
     );
   }
