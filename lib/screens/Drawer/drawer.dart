@@ -27,12 +27,13 @@ class SideDrawer extends StatelessWidget {
               alignment:
                   Alignment.lerp(Alignment.centerLeft, Alignment.center, 0.8),
               child: Container(
-                width: ScreenUtil().setWidth(400),
+                width: ScreenUtil().setWidth(450),
                 height: 40.0,
                 child: ButtonTheme(
                   buttonColor: Colors.yellow,
                   padding: EdgeInsets.only(left: ScreenUtil().setSp(25)),
                   child: RaisedButton(
+                    elevation: 0.0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30.0),
@@ -56,10 +57,12 @@ class SideDrawer extends StatelessWidget {
                         ),
                         Align(
                             child: Text(
-                          "800 30 30 10",
+                          "0 800 30 30 10",
                           style: TextStyle(
                             color: gunselColor,
-                            fontSize: ScreenUtil().setSp(30),
+                            fontSize: ScreenUtil().setSp(40),
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "Helvetica",
                           ),
                         ))
                       ],

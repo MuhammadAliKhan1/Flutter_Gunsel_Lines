@@ -64,7 +64,8 @@ class SignUpState extends State<SignUp> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            title: Text("Registration"),
+            title: Text("Registration",
+                style: TextStyle(fontFamily: "SFProText", fontSize: 22.0)),
             elevation: 0.0,
             centerTitle: true,
           ),
@@ -235,6 +236,7 @@ class SignUpState extends State<SignUp> {
                       Row(
                         children: <Widget>[
                           Switch(
+                            activeColor: Colors.green,
                             value: switchValue,
                             onChanged: (bool value) {
                               switchButton(switchValue);

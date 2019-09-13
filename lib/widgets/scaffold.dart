@@ -25,6 +25,7 @@ class GunselScaffold extends StatefulWidget {
 }
 
 class _GunselScaffoldState extends State<GunselScaffold> {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil(
@@ -46,6 +47,7 @@ class _GunselScaffoldState extends State<GunselScaffold> {
           width: double.infinity,
         ),
         Scaffold(
+          key: _scaffoldKey,
           drawer: (widget.drawerIncluded && widget.appBarIncluded)
               ? SideDrawer()
               : null,
@@ -53,6 +55,13 @@ class _GunselScaffoldState extends State<GunselScaffold> {
           body: widget.bodyWidget,
           appBar: widget.appBarIncluded
               ? AppBar(
+                  leading: GestureDetector(
+                      child: Image(
+                        image: menuIcon,
+                      ),
+                      onTap: () {
+                        _scaffoldKey.currentState.openDrawer();
+                      }),
                   backgroundColor: widget.appBarColor == null
                       ? Colors.transparent
                       : widget.appBarColor,
@@ -61,7 +70,8 @@ class _GunselScaffoldState extends State<GunselScaffold> {
                           "${widget.appBarTitle}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: ScreenUtil().setSp(30),
+                            fontFamily: "SFProText",
+                            fontSize: ScreenUtil().setSp(35),
                           ),
                         )
                       : null,

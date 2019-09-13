@@ -43,7 +43,7 @@ const AssetImage wizardThree = AssetImage('assets/3.png');
 const AssetImage wizardFour = AssetImage('assets/4.png');
 const AssetImage bus = AssetImage('assets/bus.png');
 const AssetImage swappingIcon = AssetImage("assets/swapping_icon.png");
-const AssetImage calendarIcon = AssetImage("assets/calendar_icon.png");
+const AssetImage calendarIcon = AssetImage("assets/calendar_icon_1.png");
 const AssetImage aboutCompanyIcon = AssetImage('assets/aboutCompany.png');
 const AssetImage news = AssetImage("images/news1.webp");
 const AssetImage frontNews = AssetImage("images/front.webp");
@@ -59,6 +59,8 @@ const AssetImage aboutImage = AssetImage("assets/about-Image.jpg");
 const AssetImage languageIcon = AssetImage("assets/languageIcon.png");
 const AssetImage profileIcon = AssetImage("assets/profile_icon.png");
 const AssetImage telephone = AssetImage("assets/phone.png");
+const AssetImage backArrow = AssetImage("assets/backArrow_2.png");
+const AssetImage menuIcon = AssetImage("assets/menu_icon_2.png");
 
 const countryCode = {
   '+48': polandFlag,

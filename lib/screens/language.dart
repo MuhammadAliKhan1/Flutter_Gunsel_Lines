@@ -12,6 +12,7 @@ class Language extends StatefulWidget {
 }
 
 class LanguageState extends State<Language> {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,40 +28,55 @@ class LanguageState extends State<Language> {
           width: double.infinity,
         ),
         Scaffold(
+          key: _scaffoldKey,
           resizeToAvoidBottomPadding: false,
           drawer: SideDrawer(),
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            leading: GestureDetector(
+                child: Image(
+                  image: menuIcon,
+                ),
+                onTap: () {
+                  _scaffoldKey.currentState.openDrawer();
+                }),
             backgroundColor: Colors.transparent,
-            title: Text("Languages"),
+            title: Text("Languages",
+                style: TextStyle(fontFamily: "SFProText", fontSize: 22.0)),
             elevation: 0.0,
             centerTitle: true,
           ),
           body: ListView(children: <Widget>[
             ListTile(
-              title: Row(children: <Widget>[
-                Image.asset("assets/ukraine.png"),
-                Text("    ykpaïHcbka                           ",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0)),
-                Image(image: uncheckedBox)
-              ]),
-            ),
+                leading: Image.asset("assets/ukraine.png"),
+                title: Text("YkpaïHcbka",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                        fontFamily: "MyriadPro")),
+                trailing: Image(image: uncheckedBox, height: 25.0)),
             ListTile(
-              title: Row(children: <Widget>[
-                Image.asset("assets/czech.png"),
-                Text("    English                                   ",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0)),
-                Image(image: uncheckedBox)
-              ]),
-            ),
+                leading: Image.asset("assets/england.png"),
+                title: Text("English",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                        fontFamily: "MyriadPro")),
+                trailing: Image(
+                  image: uncheckedBox,
+                  height: 25.0,
+                )),
             ListTile(
-              title: Row(children: <Widget>[
-                Image.asset("assets/poland.png"),
-                Text("    pyccknn                                 ",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0)),
-                Image(image: uncheckedBox)
-              ]),
-            )
+                leading: Image.asset("assets/poland.png"),
+                title: Text("Pyccknn",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                        fontFamily: "MyriadPro")),
+                trailing: Image(
+                  image: uncheckedBox,
+                  height: 25.0,
+                ))
           ]),
         )
       ],
