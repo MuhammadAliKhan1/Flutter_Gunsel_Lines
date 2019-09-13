@@ -10,19 +10,19 @@ class SearchTicket extends StatelessWidget {
       appBarTitle: 'Search Ticket',
       appBarTitleIncluded: true,
       drawerIncluded: false,
-      bodyWidget: TicketView(),
+      bodyWidget: SearchTicketScreen(),
     );
   }
 }
 
-class TicketView extends StatefulWidget {
+class SearchTicketScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return TicketViewState();
+    return SearchTicketScreenState();
   }
 }
 
-class TicketViewState extends State<TicketView> {
+class SearchTicketScreenState extends State<SearchTicketScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -41,90 +41,10 @@ class TicketViewState extends State<TicketView> {
             ),
           ],
         ),
-        SizedBox(
-          height: 10,
-        ),
-        SingleChildScrollView(
-          child: InkWell(
-            child: Ticket(),
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                selectSeatScreen,
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        SingleChildScrollView(
-          child: InkWell(
-            child: Ticket(),
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                selectSeatScreen,
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        SingleChildScrollView(
-          child: InkWell(
-            child: Ticket(),
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                selectSeatScreen,
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        SingleChildScrollView(
-          child: InkWell(
-            child: Ticket(),
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                selectSeatScreen,
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        SingleChildScrollView(
-          child: InkWell(
-            child: Ticket(),
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                selectSeatScreen,
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        SingleChildScrollView(
-          child: InkWell(
-            child: Ticket(),
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                selectSeatScreen,
-              );
-            },
-          ),
-        ),
+        Ticket(),
+        Ticket(),
+        Ticket(),
+        Ticket(),
       ],
     );
   }
@@ -221,169 +141,156 @@ class Ticket extends StatefulWidget {
 class _TicketState extends State<Ticket> {
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.fitWidth,
-      child: Stack(
-        children: <Widget>[
-          Image(
-            image: smallTicket,
-          ),
-          Align(
-            alignment: Alignment.topLeft,
+    return InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, selectSeatScreen);
+        },
+        child: FittedBox(
             child: Container(
-              child: Center(
-                child: Text(
-                  'i',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: ScreenUtil(allowFontScaling: true).setSp(35),
-                  ),
-                ),
-              ),
-              height: 25,
-              width: 25,
-              decoration: BoxDecoration(
-                  color: darkBlue.withOpacity(0.92),
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(10),
-                    topLeft: Radius.circular(8),
-                  )),
-            ),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          margin: EdgeInsets.only(top: 10.0),
+          height: 112,
+          child: Stack(
             children: <Widget>[
-              SizedBox(
-                width: 35,
+              Image(
+                image: smallTicket,
               ),
-              Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    '14:50',
-                    style: TextStyle(
-                      fontSize: 45,
-                      color: darkBlue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'DEPARTURE',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    '19.5.2019',
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    '15 Seats',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: darkBlue,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 17,
-              ),
-              Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    '19:50',
-                    style: TextStyle(
-                      fontSize: 45,
-                      color: darkBlue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'ARRIVAL',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    '19.5.2019',
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 23,
-                  )
-                ],
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Column(
-                children: <Widget>[
-                  Container(
-                    color: Colors.grey,
-                    height: 90,
-                    width: 1,
-                  )
-                ],
-              ),
-              SizedBox(width: 35),
-              Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 13,
-                  ),
-                  Text(
-                    '420',
-                    style: TextStyle(
-                      fontSize: 50,
-                      color: darkBlue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'UAH',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'MAN FORTUNA 19',
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
+              Padding(
+                  padding: EdgeInsets.only(left: 30.0, top: 5.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 25,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text(
+                            '13:40',
+                            style: TextStyle(
+                                color: darkBlue,
+                                fontSize: 40,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            'DEPARTURE',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            '09.09.2019',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Text(
+                            '15 seats',
+                            style: TextStyle(
+                              color: darkBlue,
+                              fontSize: 15,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 25,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text(
+                            '19:50',
+                            style: TextStyle(
+                                color: darkBlue,
+                                fontSize: 40,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            'ARRIVAL',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            '', //Empty space as to not distur the alignment
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Text(
+                            '',
+                            style: TextStyle(
+                              color: darkBlue,
+                              fontSize: 15,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 45),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              Container(
+                                height: 43,
+                                child: Text(
+                                  '420',
+                                  style: TextStyle(
+                                    color: darkBlue,
+                                    fontSize: 50,
+                                    fontFamily: 'Helvetica',
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                'UAH', //Empty space as to not distur the alignment
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontFamily: 'Helvetica',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            'Neoplan TourLine (46)', //Empty space as to not distur the alignment
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.8),
+                              fontSize: 12,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ))
             ],
-          )
-        ],
-      ),
-    );
+          ),
+        )));
   }
 }

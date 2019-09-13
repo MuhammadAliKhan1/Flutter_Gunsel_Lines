@@ -41,6 +41,8 @@ class GunselButton extends StatelessWidget {
                   ? 5.0
                   : ScreenUtil(allowFontScaling: true).setSp(btnTextFontSize),
               color: btnTextColor,
+              fontFamily: 'Helvetica',
+              fontWeight: FontWeight.w700,
             ),
           ),
           onPressed: () {
