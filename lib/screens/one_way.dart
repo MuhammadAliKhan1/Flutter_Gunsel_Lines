@@ -266,9 +266,9 @@ class _OneWayFormState extends State<OneWayForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Number of Passengers:',
+                  'Number of passengers:',
                   style: TextStyle(
-                      color: Colors.white, fontSize: ScreenUtil().setSp(24)),
+                      color: Colors.white, fontSize: ScreenUtil().setSp(24),fontFamily: 'SFProText'),
                 ),
                 Container(
                   decoration: BoxDecoration(
