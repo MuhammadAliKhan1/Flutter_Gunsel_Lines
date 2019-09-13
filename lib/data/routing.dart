@@ -61,8 +61,6 @@ class Router {
         return MaterialPageRoute(builder: (_) => Language());
       case finalCancelTicketScreen:
         return MaterialPageRoute(builder: (_) => FinalCancelTicket());
-      case sideDrawer:
-        return MaterialPageRoute(builder: (_) => SideDrawer());
 
       default:
         return MaterialPageRoute(

@@ -56,7 +56,8 @@ class SearchTicketContainer extends StatelessWidget {
                         child: RaisedButton(
                           child: Text(
                             "ROUND WAY",
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(
+                                color: Colors.black, fontFamily: "MyriadPro"),
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
@@ -239,9 +240,7 @@ class _OneWayFormState extends State<RoundWayForm> {
               },
               child: AbsorbPointer(
                 child: TextFormField(
-                  style: TextStyle(
-                    color: Colors.lightBlue,
-                  ),
+                  style: TextStyle(color: Colors.blue, fontSize: 17.0),
                   keyboardType: TextInputType.datetime,
                   controller: this._travelInputDate,
                   decoration: InputDecoration(
@@ -267,9 +266,7 @@ class _OneWayFormState extends State<RoundWayForm> {
               },
               child: AbsorbPointer(
                 child: TextFormField(
-                  style: TextStyle(
-                    color: Colors.lightBlue,
-                  ),
+                  style: TextStyle(color: Colors.blue, fontSize: 17.0),
                   keyboardType: TextInputType.datetime,
                   controller: this._travelInputDate,
                   decoration: InputDecoration(
@@ -296,7 +293,9 @@ class _OneWayFormState extends State<RoundWayForm> {
                 Text(
                   'Number of Passengers:',
                   style: TextStyle(
-                      color: Colors.white, fontSize: ScreenUtil().setSp(24)),
+                      color: Colors.white,
+                      fontSize: ScreenUtil().setSp(24),
+                      fontFamily: 'SFProText'),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -341,10 +340,11 @@ class _OneWayFormState extends State<RoundWayForm> {
             height: 10.0,
           ),
           GunselButton(
-            btnWidth: 500,
+            btnWidth: 550,
             btnText: 'Search',
+            btnFontFamily: 'Helvetica',
             btnTextColor: gunselColor,
-            btnTextFontSize: 35,
+            btnTextFontSize: 40,
             whenPressed: () {
               setState(() {
                 if (_oneWayForm.currentState.validate()) {
@@ -417,7 +417,7 @@ class _OneWayFormState extends State<RoundWayForm> {
     if (picked != null)
       setState(() {
         this._travelInputDate = new TextEditingController(
-            text: "${picked.month}.${picked.day}.${picked.year}");
+            text: "${picked.day}.${picked.month}.${picked.year}");
       });
   }
 }
@@ -428,9 +428,7 @@ class OneWayButton extends StatelessWidget {
     return RaisedButton(
       child: Text(
         "ONE WAY",
-        style: TextStyle(
-          color: Colors.white,
-        ),
+        style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
       ),
       elevation: 0.0,
       splashColor: Colors.yellow,

@@ -1,6 +1,7 @@
 import 'package:gunsel/data/constants.dart';
 
 class GunselButton extends StatelessWidget {
+  final String btnFontFamily;
   final int btnWidth;
   final double btnHeight;
   @required
@@ -8,15 +9,16 @@ class GunselButton extends StatelessWidget {
   final String btnText;
   final Color btnTextColor;
   Function whenPressed;
-  GunselButton({
-    Key key,
-    @required this.btnWidth,
-    @required this.whenPressed,
-    this.btnHeight,
-    this.btnText,
-    this.btnTextColor,
-    this.btnTextFontSize,
-  }) : super(key: key);
+  GunselButton(
+      {Key key,
+      @required this.btnWidth,
+      @required this.whenPressed,
+      this.btnHeight,
+      this.btnText,
+      this.btnTextColor,
+      this.btnTextFontSize,
+      this.btnFontFamily})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,11 +39,11 @@ class GunselButton extends StatelessWidget {
             "$btnText",
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: btnTextFontSize == null
-                  ? 5.0
-                  : ScreenUtil(allowFontScaling: true).setSp(btnTextFontSize),
-              color: btnTextColor,
-            ),
+                fontSize: btnTextFontSize == null
+                    ? 5.0
+                    : ScreenUtil(allowFontScaling: true).setSp(btnTextFontSize),
+                color: btnTextColor,
+                fontFamily: btnFontFamily),
           ),
           onPressed: () {
             whenPressed();

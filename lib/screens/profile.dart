@@ -72,9 +72,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Text(
                 'Erhan Ozturk',
                 style: TextStyle(
-                  fontSize: ScreenUtil().setSp(35),
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: ScreenUtil().setSp(40),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Helvetica"),
               ),
             ),
           ),
@@ -86,6 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 'eozturk782@gmail.com',
                 style: TextStyle(
                   fontSize: ScreenUtil().setSp(20),
+                  fontFamily: "Helvetica",
                 ),
               ),
             ),
@@ -98,6 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 '+380677331606',
                 style: TextStyle(
                   fontSize: ScreenUtil().setSp(20),
+                  fontFamily: "Helvetica",
                 ),
               ),
             ),
@@ -119,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height:
                                 ScreenUtil(allowFontScaling: true).setSp(50),
                           ),
-                          Text('RU'),
+                          Text('RU', style: TextStyle(fontFamily: "Helvetica")),
                         ],
                       ),
                       Column(
@@ -129,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height:
                                 ScreenUtil(allowFontScaling: true).setSp(50),
                           ),
-                          Text('UA'),
+                          Text('UA', style: TextStyle(fontFamily: "Helvetica")),
                         ],
                       ),
                       Column(
@@ -139,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height:
                                 ScreenUtil(allowFontScaling: true).setSp(50),
                           ),
-                          Text('EN'),
+                          Text('EN', style: TextStyle(fontFamily: "Helvetica")),
                         ],
                       ),
                     ],

@@ -88,7 +88,6 @@ const String splashScreen = '/splash';
 const String languageScreen = '/languageScreen';
 const String detailScreen = '/detailScreen';
 const String paymentResultScreen = '/paymentresultscreen';
-const String sideDrawer = '/sideDrawer';
 
 //Colors
 const gunselColor = Color(0xff035EA7);

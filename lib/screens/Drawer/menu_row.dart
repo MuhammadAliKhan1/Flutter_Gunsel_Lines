@@ -6,14 +6,15 @@ class MenuRow extends StatelessWidget {
   final String routeTo;
   final bool pngImageAllow;
   final AssetImage pngImage;
-  MenuRow({
-    Key key,
-    @required this.title,
-    @required this.routeTo,
-    @required this.pngImageAllow,
-    this.icon,
-    this.pngImage,
-  }) : super(key: key);
+
+  MenuRow(
+      {Key key,
+      @required this.title,
+      @required this.routeTo,
+      @required this.pngImageAllow,
+      this.icon,
+      this.pngImage})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -26,7 +27,6 @@ class MenuRow extends StatelessWidget {
                 image: pngImage,
                 color: gunselColor,
                 height: ScreenUtil().setSp(40),
-                
               )
             : Icon(
                 icon,
@@ -40,8 +40,10 @@ class MenuRow extends StatelessWidget {
             Text(
               "$title",
               style: TextStyle(
+                fontFamily: "Helvetica",
+                fontWeight: FontWeight.w600,
                 color: gunselColor,
-                fontSize: ScreenUtil().setSp(30),
+                fontSize: ScreenUtil().setSp(37),
               ),
             ),
           ],

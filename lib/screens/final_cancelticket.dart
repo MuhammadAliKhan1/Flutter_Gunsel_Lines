@@ -26,7 +26,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
           ),
           backgroundColor: gunselColor,
           centerTitle: true,
-          title: Text("Cancel Ticket"),
+          title: Text("Cancel Ticket",
+              style: TextStyle(fontFamily: "SFProText", fontSize: 22.0)),
           elevation: 0.0,
         ),
         body: ListView(children: <Widget>[
@@ -34,13 +35,12 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
             height: 402.0,
             margin: EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.white),
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Column(children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                    color: Colors.blueAccent,
+                    color: darkBlue,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10.0),
                         topRight: Radius.circular(10.0))),
@@ -49,8 +49,10 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                     child: Text(
                   "Ticket 123-AB-1333-45",
                   style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                  textScaleFactor: 1.5,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      fontFamily: "Helvetica"),
                 )),
               ),
               Container(
@@ -66,7 +68,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                             ),
                             child: Text(
                               "Bus type comfort+",
-                              style: TextStyle(color: Colors.blue),
+                              style: TextStyle(color: darkBlue),
                             )),
                         Padding(
                             padding: EdgeInsets.only(
@@ -74,7 +76,9 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                             ),
                             child: Text("Kiev",
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 20.0)))
+                                    color: Colors.black,
+                                    fontSize: 20.0,
+                                    fontFamily: "SFProText")))
                       ],
                     ),
                     Row(
@@ -84,9 +88,10 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                             child: Text(
                               "00:10",
                               style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 50.0,
-                                  fontWeight: FontWeight.bold),
+                                  color: darkBlue,
+                                  fontSize: 60.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Helvetica"),
                             ))
                       ],
                     ),
@@ -105,7 +110,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                             padding: EdgeInsets.only(
                               left: 85.0,
                             ),
-                            child: Text("Departure",
+                            child: Text("DEPARTURE",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -125,7 +130,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                           padding: EdgeInsets.only(left: 100.0),
                           child: Text(
                             "Krakav",
-                            style: TextStyle(fontSize: 15.0),
+                            style: TextStyle(
+                                fontSize: 20.0, fontFamily: "SFProText"),
                           ),
                         )
                       ],
@@ -140,9 +146,10 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                             child: Text(
                               "15:40",
                               style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 50.0,
-                                  fontWeight: FontWeight.bold),
+                                  color: darkBlue,
+                                  fontSize: 60.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Helvetica"),
                             ))
                       ],
                     ),
@@ -152,7 +159,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                             padding: EdgeInsets.only(left: 10.0),
                             child: Text("Ivonav Sahsa",
                                 style: TextStyle(
-                                    color: Colors.blue,
+                                    fontSize: 17.0,
+                                    color: darkBlue,
                                     fontWeight: FontWeight.bold))),
                         Padding(
                             padding: EdgeInsets.only(left: 20.0),
@@ -175,8 +183,10 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                         bottomRight: Radius.circular(10.0))),
                 child: Center(
                     child: Text("448.6 UAH",
-                        textScaleFactor: 1.5,
-                        style: TextStyle(color: Colors.blue))),
+                        style: TextStyle(
+                            color: darkBlue,
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold))),
               )
             ]),
           ),
@@ -196,9 +206,9 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                         child: Text(
                           "Canel fees:",
                           style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.red,
+                            fontSize: 30.0,
+                          ),
                         )),
                     Padding(
                         padding: EdgeInsets.only(left: 85.0),
@@ -215,10 +225,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                         padding: EdgeInsets.only(left: 10.0),
                         child: Text(
                           "Total Cut:",
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.red, fontSize: 30.0),
                         )),
                     Padding(
                         padding: EdgeInsets.only(left: 120.0),
@@ -244,9 +251,9 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                           child: Text(
                             "Paid back:",
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.white,
+                              fontSize: 20.0,
+                            ),
                           )),
                       Padding(
                           padding: EdgeInsets.only(left: 80.0),
@@ -275,8 +282,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
               color: Colors.red,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(10.0),
-                    topLeft: Radius.circular(10.0)),
+                    bottomRight: Radius.circular(25.0),
+                    topLeft: Radius.circular(25.0)),
               ),
               onPressed: () {
                 setState(() {

@@ -70,6 +70,7 @@ class _GunselScaffoldState extends State<GunselScaffold> {
                           "${widget.appBarTitle}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
+                            fontFamily: "SFProText",
                             fontSize: ScreenUtil().setSp(35),
                           ),
                         )
