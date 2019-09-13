@@ -29,8 +29,8 @@ class GunselButton extends StatelessWidget {
       child: ButtonTheme(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(20.0),
-            topLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(15.0),
+            topLeft: Radius.circular(15.0),
           ),
         ),
         buttonColor: Colors.yellow,

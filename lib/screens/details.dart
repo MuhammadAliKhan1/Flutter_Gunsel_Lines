@@ -121,17 +121,19 @@ class _DetailScreenState extends State<DetailScreen> {
         SizedBox(
           height: ScreenUtil().setHeight(100),
         ),
-        GunselButton(
-          btnWidth: 500,
-          btnText: 'Continue',
-          btnTextFontSize: 40,
-          whenPressed: () {
-            Navigator.pushNamed(
-              context,
-              ticketSummaryScreen,
-            );
-          },
-        ),
+        Center(
+          child: GunselButton(
+            btnWidth: 500,
+            btnText: 'Continue',
+            btnTextFontSize: 40,
+            whenPressed: () {
+              Navigator.pushNamed(
+                context,
+                ticketSummaryScreen,
+              );
+            },
+          ),
+        )
       ],
     );
   }
