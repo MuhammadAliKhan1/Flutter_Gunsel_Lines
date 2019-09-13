@@ -9,11 +9,13 @@ class GunselScaffold extends StatefulWidget {
   final String appBarTitle;
   final AssetImage backgroundImage;
   final Color appBarColor;
+  final AssetImage appBarIcon;
   GunselScaffold({
     Key key,
     @required this.bodyWidget,
     @required this.appBarIncluded,
     @required this.backgroundImage,
+    @required this.appBarIcon,
     this.drawerIncluded,
     this.appBarColor,
     this.appBarTitle,
@@ -57,10 +59,12 @@ class _GunselScaffoldState extends State<GunselScaffold> {
               ? AppBar(
                   leading: GestureDetector(
                       child: Image(
-                        image: menuIcon,
+                        image: widget.appBarIcon,
                       ),
                       onTap: () {
-                        _scaffoldKey.currentState.openDrawer();
+                        widget.appBarIcon == menuIcon
+                            ? _scaffoldKey.currentState.openDrawer()
+                            : Navigator.pop(context);
                       }),
                   backgroundColor: widget.appBarColor == null
                       ? Colors.transparent

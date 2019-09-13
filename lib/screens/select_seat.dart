@@ -16,160 +16,171 @@ class SelectSeat extends StatelessWidget {
   }
 }
 
-class SelectSeatScreen extends StatefulWidget {
-  @override
-  _SelectSeatScreenState createState() => _SelectSeatScreenState();
-}
-
-class _SelectSeatScreenState extends State<SelectSeatScreen> {
+class SelectSeatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         ListView(
-            padding: EdgeInsets.only(left: 5.0, right: 5.0),
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text(
-                        "Your seat",
-                        style: TextStyle(color: Colors.yellow),
-                      ),
-                      Text(
-                        "Details",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        "Purchase Details",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        "Purchase",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: Image(
-                          image: wizardOne,
-                          height: ScreenUtil().setSp(50),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SingleChildScrollView(
-                child: Ticket(),
-              ),
-              ListTile(
-                contentPadding:
-                    EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                title: Text(
-                  "Bus Info:",
-                  style: TextStyle(color: Colors.white),
-                ),
-                trailing: Image(
-                  image: bus,
-                  height: ScreenUtil().setSp(70),
-                ),
-              ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    width: 100.0,
-                    height: 20.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Container(
-                          width: 20.0,
-                          height: 20.0,
-                          color: red,
-                        ),
-                        Text(
-                          "Occupied",
-                          style: TextStyle(fontSize: 14.0, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 100.0,
-                    height: 20.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Container(
-                          width: 20.0,
-                          height: 20.0,
+          padding: EdgeInsets.all(5.0),
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text("Your seat",
+                        style: TextStyle(
+                            color: Colors.yellow,
+                            fontFamily: 'Helvetica',
+                            fontWeight: FontWeight.w600)),
+                    Text(
+                      "Details",
+                      style: TextStyle(
                           color: Colors.white,
-                        ),
-                        Text(
-                          "Free",
-                          style: TextStyle(fontSize: 14.0, color: Colors.white),
-                        ),
-                      ],
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      "Purchase Details",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      "Purchase",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+                FittedBox(
+                  alignment: Alignment.center,
+                  child: Image(
+                    height: 30,
+                    width: 310,
+                    image: wizardOne,
+                  ),
+                ),
+                SelectSeatTicket(),
+                ListTile(
+                  contentPadding: EdgeInsets.all(20),
+                  title: Text(
+                    'Bus Info:',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontFamily: 'Helvetica',
+                      fontStyle: FontStyle.italic,
                     ),
                   ),
-                  Container(
-                    width: 100.0,
-                    height: 20.0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Container(
-                          width: 20.0,
-                          height: 20.0,
-                          color: green,
-                        ),
-                        Text(
-                          "Selected",
-                          style: TextStyle(fontSize: 14.0, color: Colors.white),
-                        ),
-                      ],
+                  trailing: FittedBox(
+                    child: Image(
+                      image: bus,
+                      width: 120,
+                      height: 50,
                     ),
                   ),
-                ],
-              ),
-              getSeatRow(1, 2, 3, 4),
-              getSeatRow(5, 6, 7, 8),
-              getSeatRow(9, 10, 11, 12),
-              getSeatRow(13, 14, 15, 16),
-              getSeatRow(17, 18, 19, 20),
-              getSeatRow(21, 22, 23, 24),
-              getSeatRow(25, 26, 27, 28),
-              getSeatRow(29, 30, 31, 32),
-              SizedBox(
-                height: 80,
-              )
-            ]),
+                ),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      width: 100.0,
+                      height: 20.0,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Container(
+                            width: 20.0,
+                            height: 20.0,
+                            color: red,
+                          ),
+                          Text(
+                            "Occupied",
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.white,
+                                fontFamily: 'MyriadPro'),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 100.0,
+                      height: 20.0,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            width: 20.0,
+                            height: 20.0,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Free",
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.white,
+                                fontFamily: 'MyriadPro'),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 100.0,
+                      height: 20.0,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Container(
+                            width: 20.0,
+                            height: 20.0,
+                            color: green,
+                          ),
+                          Text(
+                            "Selected",
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.white,
+                                fontFamily: 'MyriadPro'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            getSeatRow(1, 2, 3, 4),
+            getSeatRow(5, 6, 7, 8),
+            getSeatRow(9, 10, 11, 12),
+            getSeatRow(13, 14, 15, 16),
+            getSeatRow(17, 18, 19, 20),
+            getSeatRow(21, 22, 23, 24),
+            getSeatRow(25, 26, 27, 28),
+            getSeatRow(29, 30, 31, 32),
+            SizedBox(
+              height: 80,
+            )
+          ],
+        ),
         Align(
-          alignment: Alignment.bottomCenter,
           child: GunselButton(
-            whenPressed: () {
-              Navigator.pushNamed(context, detailScreen);
-            },
             btnWidth: 500,
             btnText: 'Search',
             btnTextFontSize: 40,
+            whenPressed: () {
+              Navigator.pushNamed(context, detailScreen);
+            },
           ),
+          alignment: Alignment.bottomCenter,
         )
       ],
     );
@@ -195,7 +206,10 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
           child: Center(
             child: Text(
               "$n",
-              style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w700),
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'Helvetica'),
             ),
           ),
         )
@@ -218,7 +232,8 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                   getSeat(n1),
                   getSeat(n2),
                 ]),
-          ),Container(
+          ),
+          Container(
             width: ScreenUtil().setWidth(200),
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -235,156 +250,133 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   }
 }
 
-class Ticket extends StatefulWidget {
-  @override
-  _TicketState createState() => _TicketState();
-}
-
-class _TicketState extends State<Ticket> {
+class SelectSeatTicket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FittedBox(
-      fit: BoxFit.fitWidth,
-      child: Stack(
-        children: <Widget>[
-          Image(
-            image: smallTicket,
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Container(
-              child: Center(
-                child: Text(
-                  'i',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: ScreenUtil(allowFontScaling: true).setSp(35),
-                  ),
-                ),
-              ),
-              height: 25,
-              width: 25,
-              decoration: BoxDecoration(
-                  color: darkBlue.withOpacity(0.92),
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(10),
-                    topLeft: Radius.circular(8),
-                  )),
+      child: Container(
+        margin: EdgeInsets.only(top: 10.0),
+        height: 200,
+        child: Stack(
+          children: <Widget>[
+            Image(
+              image: selectSeatScreenTicket,
             ),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                width: 60,
-              ),
-              Column(
+            Padding(
+              padding: EdgeInsets.only(left: 75.0, bottom: 30),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    '13',
-                    style: TextStyle(
-                      fontSize: 60,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                  Text(
-                    '08 2019',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  )
-                ],
-              ),
-              SizedBox(
-                width: 38,
-              ),
-              Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    color: Colors.grey,
-                    height: 100,
-                    width: 1,
-                  )
-                ],
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Column(
-                children: <Widget>[
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Column(children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.only(right: 90),
+                      SizedBox(
+                        height: 120,
+                        width: 130,
+                        child: Text(
+                          '13',
+                          style: TextStyle(
+                              fontSize: 120,
+                              color: Colors.black,
+                              fontFamily: 'SFProText',
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: -15),
+                        ),
+                      ),
+                      Text(
+                        '08 2019',
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.black,
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 90,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.only(right: 150),
                           child: Text(
                             'Kyiv',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 20,
                               color: Colors.black,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w600,
                             ),
-                          ),
+                          )),
+                      Text(
+                        '23:00',
+                        style: TextStyle(
+                          fontSize: 80,
+                          color: darkBlue,
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w600,
                         ),
-                        Text(
-                          '23:00',
-                          style: TextStyle(
-                              color: darkBlue,
-                              fontSize: 40,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        Text(
-                          'DEPARTURE',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ]),
-                      SizedBox(
-                        height: 50,
-                        width: 25,
                       ),
-                      Column(children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.only(right: 70),
+                      Text(
+                        'DEPARTURE',
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.black,
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.only(right: 150),
                           child: Text(
                             'Odessa',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 20,
                               color: Colors.black,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w600,
                             ),
-                          ),
+                          )),
+                      Text(
+                        '06:20',
+                        style: TextStyle(
+                          fontSize: 80,
+                          color: darkBlue,
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w600,
                         ),
-                        Text(
-                          '06:20',
-                          style: TextStyle(
-                              color: darkBlue,
-                              fontSize: 40,
-                              fontWeight: FontWeight.w700),
+                      ),
+                      Text(
+                        'ARRIVAL',
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.black,
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w600,
                         ),
-                        Text(
-                          'ARRIVAL',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ]),
+                      ),
                     ],
                   ),
                 ],
-              )
-            ],
-          )
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

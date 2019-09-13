@@ -64,7 +64,6 @@ flutter:
     - assets/2.0x/DrawerBG.png
     - assets/3.0x/DrawerBG.png
     - assets/4.0x/DrawerBG.png
-    - assets/st.png
     - assets/user.png
     - assets/czech.png
     - assets/ukraine.png
@@ -87,14 +86,7 @@ flutter:
     - assets/money.png
     - assets/newIcon.png
     - assets/purchasedticket.png
-    - images/front.webp
-    - images/seat.png
-    - images/news1.webp
-    - images/WP.png
-    - images/green_seat.png
-    - images/red_seat.png
-    - assets/bigticket.png
-    - images/thumbIcon.png
+    - assets/ticketw729h201.png
     - assets/cancelIcon.png
     - assets/profile_icon.png
     - assets/languageIcon.png
@@ -105,6 +97,15 @@ flutter:
     - assets/unchecked.png
     - assets/logo_light.png
     - assets/ticket.png
+    - assets/bigticket.png
+    - assets/selectseatscreen.png
+    - images/front.webp
+    - images/seat.png
+    - images/news1.webp
+    - images/WP.png
+    - images/green_seat.png
+    - images/red_seat.png
+    - images/thumbIcon.png
     - assets/backArrow_2.png
     - assets/menu_icon_2.png
     - assets/england.png

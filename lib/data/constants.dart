@@ -13,6 +13,8 @@ const int defaultScreenWidth = 640;
 const int defaultScreenHeight = 1136;
 //Images
 const AssetImage person = AssetImage('assets/person.png');
+const AssetImage selectSeatScreenTicket =
+    AssetImage('assets/selectseatscreen.png');
 
 const AssetImage personImage = AssetImage('assets/person-image.png');
 const AssetImage profileScreenBackground = AssetImage('assets/profileBG.jpg');
@@ -32,7 +34,8 @@ const AssetImage profileHolder = AssetImage('assets/profileholder.png');
 const AssetImage profileScreenLanguageIcon =
     AssetImage('assets/profileicon.png');
 const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
-const AssetImage smallTicket = AssetImage('assets/st.png');
+const AssetImage calenderIcon = AssetImage('assets/calender.png');
+const AssetImage smallTicket = AssetImage('assets/ticketw729h201.png');
 const AssetImage refreshIcon = AssetImage('assets/news_icon.svg');
 const AssetImage wizardOne = AssetImage('assets/1.png');
 const AssetImage wizardTwo = AssetImage('assets/2.png');
