@@ -199,12 +199,12 @@ class TicketViewState extends State<TicketView> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text(
-              "Odessa->Kyiv",
-              style: TextStyle(color: Colors.white),
+              "Odessa-Kyiv",
+              style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
             ),
             Text(
               "23.08.2019",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
             )
           ],
         ),
