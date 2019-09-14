@@ -5,6 +5,7 @@ class TicketSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GunselScaffold(
+      appBarIcon: backArrow,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       appBarTitle: 'Payment info',

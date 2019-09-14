@@ -82,7 +82,7 @@ flutter:
     - assets/3.png
     - assets/4.png
     - assets/bus.png
-    - assets/aboutcompany.png
+    - assets/aboutCompany.png
     - assets/money.png
     - assets/newIcon.png
     - assets/purchasedticket.png
@@ -98,7 +98,7 @@ flutter:
     - assets/logo_light.png
     - assets/ticket.png
     - assets/bigticket.png
-    - assets/selectseatscreen.png
+    - assets/selectSeatscreen.png
     - images/front.webp
     - images/seat.png
     - images/news1.webp

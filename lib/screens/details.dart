@@ -6,6 +6,7 @@ class Detail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GunselScaffold(
+      appBarIcon: backArrow,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       bodyWidget: DetailScreen(),

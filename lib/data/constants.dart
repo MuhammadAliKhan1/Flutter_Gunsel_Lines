@@ -14,7 +14,7 @@ const int defaultScreenHeight = 1136;
 //Images
 const AssetImage person = AssetImage('assets/person.png');
 const AssetImage selectSeatScreenTicket =
-    AssetImage('assets/selectseatscreen.png');
+    AssetImage('assets/selectSeatscreen.png');
 
 const AssetImage personImage = AssetImage('assets/person-image.png');
 const AssetImage profileScreenBackground = AssetImage('assets/profileBG.jpg');
@@ -44,7 +44,7 @@ const AssetImage wizardFour = AssetImage('assets/4.png');
 const AssetImage bus = AssetImage('assets/bus.png');
 const AssetImage swappingIcon = AssetImage("assets/swapping_icon.png");
 const AssetImage calendarIcon = AssetImage("assets/calendar_icon_1.png");
-const AssetImage aboutCompanyIcon = AssetImage('assets/aboutcompany.png');
+const AssetImage aboutCompanyIcon = AssetImage('assets/aboutCompany.png');
 const AssetImage news = AssetImage("images/news1.webp");
 const AssetImage frontNews = AssetImage("images/front.webp");
 const AssetImage newsIcon = AssetImage("assets/newIcon.png");

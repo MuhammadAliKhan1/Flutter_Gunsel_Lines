@@ -4,7 +4,7 @@ import 'package:gunsel/data/constants.dart';
 class SearchTicket extends StatelessWidget {
   Widget build(BuildContext context) {
     return GunselScaffold(
-      appBarIcon: backArrow,
+      appBarIcon: menuIcon,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       appBarColor: gunselColor,

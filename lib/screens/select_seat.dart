@@ -6,6 +6,7 @@ class SelectSeat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GunselScaffold(
+      appBarIcon: backArrow,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       bodyWidget: SelectSeatScreen(),

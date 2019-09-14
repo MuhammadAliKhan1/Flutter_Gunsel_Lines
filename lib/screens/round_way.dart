@@ -8,6 +8,7 @@ class RoundWay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GunselScaffold(
+      appBarIcon: menuIcon,
       backgroundImage: scaffoldImg,
       appBarTitleIncluded: true,
       appBarTitle: 'Search Ticket',

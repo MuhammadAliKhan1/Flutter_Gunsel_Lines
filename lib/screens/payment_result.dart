@@ -6,6 +6,7 @@ class PaymentResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GunselScaffold(
+      appBarIcon: backArrow,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       appBarTitle: 'Passenger Details',

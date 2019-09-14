@@ -65,6 +65,7 @@ class Router {
       default:
         return MaterialPageRoute(
           builder: (_) => GunselScaffold(
+            appBarIcon: menuIcon,
             bodyWidget: Center(
               child: Text(
                 'No route defined for ${settings.name}',
