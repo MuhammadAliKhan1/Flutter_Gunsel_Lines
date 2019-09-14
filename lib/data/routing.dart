@@ -1,4 +1,3 @@
-import 'package:gunsel/screens/Drawer/drawer.dart';
 import 'package:gunsel/screens/details.dart';
 import 'package:gunsel/screens/payment_result.dart';
 
@@ -26,7 +25,6 @@ class CustomRoute<T> extends MaterialPageRoute<T> {
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation, Widget child) {
-    if (settings.isInitialRoute) return child;
     return child;
   }
 }
