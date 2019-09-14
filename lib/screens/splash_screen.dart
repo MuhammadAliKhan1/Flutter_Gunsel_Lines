@@ -1,5 +1,4 @@
 import 'package:gunsel/data/constants.dart';
-import 'package:gunsel/screens/one_way.dart';
 
 class GunselSplash extends StatefulWidget {
   @override
