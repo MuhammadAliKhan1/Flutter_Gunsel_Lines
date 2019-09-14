@@ -17,6 +17,7 @@ class SearchTicket extends StatelessWidget {
 }
 
 class SearchTicketScreen extends StatefulWidget {
+  TabController tabs;
   @override
   State<StatefulWidget> createState() {
     return SearchTicketScreenState();
