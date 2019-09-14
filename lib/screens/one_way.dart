@@ -412,9 +412,8 @@ class RoundWayButton extends StatelessWidget {
       highlightElevation: 0.0,
       color: Colors.transparent,
       onPressed: () {
-        Navigator.of(context).pushReplacementNamed(
-          roundWayScreen,
-        );
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            roundWayScreen, (Route<dynamic> route) => false);
       },
     );
   }

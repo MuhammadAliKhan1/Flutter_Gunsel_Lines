@@ -19,53 +19,64 @@ import 'package:gunsel/screens/about_company.dart';
 import 'package:gunsel/screens/ticket_summary.dart';
 import 'package:gunsel/screens/language.dart';
 
+class CustomRoute<T> extends MaterialPageRoute<T> {
+  CustomRoute({WidgetBuilder builder, RouteSettings settings})
+      : super(builder: builder, settings: settings);
+
+  @override
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    if (settings.isInitialRoute) return child;
+    return child;
+  }
+}
+
 class Router {
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case homeScreen:
-        return MaterialPageRoute(builder: (BuildContext context) => OneWay());
+        return CustomRoute(builder: (BuildContext context) => OneWay());
       case detailScreen:
-        return MaterialPageRoute(builder: (BuildContext context) => Detail());
+        return CustomRoute(builder: (BuildContext context) => Detail());
       case paymentResultScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => PaymentResult());
+        return CustomRoute(builder: (BuildContext context) => PaymentResult());
       case loginScreen:
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return CustomRoute(builder: (_) => LoginScreen());
       case searchTicketScreen:
-        return MaterialPageRoute(builder: (_) => SearchTicket());
+        return CustomRoute(builder: (_) => SearchTicket());
       case selectSeatScreen:
-        return MaterialPageRoute(builder: (_) => SelectSeat());
+        return CustomRoute(builder: (_) => SelectSeat());
       case signUpScreen:
-        return MaterialPageRoute(builder: (_) => SignUp());
+        return CustomRoute(builder: (_) => SignUp());
       case roundWayScreen:
-        return MaterialPageRoute(builder: (_) => RoundWay());
+        return CustomRoute(builder: (_) => RoundWay());
       case cancelTicketScreen:
-        return MaterialPageRoute(builder: (_) => CancelTicket());
+        return CustomRoute(builder: (_) => CancelTicket());
       case oneWayScreen:
-        return MaterialPageRoute(builder: (_) => OneWay());
+        return CustomRoute(builder: (_) => OneWay());
       case finalCancelTicketScreen:
-        return MaterialPageRoute(builder: (_) => FinalCancelTicket());
+        return CustomRoute(builder: (_) => FinalCancelTicket());
       case newsScreen:
-        return MaterialPageRoute(builder: (_) => News());
+        return CustomRoute(builder: (_) => News());
       case articleScreen:
-        return MaterialPageRoute(builder: (_) => Article());
+        return CustomRoute(builder: (_) => Article());
       case profileScreen:
-        return MaterialPageRoute(builder: (_) => Profile());
+        return CustomRoute(builder: (_) => Profile());
       case aboutCompanyScreen:
-        return MaterialPageRoute(builder: (_) => AboutCompany());
+        return CustomRoute(builder: (_) => AboutCompany());
       case ticketSummaryScreen:
-        return MaterialPageRoute(builder: (_) => TicketSummary());
+        return CustomRoute(builder: (_) => TicketSummary());
       case splashScreen:
-        return MaterialPageRoute(builder: (_) => GunselSplash());
+        return CustomRoute(builder: (_) => GunselSplash());
       case languageScreen:
-        return MaterialPageRoute(builder: (_) => Language());
+        return CustomRoute(builder: (_) => Language());
       case finalCancelTicketScreen:
-        return MaterialPageRoute(builder: (_) => FinalCancelTicket());
+        return CustomRoute(builder: (_) => FinalCancelTicket());
 
       default:
-        return MaterialPageRoute(
+        return CustomRoute(
           builder: (_) => GunselScaffold(
-            appBarIcon: menuIcon,
+            appBarIcon: backArrow,
             bodyWidget: Center(
               child: Text(
                 'No route defined for ${settings.name}',

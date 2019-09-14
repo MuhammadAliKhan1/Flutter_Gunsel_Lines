@@ -4,10 +4,10 @@ class GunselButton extends StatelessWidget {
   final String btnFontFamily;
   final int btnWidth;
   final double btnHeight;
-  @required
   final int btnTextFontSize;
   final String btnText;
   final Color btnTextColor;
+  final FontWeight textWeight;
   Function whenPressed;
   GunselButton(
       {Key key,
@@ -17,7 +17,8 @@ class GunselButton extends StatelessWidget {
       this.btnText,
       this.btnTextColor,
       this.btnTextFontSize,
-      this.btnFontFamily})
+      this.btnFontFamily,
+      this.textWeight})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -39,11 +40,13 @@ class GunselButton extends StatelessWidget {
             "$btnText",
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: btnTextFontSize == null
-                    ? 5.0
-                    : ScreenUtil(allowFontScaling: true).setSp(btnTextFontSize),
-                color: btnTextColor,
-                fontFamily: btnFontFamily),
+              fontSize: btnTextFontSize == null
+                  ? 5.0
+                  : ScreenUtil(allowFontScaling: true).setSp(btnTextFontSize),
+              color: btnTextColor,
+              fontFamily: btnFontFamily,
+              fontWeight: this.textWeight,
+            ),
           ),
           onPressed: () {
             whenPressed();

@@ -14,7 +14,8 @@ const int defaultScreenHeight = 1136;
 //Images
 const AssetImage person = AssetImage('assets/person.png');
 const AssetImage selectSeatScreenTicket =
-    AssetImage('assets/selectSeatscreen.png');
+    AssetImage('assets/selectseatscreen.png');
+const AssetImage smallTicket = AssetImage('assets/ticketw729h201.png');
 
 const AssetImage personImage = AssetImage('assets/person-image.png');
 const AssetImage profileScreenBackground = AssetImage('assets/profileBG.jpg');
@@ -35,7 +36,6 @@ const AssetImage profileScreenLanguageIcon =
     AssetImage('assets/profileicon.png');
 const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
 const AssetImage calenderIcon = AssetImage('assets/calender.png');
-const AssetImage smallTicket = AssetImage('assets/ticketw729h201.png');
 const AssetImage refreshIcon = AssetImage('assets/news_icon.svg');
 const AssetImage wizardOne = AssetImage('assets/1.png');
 const AssetImage wizardTwo = AssetImage('assets/2.png');
@@ -61,7 +61,7 @@ const AssetImage profileIcon = AssetImage("assets/profile_icon.png");
 const AssetImage telephone = AssetImage("assets/phone.png");
 const AssetImage backArrow = AssetImage("assets/backArrow_2.png");
 const AssetImage menuIcon = AssetImage("assets/menu_icon_2.png");
-
+const AssetImage paymentThumb = AssetImage('assets/payment_thumb.png');
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,
