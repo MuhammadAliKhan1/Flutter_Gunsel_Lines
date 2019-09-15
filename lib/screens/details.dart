@@ -385,7 +385,8 @@ class _DetailFormState extends State<DetailForm> {
                           child: Row(
                             children: <Widget>[
                               FittedBox(
-                                child: DropdownButton(
+                                child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
                                   icon: Text(
                                     ' ${this._currentCode} ',
                                     style: TextStyle(fontSize: 17),
@@ -394,7 +395,7 @@ class _DetailFormState extends State<DetailForm> {
                                   value: _currentFlag,
                                   items: _dropDownMenuItems,
                                   onChanged: changedDropDownItem,
-                                ),
+                                )),
                               ),
                               Flexible(
                                 child: TextFormField(
@@ -447,4 +448,3 @@ class _DetailFormState extends State<DetailForm> {
     });
   }
 }
-

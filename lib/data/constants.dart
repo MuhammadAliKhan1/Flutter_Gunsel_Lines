@@ -11,6 +11,13 @@ export 'package:shared_preferences/shared_preferences.dart';
 
 const int defaultScreenWidth = 640;
 const int defaultScreenHeight = 1136;
+//Flags
+const AssetImage polandFlag = AssetImage('assets/poland.png');
+const AssetImage passwordIcon = AssetImage('assets/password_icon.png');
+const AssetImage czechFlag = AssetImage('assets/czech.png');
+const AssetImage ukraineFlag = AssetImage('assets/ukraine.png');
+const AssetImage englandFlag = AssetImage('assets/england.png');
+const AssetImage russiaFlag = AssetImage('assets/russia.png');
 //Images
 const AssetImage person = AssetImage('assets/person.png');
 const AssetImage selectSeatScreenTicket =
@@ -19,15 +26,12 @@ const AssetImage smallTicket = AssetImage('assets/ticketw729h201.png');
 
 const AssetImage personImage = AssetImage('assets/person-image.png');
 const AssetImage profileScreenBackground = AssetImage('assets/profileBG.jpg');
+const AssetImage userImg = AssetImage('assets/user.png');
 const AssetImage splashImg = AssetImage("assets/splash_image.jpg");
 const AssetImage loginImgBG = AssetImage("assets/loginBG.jpg");
 const AssetImage scaffoldImg = AssetImage("assets/BG.jpg");
 const AssetImage drawerAccountHeaderImg = AssetImage('assets/DrawerBG.png');
 const AssetImage drawerLogoutImg = AssetImage("assets/log_out_icon.png");
-const AssetImage userImg = AssetImage('assets/user.png');
-const AssetImage polandFlag = AssetImage('assets/poland.png');
-const AssetImage czechFlag = AssetImage('assets/czech.png');
-const AssetImage ukraineFlag = AssetImage('assets/ukraine.png');
 const AssetImage googleLogo = AssetImage('assets/google.png');
 const AssetImage facebookLogo = AssetImage('assets/facebook.png');
 const AssetImage whiteImage = AssetImage('assets/white.jpg');
@@ -44,7 +48,7 @@ const AssetImage wizardFour = AssetImage('assets/4.png');
 const AssetImage bus = AssetImage('assets/bus.png');
 const AssetImage swappingIcon = AssetImage("assets/swapping_icon.png");
 const AssetImage calendarIcon = AssetImage("assets/calendar_icon_1.png");
-const AssetImage aboutCompanyIcon = AssetImage('assets/aboutCompany.png');
+const AssetImage aboutCompanyIcon = AssetImage('assets/aboutcompany.png');
 const AssetImage news = AssetImage("images/news1.webp");
 const AssetImage frontNews = AssetImage("images/front.webp");
 const AssetImage newsIcon = AssetImage("assets/newIcon.png");
@@ -61,10 +65,13 @@ const AssetImage telephone = AssetImage("assets/phone.png");
 const AssetImage backArrow = AssetImage("assets/backArrow_2.png");
 const AssetImage menuIcon = AssetImage("assets/menu_icon_2.png");
 const AssetImage paymentThumb = AssetImage('assets/payment_thumb.png');
+const AssetImage gunselLoginLogo = AssetImage('assets/logo_light.png');
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,
-  '+38(0': ukraineFlag
+  '+38(0': ukraineFlag,
+  '+44': englandFlag,
+  '+7': russiaFlag
 };
 const facebookAPI = 'https://test-api.gunsel.ua/Public.svc/LoginWithFacebook';
 const tokenAPI =
