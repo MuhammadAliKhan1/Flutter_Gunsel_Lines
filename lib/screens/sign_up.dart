@@ -126,7 +126,7 @@ class SignUpState extends State<SignUp> {
                                     EdgeInsets.symmetric(vertical: 15.0),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "  Surename",
+                                hintText: "  Surname",
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0))),
                           )),
@@ -196,7 +196,7 @@ class SignUpState extends State<SignUp> {
                                     EdgeInsets.symmetric(vertical: 15.0),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "  Email",
+                                hintText: "  E-mail",
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0))),
                           )),
