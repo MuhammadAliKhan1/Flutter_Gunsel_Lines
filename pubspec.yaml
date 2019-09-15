@@ -66,11 +66,14 @@ flutter:
     - assets/4.0x/DrawerBG.png
     - assets/user.png
     - assets/czech.png
-    - assets/ukraine_flag.png
+    - assets/ukraine.png
     - assets/poland.png
     - assets/google.png
     - assets/facebook.png
     - assets/profileBG.jpg
+    - assets/russia.png
+    - assets/visaverify.png
+    - assets/mastercard.png
     - assets/russia.png
     - assets/person.png
     - assets/person-image.png
@@ -83,7 +86,7 @@ flutter:
     - assets/3.png
     - assets/4.png
     - assets/bus.png
-    - assets/aboutCompany.png
+    - assets/aboutcompany.png
     - assets/money.png
     - assets/newIcon.png
     - assets/purchasedticket.png
@@ -109,6 +112,7 @@ flutter:
     - images/seat.png
     - images/news1.webp
     - images/green_seat.png
+    - assets/gradient.png
     - images/red_seat.png
     - assets/russia.png
     - assets/checked.png

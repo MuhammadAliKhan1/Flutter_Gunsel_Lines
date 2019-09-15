@@ -124,7 +124,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
           btnTextFontSize: 40,
           btnTextColor: darkBlue,
           whenPressed: () {
-            Navigator.pushNamed(context, paymentResultScreen);
+            Navigator.pushNamed(context, payScreen);
           },
         )),
       ],

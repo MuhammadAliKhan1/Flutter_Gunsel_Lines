@@ -3,6 +3,7 @@ import 'package:gunsel/screens/payment_result.dart';
 
 import 'constants.dart';
 import 'package:gunsel/screens/splash_screen.dart';
+import 'package:gunsel/screens/pay.dart';
 import 'package:gunsel/screens/login.dart';
 import 'package:gunsel/screens/search_ticket.dart';
 import 'package:gunsel/screens/select_seat.dart';
@@ -39,6 +40,8 @@ class Router {
         return CustomRoute(builder: (BuildContext context) => Detail());
       case paymentResultScreen:
         return CustomRoute(builder: (BuildContext context) => PaymentResult());
+      case payScreen:
+        return CustomRoute(builder: (BuildContext context) => Pay());
       case loginScreen:
         return CustomRoute(builder: (_) => Login());
       case searchTicketScreen:

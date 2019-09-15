@@ -30,6 +30,7 @@ const AssetImage userImg = AssetImage('assets/user.png');
 const AssetImage splashImg = AssetImage("assets/splash_image.jpg");
 const AssetImage loginImgBG = AssetImage("assets/loginBG.jpg");
 const AssetImage scaffoldImg = AssetImage("assets/BG.jpg");
+const AssetImage gradientImg = AssetImage("assets/gradient.png");
 const AssetImage drawerAccountHeaderImg = AssetImage('assets/DrawerBG.png');
 const AssetImage drawerLogoutImg = AssetImage("assets/log_out_icon.png");
 const AssetImage googleLogo = AssetImage('assets/google.png');
@@ -66,6 +67,8 @@ const AssetImage backArrow = AssetImage("assets/backArrow_2.png");
 const AssetImage menuIcon = AssetImage("assets/menu_icon_2.png");
 const AssetImage paymentThumb = AssetImage('assets/payment_thumb.png');
 const AssetImage gunselLoginLogo = AssetImage('assets/logo_light.png');
+const AssetImage visaLogo = AssetImage('assets/visaverify.png');
+const AssetImage mastercardLogo = AssetImage('assets/mastercard.png');
 const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,
@@ -84,6 +87,7 @@ const String loginScreen = '/login';
 const String searchTicketScreen = '/searchTicket';
 const String selectSeatScreen = '/selectSeat';
 const String signUpScreen = '/signup';
+const String payScreen = '/pay';
 const String roundWayScreen = '/roundway';
 const String cancelTicketScreen = '/cancelticket';
 const String oneWayScreen = '/oneway';
