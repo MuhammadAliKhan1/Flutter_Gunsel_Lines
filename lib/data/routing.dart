@@ -39,7 +39,7 @@ class Router {
       case paymentResultScreen:
         return CustomRoute(builder: (BuildContext context) => PaymentResult());
       case loginScreen:
-        return CustomRoute(builder: (_) => LoginScreen());
+        return CustomRoute(builder: (_) => Login());
       case searchTicketScreen:
         return CustomRoute(builder: (_) => SearchTicket());
       case selectSeatScreen:

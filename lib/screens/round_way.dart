@@ -436,9 +436,8 @@ class OneWayButton extends StatelessWidget {
       highlightElevation: 0.0,
       color: Colors.transparent,
       onPressed: () {
-        Navigator.canPop(context)
-            ? Navigator.popAndPushNamed(context, oneWayScreen)
-            : Navigator.pushNamed(context, oneWayScreen);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            oneWayScreen, (Route<dynamic> route) => false);
       },
     );
   }

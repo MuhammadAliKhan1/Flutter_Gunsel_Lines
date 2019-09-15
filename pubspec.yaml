@@ -71,6 +71,7 @@ flutter:
     - assets/google.png
     - assets/facebook.png
     - assets/profileBG.jpg
+    - assets/russia.png
     - assets/person.png
     - assets/person-image.png
     - assets/white.jpg
@@ -101,6 +102,7 @@ flutter:
     - assets/selectseatscreen.png
     - assets/backArrow_2.png
     - assets/menu_icon_2.png
+    - assets/password_icon.png
     - assets/england.png
     - assets/payment_thumb.png
     - images/front.webp

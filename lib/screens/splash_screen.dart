@@ -15,10 +15,10 @@ class _GunselSplashState extends State<GunselSplash> {
 
   Future<Timer> getToken() async {
     token.getToken();
-    return Timer(Duration(seconds: 3), onReceivingToken);
+    return Timer(Duration(seconds: 3), navigateToHome);
   }
 
-  onReceivingToken() async {
+  navigateToHome() async {
     Navigator.of(context)
         .pushNamedAndRemoveUntil(homeScreen, (Route<dynamic> route) => false);
   }
