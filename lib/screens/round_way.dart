@@ -87,6 +87,7 @@ class _OneWayFormState extends State<RoundWayForm> {
   TextEditingController _arrivalStation = TextEditingController();
   TextEditingController _departureStation = TextEditingController();
   TextEditingController _travelInputDate;
+  TextEditingController _departureInputDate;
   String _arrivalStationVal;
   String _departureStationVal;
   List<String> stationList;
@@ -263,13 +264,13 @@ class _OneWayFormState extends State<RoundWayForm> {
             width: ScreenUtil().setWidth(550),
             child: InkWell(
               onTap: () {
-                _travelSelectedDate(context);
+                _departureSelectedDate(context);
               },
               child: AbsorbPointer(
                 child: TextFormField(
                   style: TextStyle(color: Colors.blue, fontSize: 17.0),
                   keyboardType: TextInputType.datetime,
-                  controller: this._travelInputDate,
+                  controller: this._departureInputDate,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
@@ -418,6 +419,19 @@ class _OneWayFormState extends State<RoundWayForm> {
     if (picked != null)
       setState(() {
         this._travelInputDate = new TextEditingController(
+            text: "${picked.day}.${picked.month}.${picked.year}");
+      });
+  }
+
+  Future _departureSelectedDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: new DateTime(2019),
+        lastDate: new DateTime(2020));
+    if (picked != null)
+      setState(() {
+        this._departureInputDate = new TextEditingController(
             text: "${picked.day}.${picked.month}.${picked.year}");
       });
   }

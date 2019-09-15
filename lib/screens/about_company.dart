@@ -62,108 +62,59 @@ class AboutCompanyState extends State<AboutCompany> {
                     text: TextSpan(children: <TextSpan>[
                   TextSpan(
                       text:
-                          "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
+                          "<<Gunsel Group>> company was formed in 1997, by starting its first transportation of passengers.\n\n",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15.0,
+                          fontSize: 14.0,
                           fontFamily: "Helvetica")),
                   TextSpan(
                       text:
-                          "Few hills tears are weeks saw. Partiality insensible celebrated is in. Am offended as wandered thoughts",
+                          "Due to high professionalism of the team of the team and modern technical equipment the company soon diversified its activities by adding express- delivery of the email all over Ukraine.\n\n",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15.0,
+                          fontSize: 14.0,
                           fontFamily: "Helvetica")),
                   TextSpan(
                       text:
-                          "greatest an friendly. Evening covered in he exposed fertile to. Horses seeing at played plenty nature to expect we.",
+                          "Late in 2015 the company got the license of \"Ukrainian Aviation Service\" for excercising international transits, and it began business with \"Turkish Airline Inc.\" that has largest covering in the world.\n\n",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15.0,
+                          fontSize: 14.0,
                           fontFamily: "Helvetica")),
                   TextSpan(
                       text:
-                          "Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end.",
+                          "As a result we deliver the cargo to every destination in the world at reasonable tariffs and with high-quality service\n\n",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15.0,
+                          fontSize: 14.0,
                           fontFamily: "Helvetica")),
                   TextSpan(
                       text:
-                          "Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end.",
+                          "A year later <<Gunsel Group>> comes to the world market of passenger transportation. In 2016 the first route \"KIEV - WARSAW\" started on regular basis.\n\n",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15.0,
+                          fontSize: 14.0,
                           fontFamily: "Helvetica")),
                   TextSpan(
                       text:
-                          "Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end.",
+                          "Having reached best results the <<Gunsel Group>> continues to expand routes map to perform transportation to other European countries\n\n",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15.0,
+                          fontSize: 14.0,
                           fontFamily: "Helvetica")),
                   TextSpan(
                       text:
-                          "Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end.",
+                          "We have been a leading company in road transportation for over 20 years.\n\n",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15.0,
+                          fontSize: 14.0,
                           fontFamily: "Helvetica")),
                   TextSpan(
                       text:
-                          "Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end.",
+                          "Professionalism, high quolity, performance responsibility, high level comfort and service in the main policy for <<Gunsel Group>> staff\n\n",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15.0,
-                          fontFamily: "Helvetica")),
-                  TextSpan(
-                      text:
-                          "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontFamily: "Helvetica")),
-                  TextSpan(
-                      text:
-                          "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontFamily: "Helvetica")),
-                  TextSpan(
-                      text:
-                          "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontFamily: "Helvetica")),
-                  TextSpan(
-                      text:
-                          "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontFamily: "Helvetica")),
-                  TextSpan(
-                      text:
-                          "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontFamily: "Helvetica")),
-                  TextSpan(
-                      text:
-                          "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontFamily: "Helvetica")),
-                  TextSpan(
-                      text:
-                          "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
+                          fontSize: 14.0,
                           fontFamily: "Helvetica")),
                 ])),
               ),
