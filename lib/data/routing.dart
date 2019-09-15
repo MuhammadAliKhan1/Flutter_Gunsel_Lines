@@ -1,4 +1,3 @@
-import 'package:gunsel/screens/Drawer/drawer.dart';
 import 'package:gunsel/screens/details.dart';
 import 'package:gunsel/screens/payment_result.dart';
 

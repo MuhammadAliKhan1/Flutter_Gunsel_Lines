@@ -79,7 +79,8 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Form(
+        child: Column(
       children: <Widget>[
         SizedBox(
           height: 50,
@@ -247,7 +248,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
         )
       ],
-    );
+    ));
   }
 
   List<DropdownMenuItem<AssetImage>> getDropDownMenuItems() {
