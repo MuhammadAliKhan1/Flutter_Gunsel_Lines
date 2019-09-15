@@ -92,7 +92,7 @@ class NewsState extends State<News> {
                       Container(
                           padding: EdgeInsets.only(left: 5.0, right: 5.0),
                           child:
-                              Image(image: news, height: 100.0, width: 150.0)),
+                              Image(image: news, height: 110.0, width: 150.0)),
                       Flexible(
                         child: RichText(
                             text: TextSpan(children: <TextSpan>[

@@ -209,7 +209,7 @@ class SelectSeatScreen extends StatelessWidget {
               "$n",
               style: TextStyle(
                   fontSize: 20.0,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w800,
                   fontFamily: 'Helvetica'),
             ),
           ),
