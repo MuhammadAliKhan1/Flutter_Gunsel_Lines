@@ -69,17 +69,6 @@ class LanguageState extends State<Language> {
                 trailing: GestureDetector(
                     onTap: () {
                       setState(() {
-                        /*if (checkBox1 == false) {
-                          path1 = "assets/unchecked.png";
-                          checkBox1 = true;
-                        } else if (checkBox1 == true &&
-                            checkBox2 == false &&
-                            checkBox3 == false) {
-                          path1 = "assets/checked.png";
-                          path2 = "assets/unchecked.png";
-                          path3 = "assets/unchecked.png";
-                          checkBox1 = false;
-                        }*/
                         if (checkBox1 == true) {
                           path1 = "assets/checked.png";
                           path2 = "assets/unchecked.png";
@@ -103,7 +92,7 @@ class LanguageState extends State<Language> {
                     ))),
             ListTile(
                 leading: Image.asset(
-                  "assets/england_flag.png",
+                  "assets/england.png",
                   height: 25.0,
                 ),
                 title: Text("English",
@@ -114,18 +103,6 @@ class LanguageState extends State<Language> {
                 trailing: GestureDetector(
                     onTap: () {
                       setState(() {
-                        /*if (checkBox2 == false) {
-                          path2 = "assets/unchecked.png";
-
-                          checkBox2 = true;
-                        } else if (checkBox2 == true &&
-                            checkBox1 == false &&
-                            checkBox3 == false) {
-                          path2 = "assets/checked.png";
-                          path1 = "assets/unchecked.png";
-                          path3 = "assets/unchecked.png";
-                          checkBox2 = false;
-                        }*/
                         if (checkBox2 == true) {
                           path2 = "assets/checked.png";
                           path1 = "assets/unchecked.png";
@@ -160,17 +137,6 @@ class LanguageState extends State<Language> {
                 trailing: GestureDetector(
                     onTap: () {
                       setState(() {
-                        /*if (checkBox3 == false) {
-                          path3 = "assets/unchecked.png";
-                          checkBox3 = true;
-                        } else if (checkBox3 == true &&
-                            checkBox1 == false &&
-                            checkBox2 == false) {
-                          path3 = "assets/checked.png";
-                          path1 = "assets/unchecked.png";
-                          path2 = "assets/unchecked.png";
-                          checkBox3 = false;
-                        }*/
                         if (checkBox1 == true) {
                           path3 = "assets/checked.png";
                           path1 = "assets/unchecked.png";

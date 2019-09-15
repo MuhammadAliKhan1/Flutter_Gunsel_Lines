@@ -35,11 +35,11 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   SizedBox(
-                    height: 100,
+                    height: 190,
                   ),
                   Image(
                     image: gunselLoginLogo,
-                    height: 80,
+                    height: 90,
                   ),
                   LoginForm(),
                 ],
@@ -83,7 +83,7 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
       children: <Widget>[
         SizedBox(
-          height: 50,
+          height: 80,
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,16 +110,18 @@ class _LoginFormState extends State<LoginForm> {
             Container(
                 child: Row(
               children: <Widget>[
-                Icon(Icons.phone, color: Colors.white, size: 30),
+                Icon(Icons.phone, color: Colors.white, size: 35),
                 Container(
-                  width: 250,
+                  width: 220,
                   height: 40,
                   child: TextFormField(
                     controller: this._number,
                     keyboardType: TextInputType.number,
-                    style: TextStyle(color: Colors.white, fontSize: 23),
+                    style: TextStyle(color: Colors.white, fontSize: 25),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10),
+                      hintText: "$_currentCode",
+                      hintStyle: TextStyle(color: Colors.white),
+                      contentPadding: EdgeInsets.all(7),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
@@ -127,7 +129,7 @@ class _LoginFormState extends State<LoginForm> {
                         "$_currentCode  ",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 23,
+                          fontSize: 25,
                         ),
                       ),
                     ),
@@ -150,14 +152,16 @@ class _LoginFormState extends State<LoginForm> {
               height: 30,
             ),
             Container(
-              width: 300,
+              width: 350,
               height: 40,
               child: TextFormField(
                 obscureText: true,
                 controller: this._password,
-                style: TextStyle(color: Colors.white, fontSize: 23),
+                style: TextStyle(color: Colors.white, fontSize: 25),
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10),
+                  hintText: "Password",
+                  hintStyle: TextStyle(color: Colors.white, fontSize: 25.0),
+                  contentPadding: EdgeInsets.all(7),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
@@ -168,22 +172,22 @@ class _LoginFormState extends State<LoginForm> {
         )),
         Container(
           height: 40,
-          width: 325,
+          width: 360,
           child: InkWell(
             child: Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'Forgot your password?',
+                'Forgot Password?',
                 style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 17,
+                  color: Colors.lightBlueAccent,
+                  fontSize: 20,
                 ),
               ),
             ),
           ),
         ),
         SizedBox(
-          height: 25,
+          height: 15,
         ),
         Container(
           height: 60,
@@ -198,10 +202,10 @@ class _LoginFormState extends State<LoginForm> {
               GunselButton(
                 btnWidth: 320,
                 whenPressed: () {},
-                btnFontFamily: 'MyriadPro',
-                textWeight: FontWeight.w700,
+                btnFontFamily: 'SFProText',
+                textWeight: FontWeight.w500,
                 btnText: 'Sign In',
-                btnTextFontSize: 40,
+                btnTextFontSize: 45,
                 btnHeight: 45,
               ),
               Image(
@@ -211,7 +215,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 15,
         ),
         Container(
           width: 400,
@@ -224,7 +228,7 @@ class _LoginFormState extends State<LoginForm> {
                 "Don't have an account?",
                 style: TextStyle(
                   fontSize: 18,
-                  fontFamily: 'MyriadPro',
+                  fontFamily: 'SFProText',
                   color: Colors.white,
                 ),
               ),
@@ -239,7 +243,7 @@ class _LoginFormState extends State<LoginForm> {
                   'Sign Up',
                   style: TextStyle(
                     fontSize: 20,
-                    fontFamily: 'MyriadPro',
+                    fontFamily: 'SFProText',
                     color: Colors.yellow,
                   ),
                 ),

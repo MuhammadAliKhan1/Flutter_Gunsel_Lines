@@ -24,8 +24,6 @@ class SignUpState extends State<SignUp> {
   TextEditingController _password = TextEditingController();
   TextEditingController _repassword = TextEditingController();
 
-  static var _countries = ["Pak", "USA", "Germany"];
-
   int value;
   @override
   void initState() {
@@ -141,22 +139,23 @@ class SignUpState extends State<SignUp> {
                                   borderRadius: BorderRadius.circular(5.0),
                                   color: Colors.white,
                                 ),
-                                child: DropdownButton(
+                                child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
                                   icon: Icon(
                                     Icons.keyboard_arrow_down,
-                                    color: Colors.black,
+                                    color: Colors.grey,
                                     size: ScreenUtil(
                                       allowFontScaling: true,
-                                    ).setHeight(45),
+                                    ).setHeight(40),
                                   ),
                                   elevation: 0,
                                   value: _currentFlag,
                                   items: _dropDownMenuItems,
                                   onChanged: changedDropDownItem,
-                                ),
+                                )),
                               )),
                           Expanded(
-                              flex: 5,
+                              flex: 6,
                               child: Padding(
                                   padding: EdgeInsets.only(
                                       top: 10.0, right: 10.0, left: 10.0),
@@ -264,8 +263,11 @@ class SignUpState extends State<SignUp> {
                   child: RaisedButton(
                     child: Text(
                       "Sign Up",
-                      textScaleFactor: 1.5,
-                      style: TextStyle(color: gunselColor),
+                      style: TextStyle(
+                          color: gunselColor,
+                          fontSize: 20.0,
+                          fontFamily: "SFProText",
+                          fontWeight: FontWeight.w500),
                     ),
                     highlightColor: Colors.yellow,
                     color: Colors.yellow,
@@ -308,7 +310,7 @@ class SignUpState extends State<SignUp> {
           value: flag,
           child: new Image(
             image: flag,
-            height: ScreenUtil().setHeight(45),
+            height: 30,
           )));
     }
     return items;
