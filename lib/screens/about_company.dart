@@ -47,7 +47,7 @@ class AboutCompanyState extends State<AboutCompany> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 20.0,
-                        fontFamily: "MyriadPro"),
+                        fontFamily: "Helvetica"),
                   )),
               Container(
                 child: Image(

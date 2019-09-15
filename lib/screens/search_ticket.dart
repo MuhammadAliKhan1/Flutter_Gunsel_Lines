@@ -4,7 +4,7 @@ import 'package:gunsel/data/constants.dart';
 class SearchTicket extends StatelessWidget {
   Widget build(BuildContext context) {
     return GunselScaffold(
-      appBarIcon: backArrow,
+      appBarIcon: menuIcon,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       appBarColor: gunselColor,
@@ -17,6 +17,7 @@ class SearchTicket extends StatelessWidget {
 }
 
 class SearchTicketScreen extends StatefulWidget {
+  TabController tabs;
   @override
   State<StatefulWidget> createState() {
     return SearchTicketScreenState();
@@ -120,12 +121,12 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text(
-              "Odessa->Kyiv",
-              style: TextStyle(color: Colors.white),
+              "Odessa-Kyiv",
+              style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
             ),
             Text(
               "23.08.2019",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
             )
           ],
         ),

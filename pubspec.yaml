@@ -66,7 +66,7 @@ flutter:
     - assets/4.0x/DrawerBG.png
     - assets/user.png
     - assets/czech.png
-    - assets/ukraine.png
+    - assets/ukraine_flag.png
     - assets/poland.png
     - assets/google.png
     - assets/facebook.png
@@ -83,7 +83,7 @@ flutter:
     - assets/3.png
     - assets/4.png
     - assets/bus.png
-    - assets/aboutcompany.png
+    - assets/aboutCompany.png
     - assets/money.png
     - assets/newIcon.png
     - assets/purchasedticket.png
@@ -102,14 +102,23 @@ flutter:
     - assets/selectseatscreen.png
     - assets/backArrow_2.png
     - assets/menu_icon_2.png
+<<<<<<< HEAD
     - assets/password_icon.png
     - assets/england.png
+||||||| merged common ancestors
+    - assets/england.png
+=======
+    - assets/england_flag.png
+>>>>>>> e408f4775c1a196d9fac8525cb8ff83f4bc3f369
     - assets/payment_thumb.png
     - images/front.webp
     - images/seat.png
     - images/news1.webp
     - images/green_seat.png
     - images/red_seat.png
+    - assets/russia.png
+    - assets/checked.png
+    - assets/menu_background.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

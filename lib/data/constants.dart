@@ -58,7 +58,6 @@ const AssetImage moneyImage = AssetImage('assets/money.png');
 const AssetImage bigTicket = AssetImage('assets/bigticket.png');
 const AssetImage purchasedTicket = AssetImage('assets/purchasedticket.png');
 const AssetImage locationIcon = AssetImage("assets/map_icon.png");
-const AssetImage uncheckedBox = AssetImage("assets/unchecked.png");
 const AssetImage aboutImage = AssetImage("assets/about-Image.jpg");
 const AssetImage languageIcon = AssetImage("assets/languageIcon.png");
 const AssetImage profileIcon = AssetImage("assets/profile_icon.png");

@@ -12,6 +12,7 @@ class SignUp extends StatefulWidget {
 }
 
 class SignUpState extends State<SignUp> {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
   String _currentCode = '';
@@ -59,10 +60,18 @@ class SignUpState extends State<SignUp> {
           width: double.infinity,
         ),
         Scaffold(
+          key: _scaffoldKey,
           resizeToAvoidBottomPadding: false,
           drawer: SideDrawer(),
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            leading: GestureDetector(
+                child: Image(
+                  image: menuIcon,
+                ),
+                onTap: () {
+                  _scaffoldKey.currentState.openDrawer();
+                }),
             backgroundColor: Colors.transparent,
             title: Text("Registration",
                 style: TextStyle(fontFamily: "SFProText", fontSize: 22.0)),

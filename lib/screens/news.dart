@@ -58,10 +58,10 @@ class NewsState extends State<News> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                          padding: EdgeInsets.only(left: 5.0, right: 5.0),
                           child: Image(
                             image: news,
-                            height: 140.0,
+                            height: 100.0,
                             width: 150.0,
                           )),
                       Flexible(
@@ -90,9 +90,9 @@ class NewsState extends State<News> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                          padding: EdgeInsets.only(left: 5.0, right: 5.0),
                           child:
-                              Image(image: news, height: 120.0, width: 150.0)),
+                              Image(image: news, height: 110.0, width: 150.0)),
                       Flexible(
                         child: RichText(
                             text: TextSpan(children: <TextSpan>[
@@ -119,9 +119,9 @@ class NewsState extends State<News> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                          padding: EdgeInsets.only(left: 5.0, right: 5.0),
                           child:
-                              Image(image: news, height: 120.0, width: 150.0)),
+                              Image(image: news, height: 100.0, width: 150.0)),
                       Flexible(
                         child: RichText(
                             text: TextSpan(children: <TextSpan>[
@@ -148,9 +148,9 @@ class NewsState extends State<News> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                          padding: EdgeInsets.only(left: 5.0, right: 5.0),
                           child:
-                              Image(image: news, height: 120.0, width: 150.0)),
+                              Image(image: news, height: 100.0, width: 150.0)),
                       Flexible(
                         child: RichText(
                             text: TextSpan(children: <TextSpan>[
@@ -178,9 +178,9 @@ class NewsState extends State<News> {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 7.0, right: 7.0),
+                          padding: EdgeInsets.only(left: 5.0, right: 5.0),
                           child:
-                              Image(image: news, height: 120.0, width: 150.0)),
+                              Image(image: news, height: 100.0, width: 150.0)),
                       Flexible(
                         child: RichText(
                             text: TextSpan(children: <TextSpan>[
