@@ -407,6 +407,7 @@ class _DetailFormState extends State<DetailForm> {
                                   controller: this._number,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
+                                    border: InputBorder.none,
                                     contentPadding:
                                         EdgeInsets.symmetric(vertical: 10.0),
                                     fillColor: Colors.white,
