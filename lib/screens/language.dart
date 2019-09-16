@@ -58,7 +58,7 @@ class LanguageState extends State<Language> {
           body: ListView(children: <Widget>[
             ListTile(
                 leading: Image.asset(
-                  "assets/ukraine_flag.png",
+                  "assets/ukraine.png",
                   height: 25.0,
                 ),
                 title: Text("YkpaïHcbka",

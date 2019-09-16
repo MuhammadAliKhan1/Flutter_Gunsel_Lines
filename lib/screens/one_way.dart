@@ -275,6 +275,7 @@ class _OneWayFormState extends State<OneWayForm> {
                       fontFamily: 'SFProText'),
                 ),
                 Container(
+                  width: ScreenUtil().setWidth(220),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
                     color: Colors.white,
@@ -285,6 +286,7 @@ class _OneWayFormState extends State<OneWayForm> {
                         icon: Icon(
                           Icons.add,
                           color: Colors.black,
+                          size: 15.0,
                         ),
                         onPressed: () {
                           setState(() {
@@ -292,14 +294,17 @@ class _OneWayFormState extends State<OneWayForm> {
                           });
                         },
                       ),
+                      SizedBox(width: 7.0),
                       Text(
                         this.passengers.toString(),
                         style: TextStyle(color: Colors.black),
                       ),
+                      SizedBox(width: 7.0),
                       IconButton(
                         icon: Icon(
                           Icons.remove,
                           color: Colors.black,
+                          size: 15.0,
                         ),
                         onPressed: () {
                           setState(() {

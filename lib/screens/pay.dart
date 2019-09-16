@@ -30,7 +30,7 @@ class PayScreen extends StatelessWidget {
       child: Center(
           child: Container(
         width: MediaQuery.of(context).size.width - 60,
-        height: MediaQuery.of(context).size.height-60,
+        height: MediaQuery.of(context).size.height - 60,
         decoration: BoxDecoration(
           //shadow here
           color: Colors.white,
@@ -131,7 +131,9 @@ class PayScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(width: 50.0,),
+                      SizedBox(
+                        width: 10.0,
+                      ),
                       InkWell(
                         onTap: () {
                           Navigator.pop(context);
@@ -144,7 +146,9 @@ class PayScreen extends StatelessWidget {
                               fontFamily: 'MyriadPro'),
                         ),
                       ),
-                      SizedBox(width: 20.0,),
+                      SizedBox(
+                        width: 20.0,
+                      ),
                       Container(
                         height: 500,
                         width: 100,
@@ -276,7 +280,7 @@ class _FormState extends State<PayForm> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          width: 100,
+                          width: 90,
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.black54),
                               borderRadius: BorderRadius.circular(5.0),
@@ -382,19 +386,18 @@ class _FormState extends State<PayForm> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0))),
                         )),
-                        SizedBox(
-                          width: 40.0,
-                        ),
-                        Tooltip(
-                            message: 'Tooltip message here',
-                            child: Text(
-                              '?',
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'MyriadPro',
-                              ),
-                            )),
+                        Padding(
+                            padding: EdgeInsets.only(left: 10.0),
+                            child: Tooltip(
+                                message: 'Tooltip message here',
+                                child: Text(
+                                  '?',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: 'MyriadPro',
+                                  ),
+                                ))),
                       ],
                     ),
                   )
@@ -408,13 +411,13 @@ class _FormState extends State<PayForm> {
                 Container(
                   child: Image(
                     image: visaLogo,
-                    height: 50,
+                    height: 45,
                   ),
                 ),
                 Container(
                   child: Image(
                     image: mastercardLogo,
-                    height: 50,
+                    height: 45,
                   ),
                 ),
               ],

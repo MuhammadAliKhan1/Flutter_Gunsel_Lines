@@ -22,7 +22,7 @@ class ArticleState extends State<Article> {
           leading: GestureDetector(
             child: Image.asset("assets/backArrow_2.png"),
             onTap: () {
-              Navigator.pushNamed(context, newsScreen);
+              Navigator.pop(context);
             },
           ),
           backgroundColor: gunselColor,
