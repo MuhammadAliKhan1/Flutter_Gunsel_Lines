@@ -71,11 +71,9 @@ const AssetImage gunselLoginLogo = AssetImage('assets/logo_light.png');
 const AssetImage visaLogo = AssetImage('assets/visaverify.png');
 const AssetImage mastercardLogo = AssetImage('assets/mastercard.png');
 const countryCode = {
+  '+38(0': ukraineFlag,
   '+48': polandFlag,
   '+42(0': czechFlag,
-  '+38(0': ukraineFlag,
-  '+44': englandFlag,
-  '+7': russiaFlag
 };
 const facebookAPI = 'https://test-api.gunsel.ua/Public.svc/LoginWithFacebook';
 const tokenAPI =

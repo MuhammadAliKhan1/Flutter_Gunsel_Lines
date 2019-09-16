@@ -378,6 +378,7 @@ class _DetailFormState extends State<DetailForm> {
                   children: <Widget>[
                     Container(
                       width: ScreenUtil().setWidth(300),
+                      padding: EdgeInsets.only(bottom: 1.0),
                       height: 39,
                       color: Colors.white,
                       child: ButtonTheme(
@@ -435,7 +436,7 @@ class _DetailFormState extends State<DetailForm> {
           value: flag,
           child: new Image(
             image: flag,
-            height: 20,
+            height: 25,
           )));
     }
     return items;

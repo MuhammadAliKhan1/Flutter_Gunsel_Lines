@@ -80,7 +80,7 @@ class SignUpState extends State<SignUp> {
               key: _signUpForm,
               child: Column(children: <Widget>[
                 Container(
-                    height: 530.0,
+                    height: ScreenUtil().setHeight(850),
                     margin: EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white),
@@ -129,12 +129,12 @@ class SignUpState extends State<SignUp> {
                                     borderRadius: BorderRadius.circular(5.0))),
                           )),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Expanded(
                               flex: 2,
                               child: Container(
-                                margin: EdgeInsets.only(left: 10.0, top: 10.0),
+                                margin: EdgeInsets.only(top: 10.0, left: 10.0),
+                                padding: EdgeInsets.only(left: 10.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.0),
                                   color: Colors.white,
@@ -146,7 +146,7 @@ class SignUpState extends State<SignUp> {
                                     color: Colors.grey,
                                     size: ScreenUtil(
                                       allowFontScaling: true,
-                                    ).setHeight(40),
+                                    ).setHeight(42),
                                   ),
                                   elevation: 0,
                                   value: _currentFlag,
@@ -156,10 +156,15 @@ class SignUpState extends State<SignUp> {
                               )),
                           Expanded(
                               flex: 6,
-                              child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 10.0, right: 10.0, left: 10.0),
-                                  child: TextFormField(
+                              child: Container(
+                                height: 50,
+                                margin: EdgeInsets.only(
+                                    left: 10.0, right: 10.0, top: 10.0),
+                                padding: EdgeInsets.only(bottom: 7.0),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    color: Colors.white),
+                                child: TextFormField(
                                     validator: (value) {
                                       if (value.isEmpty) {
                                         return "This field is required";
@@ -167,15 +172,13 @@ class SignUpState extends State<SignUp> {
                                     },
                                     keyboardType: TextInputType.text,
                                     decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 15.0),
-                                        fillColor: Colors.white,
-                                        filled: true,
-                                        hintText: "  $_currentCode",
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0))),
-                                  ))),
+                                      contentPadding:
+                                          EdgeInsets.symmetric(vertical: 15.0),
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      hintText: "  $_currentCode",
+                                    )),
+                              )),
                         ],
                       ),
 
@@ -267,7 +270,7 @@ class SignUpState extends State<SignUp> {
                           color: gunselColor,
                           fontSize: 20.0,
                           fontFamily: "SFProText",
-                          fontWeight: FontWeight.w500),
+                          fontWeight: FontWeight.w600),
                     ),
                     highlightColor: Colors.yellow,
                     color: Colors.yellow,
@@ -310,7 +313,7 @@ class SignUpState extends State<SignUp> {
           value: flag,
           child: new Image(
             image: flag,
-            height: 30,
+            height: 20,
           )));
     }
     return items;
