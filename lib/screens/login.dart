@@ -173,7 +173,68 @@ class _LoginFormState extends State<LoginForm> {
         Container(
           height: 40,
           width: 360,
-          child: InkWell(
+          child: GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                        backgroundColor: gunselColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        title: Text(
+                          "Forgot your password?",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Container(
+                                padding: EdgeInsets.only(top: 10.0),
+                                child: TextFormField(
+                                  validator: (String value) {
+                                    if (value.isEmpty) {
+                                      return "Please enter your email";
+                                    }
+                                  },
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      hintText: "Your email",
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0))),
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(top: 30.0),
+                                child: RaisedButton(
+                                  child: Text(
+                                    "Send",
+                                    textScaleFactor: 1.5,
+                                    style: TextStyle(color: gunselColor),
+                                  ),
+                                  highlightColor: Colors.yellow,
+                                  color: Colors.yellow,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(10),
+                                          topLeft: Radius.circular(10))),
+                                  onPressed: () {
+                                    setState(() {
+                                      //TODO: Send mail button
+                                      debugPrint("Send button is pressed");
+                                    });
+                                  },
+                                ))
+                          ],
+                        ));
+                  });
+            },
             child: Align(
               alignment: Alignment.centerRight,
               child: Text(
@@ -285,4 +346,3 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 }
-

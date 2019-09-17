@@ -111,7 +111,6 @@ flutter:
     - images/green_seat.png
     - assets/gradient.png
     - images/red_seat.png
-
     - assets/checked.png
     - assets/menu_background.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
