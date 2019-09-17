@@ -3,7 +3,7 @@ import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/Drawer/menu_row.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-bool accountIncluded = false;
+bool accountIncluded = true;
 
 class SideDrawer extends StatelessWidget {
   @override
@@ -22,7 +22,7 @@ class SideDrawer extends StatelessWidget {
           Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(15.0),
                 height: MediaQuery.of(context).size.height /
                     (accountIncluded ? 2.8 : 4.5),
                 child: (accountIncluded
@@ -178,7 +178,7 @@ class SideDrawer extends StatelessWidget {
                   },
                   child: Image(
                     image: drawerLogoutImg,
-                    height: ScreenUtil().setHeight(50),
+                    height: ScreenUtil().setHeight(40),
                   )),
             ],
           ),
@@ -230,8 +230,12 @@ class SideDrawer extends StatelessWidget {
           },
           child: Image(
             image: drawerLogoutImg,
-            height: ScreenUtil().setHeight(50),
+            height: ScreenUtil().setHeight(40),
           )),
     );
   }
+  getWithOutAccountList(context){
+    
+  }
+  getWithAccountList(context){}
 }
