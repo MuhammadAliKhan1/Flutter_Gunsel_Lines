@@ -76,229 +76,243 @@ class SignUpState extends State<SignUp> {
             elevation: 0.0,
             centerTitle: true,
           ),
-          body: Form(
-              key: _signUpForm,
-              child: Column(children: <Widget>[
-                Container(
-                    height: ScreenUtil().setHeight(850),
-                    margin: EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: ListView(children: <Widget>[
-                      //Name
-                      Padding(
-                          padding: EdgeInsets.only(
-                              right: 10.0, left: 10.0, top: 10.0),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "This field is required";
-                              }
-                            },
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 15.0),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "  Name",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                          )),
-
-                      //Surname
-                      Padding(
-                          padding: EdgeInsets.only(
-                              right: 10.0, left: 10.0, top: 10.0),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "This field is required";
-                              }
-                            },
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 15.0),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "  Surname",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                          )),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                              flex: 2,
-                              child: Container(
-                                margin: EdgeInsets.only(top: 10.0, left: 10.0),
-                                padding: EdgeInsets.only(left: 10.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  color: Colors.white,
-                                ),
-                                child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: Colors.grey,
-                                    size: ScreenUtil(
-                                      allowFontScaling: true,
-                                    ).setHeight(42),
-                                  ),
-                                  elevation: 0,
-                                  value: _currentFlag,
-                                  items: _dropDownMenuItems,
-                                  onChanged: changedDropDownItem,
-                                )),
+          body: SingleChildScrollView(
+              child: Form(
+                  key: _signUpForm,
+                  child: Column(children: <Widget>[
+                    Container(
+                        height: ScreenUtil().setHeight(850),
+                        margin:
+                            EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: ListView(children: <Widget>[
+                          //Name
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  right: 10.0, left: 10.0, top: 10.0),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "This field is required";
+                                  }
+                                },
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 15.0),
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    hintText: "  Name",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0))),
                               )),
-                          Expanded(
-                              flex: 6,
-                              child: Container(
-                                height: 50,
-                                margin: EdgeInsets.only(
-                                    left: 10.0, right: 10.0, top: 10.0),
-                                padding: EdgeInsets.only(bottom: 7.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    color: Colors.white),
-                                child: TextFormField(
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return "This field is required";
-                                      }
-                                    },
-                                    keyboardType: TextInputType.text,
-                                    decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.symmetric(vertical: 15.0),
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      hintText: "  $_currentCode",
+
+                          //Surname
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  right: 10.0, left: 10.0, top: 10.0),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "This field is required";
+                                  }
+                                },
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 15.0),
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    hintText: "  Surname",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0))),
+                              )),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    margin:
+                                        EdgeInsets.only(top: 10.0, left: 10.0),
+                                    padding: EdgeInsets.only(left: 10.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: Colors.white,
+                                    ),
+                                    child: DropdownButtonHideUnderline(
+                                        child: DropdownButton(
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down,
+                                        color: Colors.grey,
+                                        size: ScreenUtil(
+                                          allowFontScaling: true,
+                                        ).setHeight(42),
+                                      ),
+                                      elevation: 0,
+                                      value: _currentFlag,
+                                      items: _dropDownMenuItems,
+                                      onChanged: changedDropDownItem,
                                     )),
+                                  )),
+                              Expanded(
+                                  flex: 6,
+                                  child: Container(
+                                    height: 50,
+                                    margin: EdgeInsets.only(
+                                        left: 10.0, right: 10.0, top: 10.0),
+                                    padding: EdgeInsets.only(bottom: 7.0),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                        color: Colors.white),
+                                    child: TextFormField(
+                                        validator: (value) {
+                                          if (value.isEmpty) {
+                                            return "This field is required";
+                                          }
+                                        },
+                                        keyboardType: TextInputType.text,
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 15.0),
+                                          fillColor: Colors.white,
+                                          filled: true,
+                                          prefix: Text(
+                                            "$_currentCode",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        )),
+                                  )),
+                            ],
+                          ),
+
+                          //Email
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  right: 10.0, left: 10.0, top: 10.0),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "This field is required";
+                                  }
+                                },
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 15.0),
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    hintText: "  E-mail",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0))),
                               )),
-                        ],
-                      ),
 
-                      //Email
-                      Padding(
-                          padding: EdgeInsets.only(
-                              right: 10.0, left: 10.0, top: 10.0),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "This field is required";
-                              }
-                            },
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 15.0),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "  E-mail",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                          )),
+                          //Password
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  right: 10.0, left: 10.0, top: 10.0),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "This field is required";
+                                  }
+                                },
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 15.0),
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    hintText: "  Password",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0))),
+                              )),
 
-                      //Password
-                      Padding(
-                          padding: EdgeInsets.only(
-                              right: 10.0, left: 10.0, top: 10.0),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "This field is required";
-                              }
-                            },
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 15.0),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "  Password",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                          )),
-
-                      //Re-password
-                      Padding(
-                          padding: EdgeInsets.only(
-                              right: 10.0, left: 10.0, top: 10.0),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "This field is required";
-                              }
-                            },
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 15.0),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "  Re-password",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                          )),
-                      Row(
-                        children: <Widget>[
-                          Switch(
-                            activeColor: Colors.green,
-                            value: switchValue,
-                            onChanged: (bool value) {
-                              switchButton(switchValue);
-                            },
+                          //Re-password
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  right: 10.0, left: 10.0, top: 10.0),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "This field is required";
+                                  }
+                                },
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 15.0),
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    hintText: "  Re-password",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0))),
+                              )),
+                          Row(
+                            children: <Widget>[
+                              Switch(
+                                activeColor: Colors.green,
+                                value: switchValue,
+                                onChanged: (bool value) {
+                                  switchButton(switchValue);
+                                },
+                              ),
+                              Text(
+                                "I read and agree with this agreement",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
-                          Text(
-                            "I read and agree with this agreement",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
+                        ])),
+                    Container(
+                      width: 340.0,
+                      margin:
+                          EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                      child: RaisedButton(
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                              color: gunselColor,
+                              fontSize: 20.0,
+                              fontFamily: "SFProText",
+                              fontWeight: FontWeight.w600),
+                        ),
+                        highlightColor: Colors.yellow,
+                        color: Colors.yellow,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(10.0),
+                              topLeft: Radius.circular(10.0)),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if (_signUpForm.currentState.validate()) {
+                              debugPrint("Signned Up");
+                            }
+                          });
+                        },
                       ),
-                    ])),
-                Container(
-                  width: 340.0,
-                  margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-                  child: RaisedButton(
-                    child: Text(
-                      "Sign Up",
-                      style: TextStyle(
-                          color: gunselColor,
-                          fontSize: 20.0,
-                          fontFamily: "SFProText",
-                          fontWeight: FontWeight.w600),
                     ),
-                    highlightColor: Colors.yellow,
-                    color: Colors.yellow,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10.0),
-                          topLeft: Radius.circular(10.0)),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        if (_signUpForm.currentState.validate()) {
-                          debugPrint("Signned Up");
-                        }
-                      });
-                    },
-                  ),
-                ),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Back to login",
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ))
-                //
-              ])),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "Back to login",
+                          style: TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ))
+                    //
+                  ]))),
         )
       ],
     );
