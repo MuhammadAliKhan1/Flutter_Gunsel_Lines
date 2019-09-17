@@ -5,11 +5,6 @@ import 'package:flutter/services.dart';
 
 Future main(List<String> args) async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ),
-  );
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,

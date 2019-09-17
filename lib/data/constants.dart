@@ -70,6 +70,7 @@ const AssetImage paymentThumb = AssetImage('assets/payment_thumb.png');
 const AssetImage gunselLoginLogo = AssetImage('assets/logo_light.png');
 const AssetImage visaLogo = AssetImage('assets/visaverify.png');
 const AssetImage mastercardLogo = AssetImage('assets/mastercard.png');
+const AssetImage historyOfTravelIcon = AssetImage('assets/history_icon.png');
 const countryCode = {
   '+38(0': ukraineFlag,
   '+48': polandFlag,
