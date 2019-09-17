@@ -10,6 +10,7 @@ import 'package:gunsel/screens/select_seat.dart';
 import 'package:gunsel/screens/sign_up.dart';
 import 'package:gunsel/screens/round_way.dart';
 import 'package:gunsel/screens/cancel_ticket.dart';
+import 'package:gunsel/screens/travelhistory.dart';
 import 'package:gunsel/screens/one_way.dart';
 import 'package:gunsel/screens/final_cancelticket.dart';
 import 'package:gunsel/screens/news.dart';
@@ -56,6 +57,8 @@ class Router {
         return CustomRoute(builder: (_) => CancelTicket());
       case oneWayScreen:
         return CustomRoute(builder: (_) => OneWay());
+      case historyScreen:
+        return CustomRoute(builder: (_) => History());
       case finalCancelTicketScreen:
         return CustomRoute(builder: (_) => FinalCancelTicket());
       case newsScreen:

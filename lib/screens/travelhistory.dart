@@ -1,147 +1,43 @@
-import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 
-class SearchTicket extends StatelessWidget {
+class History extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return GunselScaffold(
-      appBarIcon: backArrow,
+      appBarIcon: menuIcon,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
-      appBarColor: gunselColor,
-      appBarTitle: 'Search Ticket',
+      bodyWidget: HistoryScreen(),
+      appBarTitle: 'History',
       appBarTitleIncluded: true,
-      drawerIncluded: false,
-      bodyWidget: SearchTicketScreen(),
+      drawerIncluded: true,
     );
   }
 }
 
-class SearchTicketScreen extends StatefulWidget {
-  TabController tabs;
+class HistoryScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return SearchTicketScreenState();
-  }
+  _HistoryScreenState createState() => _HistoryScreenState();
 }
 
-class SearchTicketScreenState extends State<SearchTicketScreen> {
+class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Stack(
-          children: <Widget>[
-            getTicketContainer(),
-            Align(
-              alignment: Alignment.topLeft,
-              child: getSliderLeft(),
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: getSliderRight(),
-            ),
-          ],
-        ),
-        Expanded(
-            child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (BuildContext context, int index) {
-            return Ticket();
-          },
-        ))
-      ],
-    );
-  }
-
-  getSliderLeft() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ButtonTheme(
-            height: searchTicketTabHeight,
-            minWidth: ScreenUtil().setWidth(50),
-            child: RaisedButton.icon(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              color: Colors.yellow,
-              icon: Image(
-                image: arrow_left,
-                height: 20,
-              ),
-              label: Text(""),
-              onPressed: () {},
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  getSliderRight() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ButtonTheme(
-            height: searchTicketTabHeight,
-            minWidth: ScreenUtil().setWidth(50),
-            child: RaisedButton.icon(
-              color: Colors.yellow,
-              disabledColor: Colors.grey,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              icon: Image(
-                image: arrow_right,
-                height: 20,
-              ),
-              label: Text(""),
-              onPressed: () {},
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  getTicketContainer() {
-    return Center(
-      child: Container(
-        width: ScreenUtil().setWidth(500),
-        height: searchTicketTabHeight,
-        color: Colors.black.withOpacity(0.4),
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text(
-              "Odessa-Kyiv",
-              style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
-            ),
-            Text(
-              "23.08.2019",
-              style: TextStyle(
-                  color: Colors.white, fontFamily: "MyriadPro", fontSize: 15),
-            )
-          ],
-        ),
-      ),
+    return ListView.builder(
+      itemCount: 10,
+      itemBuilder: (BuildContext context, int index) {
+        return HistoryTicket();
+      },
     );
   }
 }
 
-class Ticket extends StatefulWidget {
+class HistoryTicket extends StatefulWidget {
   @override
-  _TicketState createState() => _TicketState();
+  _HistoryTicketState createState() => _HistoryTicketState();
 }
 
-class _TicketState extends State<Ticket> {
+class _HistoryTicketState extends State<HistoryTicket> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
