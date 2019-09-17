@@ -98,18 +98,20 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
         DetailForm(),
         CheckboxListTile(
+          title: Text(
+            "I read the agreement and I agree",
+            style: TextStyle(color: Colors.red),
+          ),
           onChanged: (bool value) {
             setState(() {
               checkTwoVal = value;
             });
           },
           value: checkTwoVal,
-          title: Text(
-            "I read the agreement and I agree",
-            style: TextStyle(color: Colors.red),
-          ),
         ),
         CheckboxListTile(
+          title: Text("I want to be subscriber",
+              style: TextStyle(color: Colors.red)),
           onChanged: (bool value) {
             setState(() {
               checkOneVal = value;

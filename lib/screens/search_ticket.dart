@@ -229,7 +229,7 @@ class _TicketState extends State<Ticket> {
                                 fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            '', //Empty space as to not distur the alignment
+                            '17.09.2019', //Empty space as to not distur the alignment
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
@@ -281,7 +281,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             'Neoplan TourLine (46)', //Empty space as to not distur the alignment
                             style: TextStyle(
-                              color: Colors.black.withOpacity(0.8),
+                              color: Colors.black.withOpacity(0.5),
                               fontSize: 12,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w600,
