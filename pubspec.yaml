@@ -59,12 +59,8 @@ flutter:
     - assets/splash_image.jpg
     - assets/loginBG.jpg
     - assets/BG.jpg
-    - assets/DrawerBG.png
-    - assets/1.0x/DrawerBG.png
-    - assets/1.5x/DrawerBG.png
-    - assets/2.0x/DrawerBG.png
-    - assets/3.0x/DrawerBG.png
-    - assets/4.0x/DrawerBG.png
+    - assets/drawer_log_out.jpg
+    - assets/drawer_log_in.jpg
     - assets/user.png
     - assets/czech.png
     - assets/ukraine.png

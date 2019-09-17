@@ -3,22 +3,23 @@ import 'package:gunsel/data/constants.dart';
 class MenuRow extends StatelessWidget {
   final String title;
   final IconData icon;
-  final String routeTo;
   final bool pngImageAllow;
   final AssetImage pngImage;
-
-  MenuRow(
-      {Key key,
-      @required this.title,
-      @required this.routeTo,
-      @required this.pngImageAllow,
-      this.icon,
-      this.pngImage})
-      : super(key: key);
+  final Function onTap;
+  MenuRow({
+    Key key,
+    @required this.onTap,
+    @required this.title,
+    @required this.pngImageAllow,
+    this.icon,
+    this.pngImage,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushReplacementNamed(context, '$routeTo'),
+      onTap: () {
+        onTap();
+      },
       child: ListTile(
         contentPadding: EdgeInsets.only(
             left: ScreenUtil().setSp(120), bottom: ScreenUtil().setSp(5)),
