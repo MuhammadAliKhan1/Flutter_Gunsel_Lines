@@ -3,8 +3,13 @@ import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/routing.dart';
 import 'package:flutter/services.dart';
 
-main(List<String> args) {
-  SystemChrome.setEnabledSystemUIOverlays([]);
+Future main(List<String> args) async {
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ),
+  );
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,

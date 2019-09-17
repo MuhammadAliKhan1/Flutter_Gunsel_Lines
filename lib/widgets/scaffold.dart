@@ -49,6 +49,7 @@ class _GunselScaffoldState extends State<GunselScaffold> {
           width: double.infinity,
         ),
         Scaffold(
+          
           key: _scaffoldKey,
           drawer: (widget.drawerIncluded && widget.appBarIncluded)
               ? SideDrawer()
@@ -57,6 +58,7 @@ class _GunselScaffoldState extends State<GunselScaffold> {
           body: widget.bodyWidget,
           appBar: widget.appBarIncluded
               ? AppBar(
+              
                   leading: GestureDetector(
                       child: Image(
                         image: widget.appBarIcon,
