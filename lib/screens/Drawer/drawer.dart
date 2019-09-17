@@ -3,7 +3,7 @@ import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/Drawer/menu_row.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-bool accountIncluded = true;
+bool accountIncluded = false;
 
 class SideDrawer extends StatelessWidget {
   @override
@@ -29,119 +29,9 @@ class SideDrawer extends StatelessWidget {
                     ? getAccount(context)
                     : getWihoutAccount(context)),
               ),
-              Flexible(
-                  child: ListView(
-                children: <Widget>[
-                  MenuRow(
-                    title: 'My Profile',
-                    pngImage: profileIcon,
-                    onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          oneWayScreen, (Route<dynamic> route) => false);
-                      Navigator.pushNamed(context, profileScreen);
-                    },
-                    pngImageAllow: true,
-                  ),
-                  MenuRow(
-                    title: 'Buy Ticket',
-                    pngImageAllow: true,
-                    pngImage: buyIcon,
-                    onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          oneWayScreen, (Route<dynamic> route) => false);
-                    },
-                  ),
-                  MenuRow(
-                    title: 'Cancel Ticket',
-                    pngImageAllow: true,
-                    pngImage: cancelIcon,
-                    onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          oneWayScreen, (Route<dynamic> route) => false);
-                      Navigator.pushNamed(context, cancelTicketScreen);
-                    },
-                  ),
-                  MenuRow(
-                    title: 'News',
-                    icon: Icons.new_releases,
-                    pngImageAllow: true,
-                    pngImage: newsIcon,
-                    onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          oneWayScreen, (Route<dynamic> route) => false);
-                      Navigator.pushNamed(context, newsScreen);
-                    },
-                  ),
-                  MenuRow(
-                    title: 'Language',
-                    pngImageAllow: true,
-                    pngImage: languageIcon,
-                    onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          oneWayScreen, (Route<dynamic> route) => false);
-                      Navigator.pushNamed(context, languageScreen);
-                    },
-                  ),
-                  MenuRow(
-                    title: 'About Gunsel Lines',
-                    pngImageAllow: true,
-                    pngImage: aboutCompanyIcon,
-                    onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          oneWayScreen, (Route<dynamic> route) => false);
-                      Navigator.pushNamed(context, aboutCompanyScreen);
-                    },
-                  ),
-                  Align(
-                    alignment: Alignment.lerp(
-                        Alignment.centerLeft, Alignment.center, 0.8),
-                    child: Container(
-                      width: ScreenUtil().setWidth(450),
-                      height: 40.0,
-                      child: ButtonTheme(
-                        buttonColor: Colors.yellow,
-                        padding: EdgeInsets.only(left: ScreenUtil().setSp(25)),
-                        child: RaisedButton(
-                          elevation: 0.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30.0),
-                              bottomRight: Radius.circular(30.0),
-                            ),
-                          ),
-                          onPressed: () {
-                            launch('tel:${0800303010}');
-                          },
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.lerp(Alignment.centerLeft,
-                                    Alignment.centerRight, 0.0),
-                                child: Image(
-                                  image: telephone,
-                                  height: 25.0,
-                                ),
-                              ),
-                              Align(
-                                  child: Text(
-                                "0 800 30 30 10",
-                                style: TextStyle(
-                                  color: gunselColor,
-                                  fontSize: ScreenUtil().setSp(40),
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "Helvetica",
-                                ),
-                              ))
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              )),
+              (accountIncluded
+                  ? getWithAccountList(context)
+                  : getWithOutAccountList(context)),
             ],
           )
         ],
@@ -234,8 +124,221 @@ class SideDrawer extends StatelessWidget {
           )),
     );
   }
-  getWithOutAccountList(context){
-    
+
+  getWithAccountList(context) {
+    return Flexible(
+        child: ListView(
+      children: <Widget>[
+        MenuRow(
+          title: 'My Profile',
+          pngImage: profileIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+            Navigator.pushNamed(context, profileScreen);
+          },
+          pngImageAllow: true,
+        ),
+        MenuRow(
+          title: 'Buy Ticket',
+          pngImageAllow: true,
+          pngImage: buyIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+          },
+        ),
+        MenuRow(
+          title: 'Cancel Ticket',
+          pngImageAllow: true,
+          pngImage: cancelIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+            Navigator.pushNamed(context, cancelTicketScreen);
+          },
+        ),
+        MenuRow(
+          title: 'History of travels',
+          pngImageAllow: true,
+          pngImage: historyOfTravelIcon,
+          onTap: () {},
+        ),
+        MenuRow(
+          title: 'News',
+          icon: Icons.new_releases,
+          pngImageAllow: true,
+          pngImage: newsIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+            Navigator.pushNamed(context, newsScreen);
+          },
+        ),
+        MenuRow(
+          title: 'About Gunsel Lines',
+          pngImageAllow: true,
+          pngImage: aboutCompanyIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+            Navigator.pushNamed(context, aboutCompanyScreen);
+          },
+        ),
+        Align(
+          alignment:
+              Alignment.lerp(Alignment.centerLeft, Alignment.center, 0.8),
+          child: Container(
+            width: ScreenUtil().setWidth(450),
+            height: 40.0,
+            child: ButtonTheme(
+              buttonColor: Colors.yellow,
+              padding: EdgeInsets.only(left: ScreenUtil().setSp(25)),
+              child: RaisedButton(
+                elevation: 0.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0),
+                  ),
+                ),
+                onPressed: () {
+                  launch('tel:${0800303010}');
+                },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.lerp(
+                          Alignment.centerLeft, Alignment.centerRight, 0.0),
+                      child: Image(
+                        image: telephone,
+                        height: 25.0,
+                      ),
+                    ),
+                    Align(
+                        child: Text(
+                      "0 800 30 30 10",
+                      style: TextStyle(
+                        color: gunselColor,
+                        fontSize: ScreenUtil().setSp(40),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Helvetica",
+                      ),
+                    ))
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    ));
   }
-  getWithAccountList(context){}
+
+  getWithOutAccountList(context) {
+    return Flexible(
+        child: ListView(
+      children: <Widget>[
+        MenuRow(
+          title: 'Buy Ticket',
+          pngImageAllow: true,
+          pngImage: buyIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+          },
+        ),
+        MenuRow(
+          title: 'Cancel Ticket',
+          pngImageAllow: true,
+          pngImage: cancelIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+            Navigator.pushNamed(context, cancelTicketScreen);
+          },
+        ),
+        MenuRow(
+          title: 'News',
+          pngImageAllow: true,
+          pngImage: newsIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+            Navigator.pushNamed(context, newsScreen);
+          },
+        ),
+        MenuRow(
+          title: 'Language',
+          pngImageAllow: true,
+          pngImage: languageIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+            Navigator.pushNamed(context, languageScreen);
+          },
+        ),
+        MenuRow(
+          title: 'About Gunsel Lines',
+          pngImageAllow: true,
+          pngImage: aboutCompanyIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+            Navigator.pushNamed(context, aboutCompanyScreen);
+          },
+        ),
+        Align(
+          alignment:
+              Alignment.lerp(Alignment.centerLeft, Alignment.center, 0.8),
+          child: Container(
+            width: ScreenUtil().setWidth(450),
+            height: 40.0,
+            child: ButtonTheme(
+              buttonColor: Colors.yellow,
+              padding: EdgeInsets.only(left: ScreenUtil().setSp(25)),
+              child: RaisedButton(
+                elevation: 0.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0),
+                  ),
+                ),
+                onPressed: () {
+                  launch('tel:${0800303010}');
+                },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.lerp(
+                          Alignment.centerLeft, Alignment.centerRight, 0.0),
+                      child: Image(
+                        image: telephone,
+                        height: 25.0,
+                      ),
+                    ),
+                    Align(
+                        child: Text(
+                      "0 800 30 30 10",
+                      style: TextStyle(
+                        color: gunselColor,
+                        fontSize: ScreenUtil().setSp(40),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Helvetica",
+                      ),
+                    ))
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    ));
+  }
 }
