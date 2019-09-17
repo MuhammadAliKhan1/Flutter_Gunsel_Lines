@@ -4,7 +4,7 @@ import 'package:gunsel/data/routing.dart';
 import 'package:flutter/services.dart';
 
 main(List<String> args) {
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
