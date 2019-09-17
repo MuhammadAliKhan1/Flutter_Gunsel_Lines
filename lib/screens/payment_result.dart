@@ -36,20 +36,20 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
               children: <Widget>[
                 Text("Your seat",
                     style: TextStyle(
-                        color: Colors.yellow,
+                        color: Colors.white,
                         fontFamily: 'Helvetica',
                         fontWeight: FontWeight.w600)),
                 Text(
                   "Details",
                   style: TextStyle(
-                      color: Colors.yellow,
+                      color: Colors.white,
                       fontFamily: 'Helvetica',
                       fontWeight: FontWeight.w600),
                 ),
                 Text(
                   "Purchase Details",
                   style: TextStyle(
-                      color: Colors.yellow,
+                      color: Colors.white,
                       fontFamily: 'Helvetica',
                       fontWeight: FontWeight.w600),
                 ),
@@ -344,4 +344,3 @@ class PaymentResultTicket extends StatelessWidget {
     );
   }
 }
-

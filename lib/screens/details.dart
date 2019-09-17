@@ -23,9 +23,11 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  bool checkOneVal = false;
-
-  bool checkTwoVal = false;
+  String checked = "assets/checked.png";
+  bool checkBox1 = false;
+  bool checkBox2 = false;
+  String path1 = "assets/unchecked.png";
+  String path2 = "assets/unchecked.png";
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class _DetailScreenState extends State<DetailScreen> {
               children: <Widget>[
                 Text("Your seat",
                     style: TextStyle(
-                        color: Colors.yellow,
+                        color: Colors.white,
                         fontFamily: 'Helvetica',
                         fontWeight: FontWeight.w600)),
                 Text(
@@ -97,25 +99,45 @@ class _DetailScreenState extends State<DetailScreen> {
           ],
         ),
         DetailForm(),
-        CheckboxListTile(
-          onChanged: (bool value) {
-            setState(() {
-              checkTwoVal = value;
-            });
-          },
-          value: checkTwoVal,
+        ListTile(
+          leading: GestureDetector(
+            child: Image.asset(path2, height: 20.0),
+            onTap: () {
+              setState(() {
+                if (checkBox2 == false) {
+                  path2 = "assets/checked.png";
+                  checkBox2 = true;
+                } else {
+                  path2 = "assets/unchecked.png";
+                  checkBox2 = false;
+                }
+              });
+            },
+          ),
           title: Text(
             "I read the agreement and I agree",
             style: TextStyle(color: Colors.red),
           ),
         ),
-        CheckboxListTile(
-          onChanged: (bool value) {
-            setState(() {
-              checkOneVal = value;
-            });
-          },
-          value: checkOneVal,
+        ListTile(
+          leading: GestureDetector(
+            child: Image.asset(path1, height: 20.0),
+            onTap: () {
+              setState(() {
+                if (checkBox1 == false) {
+                  path1 = "assets/checked.png";
+                  checkBox1 = true;
+                } else {
+                  path1 = "assets/unchecked.png";
+                  checkBox1 = false;
+                }
+              });
+            },
+          ),
+          title: Text(
+            "I want to be subscriber",
+            style: TextStyle(color: Colors.red),
+          ),
         ),
         SizedBox(
           height: ScreenUtil().setHeight(100),
