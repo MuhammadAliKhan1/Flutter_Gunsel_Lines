@@ -172,7 +172,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '13:40',
                             style: TextStyle(
-                                color: darkBlue,
+                                color: Color.fromRGBO(14, 52, 113, 10),
                                 fontSize: 40,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
@@ -180,7 +180,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             'DEPARTURE',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Color.fromRGBO(14, 52, 113, 10),
                                 fontSize: 15,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
@@ -188,7 +188,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '09.09.2019',
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Color.fromRGBO(14, 52, 113, 10),
                               fontSize: 15,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,
@@ -197,7 +197,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '15 seats',
                             style: TextStyle(
-                              color: darkBlue,
+                              color: Color.fromRGBO(14, 52, 113, 10),
                               fontSize: 15,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,
@@ -215,7 +215,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '19:50',
                             style: TextStyle(
-                                color: darkBlue,
+                                color: Color.fromRGBO(14, 52, 113, 10),
                                 fontSize: 40,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
@@ -260,7 +260,7 @@ class _TicketState extends State<Ticket> {
                                 child: Text(
                                   '420',
                                   style: TextStyle(
-                                    color: darkBlue,
+                                    color: Color.fromRGBO(14, 52, 113, 10),
                                     fontSize: 50,
                                     fontFamily: 'Helvetica',
                                     fontWeight: FontWeight.w800,

@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:gunsel/data/constants.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Profile extends StatelessWidget {
   @override
@@ -243,11 +242,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             TextInputType.text,
                                                         decoration:
                                                             InputDecoration(
-                                                          hintText:
-                                                              "$_currentCode",
-                                                          hintStyle: TextStyle(
-                                                              color:
-                                                                  Colors.white),
+                                                          prefix: Text(
+                                                            "$_currentCode",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
                                                           enabledBorder:
                                                               UnderlineInputBorder(
                                                                   borderSide:

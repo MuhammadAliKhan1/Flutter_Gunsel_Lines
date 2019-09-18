@@ -162,10 +162,11 @@ class SignUpState extends State<SignUp> {
                               Expanded(
                                   flex: 6,
                                   child: Container(
-                                    height: 50,
+                                    height: 48,
                                     margin: EdgeInsets.only(
                                         left: 10.0, right: 10.0, top: 10.0),
-                                    padding: EdgeInsets.only(bottom: 7.0),
+                                    padding: EdgeInsets.only(
+                                        bottom: 7.0, left: 5.0, right: 5.0),
                                     decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(5.0),

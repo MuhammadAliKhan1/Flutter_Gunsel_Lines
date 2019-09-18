@@ -119,14 +119,13 @@ class _LoginFormState extends State<LoginForm> {
                     keyboardType: TextInputType.number,
                     style: TextStyle(color: Colors.white, fontSize: 25),
                     decoration: InputDecoration(
-                      hintText: "$_currentCode",
                       hintStyle: TextStyle(color: Colors.white),
                       contentPadding: EdgeInsets.all(7),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
                       prefix: Text(
-                        "$_currentCode  ",
+                        "$_currentCode",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 25,
@@ -290,7 +289,7 @@ class _LoginFormState extends State<LoginForm> {
                 style: TextStyle(
                   fontSize: 18,
                   fontFamily: 'SFProText',
-                  color: Colors.white,
+                  color: Color.fromRGBO(196, 193, 193, 10),
                 ),
               ),
               InkWell(

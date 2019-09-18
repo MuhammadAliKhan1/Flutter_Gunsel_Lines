@@ -68,7 +68,7 @@ class SideDrawer extends StatelessWidget {
                   },
                   child: Image(
                     image: drawerLogoutImg,
-                    height: ScreenUtil().setHeight(40),
+                    height: ScreenUtil().setHeight(35),
                   )),
             ],
           ),
@@ -120,7 +120,7 @@ class SideDrawer extends StatelessWidget {
           },
           child: Image(
             image: drawerLogoutImg,
-            height: ScreenUtil().setHeight(40),
+            height: ScreenUtil().setHeight(35),
           )),
     );
   }
@@ -241,6 +241,16 @@ class SideDrawer extends StatelessWidget {
     return Flexible(
         child: ListView(
       children: <Widget>[
+        MenuRow(
+          title: 'My Profile',
+          pngImage: profileIcon,
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+            Navigator.pushNamed(context, profileScreen);
+          },
+          pngImageAllow: true,
+        ),
         MenuRow(
           title: 'Buy Ticket',
           pngImageAllow: true,
