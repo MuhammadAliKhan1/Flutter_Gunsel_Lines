@@ -1,147 +1,43 @@
-import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 
-class SearchTicket extends StatelessWidget {
+class History extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return GunselScaffold(
-      appBarIcon: backArrow,
+      appBarIcon: menuIcon,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
-      appBarColor: gunselColor,
-      appBarTitle: 'Search Ticket',
+      bodyWidget: HistoryScreen(),
+      appBarTitle: 'History',
       appBarTitleIncluded: true,
-      drawerIncluded: false,
-      bodyWidget: SearchTicketScreen(),
+      drawerIncluded: true,
     );
   }
 }
 
-class SearchTicketScreen extends StatefulWidget {
-  TabController tabs;
+class HistoryScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return SearchTicketScreenState();
-  }
+  _HistoryScreenState createState() => _HistoryScreenState();
 }
 
-class SearchTicketScreenState extends State<SearchTicketScreen> {
+class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Stack(
-          children: <Widget>[
-            getTicketContainer(),
-            Align(
-              alignment: Alignment.topLeft,
-              child: getSliderLeft(),
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: getSliderRight(),
-            ),
-          ],
-        ),
-        Expanded(
-            child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (BuildContext context, int index) {
-            return Ticket();
-          },
-        ))
-      ],
-    );
-  }
-
-  getSliderLeft() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ButtonTheme(
-            height: searchTicketTabHeight,
-            minWidth: ScreenUtil().setWidth(50),
-            child: RaisedButton.icon(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              color: Colors.yellow,
-              icon: Image(
-                image: arrow_left,
-                height: 20,
-              ),
-              label: Text(""),
-              onPressed: () {},
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  getSliderRight() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ButtonTheme(
-            height: searchTicketTabHeight,
-            minWidth: ScreenUtil().setWidth(50),
-            child: RaisedButton.icon(
-              color: Colors.yellow,
-              disabledColor: Colors.grey,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              icon: Image(
-                image: arrow_right,
-                height: 20,
-              ),
-              label: Text(""),
-              onPressed: () {},
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  getTicketContainer() {
-    return Center(
-      child: Container(
-        width: ScreenUtil().setWidth(500),
-        height: searchTicketTabHeight,
-        color: Colors.black.withOpacity(0.4),
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text(
-              "Odessa-Kyiv",
-              style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
-            ),
-            Text(
-              "23.08.2019",
-              style: TextStyle(
-                  color: Colors.white, fontFamily: "MyriadPro", fontSize: 15),
-            )
-          ],
-        ),
-      ),
+    return ListView.builder(
+      itemCount: 10,
+      itemBuilder: (BuildContext context, int index) {
+        return HistoryTicket();
+      },
     );
   }
 }
 
-class Ticket extends StatefulWidget {
+class HistoryTicket extends StatefulWidget {
   @override
-  _TicketState createState() => _TicketState();
+  _HistoryTicketState createState() => _HistoryTicketState();
 }
 
-class _TicketState extends State<Ticket> {
+class _HistoryTicketState extends State<HistoryTicket> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -173,7 +69,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '13:40',
                             style: TextStyle(
-                                color: Color.fromRGBO(14, 52, 113, 10),
+                                color: darkBlue,
                                 fontSize: 40,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
@@ -181,7 +77,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             'DEPARTURE',
                             style: TextStyle(
-                                color: Color.fromRGBO(14, 52, 113, 10),
+                                color: Colors.black,
                                 fontSize: 15,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
@@ -189,7 +85,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '09.09.2019',
                             style: TextStyle(
-                              color: Color.fromRGBO(14, 52, 113, 10),
+                              color: Colors.black,
                               fontSize: 15,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,
@@ -198,7 +94,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '15 seats',
                             style: TextStyle(
-                              color: Color.fromRGBO(14, 52, 113, 10),
+                              color: darkBlue,
                               fontSize: 15,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,
@@ -216,7 +112,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '19:50',
                             style: TextStyle(
-                                color: Color.fromRGBO(14, 52, 113, 10),
+                                color: darkBlue,
                                 fontSize: 40,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
@@ -230,7 +126,7 @@ class _TicketState extends State<Ticket> {
                                 fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            '17.09.2019', //Empty space as to not distur the alignment
+                            '', //Empty space as to not distur the alignment
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
@@ -261,7 +157,7 @@ class _TicketState extends State<Ticket> {
                                 child: Text(
                                   '420',
                                   style: TextStyle(
-                                    color: Color.fromRGBO(14, 52, 113, 10),
+                                    color: darkBlue,
                                     fontSize: 50,
                                     fontFamily: 'Helvetica',
                                     fontWeight: FontWeight.w800,
@@ -282,7 +178,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             'Neoplan TourLine (46)', //Empty space as to not distur the alignment
                             style: TextStyle(
-                              color: Colors.black.withOpacity(0.5),
+                              color: Colors.black.withOpacity(0.8),
                               fontSize: 12,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w600,

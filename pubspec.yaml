@@ -66,6 +66,8 @@ flutter:
     - assets/ukraine.png
     - assets/poland.png
     - assets/google.png
+    - assets/arrow_left.png
+    - assets/arrow_right.png
     - assets/facebook.png
     - assets/profileBG.jpg
     - assets/russia.png

@@ -60,6 +60,8 @@ const AssetImage moneyImage = AssetImage('assets/money.png');
 const AssetImage bigTicket = AssetImage('assets/bigticket.png');
 const AssetImage purchasedTicket = AssetImage('assets/purchasedticket.png');
 const AssetImage locationIcon = AssetImage("assets/map_icon.png");
+const AssetImage arrow_left = AssetImage("assets/arrow_left.png");
+const AssetImage arrow_right = AssetImage("assets/arrow_right.png");
 const AssetImage aboutImage = AssetImage("assets/about-Image.jpg");
 const AssetImage languageIcon = AssetImage("assets/languageIcon.png");
 const AssetImage profileIcon = AssetImage("assets/profile_icon.png");
@@ -100,6 +102,7 @@ const String ticketSummaryScreen = '/ticketsummary';
 const String splashScreen = '/splash';
 const String languageScreen = '/languageScreen';
 const String detailScreen = '/detailScreen';
+const String historyScreen = '/history';
 const String paymentResultScreen = '/paymentresultscreen';
 
 //Colors
@@ -107,3 +110,6 @@ const gunselColor = Color(0xff035EA7);
 const darkBlue = Color(0xff000080);
 const red = Color(0xffFF0000);
 const green = Color(0xff07D603);
+
+//height and width
+const double searchTicketTabHeight = 59;

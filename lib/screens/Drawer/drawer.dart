@@ -162,7 +162,11 @@ class SideDrawer extends StatelessWidget {
           title: 'History of travels',
           pngImageAllow: true,
           pngImage: historyOfTravelIcon,
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                oneWayScreen, (Route<dynamic> route) => false);
+            Navigator.pushNamed(context, historyScreen);
+          },
         ),
         MenuRow(
           title: 'News',

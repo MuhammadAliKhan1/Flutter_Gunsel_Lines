@@ -89,6 +89,7 @@ class _LoginFormState extends State<LoginForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            Spacer(),
             ButtonTheme(
               alignedDropdown: true,
               splashColor: Colors.transparent,
@@ -136,6 +137,7 @@ class _LoginFormState extends State<LoginForm> {
                 )
               ],
             )),
+            Spacer()
           ],
         ),
         SizedBox(
