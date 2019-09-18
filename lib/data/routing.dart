@@ -46,7 +46,8 @@ class Router {
       case loginScreen:
         return CustomRoute(builder: (_) => Login());
       case searchTicketScreen:
-        return CustomRoute(builder: (_) => SearchTicket());
+        return CustomRoute(
+            builder: (_) => SearchTicket(oneWayData: settings.arguments));
       case selectSeatScreen:
         return CustomRoute(builder: (_) => SelectSeat());
       case signUpScreen:

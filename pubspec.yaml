@@ -80,6 +80,8 @@ flutter:
     - assets/profileicon.png
     - assets/profileholder.png
     - assets/profile_edit.png
+    - assets/empty_state_image.png
+    - assets/loading.gif
     - assets/1.png
     - assets/2.png
     - assets/3.png

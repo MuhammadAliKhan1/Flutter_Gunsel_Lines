@@ -17,6 +17,8 @@ const AssetImage passwordIcon = AssetImage('assets/password_icon.png');
 const AssetImage czechFlag = AssetImage('assets/czech.png');
 const AssetImage ukraineFlag = AssetImage('assets/ukraine.png');
 const AssetImage englandFlag = AssetImage('assets/england.png');
+const AssetImage noSearchTicketImage = AssetImage('assets/empty_state_image.png');
+const AssetImage loadingAnim = AssetImage('assets/loading.gif');
 const AssetImage russiaFlag = AssetImage('assets/russia.png');
 //Images
 const AssetImage person = AssetImage('assets/person.png');
