@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:core';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/Drawer/drawer.dart';
+import 'package:flutter/services.dart';
 
 final Color gunselColor = Color(0xff035EA7);
 
@@ -101,11 +103,12 @@ class SignUpState extends State<SignUp> {
                                 },
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 15.0),
+                                    errorStyle: TextStyle(color: Colors.white),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 15.0, horizontal: 10),
                                     fillColor: Colors.white,
                                     filled: true,
-                                    hintText: "  Name",
+                                    hintText: "Name",
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(5.0))),
@@ -123,11 +126,12 @@ class SignUpState extends State<SignUp> {
                                 },
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 15.0),
+                                    errorStyle: TextStyle(color: Colors.white),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 15.0, horizontal: 10.0),
                                     fillColor: Colors.white,
                                     filled: true,
-                                    hintText: "  Surname",
+                                    hintText: "Surname",
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(5.0))),
@@ -166,18 +170,19 @@ class SignUpState extends State<SignUp> {
                                     margin: EdgeInsets.only(
                                         left: 10.0, right: 10.0, top: 10.0),
                                     padding: EdgeInsets.only(
-                                        bottom: 7.0, left: 5.0, right: 5.0),
+                                      bottom: 7.0,
+                                      left: 5.0,
+                                      right: 5.0,
+                                    ),
                                     decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(5.0),
                                         color: Colors.white),
                                     child: TextFormField(
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return "This field is required";
-                                          }
-                                        },
-                                        keyboardType: TextInputType.text,
+                                        keyboardType: TextInputType.phone,
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(9)
+                                        ],
                                         decoration: InputDecoration(
                                           contentPadding: EdgeInsets.symmetric(
                                               vertical: 15.0),
@@ -192,24 +197,20 @@ class SignUpState extends State<SignUp> {
                                   )),
                             ],
                           ),
-
                           //Email
                           Padding(
                               padding: EdgeInsets.only(
                                   right: 10.0, left: 10.0, top: 10.0),
                               child: TextFormField(
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return "This field is required";
-                                  }
-                                },
-                                keyboardType: TextInputType.text,
+                                validator: (value) {},
+                                keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 15.0),
+                                    errorStyle: TextStyle(color: Colors.white),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 15.0, horizontal: 10.0),
                                     fillColor: Colors.white,
                                     filled: true,
-                                    hintText: "  E-mail",
+                                    hintText: "E-mail",
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(5.0))),
@@ -226,12 +227,15 @@ class SignUpState extends State<SignUp> {
                                   }
                                 },
                                 keyboardType: TextInputType.text,
+                                controller: _password,
+                                obscureText: true,
                                 decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 15.0),
+                                    errorStyle: TextStyle(color: Colors.white),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 15.0, horizontal: 10.0),
                                     fillColor: Colors.white,
                                     filled: true,
-                                    hintText: "  Password",
+                                    hintText: "Password",
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(5.0))),
@@ -242,18 +246,21 @@ class SignUpState extends State<SignUp> {
                               padding: EdgeInsets.only(
                                   right: 10.0, left: 10.0, top: 10.0),
                               child: TextFormField(
+                                controller: _repassword,
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return "This field is required";
                                   }
                                 },
+                                obscureText: true,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 15.0),
+                                    errorStyle: TextStyle(color: Colors.white),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 15.0, horizontal: 10.0),
                                     fillColor: Colors.white,
                                     filled: true,
-                                    hintText: "  Re-password",
+                                    hintText: "Re-password",
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(5.0))),
@@ -298,6 +305,28 @@ class SignUpState extends State<SignUp> {
                           setState(() {
                             if (_signUpForm.currentState.validate()) {
                               debugPrint("Signned Up");
+                            }
+
+                            if (_password != _repassword) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                        "Error",
+                                      ),
+                                      content: Text(
+                                          "Password and repassword does not match"),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          child: Text("OK"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        )
+                                      ],
+                                    );
+                                  });
                             }
                           });
                         },

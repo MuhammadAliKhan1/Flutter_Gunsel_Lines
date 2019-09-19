@@ -31,6 +31,7 @@ dependencies:
   flutter_typeahead: ^1.6.1
   carousel_pro: ^1.0.0
   rflutter_alert: ^1.0.3
+  email_validator: "^1.0.0"
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.2"

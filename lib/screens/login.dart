@@ -187,8 +187,7 @@ class _LoginFormState extends State<LoginForm> {
                         title: Text(
                           "Forgot your password?",
                           style: TextStyle(
-                            color: Colors.white,
-                          ),
+                              color: Colors.white, fontFamily: "MyriadPro"),
                           textAlign: TextAlign.center,
                         ),
                         content: Column(
@@ -204,6 +203,8 @@ class _LoginFormState extends State<LoginForm> {
                                   },
                                   keyboardType: TextInputType.text,
                                   decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 15.0, horizontal: 10.0),
                                       fillColor: Colors.white,
                                       filled: true,
                                       hintText: "Your email",
@@ -211,13 +212,16 @@ class _LoginFormState extends State<LoginForm> {
                                           borderRadius:
                                               BorderRadius.circular(5.0))),
                                 )),
-                            Padding(
+                            Container(
+                                width: 300.0,
                                 padding: EdgeInsets.only(top: 30.0),
                                 child: RaisedButton(
                                   child: Text(
                                     "Send",
-                                    textScaleFactor: 1.5,
-                                    style: TextStyle(color: gunselColor),
+                                    style: TextStyle(
+                                        color: gunselColor,
+                                        fontFamily: "SFProText",
+                                        fontSize: 20.0),
                                   ),
                                   highlightColor: Colors.yellow,
                                   color: Colors.yellow,
