@@ -53,17 +53,17 @@ class Router {
       case selectSeatScreen:
         return CustomRoute(builder: (_) => SelectSeat());
       case signUpScreen:
-        return CustomRoute(builder: (_) => SignUp());
+        return CustomRoute(builder: (_) => SignUpScreen());
       case roundWayScreen:
         return CustomRoute(builder: (_) => RoundWay());
       case cancelTicketScreen:
-        return CustomRoute(builder: (_) => CancelTicket());
+        return CustomRoute(builder: (_) => CancelTicketScreen());
       case oneWayScreen:
         return CustomRoute(builder: (_) => OneWay());
       case historyScreen:
         return CustomRoute(builder: (_) => History());
       case finalCancelTicketScreen:
-        return CustomRoute(builder: (_) => FinalCancelTicket());
+        return CustomRoute(builder: (_) => FinalCancelTicketScreen());
       case newsScreen:
         return CustomRoute(builder: (_) => NewsScreen());
       case articleScreen:
@@ -71,7 +71,7 @@ class Router {
       case profileScreen:
         return CustomRoute(builder: (_) => Profile());
       case aboutCompanyScreen:
-        return CustomRoute(builder: (_) => AboutCompany());
+        return CustomRoute(builder: (_) => AboutCompanyScreen());
       case ticketSummaryScreen:
         return CustomRoute(builder: (_) => TicketSummary());
       case splashScreen:
