@@ -257,8 +257,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       )),
                                                   TextField(
                                                     controller: this._email,
-                                                    keyboardType:
-                                                        TextInputType.text,
+                                                    keyboardType: TextInputType
+                                                        .emailAddress,
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                     decoration: InputDecoration(
