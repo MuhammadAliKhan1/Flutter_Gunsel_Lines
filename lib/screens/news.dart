@@ -2,7 +2,6 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/screens/article.dart';
-import 'package:http/http.dart' as http;
 import "package:gunsel/data/newsDataModel.dart";
 import 'package:html/parser.dart';
 import 'package:gunsel/widgets/scaffold.dart';
@@ -62,9 +61,7 @@ class _NewsState extends State<News> {
 
   String _parseHtmlStrings(String htmlString) {
     var document = parse(htmlString);
-
     String parsedString = parse(document.body.text).documentElement.text;
-
     return "\n" + parsedString;
   }
 
