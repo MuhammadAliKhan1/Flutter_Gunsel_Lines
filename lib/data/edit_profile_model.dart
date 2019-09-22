@@ -1,17 +1,73 @@
-import 'package:http/http.dart' as http;
-import 'package:gunsel/data/constants.dart';
+class EditProfileModel {
+  Data data;
 
-class Token {
+  EditProfileModel({this.data});
+
+  EditProfileModel.fromJson(Map<String, dynamic> json) {
+    data = json['Data'] != null ? new Data.fromJson(json['Data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['Data'] = this.data.toJson();
+    }
+    return data;
+  }
+}
+
+class Data {
   String token;
   SystemParameters systemParameters;
+  String now;
+  String memberNo;
+  String firstName;
+  String lastName;
+  bool isEmailVerified;
+  bool isPhoneNumberVerified;
+  String countryId;
+  String phoneNumber;
+  String email;
+  Null birthDate;
+  int gender;
+  int language;
+  Null imageURL;
 
-  Token({this.token, this.systemParameters});
+  Data(
+      {this.token,
+      this.systemParameters,
+      this.now,
+      this.memberNo,
+      this.firstName,
+      this.lastName,
+      this.isEmailVerified,
+      this.isPhoneNumberVerified,
+      this.countryId,
+      this.phoneNumber,
+      this.email,
+      this.birthDate,
+      this.gender,
+      this.language,
+      this.imageURL});
 
-  Token.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     token = json['Token'];
     systemParameters = json['SystemParameters'] != null
         ? new SystemParameters.fromJson(json['SystemParameters'])
         : null;
+    now = json['Now'];
+    memberNo = json['MemberNo'];
+    firstName = json['FirstName'];
+    lastName = json['LastName'];
+    isEmailVerified = json['IsEmailVerified'];
+    isPhoneNumberVerified = json['IsPhoneNumberVerified'];
+    countryId = json['CountryId'];
+    phoneNumber = json['PhoneNumber'];
+    email = json['Email'];
+    birthDate = json['BirthDate'];
+    gender = json['Gender'];
+    language = json['Language'];
+    imageURL = json['ImageURL'];
   }
 
   Map<String, dynamic> toJson() {
@@ -20,6 +76,19 @@ class Token {
     if (this.systemParameters != null) {
       data['SystemParameters'] = this.systemParameters.toJson();
     }
+    data['Now'] = this.now;
+    data['MemberNo'] = this.memberNo;
+    data['FirstName'] = this.firstName;
+    data['LastName'] = this.lastName;
+    data['IsEmailVerified'] = this.isEmailVerified;
+    data['IsPhoneNumberVerified'] = this.isPhoneNumberVerified;
+    data['CountryId'] = this.countryId;
+    data['PhoneNumber'] = this.phoneNumber;
+    data['Email'] = this.email;
+    data['BirthDate'] = this.birthDate;
+    data['Gender'] = this.gender;
+    data['Language'] = this.language;
+    data['ImageURL'] = this.imageURL;
     return data;
   }
 }
@@ -114,26 +183,5 @@ class SystemParameters {
     data['Office_MaxTicketDayCount'] = this.officeMaxTicketDayCount;
     data['Public_MaxTicketDayCount'] = this.publicMaxTicketDayCount;
     return data;
-  }
-}
-
-class TokenGetter {
-  Future<void> getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    http.Response response = await http.get(
-      Uri.encodeFull(tokenAPI),
-      headers: {
-        'Accept': 'application/json',
-      },
-    );
-    prefs.setString(
-        'Token',
-        (Token.fromJson(jsonDecode((DataStatusSeperator.fromJson(
-          jsonDecode(response.body),
-        ))
-                .toJson()['Data']))
-            .toJson()['Token']));
-
-    prefs.getString('Token');
   }
 }

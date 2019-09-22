@@ -2,10 +2,14 @@ import 'package:gunsel/data/constants.dart';
 
 import 'package:gunsel/screens/Drawer/menu_row.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:gunsel/data/sharedPreference.dart';
 
 bool accountIncluded = false;
 
 class SideDrawer extends StatelessWidget {
+  final facebookLogin = FacebookLogin();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -114,6 +118,7 @@ class SideDrawer extends StatelessWidget {
       alignment: Alignment.topRight,
       child: InkWell(
           onTap: () {
+            _logout();
             Navigator.of(context).pushNamedAndRemoveUntil(
                 oneWayScreen, (Route<dynamic> route) => false);
             Navigator.pushNamed(context, loginScreen);
@@ -354,5 +359,12 @@ class SideDrawer extends StatelessWidget {
         )
       ],
     ));
+  }
+
+  _logout() {
+    SharePreferencelogin shPref = SharePreferencelogin();
+    facebookLogin.logOut();
+
+    shPref.setshared("", "", "", "", "");
   }
 }

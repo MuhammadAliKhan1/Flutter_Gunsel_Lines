@@ -1,15 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
+import 'package:html/parser.dart';
+import 'news.dart';
 
 class Article extends StatefulWidget {
+  String text;
+
+  Article({Key key, @required this.text}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return ArticleState();
+    return ArticleState(this.text);
   }
 }
 
 class ArticleState extends State<Article> {
+  String texts;
+  String httexts;
+  ArticleState(this.texts);
+
+  @override
+  void initState() {
+    print("Hellosdsdsdsd:" + texts);
+    httexts = _parseHtmlString(texts);
+
+    // TODO: implement initState
+    super.initState();
+  }
+
+  String _parseHtmlString(String htmlString) {
+    var document = parse(htmlString);
+    String parsedString = parse(document.body.text).documentElement.text;
+    return parsedString;
+  }
+
   final Color gunselColor = Color(0xff035EA7);
 
   //Variable for paading or margin etc
@@ -60,110 +85,11 @@ class ArticleState extends State<Article> {
                   child: RichText(
                       text: TextSpan(children: <TextSpan>[
                     TextSpan(
-                        text:
-                            "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
+                        text: httexts + "",
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: "MyriadPro",
                             fontSize: _ten + 5)),
-                    TextSpan(
-                        text:
-                            "Few hills tears are weeks saw. Partiality insensible celebrated is in. Am offended as wandered thoughts",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "greatest an friendly. Evening covered in he exposed fertile to. Horses seeing at played plenty nature to expect we.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
-                    TextSpan(
-                        text:
-                            "Brother set had private his letters observe outward resolve. Shutters ye marriage to throwing we as.",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: _ten + 5,
-                            fontFamily: "MyriadPro")),
                   ]))),
             ],
           )

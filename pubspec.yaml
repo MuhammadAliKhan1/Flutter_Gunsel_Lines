@@ -32,11 +32,15 @@ dependencies:
   carousel_pro: ^1.0.0
   rflutter_alert: ^1.0.3
   email_validator: "^1.0.0"
+  html: ^0.14.0+2
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.2"
   flutter_test:
     sdk: flutter
+  intl_translation: ^0.17.7
 
 flutter_icons:
   image_path: "images/icon.jpg"
@@ -81,6 +85,8 @@ flutter:
     - assets/profileicon.png
     - assets/profileholder.png
     - assets/profile_edit.png
+    - assets/empty_state_image.png
+    - assets/loading.gif
     - assets/1.png
     - assets/2.png
     - assets/3.png
@@ -116,6 +122,7 @@ flutter:
     - images/red_seat.png
     - assets/checked.png
     - assets/menu_background.jpg
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

@@ -1,6 +1,13 @@
 import 'package:gunsel/widgets/button.dart';
 import 'package:gunsel/widgets/scaffold.dart';
 import 'package:gunsel/data/constants.dart';
+import 'package:http/http.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as JSON;
+import 'package:gunsel/data/sharedPreference.dart';
+import 'package:gunsel/data/edit_profile_model.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -58,23 +65,37 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  SharePreferencelogin shPref = SharePreferencelogin();
+
+  String token =
+      "8D77D139A458087F5036B75FE5815ACB229A2326A7B39582321979F9BF709584B610778A1C0EC001B105A91E8AE0A85A1DE193B64074D64691C926614B9ABBB4975FB0197D9C0EF891158FE6124A668C34A514B187DF07F2255AF7B1B69ACD603F0872BFFC405C21A31FCD11A6609DA6FE63CFF2139C6F2D648E365FEEB05722F8D326000528D2CBAC6B321F4FA4BA47F4B0F901D3ECD44C4CDFE651B2B008125298F912E162A3ED9E8FB6FCA191C3D58219152A8466C035DADED9EEAD1938982C1C0EA648E4CE8CA4A5961C8DE732DFE3E5F699428249F35E3210A193052854DD2856121E960AFEC1FB90F7100C5A70FB7C2579D3F90420118C263E2A32666AECEC280F0CBEA7FF9B7D1117A1C1CC7488CF9CE6050551F43C733A9A9CC9F62F54F8316B4D1E7267381DA90157ABC215306F5E0F7D425D4CB7264D794BE44A592CBBE2B6CF5C00F8ED6A73F2FD91DBC67AD90C4326E3840F81E4B39BA2F83FF4";
   final _oneWayForm = GlobalKey<FormState>();
   TextEditingController _number = TextEditingController();
-  TextEditingController _password = TextEditingController();
+
+  TextEditingController _emailSignIn = TextEditingController();
+  TextEditingController _passwordSignIn = TextEditingController();
+
+  TextEditingController _emailForForgetPassword = TextEditingController();
+
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
   String _currentCode = '';
+  String _currentId = '';
   String data;
+
+  Map userProfile;
+  final facebookLogin = FacebookLogin();
 
   @override
   void initState() {
     super.initState();
     _dropDownMenuItems = getDropDownMenuItems();
     _currentFlag = _dropDownMenuItems[0].value;
-    _currentCode = countryCode.keys.firstWhere(
-      (k) => countryCode[k] == _currentFlag,
-      orElse: () => '',
-    );
+    _currentCode = countryCode.keys
+        .firstWhere((k) => countryCode[k] == _currentFlag, orElse: () => '');
+
+    _currentId = countryId.keys
+        .firstWhere((k) => countryId[k] == _currentFlag, orElse: () => '');
   }
 
   @override
@@ -116,6 +137,7 @@ class _LoginFormState extends State<LoginForm> {
                   width: 220,
                   height: 40,
                   child: TextFormField(
+                    maxLength: 9,
                     controller: this._number,
                     keyboardType: TextInputType.number,
                     style: TextStyle(color: Colors.white, fontSize: 25),
@@ -134,6 +156,25 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ),
                   ),
+                  //  child: TextFormField(
+                  //   controller: this._emailSignIn,
+                  //   keyboardType: TextInputType.emailAddress,
+                  //   style: TextStyle(color: Colors.white, fontSize: 25),
+                  //   decoration: InputDecoration(
+                  //     hintStyle: TextStyle(color: Colors.white),
+                  //     contentPadding: EdgeInsets.all(7),
+                  //     enabledBorder: UnderlineInputBorder(
+                  //       borderSide: BorderSide(color: Colors.white),
+                  //     ),
+                  //     prefix: Text(
+                  //       "$_currentCode",
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontSize: 25,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 )
               ],
             )),
@@ -157,7 +198,7 @@ class _LoginFormState extends State<LoginForm> {
               height: 40,
               child: TextFormField(
                 obscureText: true,
-                controller: this._password,
+                controller: this._passwordSignIn,
                 style: TextStyle(color: Colors.white, fontSize: 25),
                 decoration: InputDecoration(
                   hintText: "Password",
@@ -201,7 +242,8 @@ class _LoginFormState extends State<LoginForm> {
                                       return "Please enter your email";
                                     }
                                   },
-                                  keyboardType: TextInputType.text,
+                                  keyboardType: TextInputType.emailAddress,
+                                  controller: this._emailForForgetPassword,
                                   decoration: InputDecoration(
                                       contentPadding: EdgeInsets.symmetric(
                                           vertical: 15.0, horizontal: 10.0),
@@ -233,6 +275,7 @@ class _LoginFormState extends State<LoginForm> {
                                     setState(() {
                                       //TODO: Send mail button
                                       debugPrint("Send button is pressed");
+                                      forgotPassword();
                                     });
                                   },
                                 ))
@@ -262,12 +305,18 @@ class _LoginFormState extends State<LoginForm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Image(
-                image: facebookLogo,
-              ),
+              GestureDetector(
+                  child: Image(
+                    image: facebookLogo,
+                  ),
+                  onTap: () {
+                    _loginWithFB();
+                  }),
               GunselButton(
                 btnWidth: 320,
-                whenPressed: () {},
+                whenPressed: () {
+                  simpleLogin();
+                },
                 btnFontFamily: 'SFProText',
                 textWeight: FontWeight.w500,
                 btnText: 'Sign In',
@@ -347,7 +396,180 @@ class _LoginFormState extends State<LoginForm> {
           (k) => countryCode[k] == selectedFlag,
           orElse: () => '',
         );
+
+        _currentId = countryId.keys
+            .firstWhere((j) => countryId[j] == selectedFlag, orElse: () => '');
       },
     );
+  }
+
+//ya function ha
+  void simpleLogin() async {
+    // set up POST request arguments
+    String url = 'https://test-api.gunsel.ua/Membership.svc/Login';
+    Map<String, String> headers = {"token": token};
+    String emailSignins = _emailSignIn.text;
+    String passwordSignins = _passwordSignIn.text;
+    String numbers = _number.text;
+
+    String json =
+        '{"PhoneNumber":"$numbers","Password":"$passwordSignins","CountryId":"$_currentId"}';
+    print("Email:" +
+        numbers +
+        " Password:" +
+        passwordSignins +
+        "Country:" +
+        _currentId);
+
+    // make POST request
+    Response response = await post(url, headers: headers, body: json);
+    Map<String, dynamic> apiDat = {
+      'Data': jsonDecode(jsonDecode(response.body)['Data'])
+    };
+    print(apiDat);
+    EditProfileModel editProfileModelObj = EditProfileModel.fromJson(apiDat);
+    var editProfData = editProfileModelObj.toJson();
+    print(editProfData['Data']['FirstName']);
+    print(editProfData['Data']['LastName']);
+    print(editProfData['Data']['Email']);
+    print(editProfData['Data']['PhoneNumber']);
+    print(editProfData['Data']['CountryId']);
+
+    shPref.setshared(
+        editProfData['Data']['FirstName'] +
+            " " +
+            editProfData['Data']['LastName'],
+        "",
+        editProfData['Data']['Email'],
+        editProfData['Data']['PhoneNumber'],
+        "custom");
+
+    // check the status code for the result
+    int statusCode = response.statusCode;
+    String body = response.body;
+    // print("status code:" + statusCode.toString());
+    //print("Body is:" + body);
+
+    if (statusCode == 200) {
+      Navigator.pushNamed(context, oneWayScreen);
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                "Error",
+              ),
+              content: Text("Invalid Username or Password"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
+    }
+  }
+
+//Login With Facebook
+
+  _loginWithFB() async {
+    final result = await facebookLogin.logInWithReadPermissions(['email']);
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        {
+          final token = result.accessToken.token;
+          final graphResponse = await http.get(
+              'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
+          final profile = JSON.jsonDecode(graphResponse.body);
+          print("\nProfile is: " + profile.toString());
+          print("Image url is:" + profile["picture"]["data"]["url"]);
+          print("Name is:" + profile["name"]);
+
+          shPref.setshared(profile["name"], profile["picture"]["data"]["url"],
+              "", "", "facebook");
+
+          // print("Email is:" + profile["email"]);
+          // setState(() {
+          //   userProfile = profile;
+          //   _isLoggedIn = true;
+          // });
+
+          Navigator.pushNamed(context, oneWayScreen);
+
+          break;
+        }
+      case FacebookLoginStatus.cancelledByUser:
+        print("error");
+        break;
+      case FacebookLoginStatus.error:
+        print("error");
+        break;
+    }
+  }
+
+  void forgotPassword() async {
+    // set up POST request arguments
+    String url = 'https://test-api.gunsel.ua/Membership.svc/ForgotPassword';
+    Map<String, String> headers = {"token": token};
+    String emailForForgetPassword = _emailForForgetPassword.text;
+
+    String json = '{"UserId":"$emailForForgetPassword"}';
+    print("Email:" + emailForForgetPassword);
+
+    // make POST request
+    Response response = await post(url, headers: headers, body: json);
+
+    // check the status code for the result
+    int statusCode = response.statusCode;
+    String body = response.body;
+    print("status code:" + statusCode.toString());
+    print("Body is:" + body);
+
+    Map<String, dynamic> statusdata = jsonDecode(body.toString());
+    // print("Status data:" + statusdata["Status"][]);
+
+    if (statusCode == 200) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                "Sending password",
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                "Error",
+              ),
+              content: Text("Something is wrong."),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
+    }
   }
 }

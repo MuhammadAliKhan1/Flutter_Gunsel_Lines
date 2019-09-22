@@ -45,8 +45,6 @@ class NewDataModel {
     Map<String, dynamic> stationListMap = stationListObj.toJson();
 
     //print("Stationlistmap" + stationListMap.toString());
-    print(
-        "Station list map length:" + stationListMap['Data'].length.toString());
 
     return stationListObj.toJson();
   }

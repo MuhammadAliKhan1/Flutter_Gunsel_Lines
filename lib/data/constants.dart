@@ -17,6 +17,9 @@ const AssetImage passwordIcon = AssetImage('assets/password_icon.png');
 const AssetImage czechFlag = AssetImage('assets/czech.png');
 const AssetImage ukraineFlag = AssetImage('assets/ukraine.png');
 const AssetImage englandFlag = AssetImage('assets/england.png');
+const AssetImage noSearchTicketImage =
+    AssetImage('assets/empty_state_image.png');
+const AssetImage loadingAnim = AssetImage('assets/loading.gif');
 const AssetImage russiaFlag = AssetImage('assets/russia.png');
 //Images
 const AssetImage person = AssetImage('assets/person.png');
@@ -73,6 +76,12 @@ const AssetImage gunselLoginLogo = AssetImage('assets/logo_light.png');
 const AssetImage visaLogo = AssetImage('assets/visaverify.png');
 const AssetImage mastercardLogo = AssetImage('assets/mastercard.png');
 const AssetImage historyOfTravelIcon = AssetImage('assets/history_icon.png');
+const countryId = {
+  'a1a1a4b5-d1c8-4aec-bd08-2a3ff55440db': ukraineFlag,
+  'fcbee315-ff04-4923-8130-3bdcca48ecbd': polandFlag,
+  '7731f374-7711-47db-a1dc-f455dfa86f5b': czechFlag,
+};
+
 const countryCode = {
   '+38(0': ukraineFlag,
   '+48': polandFlag,
@@ -82,6 +91,10 @@ const facebookAPI = 'https://test-api.gunsel.ua/Public.svc/LoginWithFacebook';
 const tokenAPI =
     'https://test-api.gunsel.ua/Public.svc/GetPublicToken?c0=30&c1=0';
 const stationListAPI = 'https://test-api.gunsel.ua/Public.svc/GetStationList';
+
+// a1a1a4b5-d1c8-4aec-bd08-2a3ff55440db = 48
+// a1a1a4b5-d1c8-2aec-bd08-2a3ff55440db = 42
+// a1a1a3b5-d1c8-8aec-bd08-2a3ff55440db = 38
 
 //Routes
 const String homeScreen = '/';
@@ -104,6 +117,7 @@ const String languageScreen = '/languageScreen';
 const String detailScreen = '/detailScreen';
 const String historyScreen = '/history';
 const String paymentResultScreen = '/paymentresultscreen';
+const String facebookLoginScreen = '/facebookLoginScreen';
 
 //Colors
 const gunselColor = Color(0xff035EA7);

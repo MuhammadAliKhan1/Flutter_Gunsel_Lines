@@ -1,3 +1,4 @@
+import 'package:gunsel/data/facebook_login.dart';
 import 'package:gunsel/screens/details.dart';
 import 'package:gunsel/screens/payment_result.dart';
 
@@ -19,6 +20,7 @@ import 'package:gunsel/screens/profile.dart';
 import 'package:gunsel/screens/about_company.dart';
 import 'package:gunsel/screens/ticket_summary.dart';
 import 'package:gunsel/screens/language.dart';
+import 'package:gunsel/data/facebook_login.dart';
 
 class CustomRoute<T> extends MaterialPageRoute<T> {
   CustomRoute({WidgetBuilder builder, RouteSettings settings})
@@ -46,7 +48,8 @@ class Router {
       case loginScreen:
         return CustomRoute(builder: (_) => Login());
       case searchTicketScreen:
-        return CustomRoute(builder: (_) => SearchTicket());
+        return CustomRoute(
+            builder: (_) => SearchTicket(oneWayData: settings.arguments));
       case selectSeatScreen:
         return CustomRoute(builder: (_) => SelectSeat());
       case signUpScreen:
@@ -62,7 +65,7 @@ class Router {
       case finalCancelTicketScreen:
         return CustomRoute(builder: (_) => FinalCancelTicket());
       case newsScreen:
-        return CustomRoute(builder: (_) => News());
+        return CustomRoute(builder: (_) => NewsScreen());
       case articleScreen:
         return CustomRoute(builder: (_) => Article());
       case profileScreen:
@@ -74,9 +77,11 @@ class Router {
       case splashScreen:
         return CustomRoute(builder: (_) => GunselSplash());
       case languageScreen:
-        return CustomRoute(builder: (_) => Language());
+        return CustomRoute(builder: (_) => LanguageScreen());
       case finalCancelTicketScreen:
         return CustomRoute(builder: (_) => FinalCancelTicket());
+      case facebookLoginScreen:
+        return CustomRoute(builder: (_) => MyApp());
 
       default:
         return CustomRoute(

@@ -1,4 +1,5 @@
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:gunsel/data/buy_ticket.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/stationlist_model.dart';
 import 'package:gunsel/widgets/button.dart';
@@ -87,15 +88,26 @@ class _OneWayFormState extends State<OneWayForm> {
   TextEditingController _arrivalStation = TextEditingController();
   TextEditingController _departureStation = TextEditingController();
   TextEditingController _travelInputDate;
+  BuyTicketOneWayData buyTicketObject = BuyTicketOneWayData();
   String _arrivalStationVal;
   String _departureStationVal;
+  List<String> stationID = [];
   List<String> stationList;
   int passengers;
   bool stationListFetched = false;
+
   @override
   void initState() {
     super.initState();
     this.passengers = 1;
+    setInitialDate();
+  }
+
+  setInitialDate() async {
+    DateTime picker = await DateTime.now();
+    buyTicketObject.day = picker.day;
+    buyTicketObject.month = picker.month;
+    buyTicketObject.year = picker.year;
   }
 
   @override
@@ -129,7 +141,7 @@ class _OneWayFormState extends State<OneWayForm> {
                     image: locationIcon,
                     height: 10.0,
                   ),
-                  hintText: "Enter departure city",
+                  hintText: "Enter arrival station",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -154,7 +166,8 @@ class _OneWayFormState extends State<OneWayForm> {
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please select an arrival station';
-                }
+                } else if (!stationList.contains(value))
+                  return 'Please select a valid arrival station';
               },
               onSaved: (value) => this._arrivalStationVal = value,
             ),
@@ -200,7 +213,7 @@ class _OneWayFormState extends State<OneWayForm> {
                     image: locationIcon,
                     height: 10.0,
                   ),
-                  hintText: "Enter arrival city",
+                  hintText: "Enter departure station",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -225,7 +238,10 @@ class _OneWayFormState extends State<OneWayForm> {
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please select an departure station';
-                }
+                } else if (!stationList.contains(value))
+                  return 'Please select a valid departure station';
+                else if (this._arrivalStation.text == value)
+                  return 'Please select different stations.';
               },
               onSaved: (value) => this._departureStationVal = value,
             ),
@@ -327,12 +343,20 @@ class _OneWayFormState extends State<OneWayForm> {
             btnFontFamily: 'Helvetica',
             btnTextColor: gunselColor,
             btnTextFontSize: 40,
-            whenPressed: () {
-              setState(() {
-                if (_oneWayForm.currentState.validate()) {
-                  Navigator.pushNamed(context, searchTicketScreen);
-                }
-              });
+            whenPressed: () async {
+              if (_oneWayForm.currentState.validate()) {
+                buyTicketObject.arrivalStation = this._arrivalStation.text;
+                buyTicketObject.departureStation = this._departureStation.text;
+                buyTicketObject.arrivalStationID = stationID[
+                    (stationList.indexOf(buyTicketObject.arrivalStation))];
+                buyTicketObject.departureStationID = stationID[
+                    (stationList.indexOf(buyTicketObject.departureStation))];
+                buyTicketObject.numberOFPassengers = this.passengers;
+                setState(() {
+                  Navigator.pushNamed(context, searchTicketScreen,
+                      arguments: this.buyTicketObject);
+                });
+              }
             },
           ),
         ],
@@ -357,6 +381,7 @@ class _OneWayFormState extends State<OneWayForm> {
     };
     for (var station in (StationList.fromJson(stationMap).toJson()['Data'])) {
       list.add(station['StationName']);
+      stationID.add(station['StationId']);
     }
     return list;
   }
@@ -396,10 +421,14 @@ class _OneWayFormState extends State<OneWayForm> {
         initialDate: DateTime.now(),
         firstDate: new DateTime(2019),
         lastDate: new DateTime(2020));
+
     if (picked != null)
       setState(() {
         this._travelInputDate = new TextEditingController(
             text: "${picked.day}.${picked.month}.${picked.year}");
+        buyTicketObject.day = picked.day;
+        buyTicketObject.month = picked.month;
+        buyTicketObject.year = picked.year;
       });
   }
 }

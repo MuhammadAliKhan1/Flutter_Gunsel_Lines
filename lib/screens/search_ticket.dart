@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gunsel/data/buy_ticket.dart';
 import 'package:gunsel/data/constants.dart';
+import 'package:gunsel/data/travel_list_one_way_model.dart';
 
 class SearchTicket extends StatelessWidget {
+  BuyTicketOneWayData oneWayData;
+  SearchTicket({
+    this.oneWayData,
+  });
   Widget build(BuildContext context) {
     return GunselScaffold(
       appBarIcon: backArrow,
@@ -11,13 +17,19 @@ class SearchTicket extends StatelessWidget {
       appBarTitle: 'Search Ticket',
       appBarTitleIncluded: true,
       drawerIncluded: false,
-      bodyWidget: SearchTicketScreen(),
+      bodyWidget: SearchTicketScreen(
+        oneWayData: this.oneWayData,
+      ),
     );
   }
 }
 
 class SearchTicketScreen extends StatefulWidget {
+  final BuyTicketOneWayData oneWayData;
   TabController tabs;
+  SearchTicketScreen({
+    this.oneWayData,
+  });
   @override
   State<StatefulWidget> createState() {
     return SearchTicketScreenState();
@@ -25,13 +37,44 @@ class SearchTicketScreen extends StatefulWidget {
 }
 
 class SearchTicketScreenState extends State<SearchTicketScreen> {
+  int initialDay;
+  int initialMonth;
+  int initialYear;
+  bool makeItGrey;
+  Map<String, dynamic> travelListTicketData;
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    initialDay = widget.oneWayData.day;
+    initialMonth = widget.oneWayData.month;
+    initialYear = widget.oneWayData.year;
+    makeItGrey = true;
+  }
+
+  getData() async {
+    TravelListOneWayModel travelListPODO = TravelListOneWayModel();
+    travelListTicketData = await travelListPODO.getTravelList(
+        widget.oneWayData.arrivalStationID,
+        widget.oneWayData.departureStationID,
+        widget.oneWayData.year,
+        widget.oneWayData.month,
+        widget.oneWayData.day);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Stack(
           children: <Widget>[
-            getTicketContainer(),
+            getTicketContainer(
+              widget.oneWayData.departureStation,
+              widget.oneWayData.arrivalStation,
+              widget.oneWayData.day,
+              widget.oneWayData.month,
+              widget.oneWayData.year,
+            ),
             Align(
               alignment: Alignment.topLeft,
               child: getSliderLeft(),
@@ -42,13 +85,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
             ),
           ],
         ),
-        Expanded(
-            child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (BuildContext context, int index) {
-            return Ticket();
-          },
-        ))
+        Expanded(child: getTicketList())
       ],
     );
   }
@@ -66,13 +103,36 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              color: Colors.yellow,
+              color: makeItGrey ? Colors.grey : Colors.yellow,
               icon: Image(
                 image: arrow_left,
                 height: 20,
               ),
               label: Text(""),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  if (widget.oneWayData.day != this.initialDay ||
+                      widget.oneWayData.month != this.initialMonth ||
+                      widget.oneWayData.year !=
+                          this.initialYear) if (widget.oneWayData.day >= 1) {
+                    if (widget.oneWayData.day == 1) {
+                      getData();
+                      if (widget.oneWayData.month == 1) {
+                        widget.oneWayData.year--;
+                        widget.oneWayData.day = 31;
+                        widget.oneWayData.month = 12;
+                      } else {
+                        widget.oneWayData.month--;
+                        widget.oneWayData.day = 31;
+                      }
+                    } else {
+                      getData();
+                      widget.oneWayData.day--;
+                    }
+                  } else
+                    makeItGrey = true;
+                });
+              },
             ),
           )
         ],
@@ -100,7 +160,25 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                 height: 20,
               ),
               label: Text(""),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  if (widget.oneWayData.day <= 31) {
+                    if (widget.oneWayData.day == 31) {
+                      if (widget.oneWayData.month == 12) {
+                        widget.oneWayData.year++;
+                        widget.oneWayData.day = 1;
+                        widget.oneWayData.month = 1;
+                      } else {
+                        widget.oneWayData.month++;
+                        widget.oneWayData.day = 1;
+                      }
+                    } else
+                      widget.oneWayData.day++;
+                  }
+                  makeItGrey = false;
+                  getData();
+                });
+              },
             ),
           )
         ],
@@ -108,7 +186,8 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
     );
   }
 
-  getTicketContainer() {
+  getTicketContainer(String departureStation, String arrivalStation, int day,
+      int month, int year) {
     return Center(
       child: Container(
         width: ScreenUtil().setWidth(500),
@@ -121,11 +200,11 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text(
-              "Odessa-Kyiv",
+              "$departureStation-$arrivalStation",
               style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
             ),
             Text(
-              "23.08.2019",
+              "$day.$month.$year",
               style: TextStyle(
                   color: Colors.white, fontFamily: "MyriadPro", fontSize: 15),
             )
@@ -134,9 +213,102 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
       ),
     );
   }
+
+  getTicketList() {
+    return FutureBuilder(
+      future: getData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting)
+          return Center(
+            child: Image(
+              image: loadingAnim,
+              height: ScreenUtil().setSp(150),
+            ),
+          );
+        else {
+          if (travelListTicketData['Data'] == null)
+            return Padding(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Spacer(),
+                  Spacer(),
+                  Text(
+                    'Looks like there are no buses available on this date',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: ScreenUtil().setSp(35),
+                        fontFamily: 'MyriadPro'),
+                  ),
+                  Spacer(),
+                  Text(
+                    'Please change the date to get your result',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: ScreenUtil().setSp(35),
+                        fontFamily: 'MyriadPro'),
+                  ),
+                  Image(
+                    image: noSearchTicketImage,
+                    height: ScreenUtil().setSp(250),
+                  ),
+                  Spacer(),
+                  Spacer(),
+                ],
+              ),
+              padding: EdgeInsets.all(50),
+            );
+          else
+            return ListView.builder(
+              itemCount: travelListTicketData['Data'].length,
+              itemBuilder: (BuildContext context, int index) {
+                return Ticket(
+                  travelListTicketData['Data'][index]['DepartureDate']
+                      .substring(0, 10),
+                  travelListTicketData['Data'][index]['ArrivalDate']
+                      .substring(0, 10),
+                  travelListTicketData['Data'][index]['DepartureTime']
+                      .substring(0, 5),
+                  travelListTicketData['Data'][index]['ArrivalTime']
+                      .substring(0, 5),
+                  travelListTicketData['Data'][index]['TicketPrice'],
+                  travelListTicketData['Data'][index]['Currency']
+                      ['CurrencyName'],
+                  travelListTicketData['Data'][index]['EmptySeatCount'],
+                  travelListTicketData['Data'][index]['VehicleType']
+                      ['VehicleTypeName'],
+                );
+              },
+            );
+        }
+      },
+    );
+  }
 }
 
 class Ticket extends StatefulWidget {
+  String departureDate;
+  String departureTime;
+  String arrivalTime;
+  String arrivalDate;
+  int numberOfSeats;
+  double ticketPrice;
+  String currencyName;
+  String vehicleTypeName;
+  Ticket(
+    this.departureDate,
+    this.arrivalDate,
+    this.departureTime,
+    this.arrivalTime,
+    this.ticketPrice,
+    this.currencyName,
+    this.numberOfSeats,
+    this.vehicleTypeName,
+  );
+
   @override
   _TicketState createState() => _TicketState();
 }
@@ -158,7 +330,7 @@ class _TicketState extends State<Ticket> {
                 image: smallTicket,
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 30.0, top: 5.0),
+                  padding: EdgeInsets.only(left: 25.0, top: 5.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -171,7 +343,7 @@ class _TicketState extends State<Ticket> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Text(
-                            '13:40',
+                            '${widget.departureTime}',
                             style: TextStyle(
                                 color: Color.fromRGBO(14, 52, 113, 10),
                                 fontSize: 40,
@@ -187,7 +359,7 @@ class _TicketState extends State<Ticket> {
                                 fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            '09.09.2019',
+                            '${widget.departureDate}',
                             style: TextStyle(
                               color: Color.fromRGBO(14, 52, 113, 10),
                               fontSize: 15,
@@ -196,7 +368,7 @@ class _TicketState extends State<Ticket> {
                             ),
                           ),
                           Text(
-                            '15 seats',
+                            '${widget.numberOfSeats} seats',
                             style: TextStyle(
                               color: Color.fromRGBO(14, 52, 113, 10),
                               fontSize: 15,
@@ -214,7 +386,7 @@ class _TicketState extends State<Ticket> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Text(
-                            '19:50',
+                            '${widget.arrivalTime}',
                             style: TextStyle(
                                 color: Color.fromRGBO(14, 52, 113, 10),
                                 fontSize: 40,
@@ -230,7 +402,7 @@ class _TicketState extends State<Ticket> {
                                 fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            '17.09.2019', //Empty space as to not distur the alignment
+                            '${widget.arrivalDate}', //Empty space as to not distur the alignment
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
@@ -259,7 +431,7 @@ class _TicketState extends State<Ticket> {
                               Container(
                                 height: 43,
                                 child: Text(
-                                  '420',
+                                  '${widget.ticketPrice}',
                                   style: TextStyle(
                                     color: Color.fromRGBO(14, 52, 113, 10),
                                     fontSize: 50,
@@ -269,7 +441,7 @@ class _TicketState extends State<Ticket> {
                                 ),
                               ),
                               Text(
-                                'UAH', //Empty space as to not distur the alignment
+                                '${widget.currencyName}', //Empty space as to not distur the alignment
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
@@ -280,7 +452,7 @@ class _TicketState extends State<Ticket> {
                             ],
                           ),
                           Text(
-                            'Neoplan TourLine (46)', //Empty space as to not distur the alignment
+                            '${widget.vehicleTypeName}', //Empty space as to not distur the alignment
                             style: TextStyle(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: 12,

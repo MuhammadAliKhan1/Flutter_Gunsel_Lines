@@ -1,4 +1,5 @@
 import 'package:gunsel/data/constants.dart';
+import 'package:gunsel/data/sharedPreference.dart';
 
 class Profile extends StatelessWidget {
   @override
@@ -27,17 +28,84 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  TextEditingController _firstName = TextEditingController();
+  TextEditingController _lastName = TextEditingController();
+
+  TextEditingController _email = TextEditingController();
+  TextEditingController _number = TextEditingController();
+
+  SharePreferencelogin shPref = SharePreferencelogin();
+
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
   String _currentCode = '';
-
+  String nameProfile,
+      nameProfileset,
+      pictureProfile,
+      pictureProfileset,
+      emailProfile,
+      emailProfileset,
+      phoneProfile,
+      phoneProfileset,
+      loginCategory,
+      loginCategoryset;
   @override
   void initState() {
     _dropDownMenuItems = getDropDownMenuItems();
     _currentFlag = _dropDownMenuItems[0].value;
     _currentCode = countryCode.keys
         .firstWhere((k) => countryCode[k] == _currentFlag, orElse: () => '');
+
+    profileName();
+    profileImage();
+    profileemail();
+    profileNumber();
+    loginCategorys();
+
     super.initState();
+  }
+
+  void profileName() async {
+    nameProfile = await shPref.getname();
+    print("Name is" + nameProfile);
+
+    setState(() {
+      nameProfileset = nameProfile;
+    });
+  }
+
+  void profileImage() async {
+    pictureProfile = await shPref.getpicture();
+    print("Name is" + pictureProfile);
+    setState(() {
+      pictureProfileset = pictureProfile;
+    });
+  }
+
+  void profileemail() async {
+    emailProfile = await shPref.getemail();
+    print("Name is" + emailProfile);
+    setState(() {
+      emailProfileset = emailProfile;
+    });
+  }
+
+  void profileNumber() async {
+    phoneProfile = await shPref.getphone();
+    print("Name is" + phoneProfile);
+
+    setState(() {
+      phoneProfileset = phoneProfile;
+    });
+  }
+
+  void loginCategorys() async {
+    loginCategory = await shPref.getLoginCategory();
+    print("loginCategory" + loginCategory);
+
+    setState(() {
+      loginCategoryset = loginCategory;
+    });
   }
 
   @override
@@ -76,6 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         alignment: Alignment.bottomRight,
                         child: InkWell(
                           onTap: () {
+                            editData();
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -126,6 +195,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   Row(children: <Widget>[
                                                     Expanded(
                                                         child: TextField(
+                                                      controller:
+                                                          this._firstName,
                                                       style: TextStyle(
                                                           color: Colors.white),
                                                       keyboardType:
@@ -149,6 +220,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                     Expanded(
                                                         child: TextField(
+                                                      controller:
+                                                          this._lastName,
                                                       style: TextStyle(
                                                           color: Colors.white),
                                                       keyboardType:
@@ -183,6 +256,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                 "Helvetica"),
                                                       )),
                                                   TextField(
+                                                    controller: this._email,
                                                     keyboardType:
                                                         TextInputType.text,
                                                     style: TextStyle(
@@ -259,6 +333,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       Expanded(
                                                           flex: 5,
                                                           child: TextField(
+                                                            controller:
+                                                                this._number,
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white),
@@ -312,11 +388,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                           10.0)),
                                                         ),
                                                         onPressed: () {
-                                                          setState(() {
-                                                            //TODO: Send mail button
-                                                            debugPrint(
-                                                                "Send button is pressed");
-                                                          });
+                                                          saveChanges();
                                                         },
                                                       ))
                                                 ],
@@ -332,7 +404,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Center(
                         child: Text(
-                      'Erhan Ozturk',
+                      '$nameProfile',
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -343,7 +415,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Center(
                       child: Text(
-                        'eozturk782@gmail.com',
+                        '$emailProfileset',
                         style: TextStyle(
                           fontSize: 15,
                           fontFamily: "Helvetica",
@@ -355,7 +427,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Center(
                       child: Text(
-                        '+380677331606',
+                        '$phoneProfileset',
                         style: TextStyle(
                           fontSize: 15,
                           fontFamily: "Helvetica",
@@ -413,9 +485,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             Align(
                 alignment: Alignment.topCenter,
-                child: Image(
-                  image: profileHolder,
-                  height: 80,
+                child: Image.network(
+                  pictureProfileset,
+                  height: 80.0,
                 )),
           ],
         ),
@@ -442,6 +514,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _currentCode = countryCode.keys
           .firstWhere((k) => countryCode[k] == selectedFlag, orElse: () => '');
     });
+  }
+
+  void editData() {
+    print(loginCategory);
+    if (loginCategory == "facebook") {
+      var names = nameProfile.split(" ");
+
+      print("First Name" + names[0]);
+      //print("Last Name" + names[1]);
+      _firstName.text = names[0];
+      _lastName.text = names[1];
+      _email.text = emailProfile;
+      _number.text = phoneProfile;
+    } else if (loginCategory == "custom") {
+      var names = nameProfile.split(" ");
+      print(names);
+      print("First Name" + names[0]);
+      print("Last Name" + names[1]);
+      _firstName.text = names[0];
+      _lastName.text = names[1];
+      _email.text = emailProfile;
+      _number.text = phoneProfile;
+    }
+  }
+
+  void saveChanges() {
+    shPref.setshared(_firstName.text + " " + _lastName.text, pictureProfile,
+        _email.text, _number.text, loginCategory);
+    profileName();
+    profileImage();
+    profileemail();
+    profileNumber();
+    loginCategorys();
+    Navigator.pop(context);
   }
 }
 

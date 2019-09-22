@@ -14,12 +14,12 @@ class GunselScaffold extends StatefulWidget {
     Key key,
     @required this.bodyWidget,
     @required this.appBarIncluded,
-    @required this.backgroundImage,
     @required this.appBarIcon,
     this.drawerIncluded,
     this.appBarColor,
     this.appBarTitle,
     this.appBarTitleIncluded,
+    this.backgroundImage,
   }) : super(key: key);
 
   @override
@@ -49,7 +49,6 @@ class _GunselScaffoldState extends State<GunselScaffold> {
           width: double.infinity,
         ),
         Scaffold(
-          
           key: _scaffoldKey,
           drawer: (widget.drawerIncluded && widget.appBarIncluded)
               ? SideDrawer()
@@ -58,7 +57,6 @@ class _GunselScaffoldState extends State<GunselScaffold> {
           body: widget.bodyWidget,
           appBar: widget.appBarIncluded
               ? AppBar(
-              
                   leading: GestureDetector(
                       child: Image(
                         image: widget.appBarIcon,
