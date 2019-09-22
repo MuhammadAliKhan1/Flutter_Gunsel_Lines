@@ -7,7 +7,6 @@ final Color gunselColor = Color(0xff035EA7);
 class LanguageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GunselScaffold(
       appBarIcon: menuIcon,
       appBarIncluded: true,

@@ -4,7 +4,6 @@ import 'package:gunsel/data/constants.dart';
 class FinalCancelTicketScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GunselScaffold(
       appBarIcon: backArrow,
       appBarIncluded: true,
@@ -20,7 +19,6 @@ class FinalCancelTicketScreen extends StatelessWidget {
 class FinalCancelTicket extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return FinalCancelTicketState();
   }
 }

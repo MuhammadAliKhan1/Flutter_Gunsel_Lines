@@ -4,7 +4,6 @@ import 'package:gunsel/data/constants.dart';
 class AboutCompanyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GunselScaffold(
       appBarIcon: menuIcon,
       appBarIncluded: true,
@@ -21,7 +20,6 @@ class AboutCompanyScreen extends StatelessWidget {
 class AboutCompany extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return AboutCompanyState();
   }
 }

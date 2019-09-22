@@ -4,7 +4,6 @@ import 'package:gunsel/data/constants.dart';
 class CancelTicketScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GunselScaffold(
       appBarIcon: backArrow,
       appBarIncluded: true,
