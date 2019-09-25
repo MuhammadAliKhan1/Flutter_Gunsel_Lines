@@ -4,6 +4,8 @@ import 'package:gunsel/data/stationlist_model.dart';
 import 'package:gunsel/widgets/button.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:gunsel/data/sharedPreference.dart';
+
 class RoundWay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -93,11 +95,62 @@ class _OneWayFormState extends State<RoundWayForm> {
   List<String> stationList;
   int passengers;
   bool stationListFetched = false;
+  SharePreferencelogin sh = SharePreferencelogin();
+  String departHint="Enter departure city", arrivalHint = "Enter arrival city" , departCalHint="Select the departure date", returnCalHint="Select the return date",numOfpassenger="Number of passengers",btnSearch="search";
+
+
+
+
+
+
   @override
   void initState() {
     super.initState();
     this.passengers = 1;
+    roundWaylan();
   }
+
+  void roundWaylan() async {
+    int b;
+    int a = await sh.getshared1();
+    //print("Name is" + nameProfile);
+
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        departHint = "Введіть місто відправлення";
+        arrivalHint = "Введіть місто відправлення";
+        departCalHint ="Виберіть дату відправлення";
+        returnCalHint = "Виберіть дату повернення";
+        numOfpassenger = "Кількість пасажирів";
+        btnSearch = "пошук";
+
+      }
+      else if (b == 2) {
+       departHint = "Enter departure city";
+       arrivalHint = "Enter arrival city";
+       departCalHint = "Select the departure date";
+       returnCalHint = "Select the return date";
+       numOfpassenger = "Number of passengers";
+        btnSearch = "search";
+
+      }
+      else if (b == 3) {
+
+        departHint = "Введите город отправления";
+        arrivalHint = "Введите город прибытия";
+        departCalHint = "Выберите дату отъезда";
+        returnCalHint = "Выберите дату возвращения";
+        numOfpassenger = "Количество пассажиров";
+        btnSearch = "поиск";
+
+
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +183,7 @@ class _OneWayFormState extends State<RoundWayForm> {
                     image: locationIcon,
                     height: 10.0,
                   ),
-                  hintText: "Enter departure city",
+                  hintText: departHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -201,7 +254,7 @@ class _OneWayFormState extends State<RoundWayForm> {
                     image: locationIcon,
                     height: 10.0,
                   ),
-                  hintText: "Enter arrival city",
+                  hintText: arrivalHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -250,7 +303,7 @@ class _OneWayFormState extends State<RoundWayForm> {
                       fillColor: Colors.white,
                       filled: true,
                       prefixIcon: Image(image: calendarIcon),
-                      hintText: "Select the departure date",
+                      hintText: departCalHint,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 ),
@@ -276,7 +329,7 @@ class _OneWayFormState extends State<RoundWayForm> {
                       fillColor: Colors.white,
                       filled: true,
                       prefixIcon: Image(image: calendarIcon),
-                      hintText: "Select the return date",
+                      hintText: returnCalHint,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 ),
@@ -293,7 +346,7 @@ class _OneWayFormState extends State<RoundWayForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Number of Passengers:',
+                  numOfpassenger,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: ScreenUtil().setSp(24),
@@ -348,7 +401,7 @@ class _OneWayFormState extends State<RoundWayForm> {
           ),
           GunselButton(
             btnWidth: 550,
-            btnText: 'Search',
+            btnText: btnSearch,
             btnFontFamily: 'Helvetica',
             btnTextColor: gunselColor,
             btnTextFontSize: 40,

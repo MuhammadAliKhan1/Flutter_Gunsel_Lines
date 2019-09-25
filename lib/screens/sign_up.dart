@@ -4,6 +4,7 @@ import 'package:gunsel/data/constants.dart';
 import 'package:flutter/services.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart';
+import 'package:gunsel/data/sharedPreference.dart';
 
 class SignUpScreen extends StatelessWidget {
   @override
@@ -28,6 +29,81 @@ class SignUp extends StatefulWidget {
 }
 
 class SignUpState extends State<SignUp> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String nameHint = "Name",
+      surNameHint = "Surename",
+      emailHint = "E-mail",
+      passwordHint = "Password",
+      rePasswordHint = "Re-password",
+      agreementText = "I read and agree with this agreement",
+      signUp = "Sign Up",
+      backToLogin = "Back to login",
+      passwordValidation = "Password and repassword does not match",
+      error = "Error",
+      oktext = "Ok",
+      requiredField = "This field is required",
+      emailInvalid = "Email is invalid",
+      correctData = "Enter correct data",
+      acceptAgreement = "You need to accept this agreement";
+
+  void signUplan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+      if (b == 1) {
+        nameHint = "Ім'я";
+        surNameHint = "Прізвище";
+        emailHint = "Електронна пошта";
+        passwordHint = "Пароль";
+        rePasswordHint = "Повторний пароль";
+        agreementText = "Я читаю і погоджуюся з цією угодою";
+        signUp = "Зареєструйтесь";
+        backToLogin = "Назад до входу";
+        passwordValidation = "Пароль і повторне слово не збігаються";
+        error = "Помилка";
+        oktext = "гаразд";
+        requiredField = "Це поле є обов'язковим";
+        emailInvalid = "Електронна пошта недійсна";
+        correctData = "Введіть правильні дані";
+        acceptAgreement = "Вам потрібно прийняти цю угоду";
+      } else if (b == 2) {
+        nameHint = "Name";
+        surNameHint = "Surname";
+        emailHint = "E-mail";
+        passwordHint = "Password";
+        rePasswordHint = "Re-password";
+        agreementText = "I read and agree with this agreement";
+        signUp = "Sign Up";
+        backToLogin = "Back to login";
+        passwordValidation = "Password and repassword does not match";
+        error = "Error";
+        oktext = "Ok";
+        requiredField = "This field is required";
+        emailInvalid = "Email is invalid";
+        correctData = "Enter correct data";
+        acceptAgreement = "You need to accept this agreement";
+      } else if (b == 3) {
+        nameHint = "имя";
+        surNameHint = "Фамилия";
+        emailHint = "Эл. почта";
+        passwordHint = "пароль";
+        rePasswordHint = "Re-пароль";
+        agreementText = "Я прочитал и согласен с этим соглашением";
+        signUp = "Зарегистрироваться";
+        backToLogin = "Вернуться на страницу входа";
+        passwordValidation = "Пароль и пароль не совпадают";
+        error = "ошибка";
+        oktext = "Хорошо";
+        requiredField = "Это поле обязательно к заполнению";
+        emailInvalid = "адрес электронной почты недействителен";
+        correctData = "Введите правильные данные";
+        acceptAgreement = "Вы должны принять это соглашение";
+      }
+    });
+  }
+
   String token =
       "8D77D139A458087F5036B75FE5815ACB229A2326A7B39582321979F9BF709584B610778A1C0EC001B105A91E8AE0A85A1DE193B64074D64691C926614B9ABBB4975FB0197D9C0EF891158FE6124A668C34A514B187DF07F2255AF7B1B69ACD603F0872BFFC405C21A31FCD11A6609DA6FE63CFF2139C6F2D648E365FEEB05722F8D326000528D2CBAC6B321F4FA4BA47F4B0F901D3ECD44C4CDFE651B2B008125298F912E162A3ED9E8FB6FCA191C3D58219152A8466C035DADED9EEAD1938982C1C0EA648E4CE8CA4A5961C8DE732DFE3E5F699428249F35E3210A193052854DD2856121E960AFEC1FB90F7100C5A70FB7C2579D3F90420118C263E2A32666AECEC280F0CBEA7FF9B7D1117A1C1CC7488CF9CE6050551F43C733A9A9CC9F62F54F8316B4D1E7267381DA90157ABC215306F5E0F7D425D4CB7264D794BE44A592CBBE2B6CF5C00F8ED6A73F2FD91DBC67AD90C4326E3840F81E4B39BA2F83FF4";
 
@@ -47,6 +123,7 @@ class SignUpState extends State<SignUp> {
   int value;
   @override
   void initState() {
+    signUplan();
     _dropDownMenuItems = getDropDownMenuItems();
     _currentFlag = _dropDownMenuItems[0].value;
     _currentCode = countryCode.keys
@@ -60,10 +137,19 @@ class SignUpState extends State<SignUp> {
   }
 
   bool switchValue = false;
+  bool switchOnoff = false;
 
   void switchButton(bool value) {
     setState(() {
       switchValue = value;
+      print("Switch Value is:" + switchValue.toString());
+      signSwitched();
+    });
+  }
+
+  void signSwitched() {
+    setState(() {
+      switchOnoff = switchValue;
     });
   }
 
@@ -88,7 +174,7 @@ class SignUpState extends State<SignUp> {
                         child: TextFormField(
                           validator: (value) {
                             if (value.isEmpty) {
-                              return "This field is required";
+                              return requiredField;
                             }
                           },
                           controller: this._name,
@@ -99,7 +185,7 @@ class SignUpState extends State<SignUp> {
                                   vertical: 15.0, horizontal: 10),
                               fillColor: Colors.white,
                               filled: true,
-                              hintText: "Name",
+                              hintText: nameHint,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0))),
                         )),
@@ -112,7 +198,7 @@ class SignUpState extends State<SignUp> {
                           controller: this._surname,
                           validator: (value) {
                             if (value.isEmpty) {
-                              return "This field is required";
+                              return requiredField;
                             }
                           },
                           keyboardType: TextInputType.text,
@@ -122,7 +208,7 @@ class SignUpState extends State<SignUp> {
                                   vertical: 15.0, horizontal: 10.0),
                               fillColor: Colors.white,
                               filled: true,
-                              hintText: "Surname",
+                              hintText: surNameHint,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0))),
                         )),
@@ -194,7 +280,7 @@ class SignUpState extends State<SignUp> {
                           validator: (value) {
                             final bool isValid = EmailValidator.validate(value);
                             if (isValid == false) {
-                              return "Email is invalid";
+                              return emailInvalid;
                             }
                           },
                           keyboardType: TextInputType.emailAddress,
@@ -204,7 +290,7 @@ class SignUpState extends State<SignUp> {
                                   vertical: 15.0, horizontal: 10.0),
                               fillColor: Colors.white,
                               filled: true,
-                              hintText: "E-mail",
+                              hintText: emailHint,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0))),
                         )),
@@ -216,7 +302,7 @@ class SignUpState extends State<SignUp> {
                         child: TextFormField(
                           validator: (value) {
                             if (value.isEmpty) {
-                              return "This field is required";
+                              return requiredField;
                             }
                           },
                           keyboardType: TextInputType.text,
@@ -228,7 +314,7 @@ class SignUpState extends State<SignUp> {
                                   vertical: 15.0, horizontal: 10.0),
                               fillColor: Colors.white,
                               filled: true,
-                              hintText: "Password",
+                              hintText: passwordHint,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0))),
                         )),
@@ -241,7 +327,7 @@ class SignUpState extends State<SignUp> {
                           controller: _repassword,
                           validator: (value) {
                             if (value.isEmpty) {
-                              return "This field is required";
+                              return requiredField;
                             }
                           },
                           obscureText: true,
@@ -252,7 +338,7 @@ class SignUpState extends State<SignUp> {
                                   vertical: 15.0, horizontal: 10.0),
                               fillColor: Colors.white,
                               filled: true,
-                              hintText: "Re-password",
+                              hintText: rePasswordHint,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0))),
                         )),
@@ -262,12 +348,27 @@ class SignUpState extends State<SignUp> {
                           activeColor: Colors.green,
                           value: switchValue,
                           onChanged: (bool value) {
-                            switchButton(switchValue);
+                            switchButton(value);
                           },
                         ),
                         Text(
-                          "I read and agree with this agreement",
+                          agreementText,
                           style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: 60.0),
+                          child: switchOnoff
+                              ? Text("")
+                              : Text(
+                                  acceptAgreement,
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 15.0),
+                                ),
                         ),
                       ],
                     ),
@@ -277,7 +378,7 @@ class SignUpState extends State<SignUp> {
                 margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                 child: RaisedButton(
                     child: Text(
-                      "Sign Up",
+                      signUp,
                       style: TextStyle(
                           color: gunselColor,
                           fontSize: 20.0,
@@ -292,8 +393,7 @@ class SignUpState extends State<SignUp> {
                           topLeft: Radius.circular(10.0)),
                     ),
                     onPressed: () {
-                      if (_signUpForm.currentState.validate()) {}
-                      _makePostRequest();
+                      //_makePostRequest();
 
                       if (_password != _repassword) {
                         showDialog(
@@ -301,13 +401,12 @@ class SignUpState extends State<SignUp> {
                             builder: (context) {
                               return AlertDialog(
                                 title: Text(
-                                  "Error",
+                                  error,
                                 ),
-                                content: Text(
-                                    "Password and repassword does not match"),
+                                content: Text(passwordValidation),
                                 actions: <Widget>[
                                   FlatButton(
-                                    child: Text("OK"),
+                                    child: Text(oktext),
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
@@ -315,6 +414,9 @@ class SignUpState extends State<SignUp> {
                                 ],
                               );
                             });
+                        if (_signUpForm.currentState.validate()) {}
+                      } else {
+                        _makePostRequest();
                       }
                     }),
               ),
@@ -323,7 +425,7 @@ class SignUpState extends State<SignUp> {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    "Back to login",
+                    backToLogin,
                     style: TextStyle(color: Colors.white),
                     textAlign: TextAlign.center,
                   ))
@@ -360,49 +462,53 @@ class SignUpState extends State<SignUp> {
   }
 
   _makePostRequest() async {
-    // set up POST request arguments
-    String url = 'https://test-api.gunsel.ua/Membership.svc/SignUp';
-    Map<String, String> headers = {"token": token};
-    String emails = _email.text;
-    String numbers = _number.text;
-    String passwords = _password.text;
-    String names = _name.text;
-    String surnames = _surname.text;
+    if (switchOnoff == true) {
+      // set up POST request arguments
+      String url = 'https://test-api.gunsel.ua/Membership.svc/SignUp';
+      Map<String, String> headers = {"token": token};
+      String emails = _email.text;
+      String numbers = _number.text;
+      String passwords = _password.text;
+      String names = _name.text;
+      String surnames = _surname.text;
 
-    String json =
-        '{"Platform":34,"Language":0,"DeviceToken":null,"UserId":"$emails","FirstName":"$names","MiddleName":"","LastName":"$surnames","PhoneNumber":"$numbers","BirthDate":null,"Gender":"","Password":"$passwords","CountryId": "$_currentId"}';
-    print("${_currentId}");
+      String json =
+          '{"Platform":34,"Language":0,"DeviceToken":null,"UserId":"$emails","FirstName":"$names","MiddleName":"","LastName":"$surnames","PhoneNumber":"$numbers","BirthDate":null,"Gender":"","Password":"$passwords","CountryId": "$_currentId"}';
+      print("${_currentId}");
 
-    // make POST request
-    Response response = await post(url, headers: headers, body: json);
+      // make POST request
+      Response response = await post(url, headers: headers, body: json);
 
-    // check the status code for the result
-    int statusCode = response.statusCode;
-    String body = response.body;
-    print("status code:" + statusCode.toString());
-    print("Body is:" + body);
+      // check the status code for the result
+      int statusCode = response.statusCode;
+      String body = response.body;
+      print("status code:" + statusCode.toString());
+      print("Body is:" + body);
 
-    if (statusCode == 200) {
-      Navigator.pushNamed(context, oneWayScreen);
-    } else {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(
-                "Error",
-              ),
-              content: Text("Please enter correct data"),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("OK"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            );
-          });
+      if (statusCode == 200) {
+        Navigator.pushNamed(context, oneWayScreen);
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text(
+                  error,
+                ),
+                content: Text(correctData),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text(oktext),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              );
+            });
+      }
+    } else if (switchOnoff == false) {
+      signSwitched();
     }
   }
 }

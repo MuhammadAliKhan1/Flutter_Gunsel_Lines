@@ -4,6 +4,7 @@ import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/stationlist_model.dart';
 import 'package:gunsel/widgets/button.dart';
 import 'package:http/http.dart' as http;
+import 'package:gunsel/data/sharedPreference.dart';
 
 class OneWay extends StatelessWidget {
   @override
@@ -95,12 +96,20 @@ class _OneWayFormState extends State<OneWayForm> {
   List<String> stationList;
   int passengers;
   bool stationListFetched = false;
-
+  SharePreferencelogin sh = SharePreferencelogin();
+  String arrivalHint = "Enter arrival station",
+      departHint = "Enter departure station",
+      calenderHint = "Select the travel date",
+      numOfPassengers = "Number of passengers",
+      btnSearch = "search",
+      oneWay = "ONE WAY",
+      roundWay = "ROUND WAY";
   @override
   void initState() {
     super.initState();
     this.passengers = 1;
     setInitialDate();
+    oneWaylan();
   }
 
   setInitialDate() async {
@@ -108,6 +117,36 @@ class _OneWayFormState extends State<OneWayForm> {
     buyTicketObject.day = picker.day;
     buyTicketObject.month = picker.month;
     buyTicketObject.year = picker.year;
+  }
+
+  void oneWaylan() async {
+    int b;
+    int a = await sh.getshared1();
+    //print("Name is" + nameProfile);
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        arrivalHint = "Введіть станцію прибуття";
+        departHint = "Введіть станцію відправлення";
+        calenderHint = "Виберіть дату подорожі";
+        numOfPassengers = "Кількість пасажирів";
+        btnSearch = "пошук";
+      } else if (b == 2) {
+        arrivalHint = "Enter arrival station";
+        departHint = "Enter departure station";
+        calenderHint = "Select the travel date";
+        numOfPassengers = "Number of passengers";
+        btnSearch = "search";
+      } else if (b == 3) {
+        arrivalHint = "Введите станцию ​​прибытия";
+        departHint = "Введите станцию ​​отправления";
+        calenderHint = "Выберите дату поездки";
+        numOfPassengers = "Количество пассажиров";
+        btnSearch = "поиск";
+      }
+    });
   }
 
   @override
@@ -141,7 +180,7 @@ class _OneWayFormState extends State<OneWayForm> {
                     image: locationIcon,
                     height: 10.0,
                   ),
-                  hintText: "Enter arrival station",
+                  hintText: arrivalHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -213,7 +252,7 @@ class _OneWayFormState extends State<OneWayForm> {
                     image: locationIcon,
                     height: 10.0,
                   ),
-                  hintText: "Enter departure station",
+                  hintText: departHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -267,7 +306,7 @@ class _OneWayFormState extends State<OneWayForm> {
                       prefixIcon: Image(
                         image: calendarIcon,
                       ),
-                      hintText: "Select the travel date",
+                      hintText: calenderHint,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 ),
@@ -284,7 +323,7 @@ class _OneWayFormState extends State<OneWayForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Number of passengers:',
+                  numOfPassengers,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: ScreenUtil().setSp(24),
@@ -339,7 +378,7 @@ class _OneWayFormState extends State<OneWayForm> {
           ),
           GunselButton(
             btnWidth: 550,
-            btnText: 'Search',
+            btnText: btnSearch,
             btnFontFamily: 'Helvetica',
             btnTextColor: gunselColor,
             btnTextFontSize: 40,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 
+import 'package:gunsel/data/sharedPreference.dart';
+
 class CancelTicketScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,40 @@ class CancelTicket extends StatefulWidget {
 }
 
 class CancelTicketState extends State<CancelTicket> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String secureHint = "Secure code",
+      ticketNumberHint = "Ticket number",
+      btnCancel = "Cancel";
+  @override
+  void initState() {
+    super.initState();
+
+    cancelTicketlan();
+  }
+
+  void cancelTicketlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        secureHint = "Безпечний код";
+        ticketNumberHint = "Номер квитка";
+        btnCancel = "Скасувати";
+      } else if (b == 2) {
+        secureHint = "Secure code";
+        ticketNumberHint = "Ticket number";
+        btnCancel = "Cancel";
+      } else if (b == 3) {
+        secureHint = "Код безопасности";
+        ticketNumberHint = "Номер билета";
+        btnCancel = "Отмена";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
@@ -51,7 +87,7 @@ class CancelTicketState extends State<CancelTicket> {
                   decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      hintText: "Secure code",
+                      hintText: secureHint,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 )),
@@ -71,7 +107,7 @@ class CancelTicketState extends State<CancelTicket> {
                   decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      hintText: "Ticket number",
+                      hintText: ticketNumberHint,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 )),
@@ -80,7 +116,7 @@ class CancelTicketState extends State<CancelTicket> {
               margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
               child: RaisedButton(
                 child: Text(
-                  "Cancel",
+                  btnCancel,
                   style: TextStyle(
                       color: gunselColor,
                       fontSize: 25.0,

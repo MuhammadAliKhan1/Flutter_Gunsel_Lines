@@ -6,7 +6,59 @@ import 'package:gunsel/data/sharedPreference.dart';
 
 bool accountIncluded = false;
 
-class SideDrawer extends StatelessWidget {
+class SideDrawer extends StatefulWidget {
+  @override
+  _SideDrawerState createState() => _SideDrawerState();
+}
+
+class _SideDrawerState extends State<SideDrawer> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String myProfile = "My Profile",
+      buyTicket = "Buy Ticket",
+      cancelTicket = "Cancel Ticket",
+      news = "News",
+      language = "Language",
+      company = "About Gunsel Lines";
+
+  @override
+  void initState() {
+    super.initState();
+
+    drawerlan();
+  }
+
+  void drawerlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        myProfile = "Мій профіль";
+        buyTicket = "Купуйте квиток";
+        cancelTicket = "Скасувати квиток";
+        news = "Новини";
+        language = "Мова";
+        company = "Про гюнзельні лінії";
+      } else if (b == 2) {
+        myProfile = "My Profile";
+        buyTicket = "Buy Ticket";
+        cancelTicket = "Cancel Ticket";
+        news = "News";
+        language = "Language";
+        company = "About Gunsel Lines";
+      } else if (b == 3) {
+        myProfile = "Мой профайл";
+        buyTicket = "Купить билет";
+        cancelTicket = "Отменить билет";
+        news = "Новости";
+        language = "язык";
+        company = "О Gunsel Линии";
+      }
+    });
+  }
+
   final facebookLogin = FacebookLogin();
 
   @override
@@ -134,7 +186,7 @@ class SideDrawer extends StatelessWidget {
         child: ListView(
       children: <Widget>[
         MenuRow(
-          title: 'My Profile',
+          title: myProfile,
           pngImage: profileIcon,
           onTap: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
@@ -144,7 +196,7 @@ class SideDrawer extends StatelessWidget {
           pngImageAllow: true,
         ),
         MenuRow(
-          title: 'Buy Ticket',
+          title: buyTicket,
           pngImageAllow: true,
           pngImage: buyIcon,
           onTap: () {
@@ -153,7 +205,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'Cancel Ticket',
+          title: cancelTicket,
           pngImageAllow: true,
           pngImage: cancelIcon,
           onTap: () {
@@ -173,7 +225,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'News',
+          title: news,
           icon: Icons.new_releases,
           pngImageAllow: true,
           pngImage: newsIcon,
@@ -184,7 +236,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'About Gunsel Lines',
+          title: company,
           pngImageAllow: true,
           pngImage: aboutCompanyIcon,
           onTap: () {
@@ -250,7 +302,7 @@ class SideDrawer extends StatelessWidget {
         child: ListView(
       children: <Widget>[
         MenuRow(
-          title: 'My Profile',
+          title: myProfile,
           pngImage: profileIcon,
           onTap: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
@@ -260,7 +312,7 @@ class SideDrawer extends StatelessWidget {
           pngImageAllow: true,
         ),
         MenuRow(
-          title: 'Buy Ticket',
+          title: buyTicket,
           pngImageAllow: true,
           pngImage: buyIcon,
           onTap: () {
@@ -269,7 +321,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'Cancel Ticket',
+          title: cancelTicket,
           pngImageAllow: true,
           pngImage: cancelIcon,
           onTap: () {
@@ -279,7 +331,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'News',
+          title: news,
           pngImageAllow: true,
           pngImage: newsIcon,
           onTap: () {
@@ -289,7 +341,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'Language',
+          title: language,
           pngImageAllow: true,
           pngImage: languageIcon,
           onTap: () {
@@ -299,7 +351,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'About Gunsel Lines',
+          title: company,
           pngImageAllow: true,
           pngImage: aboutCompanyIcon,
           onTap: () {

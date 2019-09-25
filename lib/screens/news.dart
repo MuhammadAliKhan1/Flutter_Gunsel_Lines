@@ -44,6 +44,7 @@ class _NewsState extends State<News> {
   Map<String, dynamic> stationListMapdata;
   NewDataModel stationListObj = NewDataModel();
   bool dataFetched = false;
+  String imageUrl = "https://test-lines-api.gunsel.ua/Files/";
   @override
   void initState() {
     super.initState();
@@ -57,6 +58,8 @@ class _NewsState extends State<News> {
   Future getStationList(BuildContext context) async {
     stationListMap = await stationListObj.getStationListFromAPI();
     print(this._parseHtmlString(stationListMap['Data'][0]['ContentName']));
+
+    print(imageUrl + stationListMap['Data'][0]['BigImage']);
   }
 
   String _parseHtmlStrings(String htmlString) {
@@ -116,8 +119,10 @@ class _NewsState extends State<News> {
                                   child: Container(
                                       padding: EdgeInsets.only(
                                           left: 5.0, right: 5.0),
-                                      child: Image(
-                                          image: news,
+                                      child: Image.network(
+                                          imageUrl +
+                                              stationListMap['Data'][index]
+                                                  ['BigImage'],
                                           height: 110.0,
                                           width: 150.0))),
                               Flexible(

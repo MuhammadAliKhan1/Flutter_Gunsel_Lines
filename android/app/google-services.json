@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "71434007123",
+    "firebase_url": "https://gunsels-ed109.firebaseio.com",
+    "project_id": "gunsels-ed109",
+    "storage_bucket": "gunsels-ed109.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71434007123:android:b00e3fe63df3192a1b8ca6",
+        "android_client_info": {
+          "package_name": "com.example.gunsel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71434007123-47de6sne0opuc1pvl1ahh7ljn0momteq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gunsel",
+            "certificate_hash": "d80e2e67772a0abbccf19b634436ea8a3a9e2d43"
+          }
+        },
+        {
+          "client_id": "71434007123-e02tnli90lvosjdk87v4a844if9belo3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8FZMXZd-d2qcP2Uq8CkWIeUaGzrVo0SM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "71434007123-e02tnli90lvosjdk87v4a844if9belo3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

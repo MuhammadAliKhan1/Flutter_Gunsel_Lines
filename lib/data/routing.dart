@@ -67,7 +67,7 @@ class Router {
       case newsScreen:
         return CustomRoute(builder: (_) => NewsScreen());
       case articleScreen:
-        return CustomRoute(builder: (_) => Article());
+        return CustomRoute(builder: (_) => ArticleScreen());
       case profileScreen:
         return CustomRoute(builder: (_) => Profile());
       case aboutCompanyScreen:

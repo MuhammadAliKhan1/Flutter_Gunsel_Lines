@@ -28,6 +28,46 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  SharePreferencelogin sh = SharePreferencelogin();
+
+  String editProfileInformation = "Edit Profile Information",
+      firstName = "First Name",
+      lastName = "Last Name",
+      email = "Email",
+      phoneNumber = "Phone Number",
+      btnSaveChange = "Save Changes";
+
+  void profilelan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+      if (b == 1) {
+        editProfileInformation = "Редагувати інформацію профілю";
+        firstName = "Ім'я";
+        lastName = "Прізвище";
+        email = "Електронна пошта";
+        phoneNumber = "Номер телефону";
+        btnSaveChange = "Зберегти зміни";
+      } else if (b == 2) {
+        editProfileInformation = "Edit Profile Information";
+        firstName = "First Name";
+        lastName = "Last Name";
+        email = "Email";
+        phoneNumber = "Phone Number";
+        btnSaveChange = "Save Changes";
+      } else if (b == 3) {
+        editProfileInformation = "Изменить информацию профиля";
+        firstName = "Имя";
+        lastName = "Фамилия";
+        email = "Электронное письмо";
+        phoneNumber = "Номер телефона";
+        btnSaveChange = "Сохранить изменения";
+      }
+    });
+  }
+
   TextEditingController _firstName = TextEditingController();
   TextEditingController _lastName = TextEditingController();
 
@@ -51,6 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       loginCategoryset;
   @override
   void initState() {
+    profilelan();
     _dropDownMenuItems = getDropDownMenuItems();
     _currentFlag = _dropDownMenuItems[0].value;
     _currentCode = countryCode.keys
@@ -153,7 +194,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           child: AlertDialog(
                                               backgroundColor: gunselColor,
                                               title: Text(
-                                                "Edit Profile Information",
+                                                editProfileInformation,
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontFamily: "Helvetica",
@@ -169,7 +210,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             EdgeInsets.only(
                                                                 top: 15.0),
                                                         child: Text(
-                                                          "First Name",
+                                                          firstName,
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.white,
@@ -183,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                 top: 15.0,
                                                                 left: 80.0),
                                                         child: Text(
-                                                          "Last Name",
+                                                          "           $lastName",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.white,
@@ -248,7 +289,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       padding: EdgeInsets.only(
                                                           right: 25.0),
                                                       child: Text(
-                                                        "Email                                                                                ",
+                                                        "$email                                                                                ",
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 10.0,
@@ -278,8 +319,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   Padding(
                                                       padding: EdgeInsets.only(
                                                           right: 170.0),
-                                                      child: Text(
-                                                          "Phone Number",
+                                                      child: Text(phoneNumber,
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.white,
@@ -368,7 +408,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                           top: 30.0),
                                                       child: RaisedButton(
                                                         child: Text(
-                                                          "Save Changes",
+                                                          btnSaveChange,
                                                           style: TextStyle(
                                                               fontSize: 20.0,
                                                               color: darkBlue),
@@ -528,6 +568,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _email.text = emailProfile;
       _number.text = phoneProfile;
     } else if (loginCategory == "custom") {
+      var names = nameProfile.split(" ");
+      print(names);
+      print("First Name" + names[0]);
+      print("Last Name" + names[1]);
+      _firstName.text = names[0];
+      _lastName.text = names[1];
+      _email.text = emailProfile;
+      _number.text = phoneProfile;
+    } else if (loginCategory == "google") {
       var names = nameProfile.split(" ");
       print(names);
       print("First Name" + names[0]);

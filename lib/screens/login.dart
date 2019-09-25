@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
 import 'package:gunsel/data/sharedPreference.dart';
 import 'package:gunsel/data/edit_profile_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -66,6 +68,8 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   SharePreferencelogin shPref = SharePreferencelogin();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = new GoogleSignIn();
 
   String token =
       "8D77D139A458087F5036B75FE5815ACB229A2326A7B39582321979F9BF709584B610778A1C0EC001B105A91E8AE0A85A1DE193B64074D64691C926614B9ABBB4975FB0197D9C0EF891158FE6124A668C34A514B187DF07F2255AF7B1B69ACD603F0872BFFC405C21A31FCD11A6609DA6FE63CFF2139C6F2D648E365FEEB05722F8D326000528D2CBAC6B321F4FA4BA47F4B0F901D3ECD44C4CDFE651B2B008125298F912E162A3ED9E8FB6FCA191C3D58219152A8466C035DADED9EEAD1938982C1C0EA648E4CE8CA4A5961C8DE732DFE3E5F699428249F35E3210A193052854DD2856121E960AFEC1FB90F7100C5A70FB7C2579D3F90420118C263E2A32666AECEC280F0CBEA7FF9B7D1117A1C1CC7488CF9CE6050551F43C733A9A9CC9F62F54F8316B4D1E7267381DA90157ABC215306F5E0F7D425D4CB7264D794BE44A592CBBE2B6CF5C00F8ED6A73F2FD91DBC67AD90C4326E3840F81E4B39BA2F83FF4";
@@ -85,6 +89,15 @@ class _LoginFormState extends State<LoginForm> {
 
   Map userProfile;
   final facebookLogin = FacebookLogin();
+  SharePreferencelogin sh = SharePreferencelogin();
+  String passwordHint = "Password",
+      forgetPassword = "Forgot Password?",
+      signIn = "Sign In",
+      dontHaveAccount = "Don't have an account?",
+      signUp = "Sign Up",
+      forgetYourPassword = "Forgot your password?",
+      emailHint = "Your email",
+      btnSend = "Send";
 
   @override
   void initState() {
@@ -96,6 +109,46 @@ class _LoginFormState extends State<LoginForm> {
 
     _currentId = countryId.keys
         .firstWhere((k) => countryId[k] == _currentFlag, orElse: () => '');
+
+    loginlan();
+  }
+
+  void loginlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        passwordHint = "Пароль";
+        forgetPassword = "Забули пароль?";
+        signIn = "Увійти";
+        dontHaveAccount = "У вас немає облікового запису?";
+        signUp = "Зареєструйтесь";
+        forgetYourPassword = "Забули свій пароль?";
+        emailHint = "Твоя електронна пошта";
+        btnSend = "Надіслати";
+      } else if (b == 2) {
+        passwordHint = "Password";
+        forgetPassword = "Forgot Password?";
+        signIn = "Sign In";
+        dontHaveAccount = "Don't have an account?";
+        signUp = "Sign Up";
+        forgetYourPassword = "Forgot your password?";
+        emailHint = "Your email";
+        btnSend = "Send";
+      } else if (b == 3) {
+        passwordHint = "пароль";
+        forgetPassword = "Забыл пароль?";
+        signIn = "Войти в систему";
+        dontHaveAccount = "У вас нет аккаунта?";
+        signUp = "Зарегистрироваться";
+        forgetYourPassword = "Забыли свой пароль?";
+        emailHint = "Ваш адрес электронной почты";
+        btnSend = "послать";
+      }
+    });
   }
 
   @override
@@ -201,7 +254,7 @@ class _LoginFormState extends State<LoginForm> {
                 controller: this._passwordSignIn,
                 style: TextStyle(color: Colors.white, fontSize: 25),
                 decoration: InputDecoration(
-                  hintText: "Password",
+                  hintText: passwordHint,
                   hintStyle: TextStyle(color: Colors.white, fontSize: 25.0),
                   contentPadding: EdgeInsets.all(7),
                   enabledBorder: UnderlineInputBorder(
@@ -226,7 +279,7 @@ class _LoginFormState extends State<LoginForm> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
                         title: Text(
-                          "Forgot your password?",
+                          forgetYourPassword,
                           style: TextStyle(
                               color: Colors.white, fontFamily: "MyriadPro"),
                           textAlign: TextAlign.center,
@@ -249,7 +302,7 @@ class _LoginFormState extends State<LoginForm> {
                                           vertical: 15.0, horizontal: 10.0),
                                       fillColor: Colors.white,
                                       filled: true,
-                                      hintText: "Your email",
+                                      hintText: emailHint,
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(5.0))),
@@ -259,7 +312,7 @@ class _LoginFormState extends State<LoginForm> {
                                 padding: EdgeInsets.only(top: 30.0),
                                 child: RaisedButton(
                                   child: Text(
-                                    "Send",
+                                    btnSend,
                                     style: TextStyle(
                                         color: gunselColor,
                                         fontFamily: "SFProText",
@@ -286,7 +339,7 @@ class _LoginFormState extends State<LoginForm> {
             child: Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'Forgot Password?',
+                forgetPassword,
                 style: TextStyle(
                   color: Colors.lightBlueAccent,
                   fontSize: 20,
@@ -319,13 +372,19 @@ class _LoginFormState extends State<LoginForm> {
                 },
                 btnFontFamily: 'SFProText',
                 textWeight: FontWeight.w500,
-                btnText: 'Sign In',
+                btnText: signIn,
                 btnTextFontSize: 45,
                 btnHeight: 45,
               ),
-              Image(
-                image: googleLogo,
-              ),
+              GestureDetector(
+                  child: Image(
+                    image: googleLogo,
+                  ),
+                  onTap: () {
+                    _signIn(context)
+                        .then((FirebaseUser user) => print(user))
+                        .catchError((e) => print(e));
+                  }),
             ],
           ),
         ),
@@ -333,14 +392,14 @@ class _LoginFormState extends State<LoginForm> {
           height: 15,
         ),
         Container(
-          width: 400,
+          width: 450,
           height: 60,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(
-                "Don't have an account?",
+                dontHaveAccount,
                 style: TextStyle(
                   fontSize: 18,
                   fontFamily: 'SFProText',
@@ -355,7 +414,7 @@ class _LoginFormState extends State<LoginForm> {
                   );
                 },
                 child: Text(
-                  'Sign Up',
+                  signUp,
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'SFProText',
@@ -403,7 +462,7 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-//ya function ha
+//ya function ha custom login
   void simpleLogin() async {
     // set up POST request arguments
     String url = 'https://test-api.gunsel.ua/Membership.svc/Login';
@@ -429,11 +488,11 @@ class _LoginFormState extends State<LoginForm> {
     print(apiDat);
     EditProfileModel editProfileModelObj = EditProfileModel.fromJson(apiDat);
     var editProfData = editProfileModelObj.toJson();
-    print(editProfData['Data']['FirstName']);
-    print(editProfData['Data']['LastName']);
-    print(editProfData['Data']['Email']);
-    print(editProfData['Data']['PhoneNumber']);
-    print(editProfData['Data']['CountryId']);
+//    print(editProfData['Data']['FirstName']);
+//    print(editProfData['Data']['LastName']);
+//    print(editProfData['Data']['Email']);
+//    print(editProfData['Data']['PhoneNumber']);
+//    print(editProfData['Data']['CountryId']);
 
     shPref.setshared(
         editProfData['Data']['FirstName'] +
@@ -570,6 +629,75 @@ class _LoginFormState extends State<LoginForm> {
               ],
             );
           });
+    }
+  }
+
+  //Login with google
+  Future<FirebaseUser> _signIn(BuildContext context) async {
+//    Scaffold.of(context).showSnackBar(new SnackBar(
+//      content: new Text('Sign In'),
+//    ));
+    //debugPrint('-----------------Im here 1');
+    //print('--------- ________________________________$nane');
+
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    //debugPrint('-----------------Im here 2');
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    //debugPrint('-----------------Im here 3');
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+        idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+    //print('--------- ________________________________$nane');
+
+    //debugPrint('-----------------Im here 4\n -------------$credential');
+
+//    FirebaseUser userDetails = await _firebaseAuth.signInWithCredential(credential);
+    // print('--------- ________________________________$nane');
+    try {
+      FirebaseUser user =
+          (await _firebaseAuth.signInWithCredential(credential)).user;
+
+      print('User is' + user.toString());
+      shPref.setshared(
+          user.displayName, user.photoUrl, user.email, "", "google");
+      Navigator.pushNamed(context, oneWayScreen);
+
+//      //print('--------- ________________________________$nane');
+//      debugPrint('-----------------Im here 5\n-------------$credential');
+//      debugPrint('----------${user.email}');
+//     // ProviderDetails providerInfo = new ProviderDetails(user.providerId);
+//      debugPrint('-----------------Im here 6');
+
+//    debugPrint('----------------------------${providerInfo}');
+      //List<ProviderDetails> providerData = new List<ProviderDetails>();
+      //providerData.add(providerInfo);
+
+//    debugPrint('))))))))))))))))))))))))))_____________${providerInfo.providerDetails}');
+
+//      UserDetails details =new UserDetails(
+//          user.providerId,
+//          user.displayName,
+//          user.photoUrl,
+//          user.email,
+//          providerData);
+      //nane=details;
+      // print('--------- ________________________________$nane');
+////    debugPrint('--------------------------------------------------${details.userEmail}');
+//    Navigator.push(
+//        context,
+//        new MaterialPageRoute(
+//          builder: (context)=> new ProfileScreen(detailsUser: details,),
+//        )
+//    );
+
+      //Navigator.push(context, MaterialPageRoute(builder: (context)=>new ProfileScreen(detailsUser: details)));
+
+      //debugPrint('-----------------------------------------------------------over here');
+      return user;
+    } catch (e) {
+      //debugPrint('-------------------______________________Firebase User Failed');
     }
   }
 }

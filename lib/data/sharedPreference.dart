@@ -40,4 +40,28 @@ class SharePreferencelogin {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString("loginCategory");
   }
-}
+
+
+
+
+  //For language change
+
+  Future<bool> setshared1(int num) async {
+    final SharedPreferences prefla = await SharedPreferences.getInstance();
+
+    prefla.setInt("languageIndicator", num);
+
+
+  }
+
+  Future<int> getshared1() async {
+    final SharedPreferences prefla = await SharedPreferences.getInstance();
+    return prefla.getInt("languageIndicator");
+
+
+
+  }
+
+
+  }
+
