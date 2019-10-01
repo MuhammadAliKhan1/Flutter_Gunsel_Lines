@@ -4,8 +4,15 @@ import 'dart:io';
 
 class SharePreferencelogin {
   //For logins data sharedpreference start
-  Future<bool> setshared(String token1,String firstName1,String lastName1, String picture1, String email1,
-      String phone1,String countryId1, String loginCategory1) async {
+  Future<bool> setshared(
+      String token1,
+      String firstName1,
+      String lastName1,
+      String picture1,
+      String email1,
+      String phone1,
+      String countryId1,
+      String loginCategory1) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.setString("tokens", token1);
@@ -16,9 +23,6 @@ class SharePreferencelogin {
     prefs.setString("phone", phone1);
     prefs.setString("countryId", countryId1);
     prefs.setString("loginCategory", loginCategory1);
-
-
-
   }
 
   Future<String> gettokens() async {
@@ -46,7 +50,6 @@ class SharePreferencelogin {
     return prefs.getString("email");
   }
 
-
   Future<String> getphone() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString("phone");
@@ -62,13 +65,7 @@ class SharePreferencelogin {
     return prefs.getString("loginCategory");
   }
 
-
   //For logins data sharedpreference end
-
-
-
-
-
 
   //For language change
 
@@ -82,9 +79,4 @@ class SharePreferencelogin {
     final SharedPreferences prefla = await SharedPreferences.getInstance();
     return prefla.getInt("languageIndicator");
   }
-
-
-
-
-
 }

@@ -6,7 +6,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart';
 import 'package:gunsel/data/sharedPreference.dart';
 
-
 class SignUp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -16,8 +15,7 @@ class SignUp extends StatefulWidget {
 
 class SignUpState extends State<SignUp> {
   SharePreferencelogin sh = SharePreferencelogin();
-  String signUpR = "Registration",
-      nameHint = "Name",
+  String nameHint = "Name",
       surNameHint = "Surename",
       emailHint = "E-mail",
       passwordHint = "Password",
@@ -31,7 +29,8 @@ class SignUpState extends State<SignUp> {
       requiredField = "This field is required",
       emailInvalid = "Email is invalid",
       correctData = "Enter correct data",
-      acceptAgreement = "You need to accept this agreement";
+      acceptAgreement = "You need to accept this agreement",
+      signUpR = "Registration";
 
   void signUplan() async {
     int b;
@@ -485,7 +484,6 @@ class SignUpState extends State<SignUp> {
       print("Body is:" + body);
 
       if (statusCode == 200) {
-
         Navigator.pushNamed(context, oneWayScreen);
       } else {
         showDialog(

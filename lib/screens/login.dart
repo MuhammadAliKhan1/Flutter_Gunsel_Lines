@@ -502,7 +502,8 @@ class _LoginFormState extends State<LoginForm> {
     String emailSignins = _emailSignIn.text;
     String passwordSignins = _passwordSignIn.text;
     String numbers = _number.text;
-    String imageUrl = "http://www.henhunt.co.uk/wp-content/uploads/2014/10/Person-Logo-1.png";
+    String imageUrl =
+        "http://www.henhunt.co.uk/wp-content/uploads/2014/10/Person-Logo-1.png";
     String loginCategory = "custom";
 
     String json =
@@ -524,7 +525,6 @@ class _LoginFormState extends State<LoginForm> {
     //print("Body is:" + body);
 
     if (statusCode == 200) {
-
       Map<String, dynamic> apiDat = {
         'Data': jsonDecode(jsonDecode(response.body)['Data'])
       };
@@ -540,7 +540,15 @@ class _LoginFormState extends State<LoginForm> {
 //      print("\nPhone Number is:"+editProfData['Data']['PhoneNumber']);
 //      print("\nCountry Id is:"+editProfData['Data']['CountryId']);
 
-      shPref.setshared(editProfData['Data']['Token'],editProfData['Data']['FirstName'],editProfData['Data']['LastName'],imageUrl,editProfData['Data']['Email'],editProfData['Data']['PhoneNumber'],editProfData['Data']['CountryId'],loginCategory);
+      shPref.setshared(
+          editProfData['Data']['Token'],
+          editProfData['Data']['FirstName'],
+          editProfData['Data']['LastName'],
+          imageUrl,
+          editProfData['Data']['Email'],
+          editProfData['Data']['PhoneNumber'],
+          editProfData['Data']['CountryId'],
+          loginCategory);
 
       Navigator.pushNamed(context, oneWayScreen);
     } else {
@@ -574,7 +582,7 @@ class _LoginFormState extends State<LoginForm> {
       case FacebookLoginStatus.loggedIn:
         {
           final fbtoken = result.accessToken.token;
-          print("Facebook token is:"+fbtoken);
+          print("Facebook token is:" + fbtoken);
           final graphResponse = await http.get(
               'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${fbtoken}');
 //          final profile = JSON.jsonDecode(graphResponse.body);
@@ -583,9 +591,11 @@ class _LoginFormState extends State<LoginForm> {
 //          print("Name is:" + profile["name"]);
 
           // set up POST request arguments
-          String url = 'https://test-api.gunsel.ua/Membership.svc/LoginWithFacebook';
-          Map<String,String> headers = {"token": maintoken};
-          String json = '{"Platform":31,"Language":0,"DeviceToken":null,"Token":"$fbtoken"}';
+          String url =
+              'https://test-api.gunsel.ua/Membership.svc/LoginWithFacebook';
+          Map<String, String> headers = {"token": maintoken};
+          String json =
+              '{"Platform":31,"Language":0,"DeviceToken":null,"Token":"$fbtoken"}';
 
           // make POST request
           Response response = await post(url, headers: headers, body: json);
@@ -595,33 +605,34 @@ class _LoginFormState extends State<LoginForm> {
 //          print("status code:"+statusCode.toString());
 //          print("Body is:"+body);
 
+          if (statusCode == 200) {
+            Map<String, dynamic> fbapiData = {
+              'Data': jsonDecode(jsonDecode(response.body)['Data'])
+            };
+            print(fbapiData);
+            facebookApimodel fbprofilemodelobj =
+                facebookApimodel.fromJson(fbapiData);
+            var fbProfData = fbprofilemodelobj.toJson();
 
-
-          if(statusCode == 200)
-            {
-              Map<String, dynamic> fbapiData = {
-                'Data': jsonDecode(jsonDecode(response.body)['Data'])
-              };
-              print(fbapiData);
-              facebookApimodel fbprofilemodelobj = facebookApimodel.fromJson(fbapiData);
-              var fbProfData = fbprofilemodelobj.toJson();
-
-
-              print("Authenticated token is:"+fbProfData['Data']['Token']);
-              print("First Name is:"+fbProfData['Data']['FirstName']);
-              print("Last Name is:"+fbProfData['Data']['LastName']);
-              print("Image is:"+fbProfData['Data']['ImageURL']);
-              print("Email is:"+fbProfData['Data']['Email']);
+            print("Authenticated token is:" + fbProfData['Data']['Token']);
+            print("First Name is:" + fbProfData['Data']['FirstName']);
+            print("Last Name is:" + fbProfData['Data']['LastName']);
+            print("Image is:" + fbProfData['Data']['ImageURL']);
+            print("Email is:" + fbProfData['Data']['Email']);
             //  print("Phone Number is:"+fbProfData['Data']['FirstName']);
 
+            shPref.setshared(
+                fbProfData['Data']['Token'],
+                fbProfData['Data']['FirstName'],
+                fbProfData['Data']['LastName'],
+                fbProfData['Data']['ImageURL'],
+                fbProfData['Data']['Email'],
+                fbProfData['Data']['PhoneNumber'],
+                fbProfData['Data']['CountryId'],
+                loginCategory);
 
-              shPref.setshared(fbProfData['Data']['Token'],fbProfData['Data']['FirstName'],fbProfData['Data']['LastName'],fbProfData['Data']['ImageURL'],fbProfData['Data']['Email'],fbProfData['Data']['PhoneNumber'],fbProfData['Data']['CountryId'],loginCategory);
-
-
-              Navigator.pushNamed(context, oneWayScreen);
-            }
-
-            else{
+            Navigator.pushNamed(context, oneWayScreen);
+          } else {
             showDialog(
                 context: context,
                 builder: (context) {
@@ -642,10 +653,7 @@ class _LoginFormState extends State<LoginForm> {
                 });
           }
 
-
           break;
-
-
         }
       case FacebookLoginStatus.cancelledByUser:
         print("error");
@@ -735,19 +743,18 @@ class _LoginFormState extends State<LoginForm> {
     final AuthCredential credential = GoogleAuthProvider.getCredential(
         idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
 
-String googleToken = googleAuth.accessToken;
+    String googleToken = googleAuth.accessToken;
 
 //print("google token is:"+googleToken.toString());
     String url = 'https://test-api.gunsel.ua/Membership.svc/LoginWithGoogle';
-    Map<String,String> headers = {"token": maintoken};
-    String json = '{"Platform":31,"Language":0,"DeviceToken":null,"Token":"$googleToken"}';
+    Map<String, String> headers = {"token": maintoken};
+    String json =
+        '{"Platform":31,"Language":0,"DeviceToken":null,"Token":"$googleToken"}';
     Response response = await post(url, headers: headers, body: json);
     // check the status code for the result
     int statusCode = response.statusCode;
     String body = response.body;
     String loginCategory = "google";
-
-
 
     try {
       FirebaseUser user =
@@ -756,9 +763,7 @@ String googleToken = googleAuth.accessToken;
 //      print('User isbjhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh' +
 //          user.toString());
 
-
-      if(statusCode == 200)
-      {
+      if (statusCode == 200) {
         Map<String, dynamic> gmapiData = {
           'Data': jsonDecode(jsonDecode(response.body)['Data'])
         };
@@ -766,22 +771,25 @@ String googleToken = googleAuth.accessToken;
         googleApimodel gmprofilemodelobj = googleApimodel.fromJson(gmapiData);
         var gmProfData = gmprofilemodelobj.toJson();
 
-
-        print("Authenticated token is:"+gmProfData['Data']['Token']);
-        print("First Name is:"+gmProfData['Data']['FirstName']);
-        print("Last Name is:"+gmProfData['Data']['LastName']);
-        print("Image is:"+gmProfData['Data']['ImageURL']);
-        print("Email is:"+gmProfData['Data']['Email']);
+        print("Authenticated token is:" + gmProfData['Data']['Token']);
+        print("First Name is:" + gmProfData['Data']['FirstName']);
+        print("Last Name is:" + gmProfData['Data']['LastName']);
+        print("Image is:" + gmProfData['Data']['ImageURL']);
+        print("Email is:" + gmProfData['Data']['Email']);
         //  print("Phone Number is:"+fbProfData['Data']['FirstName']);
 
-
-        shPref.setshared(gmProfData['Data']['Token'],gmProfData['Data']['FirstName'],gmProfData['Data']['LastName'],gmProfData['Data']['ImageURL'],gmProfData['Data']['Email'],gmProfData['Data']['PhoneNumber'],gmProfData['Data']['CountryId'],loginCategory);
-
+        shPref.setshared(
+            gmProfData['Data']['Token'],
+            gmProfData['Data']['FirstName'],
+            gmProfData['Data']['LastName'],
+            gmProfData['Data']['ImageURL'],
+            gmProfData['Data']['Email'],
+            gmProfData['Data']['PhoneNumber'],
+            gmProfData['Data']['CountryId'],
+            loginCategory);
 
         Navigator.pushNamed(context, oneWayScreen);
-      }
-
-      else{
+      } else {
         showDialog(
             context: context,
             builder: (context) {

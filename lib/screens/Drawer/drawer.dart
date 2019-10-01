@@ -4,8 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:gunsel/data/sharedPreference.dart';
 
-
-
 class SideDrawer extends StatefulWidget {
   @override
   _SideDrawerState createState() => _SideDrawerState();
@@ -21,7 +19,7 @@ class _SideDrawerState extends State<SideDrawer> {
       company = "About Gunsel Lines";
   bool accountIncluded = true;
 
-  String profileImage,profilefirstName,profileEmail,profileLastName;
+  String profileImage, profilefirstName, profileEmail, profileLastName;
 
   @override
   void initState() {
@@ -31,6 +29,7 @@ class _SideDrawerState extends State<SideDrawer> {
 
     //accountIncluded = true;
   }
+
   void drawerlan() async {
     int b;
     int a = await sh.getshared1();
@@ -65,35 +64,27 @@ class _SideDrawerState extends State<SideDrawer> {
 
   SharePreferencelogin shpref = SharePreferencelogin();
 
-  Future<String> changeDrawer () async
-  {
-    String category =await shpref.getloginCategory();
+  Future<String> changeDrawer() async {
+    String category = await shpref.getloginCategory();
 
-
-    if(category == "custom" || category == "facebook" || category == "google")
-      {
-        accountIncluded = true;
-        drawerProfile();
-      }
-
-      else{
-        accountIncluded = false;
+    if (category == "custom" ||
+        category == "facebook" ||
+        category == "google") {
+      accountIncluded = true;
+      drawerProfile();
+    } else {
+      accountIncluded = false;
     }
 
-    print("Category is"+category);
+    print("Category is" + category);
   }
 
-
-   Future<String> drawerProfile() async
-   {
-     profilefirstName = await shpref.getfirstname();
-     profileLastName = await shpref.getlastname();
-     profileEmail = await shpref.getemail();
-     profileImage = await shpref.getpicture();
-   }
-
-
-
+  Future<String> drawerProfile() async {
+    profilefirstName = await shpref.getfirstname();
+    profileLastName = await shpref.getlastname();
+    profileEmail = await shpref.getemail();
+    profileImage = await shpref.getpicture();
+  }
 
   final facebookLogin = FacebookLogin();
 
@@ -146,13 +137,13 @@ class _SideDrawerState extends State<SideDrawer> {
               ),
               //Image.network(profileImage,height: ScreenUtil().setHeight(130),),
               Container(
-              height: 80.0,
-                width: 80.0,
-                decoration: BoxDecoration(shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                 image: NetworkImage(profileImage)
-                ))),
+                  height: 80.0,
+                  width: 80.0,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(profileImage)))),
               Spacer(
                 flex: 1,
               ),
@@ -173,7 +164,8 @@ class _SideDrawerState extends State<SideDrawer> {
             height: 10,
           ),
           Center(
-            child: Text("$profilefirstName"+" "+"$profileLastName",
+            child: Text(
+              "$profilefirstName" + " " + "$profileLastName",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: ScreenUtil().setSp(
@@ -455,9 +447,7 @@ class _SideDrawerState extends State<SideDrawer> {
 
   _logout() {
     SharePreferencelogin shPref = SharePreferencelogin();
-    shPref.setshared("", "", "", "", "","","","");
+    shPref.setshared("", "", "", "", "", "", "", "");
     facebookLogin.logOut();
-
-
   }
 }
