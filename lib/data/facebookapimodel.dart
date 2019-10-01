@@ -1,9 +1,9 @@
-class EditProfileModel {
+class facebookApimodel {
   Data data;
 
-  EditProfileModel({this.data});
+  facebookApimodel({this.data});
 
-  EditProfileModel.fromJson(Map<String, dynamic> json) {
+  facebookApimodel.fromJson(Map<String, dynamic> json) {
     data = json['Data'] != null ? new Data.fromJson(json['Data']) : null;
   }
 
@@ -31,24 +31,24 @@ class Data {
   //Null birthDate;
   int gender;
   int language;
-  Null imageURL;
+  String imageURL;
 
   Data(
       {this.token,
-      this.systemParameters,
-      this.now,
-      this.memberNo,
-      this.firstName,
-      this.lastName,
-      this.isEmailVerified,
-      this.isPhoneNumberVerified,
-      this.countryId,
-      this.phoneNumber,
-      this.email,
-    //  this.birthDate,
-      this.gender,
-      this.language,
-      this.imageURL});
+        this.systemParameters,
+        this.now,
+        this.memberNo,
+        this.firstName,
+        this.lastName,
+        this.isEmailVerified,
+        this.isPhoneNumberVerified,
+        this.countryId,
+        this.phoneNumber,
+        this.email,
+        //this.birthDate,
+        this.gender,
+        this.language,
+        this.imageURL});
 
   Data.fromJson(Map<String, dynamic> json) {
     token = json['Token'];
@@ -85,7 +85,7 @@ class Data {
     data['CountryId'] = this.countryId;
     data['PhoneNumber'] = this.phoneNumber;
     data['Email'] = this.email;
-    //data['BirthDate'] = this.birthDate;
+   // data['BirthDate'] = this.birthDate;
     data['Gender'] = this.gender;
     data['Language'] = this.language;
     data['ImageURL'] = this.imageURL;
@@ -116,24 +116,24 @@ class SystemParameters {
 
   SystemParameters(
       {this.defaultLanguage,
-      this.defaultCurrency,
-      this.companyName,
-      this.insuranceCompanyName,
-      this.hostessRole,
-      this.custMaxSeatBlockCount,
-      this.custSeatBlockTimeoutSec,
-      this.custOnPaymentTimeoutSec,
-      this.officeMaxSeatBlockCount,
-      this.officeSeatBlockTimeoutSec,
-      this.gunselAgencyId,
-      this.officeCustomerNameRequired,
-      this.officeCustomerPhoneNumberRequired,
-      this.officeCustomerEmailRequired,
-      this.publicCustomerNameRequired,
-      this.publicCustomerPhoneNumberRequired,
-      this.publicCustomerEmailRequired,
-      this.officeMaxTicketDayCount,
-      this.publicMaxTicketDayCount});
+        this.defaultCurrency,
+        this.companyName,
+        this.insuranceCompanyName,
+        this.hostessRole,
+        this.custMaxSeatBlockCount,
+        this.custSeatBlockTimeoutSec,
+        this.custOnPaymentTimeoutSec,
+        this.officeMaxSeatBlockCount,
+        this.officeSeatBlockTimeoutSec,
+        this.gunselAgencyId,
+        this.officeCustomerNameRequired,
+        this.officeCustomerPhoneNumberRequired,
+        this.officeCustomerEmailRequired,
+        this.publicCustomerNameRequired,
+        this.publicCustomerPhoneNumberRequired,
+        this.publicCustomerEmailRequired,
+        this.officeMaxTicketDayCount,
+        this.publicMaxTicketDayCount});
 
   SystemParameters.fromJson(Map<String, dynamic> json) {
     defaultLanguage = json['DefaultLanguage'];
@@ -149,11 +149,11 @@ class SystemParameters {
     gunselAgencyId = json['GunselAgencyId'];
     officeCustomerNameRequired = json['Office_CustomerNameRequired'];
     officeCustomerPhoneNumberRequired =
-        json['Office_CustomerPhoneNumberRequired'];
+    json['Office_CustomerPhoneNumberRequired'];
     officeCustomerEmailRequired = json['Office_CustomerEmailRequired'];
     publicCustomerNameRequired = json['Public_CustomerNameRequired'];
     publicCustomerPhoneNumberRequired =
-        json['Public_CustomerPhoneNumberRequired'];
+    json['Public_CustomerPhoneNumberRequired'];
     publicCustomerEmailRequired = json['Public_CustomerEmailRequired'];
     officeMaxTicketDayCount = json['Office_MaxTicketDayCount'];
     publicMaxTicketDayCount = json['Public_MaxTicketDayCount'];

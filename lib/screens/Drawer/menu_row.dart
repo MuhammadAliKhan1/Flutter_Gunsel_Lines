@@ -1,6 +1,6 @@
 import 'package:gunsel/data/constants.dart';
 
-class MenuRow extends StatelessWidget {
+class MenuRow extends StatefulWidget {
   final String title;
   final IconData icon;
   final bool pngImageAllow;
@@ -14,23 +14,29 @@ class MenuRow extends StatelessWidget {
     this.icon,
     this.pngImage,
   }) : super(key: key);
+
+  @override
+  _MenuRowState createState() => _MenuRowState();
+}
+
+class _MenuRowState extends State<MenuRow> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onTap();
+        widget.onTap();
       },
       child: ListTile(
         contentPadding: EdgeInsets.only(
             left: ScreenUtil().setSp(120), bottom: ScreenUtil().setSp(5)),
-        leading: pngImageAllow
+        leading: widget.pngImageAllow
             ? Image(
-                image: pngImage,
+                image: widget.pngImage,
                 color: gunselColor,
                 height: ScreenUtil().setSp(40),
               )
             : Icon(
-                icon,
+                widget.icon,
                 size: ScreenUtil().setSp(40),
                 color: gunselColor,
               ),
@@ -39,7 +45,7 @@ class MenuRow extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text(
-              "$title",
+              "${widget.title}",
               style: TextStyle(
                 fontFamily: "Helvetica",
                 fontWeight: FontWeight.w600,

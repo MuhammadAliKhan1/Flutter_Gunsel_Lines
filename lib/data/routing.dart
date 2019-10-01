@@ -46,38 +46,38 @@ class Router {
       case payScreen:
         return CustomRoute(builder: (BuildContext context) => Pay());
       case loginScreen:
-        return CustomRoute(builder: (_) => Login());
+        return CustomRoute(builder: (_) => LoginScreen());
       case searchTicketScreen:
         return CustomRoute(
             builder: (_) => SearchTicket(oneWayData: settings.arguments));
       case selectSeatScreen:
         return CustomRoute(builder: (_) => SelectSeat());
       case signUpScreen:
-        return CustomRoute(builder: (_) => SignUpScreen());
+        return CustomRoute(builder: (_) => SignUp());
       case roundWayScreen:
         return CustomRoute(builder: (_) => RoundWay());
       case cancelTicketScreen:
-        return CustomRoute(builder: (_) => CancelTicketScreen());
+        return CustomRoute(builder: (_) => CancelTicket());
       case oneWayScreen:
         return CustomRoute(builder: (_) => OneWay());
       case historyScreen:
         return CustomRoute(builder: (_) => History());
       case finalCancelTicketScreen:
-        return CustomRoute(builder: (_) => FinalCancelTicketScreen());
+        return CustomRoute(builder: (_) => FinalCancelTicket());
       case newsScreen:
-        return CustomRoute(builder: (_) => NewsScreen());
+        return CustomRoute(builder: (_) => News());
       case articleScreen:
-        return CustomRoute(builder: (_) => Article());
+        return CustomRoute(builder: (_) => ArticleScreen());
       case profileScreen:
-        return CustomRoute(builder: (_) => Profile());
+        return CustomRoute(builder: (_) => ProfileScreen());
       case aboutCompanyScreen:
-        return CustomRoute(builder: (_) => AboutCompanyScreen());
+        return CustomRoute(builder: (_) => AboutCompany());
       case ticketSummaryScreen:
         return CustomRoute(builder: (_) => TicketSummary());
       case splashScreen:
         return CustomRoute(builder: (_) => GunselSplash());
       case languageScreen:
-        return CustomRoute(builder: (_) => LanguageScreen());
+        return CustomRoute(builder: (_) => Language());
       case finalCancelTicketScreen:
         return CustomRoute(builder: (_) => FinalCancelTicket());
       case facebookLoginScreen:

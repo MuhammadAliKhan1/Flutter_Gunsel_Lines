@@ -8,54 +8,84 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
 import 'package:gunsel/data/sharedPreference.dart';
 import 'package:gunsel/data/edit_profile_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:gunsel/data/facebookapimodel.dart';
+import 'package:gunsel/data/googleapimodel.dart';
 
-class Login extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return GunselScaffold(
-      appBarIcon: menuIcon,
-      appBarIncluded: true,
-      backgroundImage: loginImgBG,
-      appBarTitleIncluded: true,
-      appBarTitle: 'Login',
-      drawerIncluded: true,
-      bodyWidget: SingleChildScrollView(child: LoginScreen()),
-      appBarColor: gunselColor,
-    );
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return LoginScreenState();
   }
 }
 
-class LoginScreen extends StatelessWidget {
+class LoginScreenState extends State<LoginScreen> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String login = "Login";
+  @override
+  void initState() {
+    loginAppbarlan();
+    super.initState();
+  }
+
+  void loginAppbarlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        login = "Вхід";
+      } else if (b == 2) {
+        login = "Login";
+      } else if (b == 3) {
+        login = "Авторизоваться";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: FittedBox(
-      alignment: Alignment.center,
-      child: Center(
-        child: Container(
-          height: 740,
-          width: 505,
-          child: Column(
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return GunselScaffold(
+        appBarIcon: menuIcon,
+        appBarIncluded: true,
+        backgroundImage: loginImgBG,
+        appBarTitleIncluded: true,
+        appBarTitle: login,
+        drawerIncluded: true,
+        appBarColor: gunselColor,
+        bodyWidget: SingleChildScrollView(
+            child: Center(
+                child: FittedBox(
+          alignment: Alignment.center,
+          child: Center(
+            child: Container(
+              height: 740,
+              width: 505,
+              child: Column(
                 children: <Widget>[
-                  SizedBox(
-                    height: 190,
-                  ),
-                  Image(
-                    image: gunselLoginLogo,
-                    height: 90,
-                  ),
-                  LoginForm(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 190,
+                      ),
+                      Image(
+                        image: gunselLoginLogo,
+                        height: 90,
+                      ),
+                      LoginForm(),
+                    ],
+                  )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
-        ),
-      ),
-    ));
+        ))));
   }
 }
 
@@ -66,8 +96,10 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   SharePreferencelogin shPref = SharePreferencelogin();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = new GoogleSignIn();
 
-  String token =
+  String maintoken =
       "8D77D139A458087F5036B75FE5815ACB229A2326A7B39582321979F9BF709584B610778A1C0EC001B105A91E8AE0A85A1DE193B64074D64691C926614B9ABBB4975FB0197D9C0EF891158FE6124A668C34A514B187DF07F2255AF7B1B69ACD603F0872BFFC405C21A31FCD11A6609DA6FE63CFF2139C6F2D648E365FEEB05722F8D326000528D2CBAC6B321F4FA4BA47F4B0F901D3ECD44C4CDFE651B2B008125298F912E162A3ED9E8FB6FCA191C3D58219152A8466C035DADED9EEAD1938982C1C0EA648E4CE8CA4A5961C8DE732DFE3E5F699428249F35E3210A193052854DD2856121E960AFEC1FB90F7100C5A70FB7C2579D3F90420118C263E2A32666AECEC280F0CBEA7FF9B7D1117A1C1CC7488CF9CE6050551F43C733A9A9CC9F62F54F8316B4D1E7267381DA90157ABC215306F5E0F7D425D4CB7264D794BE44A592CBBE2B6CF5C00F8ED6A73F2FD91DBC67AD90C4326E3840F81E4B39BA2F83FF4";
   final _oneWayForm = GlobalKey<FormState>();
   TextEditingController _number = TextEditingController();
@@ -85,6 +117,16 @@ class _LoginFormState extends State<LoginForm> {
 
   Map userProfile;
   final facebookLogin = FacebookLogin();
+  SharePreferencelogin sh = SharePreferencelogin();
+  String passwordHint = "Password",
+      forgetPassword = "Forgot Password?",
+      signIn = "Sign In",
+      dontHaveAccount = "Don't have an account?",
+      signUp = "Sign Up",
+      forgetYourPassword = "Forgot your password?",
+      emailHint = "Your email",
+      btnSend = "Send",
+      login = "Login";
 
   @override
   void initState() {
@@ -96,6 +138,49 @@ class _LoginFormState extends State<LoginForm> {
 
     _currentId = countryId.keys
         .firstWhere((k) => countryId[k] == _currentFlag, orElse: () => '');
+
+    loginlan();
+  }
+
+  void loginlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        passwordHint = "Пароль";
+        forgetPassword = "Забули пароль?";
+        signIn = "Увійти";
+        dontHaveAccount = "У вас немає облікового запису?";
+        signUp = "Зареєструйтесь";
+        forgetYourPassword = "Забули свій пароль?";
+        emailHint = "Твоя електронна пошта";
+        btnSend = "Надіслати";
+        login = "Вхід";
+      } else if (b == 2) {
+        login = "Login";
+        passwordHint = "Password";
+        forgetPassword = "Forgot Password?";
+        signIn = "Sign In";
+        dontHaveAccount = "Don't have an account?";
+        signUp = "Sign Up";
+        forgetYourPassword = "Forgot your password?";
+        emailHint = "Your email";
+        btnSend = "Send";
+      } else if (b == 3) {
+        login = "Авторизоваться";
+        passwordHint = "пароль";
+        forgetPassword = "Забыл пароль?";
+        signIn = "Войти в систему";
+        dontHaveAccount = "У вас нет аккаунта?";
+        signUp = "Зарегистрироваться";
+        forgetYourPassword = "Забыли свой пароль?";
+        emailHint = "Ваш адрес электронной почты";
+        btnSend = "послать";
+      }
+    });
   }
 
   @override
@@ -201,7 +286,7 @@ class _LoginFormState extends State<LoginForm> {
                 controller: this._passwordSignIn,
                 style: TextStyle(color: Colors.white, fontSize: 25),
                 decoration: InputDecoration(
-                  hintText: "Password",
+                  hintText: passwordHint,
                   hintStyle: TextStyle(color: Colors.white, fontSize: 25.0),
                   contentPadding: EdgeInsets.all(7),
                   enabledBorder: UnderlineInputBorder(
@@ -226,7 +311,7 @@ class _LoginFormState extends State<LoginForm> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
                         title: Text(
-                          "Forgot your password?",
+                          forgetYourPassword,
                           style: TextStyle(
                               color: Colors.white, fontFamily: "MyriadPro"),
                           textAlign: TextAlign.center,
@@ -249,7 +334,7 @@ class _LoginFormState extends State<LoginForm> {
                                           vertical: 15.0, horizontal: 10.0),
                                       fillColor: Colors.white,
                                       filled: true,
-                                      hintText: "Your email",
+                                      hintText: emailHint,
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(5.0))),
@@ -259,7 +344,7 @@ class _LoginFormState extends State<LoginForm> {
                                 padding: EdgeInsets.only(top: 30.0),
                                 child: RaisedButton(
                                   child: Text(
-                                    "Send",
+                                    btnSend,
                                     style: TextStyle(
                                         color: gunselColor,
                                         fontFamily: "SFProText",
@@ -286,7 +371,7 @@ class _LoginFormState extends State<LoginForm> {
             child: Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'Forgot Password?',
+                forgetPassword,
                 style: TextStyle(
                   color: Colors.lightBlueAccent,
                   fontSize: 20,
@@ -319,13 +404,19 @@ class _LoginFormState extends State<LoginForm> {
                 },
                 btnFontFamily: 'SFProText',
                 textWeight: FontWeight.w500,
-                btnText: 'Sign In',
+                btnText: signIn,
                 btnTextFontSize: 45,
                 btnHeight: 45,
               ),
-              Image(
-                image: googleLogo,
-              ),
+              GestureDetector(
+                  child: Image(
+                    image: googleLogo,
+                  ),
+                  onTap: () {
+                    _signIn(context)
+                        .then((FirebaseUser user) => print(user))
+                        .catchError((e) => print(e));
+                  }),
             ],
           ),
         ),
@@ -333,14 +424,14 @@ class _LoginFormState extends State<LoginForm> {
           height: 15,
         ),
         Container(
-          width: 400,
+          width: 450,
           height: 60,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(
-                "Don't have an account?",
+                dontHaveAccount,
                 style: TextStyle(
                   fontSize: 18,
                   fontFamily: 'SFProText',
@@ -355,7 +446,7 @@ class _LoginFormState extends State<LoginForm> {
                   );
                 },
                 child: Text(
-                  'Sign Up',
+                  signUp,
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'SFProText',
@@ -403,54 +494,54 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-//ya function ha
+//ya function ha custom login
   void simpleLogin() async {
     // set up POST request arguments
     String url = 'https://test-api.gunsel.ua/Membership.svc/Login';
-    Map<String, String> headers = {"token": token};
+    Map<String, String> headers = {"token": maintoken};
     String emailSignins = _emailSignIn.text;
     String passwordSignins = _passwordSignIn.text;
     String numbers = _number.text;
+    String imageUrl = "http://www.henhunt.co.uk/wp-content/uploads/2014/10/Person-Logo-1.png";
+    String loginCategory = "custom";
 
     String json =
         '{"PhoneNumber":"$numbers","Password":"$passwordSignins","CountryId":"$_currentId"}';
-    print("Email:" +
-        numbers +
-        " Password:" +
-        passwordSignins +
-        "Country:" +
-        _currentId);
+//    print("Email:" +
+//        numbers +
+//        " Password:" +
+//        passwordSignins +
+//        "Country:" +
+//        _currentId);
 
     // make POST request
     Response response = await post(url, headers: headers, body: json);
-    Map<String, dynamic> apiDat = {
-      'Data': jsonDecode(jsonDecode(response.body)['Data'])
-    };
-    print(apiDat);
-    EditProfileModel editProfileModelObj = EditProfileModel.fromJson(apiDat);
-    var editProfData = editProfileModelObj.toJson();
-    print(editProfData['Data']['FirstName']);
-    print(editProfData['Data']['LastName']);
-    print(editProfData['Data']['Email']);
-    print(editProfData['Data']['PhoneNumber']);
-    print(editProfData['Data']['CountryId']);
-
-    shPref.setshared(
-        editProfData['Data']['FirstName'] +
-            " " +
-            editProfData['Data']['LastName'],
-        "",
-        editProfData['Data']['Email'],
-        editProfData['Data']['PhoneNumber'],
-        "custom");
 
     // check the status code for the result
     int statusCode = response.statusCode;
-    String body = response.body;
+    //String body = response.body;
     // print("status code:" + statusCode.toString());
     //print("Body is:" + body);
 
     if (statusCode == 200) {
+
+      Map<String, dynamic> apiDat = {
+        'Data': jsonDecode(jsonDecode(response.body)['Data'])
+      };
+      print(apiDat);
+      EditProfileModel editProfileModelObj = EditProfileModel.fromJson(apiDat);
+      var editProfData = editProfileModelObj.toJson();
+
+//      print("\nToken is:"+editProfData['Data']['Token']);
+//      print("\nFirstName is:"+editProfData['Data']['FirstName']);
+//      print("\nLastName is:"+editProfData['Data']['LastName']);
+//
+//      print("\nEmail is:"+editProfData['Data']['Email']);
+//      print("\nPhone Number is:"+editProfData['Data']['PhoneNumber']);
+//      print("\nCountry Id is:"+editProfData['Data']['CountryId']);
+
+      shPref.setshared(editProfData['Data']['Token'],editProfData['Data']['FirstName'],editProfData['Data']['LastName'],imageUrl,editProfData['Data']['Email'],editProfData['Data']['PhoneNumber'],editProfData['Data']['CountryId'],loginCategory);
+
       Navigator.pushNamed(context, oneWayScreen);
     } else {
       showDialog(
@@ -478,30 +569,83 @@ class _LoginFormState extends State<LoginForm> {
 
   _loginWithFB() async {
     final result = await facebookLogin.logInWithReadPermissions(['email']);
-
+    String loginCategory = "facebook";
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         {
-          final token = result.accessToken.token;
+          final fbtoken = result.accessToken.token;
+          print("Facebook token is:"+fbtoken);
           final graphResponse = await http.get(
-              'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
-          final profile = JSON.jsonDecode(graphResponse.body);
-          print("\nProfile is: " + profile.toString());
-          print("Image url is:" + profile["picture"]["data"]["url"]);
-          print("Name is:" + profile["name"]);
+              'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${fbtoken}');
+//          final profile = JSON.jsonDecode(graphResponse.body);
+//          print("\nProfile is: " + profile.toString());
+//          print("Image url is:" + profile["picture"]["data"]["url"]);
+//          print("Name is:" + profile["name"]);
 
-          shPref.setshared(profile["name"], profile["picture"]["data"]["url"],
-              "", "", "facebook");
+          // set up POST request arguments
+          String url = 'https://test-api.gunsel.ua/Membership.svc/LoginWithFacebook';
+          Map<String,String> headers = {"token": maintoken};
+          String json = '{"Platform":31,"Language":0,"DeviceToken":null,"Token":"$fbtoken"}';
 
-          // print("Email is:" + profile["email"]);
-          // setState(() {
-          //   userProfile = profile;
-          //   _isLoggedIn = true;
-          // });
+          // make POST request
+          Response response = await post(url, headers: headers, body: json);
+          // check the status code for the result
+          int statusCode = response.statusCode;
+          String body = response.body;
+//          print("status code:"+statusCode.toString());
+//          print("Body is:"+body);
 
-          Navigator.pushNamed(context, oneWayScreen);
+
+
+          if(statusCode == 200)
+            {
+              Map<String, dynamic> fbapiData = {
+                'Data': jsonDecode(jsonDecode(response.body)['Data'])
+              };
+              print(fbapiData);
+              facebookApimodel fbprofilemodelobj = facebookApimodel.fromJson(fbapiData);
+              var fbProfData = fbprofilemodelobj.toJson();
+
+
+              print("Authenticated token is:"+fbProfData['Data']['Token']);
+              print("First Name is:"+fbProfData['Data']['FirstName']);
+              print("Last Name is:"+fbProfData['Data']['LastName']);
+              print("Image is:"+fbProfData['Data']['ImageURL']);
+              print("Email is:"+fbProfData['Data']['Email']);
+            //  print("Phone Number is:"+fbProfData['Data']['FirstName']);
+
+
+              shPref.setshared(fbProfData['Data']['Token'],fbProfData['Data']['FirstName'],fbProfData['Data']['LastName'],fbProfData['Data']['ImageURL'],fbProfData['Data']['Email'],fbProfData['Data']['PhoneNumber'],fbProfData['Data']['CountryId'],loginCategory);
+
+
+              Navigator.pushNamed(context, oneWayScreen);
+            }
+
+            else{
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text(
+                      "Error",
+                    ),
+                    content: Text("Error in Facebook Login."),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text("OK"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                  );
+                });
+          }
+
 
           break;
+
+
         }
       case FacebookLoginStatus.cancelledByUser:
         print("error");
@@ -515,7 +659,7 @@ class _LoginFormState extends State<LoginForm> {
   void forgotPassword() async {
     // set up POST request arguments
     String url = 'https://test-api.gunsel.ua/Membership.svc/ForgotPassword';
-    Map<String, String> headers = {"token": token};
+    Map<String, String> headers = {"token": maintoken};
     String emailForForgetPassword = _emailForForgetPassword.text;
 
     String json = '{"UserId":"$emailForForgetPassword"}';
@@ -570,6 +714,98 @@ class _LoginFormState extends State<LoginForm> {
               ],
             );
           });
+    }
+  }
+
+  //Login with google
+  Future<FirebaseUser> _signIn(BuildContext context) async {
+//    Scaffold.of(context).showSnackBar(new SnackBar(
+//      content: new Text('Sign In'),
+//    ));
+    //debugPrint('-----------------Im here 1');
+    //print('--------- ________________________________$nane');
+
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    //debugPrint('-----------------Im here 2');
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    //debugPrint('-----------------Im here 3');
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+        idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+
+String googleToken = googleAuth.accessToken;
+
+//print("google token is:"+googleToken.toString());
+    String url = 'https://test-api.gunsel.ua/Membership.svc/LoginWithGoogle';
+    Map<String,String> headers = {"token": maintoken};
+    String json = '{"Platform":31,"Language":0,"DeviceToken":null,"Token":"$googleToken"}';
+    Response response = await post(url, headers: headers, body: json);
+    // check the status code for the result
+    int statusCode = response.statusCode;
+    String body = response.body;
+    String loginCategory = "google";
+
+
+
+    try {
+      FirebaseUser user =
+          (await _firebaseAuth.signInWithCredential(credential)).user;
+
+//      print('User isbjhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh' +
+//          user.toString());
+
+
+      if(statusCode == 200)
+      {
+        Map<String, dynamic> gmapiData = {
+          'Data': jsonDecode(jsonDecode(response.body)['Data'])
+        };
+        print(gmapiData);
+        googleApimodel gmprofilemodelobj = googleApimodel.fromJson(gmapiData);
+        var gmProfData = gmprofilemodelobj.toJson();
+
+
+        print("Authenticated token is:"+gmProfData['Data']['Token']);
+        print("First Name is:"+gmProfData['Data']['FirstName']);
+        print("Last Name is:"+gmProfData['Data']['LastName']);
+        print("Image is:"+gmProfData['Data']['ImageURL']);
+        print("Email is:"+gmProfData['Data']['Email']);
+        //  print("Phone Number is:"+fbProfData['Data']['FirstName']);
+
+
+        shPref.setshared(gmProfData['Data']['Token'],gmProfData['Data']['FirstName'],gmProfData['Data']['LastName'],gmProfData['Data']['ImageURL'],gmProfData['Data']['Email'],gmProfData['Data']['PhoneNumber'],gmProfData['Data']['CountryId'],loginCategory);
+
+
+        Navigator.pushNamed(context, oneWayScreen);
+      }
+
+      else{
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text(
+                  "Error",
+                ),
+                content: Text("Error in Gmail Login."),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("OK"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              );
+            });
+      }
+
+      return user;
+    } catch (e) {
+      debugPrint(
+          '-------------------______________________Firebase User Failed');
     }
   }
 }

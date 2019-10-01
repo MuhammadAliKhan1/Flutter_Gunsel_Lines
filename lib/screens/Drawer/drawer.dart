@@ -4,9 +4,97 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:gunsel/data/sharedPreference.dart';
 
-bool accountIncluded = false;
 
-class SideDrawer extends StatelessWidget {
+
+class SideDrawer extends StatefulWidget {
+  @override
+  _SideDrawerState createState() => _SideDrawerState();
+}
+
+class _SideDrawerState extends State<SideDrawer> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String myProfile = "My Profile",
+      buyTicket = "Buy Ticket",
+      cancelTicket = "Cancel Ticket",
+      news = "News",
+      language = "Language",
+      company = "About Gunsel Lines";
+  bool accountIncluded = true;
+
+  String profileImage,profilefirstName,profileEmail,profileLastName;
+
+  @override
+  void initState() {
+    super.initState();
+    drawerlan();
+    changeDrawer();
+
+    //accountIncluded = true;
+  }
+  void drawerlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        myProfile = "Мій профіль";
+        buyTicket = "Купуйте квиток";
+        cancelTicket = "Скасувати квиток";
+        news = "Новини";
+        language = "Мова";
+        company = "Про гюнзельні лінії";
+      } else if (b == 2) {
+        myProfile = "My Profile";
+        buyTicket = "Buy Ticket";
+        cancelTicket = "Cancel Ticket";
+        news = "News";
+        language = "Language";
+        company = "About Gunsel Lines";
+      } else if (b == 3) {
+        myProfile = "Мой профайл";
+        buyTicket = "Купить билет";
+        cancelTicket = "Отменить билет";
+        news = "Новости";
+        language = "язык";
+        company = "О Gunsel Линии";
+      }
+    });
+  }
+
+  SharePreferencelogin shpref = SharePreferencelogin();
+
+  Future<String> changeDrawer () async
+  {
+    String category =await shpref.getloginCategory();
+
+
+    if(category == "custom" || category == "facebook" || category == "google")
+      {
+        accountIncluded = true;
+        drawerProfile();
+      }
+
+      else{
+        accountIncluded = false;
+    }
+
+    print("Category is"+category);
+  }
+
+
+   Future<String> drawerProfile() async
+   {
+     profilefirstName = await shpref.getfirstname();
+     profileLastName = await shpref.getlastname();
+     profileEmail = await shpref.getemail();
+     profileImage = await shpref.getpicture();
+   }
+
+
+
+
   final facebookLogin = FacebookLogin();
 
   @override
@@ -56,15 +144,21 @@ class SideDrawer extends StatelessWidget {
               SizedBox(
                 width: 30,
               ),
-              Image(
-                image: profileHolder,
-                height: ScreenUtil().setHeight(130),
-              ),
+              //Image.network(profileImage,height: ScreenUtil().setHeight(130),),
+              Container(
+              height: 80.0,
+                width: 80.0,
+                decoration: BoxDecoration(shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                 image: NetworkImage(profileImage)
+                ))),
               Spacer(
                 flex: 1,
               ),
               InkWell(
                   onTap: () {
+                    _logout();
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         oneWayScreen, (Route<dynamic> route) => false);
                     Navigator.pushNamed(context, loginScreen);
@@ -79,8 +173,7 @@ class SideDrawer extends StatelessWidget {
             height: 10,
           ),
           Center(
-            child: Text(
-              "Erhan Ozturk",
+            child: Text("$profilefirstName"+" "+"$profileLastName",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: ScreenUtil().setSp(
@@ -96,7 +189,7 @@ class SideDrawer extends StatelessWidget {
           ),
           Center(
             child: Text(
-              "ozturk123@gunsel.com",
+              profileEmail,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: ScreenUtil().setSp(
@@ -134,7 +227,7 @@ class SideDrawer extends StatelessWidget {
         child: ListView(
       children: <Widget>[
         MenuRow(
-          title: 'My Profile',
+          title: myProfile,
           pngImage: profileIcon,
           onTap: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
@@ -144,7 +237,7 @@ class SideDrawer extends StatelessWidget {
           pngImageAllow: true,
         ),
         MenuRow(
-          title: 'Buy Ticket',
+          title: buyTicket,
           pngImageAllow: true,
           pngImage: buyIcon,
           onTap: () {
@@ -153,7 +246,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'Cancel Ticket',
+          title: cancelTicket,
           pngImageAllow: true,
           pngImage: cancelIcon,
           onTap: () {
@@ -173,7 +266,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'News',
+          title: news,
           icon: Icons.new_releases,
           pngImageAllow: true,
           pngImage: newsIcon,
@@ -184,7 +277,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'About Gunsel Lines',
+          title: company,
           pngImageAllow: true,
           pngImage: aboutCompanyIcon,
           onTap: () {
@@ -250,7 +343,7 @@ class SideDrawer extends StatelessWidget {
         child: ListView(
       children: <Widget>[
         MenuRow(
-          title: 'My Profile',
+          title: myProfile,
           pngImage: profileIcon,
           onTap: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
@@ -260,7 +353,7 @@ class SideDrawer extends StatelessWidget {
           pngImageAllow: true,
         ),
         MenuRow(
-          title: 'Buy Ticket',
+          title: buyTicket,
           pngImageAllow: true,
           pngImage: buyIcon,
           onTap: () {
@@ -269,7 +362,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'Cancel Ticket',
+          title: cancelTicket,
           pngImageAllow: true,
           pngImage: cancelIcon,
           onTap: () {
@@ -279,7 +372,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'News',
+          title: news,
           pngImageAllow: true,
           pngImage: newsIcon,
           onTap: () {
@@ -289,7 +382,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'Language',
+          title: language,
           pngImageAllow: true,
           pngImage: languageIcon,
           onTap: () {
@@ -299,7 +392,7 @@ class SideDrawer extends StatelessWidget {
           },
         ),
         MenuRow(
-          title: 'About Gunsel Lines',
+          title: company,
           pngImageAllow: true,
           pngImage: aboutCompanyIcon,
           onTap: () {
@@ -362,8 +455,9 @@ class SideDrawer extends StatelessWidget {
 
   _logout() {
     SharePreferencelogin shPref = SharePreferencelogin();
+    shPref.setshared("", "", "", "", "","","","");
     facebookLogin.logOut();
 
-    shPref.setshared("", "", "", "", "");
+
   }
 }

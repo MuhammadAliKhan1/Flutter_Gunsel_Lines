@@ -1,26 +1,13 @@
+import 'dart:io';
+import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/sharedPreference.dart';
+import 'package:flutter/services.dart';
 
-class Profile extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: GunselScaffold(
-        appBarIcon: menuIcon,
-        appBarIncluded: true,
-        appBarColor: gunselColor,
-        appBarTitleIncluded: true,
-        appBarTitle: 'Profile',
-        drawerIncluded: true,
-        backgroundImage: profileScreenBackground,
-        bodyWidget: SingleChildScrollView(
-          child: ProfileScreen(),
-          padding: EdgeInsets.only(top: 30.0),
-        ),
-      ),
-    );
-  }
-}
+
+
+
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -28,6 +15,51 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  File imageFile ;
+
+  String editProfileInformation = "Edit Profile Information",
+      firstName = "First Name",
+      lastName = "Last Name",
+      email = "Email",
+      phoneNumber = "Phone Number",
+      btnSaveChange = "Save Changes",
+      profile = "Profile";
+
+  void profilelan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+      if (b == 1) {
+        editProfileInformation = "Редагувати інформацію профілю";
+        firstName = "Ім'я";
+        lastName = "Прізвище";
+        email = "Електронна пошта";
+        phoneNumber = "Номер телефону";
+        btnSaveChange = "Зберегти зміни";
+        profile = "Профіль";
+      } else if (b == 2) {
+        editProfileInformation = "Edit Profile Information";
+        firstName = "First Name";
+        lastName = "Last Name";
+        email = "Email";
+        phoneNumber = "Phone Number";
+        btnSaveChange = "Save Changes";
+        profile = "Profile";
+      } else if (b == 3) {
+        editProfileInformation = "Изменить информацию профиля";
+        firstName = "Имя";
+        lastName = "Фамилия";
+        email = "Электронное письмо";
+        phoneNumber = "Номер телефона";
+        btnSaveChange = "Сохранить изменения";
+        profile = "Профиль";
+      }
+    });
+  }
+
   TextEditingController _firstName = TextEditingController();
   TextEditingController _lastName = TextEditingController();
 
@@ -39,38 +71,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
   String _currentCode = '';
-  String nameProfile,
-      nameProfileset,
+  String _currentIds = '';
+  String selectedCountryIds= '';
+  String firstnameProfile,
+      firstnameProfileset,
+      lastnameProfile,
+      lastnameProfileset,
       pictureProfile,
       pictureProfileset,
       emailProfile,
       emailProfileset,
       phoneProfile,
       phoneProfileset,
+      countryidProfile,
+      countryidProfileset,
       loginCategory,
       loginCategoryset;
   @override
   void initState() {
+    profilelan();
     _dropDownMenuItems = getDropDownMenuItems();
     _currentFlag = _dropDownMenuItems[0].value;
     _currentCode = countryCode.keys
         .firstWhere((k) => countryCode[k] == _currentFlag, orElse: () => '');
+    _currentIds = countryId.keys
+        .firstWhere((k) => countryId[k] == _currentFlag, orElse: () => '');
 
-    profileName();
+    profilefirstName();
+    profilelastName();
     profileImage();
     profileemail();
     profileNumber();
+    profileCountryid();
     loginCategorys();
 
     super.initState();
   }
 
-  void profileName() async {
-    nameProfile = await shPref.getname();
-    print("Name is" + nameProfile);
+  void profilefirstName() async {
+    firstnameProfile = await shPref.getfirstname();
+    print("Name is" + firstnameProfile);
 
     setState(() {
-      nameProfileset = nameProfile;
+      firstnameProfileset = firstnameProfile;
+    });
+  }
+
+  void profilelastName() async {
+    lastnameProfile = await shPref.getlastname();
+    print("Name is" + lastnameProfile);
+
+    setState(() {
+      lastnameProfileset = lastnameProfile;
     });
   }
 
@@ -78,8 +130,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     pictureProfile = await shPref.getpicture();
     print("Name is" + pictureProfile);
     setState(() {
-      pictureProfileset = pictureProfile;
-    });
+      if(pictureProfile == "" )
+        {
+          pictureProfileset ="https://www.pngfind.com/pngs/m/60-600869_logo-person-png-person-logo-transparent-png-download.png";
+        }
+        else {
+        pictureProfileset = pictureProfile;
+      }
+          });
   }
 
   void profileemail() async {
@@ -99,8 +157,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+
+  void profileCountryid() async {
+    countryidProfile = await shPref.getcountryId();
+    print("Name is" +  countryidProfile);
+
+    setState(() {
+      countryidProfileset =  countryidProfile;
+    });
+  }
+
+
+
   void loginCategorys() async {
-    loginCategory = await shPref.getLoginCategory();
+    loginCategory = await shPref.getloginCategory();
     print("loginCategory" + loginCategory);
 
     setState(() {
@@ -110,7 +180,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SafeArea(
+      child: GunselScaffold(
+        appBarIcon: menuIcon,
+        appBarIncluded: true,
+        appBarColor: gunselColor,
+        appBarTitleIncluded: true,
+        appBarTitle: profile,
+        drawerIncluded: true,
+        backgroundImage: profileScreenBackground,
+        bodyWidget: SingleChildScrollView(
+          padding: EdgeInsets.only(top: 30.0),
+          child: Center(
         child: FittedBox(
       child: Container(
         width: MediaQuery.of(context).size.width / 1.2,
@@ -153,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           child: AlertDialog(
                                               backgroundColor: gunselColor,
                                               title: Text(
-                                                "Edit Profile Information",
+                                                editProfileInformation,
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontFamily: "Helvetica",
@@ -169,7 +250,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             EdgeInsets.only(
                                                                 top: 15.0),
                                                         child: Text(
-                                                          "First Name",
+                                                          firstName,
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.white,
@@ -183,7 +264,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                 top: 15.0,
                                                                 left: 80.0),
                                                         child: Text(
-                                                          "Last Name",
+                                                          "           $lastName",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.white,
@@ -248,7 +329,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       padding: EdgeInsets.only(
                                                           right: 25.0),
                                                       child: Text(
-                                                        "Email                                                                                ",
+                                                        "$email                                                                                ",
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 10.0,
@@ -278,8 +359,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   Padding(
                                                       padding: EdgeInsets.only(
                                                           right: 170.0),
-                                                      child: Text(
-                                                          "Phone Number",
+                                                      child: Text(phoneNumber,
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.white,
@@ -368,7 +448,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                           top: 30.0),
                                                       child: RaisedButton(
                                                         child: Text(
-                                                          "Save Changes",
+                                                          btnSaveChange,
                                                           style: TextStyle(
                                                               fontSize: 20.0,
                                                               color: darkBlue),
@@ -404,7 +484,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Center(
                         child: Text(
-                      '$nameProfile',
+                      firstnameProfileset+" "+lastnameProfileset,
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -483,16 +563,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            Align(
-                alignment: Alignment.topCenter,
-                child: Image.network(
-                  pictureProfileset,
-                  height: 80.0,
-                )),
+            //Image Profile ka liya ha ya
+            Container(
+//              height: 80.0,
+//                width: 80.0,
+//                margin: EdgeInsets.only(left: 110.0),
+//                decoration: BoxDecoration(shape: BoxShape.circle,
+//                image: DecorationImage(
+//                  fit: BoxFit.fill,
+//                  image: NetworkImage(pictureProfileset)
+//                )
+//
+//                ),
+             child: GestureDetector(
+                onTap: (){
+                  _showChoiceDialog(context);
+                },
+                child: _decideImageView(),
+              ),
+
+                ),
+
           ],
         ),
       ),
-    ));
+    ))
+        ),
+      ),
+    );
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     
   }
 
   List<DropdownMenuItem<AssetImage>> getDropDownMenuItems() {
@@ -514,41 +633,255 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _currentCode = countryCode.keys
           .firstWhere((k) => countryCode[k] == selectedFlag, orElse: () => '');
     });
+    _currentIds = countryId.keys
+        .firstWhere((j) => countryId[j] == selectedFlag, orElse: () => '');
+    this.selectedCountryIds = _currentIds;
   }
 
   void editData() {
     print(loginCategory);
     if (loginCategory == "facebook") {
-      var names = nameProfile.split(" ");
 
-      print("First Name" + names[0]);
-      //print("Last Name" + names[1]);
-      _firstName.text = names[0];
-      _lastName.text = names[1];
+      _firstName.text = firstnameProfile;
+      _lastName.text = lastnameProfile;
       _email.text = emailProfile;
       _number.text = phoneProfile;
+
     } else if (loginCategory == "custom") {
-      var names = nameProfile.split(" ");
-      print(names);
-      print("First Name" + names[0]);
-      print("Last Name" + names[1]);
-      _firstName.text = names[0];
-      _lastName.text = names[1];
+      print("First Name" + firstnameProfile);
+      //print("Last Name" + names[1]);
+      _firstName.text = firstnameProfile;
+      _lastName.text = lastnameProfile;
       _email.text = emailProfile;
       _number.text = phoneProfile;
+    } else if (loginCategory == "google") {
+
+      print("First Name" + firstnameProfile);
+      //print("Last Name" + names[1]);
+      _firstName.text = firstnameProfile;
+      _lastName.text = lastnameProfile;
+      _email.text = emailProfile;
+      _number.text = phoneProfile;
+
+
+//      var names = nameProfile.split(" ");
+//      print(names);
+//      print("First Name" + names[0]);
+//      print("Last Name" + names[1]);
+//      _firstName.text = names[0];
+//      _lastName.text = names[1];
+//      _email.text = emailProfile;
+//      _number.text = phoneProfile;
     }
   }
 
-  void saveChanges() {
-    shPref.setshared(_firstName.text + " " + _lastName.text, pictureProfile,
-        _email.text, _number.text, loginCategory);
-    profileName();
+  Future<String> saveChanges() async {
+String editFirstname,editLastname,editCountryid,editPhonenumber,editEmail;
+
+editFirstname = _firstName.text;
+editLastname = _lastName.text;
+editCountryid = _currentIds.toString();
+editPhonenumber = _number.text;
+editEmail = _email.text;
+
+//print("Current code is:"+editCountryid);
+//print("Current phone is:"+editPhonenumber);
+
+    String tokenData = await shPref.gettokens();
+    print(tokenData);
+
+    String url = 'https://test-api.gunsel.ua/Membership.svc/SetMemberInfo';
+    Map<String,String> headers = {"token": tokenData};
+    String json = '{"FirstName":"$editFirstname","LastName":"$editLastname","CountryId":"$editCountryid","PhoneNumber":"$editPhonenumber","Email":"$editEmail"}';
+
+    // make POST request
+    Response response = await post(url, headers: headers, body: json);
+    // check the status code for the result
+    int statusCode = response.statusCode;
+    print("Status code is:"+statusCode.toString());
+    print("response is"+response.body.toString());
+
+    if(statusCode == 200)
+      {
+        //String body = response.body;
+        print("status code:"+statusCode.toString());
+
+
+        shPref.setshared(tokenData,editFirstname,editLastname, pictureProfile, editEmail, editPhonenumber,editCountryid, loginCategory);
+    profilefirstName();
+    profilelastName();
     profileImage();
     profileemail();
     profileNumber();
     loginCategorys();
-    Navigator.pop(context);
+        Navigator.pop(context);
+
+
+        //print("Body is:"+body);
+      }
+     else{
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                "Error",
+              ),
+              content: Text("Data not updated"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
+    }
+
+
+
+
+//    shPref.setshared(_firstName.text + " " + _lastName.text, pictureProfile,
+//        _email.text, _number.text, loginCategory);
+//    profileName();
+//    profileImage();
+//    profileemail();
+//    profileNumber();
+//    loginCategorys();
+
   }
+
+
+  //For imagepicker
+
+
+
+  Future<void> _showChoiceDialog(BuildContext context){
+    return showDialog(context: context,builder: (BuildContext context){
+      return AlertDialog(
+        title: Text('Make a Choice!'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+
+              GestureDetector(
+                child: Text('Gallery'),
+                onTap: (){
+                  _openGallery(context);
+                },
+              ),
+
+              Padding(padding: EdgeInsets.all(8.0)),
+
+              GestureDetector(
+                child: Text('Camera'),
+                onTap: (){
+                  _openCamera(context);
+                },
+              )
+
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  Widget _decideImageView(){
+
+    if(imageFile==null){
+      return Container(
+        margin: EdgeInsets.only(left: 110.0),
+        width: 80,
+        height: 80,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          border: new Border.all(color: Colors.white,width: 2.0),
+        ),
+        child: ClipOval(
+          //child:Image.file(imageFile,width: 160,height: 160,fit: BoxFit.fill,)
+          child: Image.network(pictureProfileset,fit: BoxFit.fill,),
+//          Image(image: AssetImage("images/salon_employeeimage.jpg"),fit: BoxFit.fill,),
+        ),
+
+      );
+    }
+    else{
+      return Container(
+        margin: EdgeInsets.only(left: 110.0),
+        width: 80,
+        height: 80,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          border: new Border.all(color: Colors.white,width: 2.0),
+        ),
+        child: ClipOval(
+            child:Image.file(imageFile,width: 160,height: 160,fit: BoxFit.fill,)
+//          Image(image: AssetImage("images/salon_employeeimage.jpg"),fit: BoxFit.fill,),
+        ),
+
+      );
+//      return Image.file(imageFile,width: 160,height: 160);
+    }
+  }
+
+
+
+  _openGallery(BuildContext context) async{
+    var picture= await ImagePicker.pickImage(source: ImageSource.gallery);
+    print("Picture is"+picture.toString());
+    //data
+//    var names = nameProfile.split(" ");
+//    print(names);
+//    print("First Name" + names[0]);
+//    print("Last Name" + names[1]);
+//    _firstName.text = names[0];
+//    _lastName.text = names[1];
+//    _email.text = emailProfile;
+//    _number.text = phoneProfile;
+//    shPref.setshared(_firstName.text + " " + _lastName.text, picture.toString(),
+//        _email.text, _number.text, loginCategory);
+    //data
+    this.setState((){
+      imageFile = picture;
+    });
+    Navigator.of(context).pop();
+  }
+
+  _openCamera(BuildContext context) async{
+    var picture= await ImagePicker.pickImage(source: ImageSource.camera);
+    this.setState((){
+      imageFile = picture;
+    });
+    Navigator.of(context).pop();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 /*
