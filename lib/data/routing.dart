@@ -38,18 +38,28 @@ class Router {
       case homeScreen:
         return CustomRoute(builder: (BuildContext context) => OneWay());
       case detailScreen:
-        return CustomRoute(builder: (BuildContext context) => Detail());
+        return CustomRoute(
+            builder: (BuildContext context) => Detail(
+                  ticketData: settings.arguments,
+                ));
       case paymentResultScreen:
         return CustomRoute(builder: (BuildContext context) => PaymentResult());
       case payScreen:
-        return CustomRoute(builder: (BuildContext context) => Pay());
+        return CustomRoute(
+            builder: (BuildContext context) => Pay(
+                  payForm: settings.arguments,
+                ));
       case loginScreen:
         return CustomRoute(builder: (_) => Login());
       case searchTicketScreen:
         return CustomRoute(
-            builder: (_) => SearchTicket(oneWayData: settings.arguments));
+            builder: (_) =>
+                new SearchTicket(buyTicketData: settings.arguments));
       case selectSeatScreen:
-        return CustomRoute(builder: (_) => SelectSeat());
+        return CustomRoute(
+            builder: (_) => SelectSeat(
+                  ticketData: settings.arguments,
+                ));
       case signUpScreen:
         return CustomRoute(builder: (_) => SignUp());
       case roundWayScreen:
@@ -71,7 +81,10 @@ class Router {
       case aboutCompanyScreen:
         return CustomRoute(builder: (_) => AboutCompany());
       case ticketSummaryScreen:
-        return CustomRoute(builder: (_) => TicketSummary());
+        return CustomRoute(
+            builder: (_) => TicketSummary(
+                  ticketData: settings.arguments,
+                ));
       case splashScreen:
         return CustomRoute(builder: (_) => GunselSplash());
       case languageScreen:

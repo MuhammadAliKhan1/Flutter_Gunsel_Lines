@@ -1,5 +1,4 @@
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:gunsel/data/buy_ticket.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/stationlist_model.dart';
 import 'package:gunsel/widgets/button.dart';
@@ -88,26 +87,26 @@ class _OneWayFormState extends State<OneWayForm> {
   TextEditingController _arrivalStation = TextEditingController();
   TextEditingController _departureStation = TextEditingController();
   TextEditingController _travelInputDate;
-  BuyTicketOneWayData buyTicketObject = BuyTicketOneWayData();
+  Map<String, dynamic> buyTicketData;
   String _arrivalStationVal;
   String _departureStationVal;
   List<String> stationID = [];
   List<String> stationList;
   int passengers;
-  bool stationListFetched = false;
-
+  bool stationListFetched;
+  DateTime picker;
   @override
   void initState() {
+    buyTicketData = Map();
     super.initState();
     this.passengers = 1;
+    stationListFetched = false;
+    stationID = [];
     setInitialDate();
   }
 
   setInitialDate() async {
-    DateTime picker = await DateTime.now();
-    buyTicketObject.day = picker.day;
-    buyTicketObject.month = picker.month;
-    buyTicketObject.year = picker.year;
+    picker = DateTime.now();
   }
 
   @override
@@ -257,6 +256,7 @@ class _OneWayFormState extends State<OneWayForm> {
               },
               child: AbsorbPointer(
                 child: TextFormField(
+                  validator: (value) {},
                   style: TextStyle(color: Colors.blue, fontSize: 17.0),
                   keyboardType: TextInputType.datetime,
                   controller: this._travelInputDate,
@@ -345,16 +345,24 @@ class _OneWayFormState extends State<OneWayForm> {
             btnTextFontSize: 40,
             whenPressed: () async {
               if (_oneWayForm.currentState.validate()) {
-                buyTicketObject.arrivalStation = this._arrivalStation.text;
-                buyTicketObject.departureStation = this._departureStation.text;
-                buyTicketObject.arrivalStationID = stationID[
-                    (stationList.indexOf(buyTicketObject.arrivalStation))];
-                buyTicketObject.departureStationID = stationID[
-                    (stationList.indexOf(buyTicketObject.departureStation))];
-                buyTicketObject.numberOFPassengers = this.passengers;
+                if (this._travelInputDate == null) {
+                  DateTime picker = await DateTime.now();
+                  buyTicketData['DepartureDay'] = picker.day;
+                  buyTicketData['DepartureMonth'] = picker.month;
+                  buyTicketData['DepartureYear'] = picker.year;
+                }
+                buyTicketData['ArrivalStation'] = this._arrivalStation.text;
+                buyTicketData['DepartureStation'] = this._departureStation.text;
+                buyTicketData['ArrivalStationId'] = stationID[
+                    (stationList.indexOf(buyTicketData['ArrivalStation']))];
+                buyTicketData['DepartureStationId'] = stationID[
+                    (stationList.indexOf(buyTicketData['DepartureStation']))];
+                buyTicketData['PassengerCount'] = this.passengers;
+                buyTicketData['RoundWayCheck'] = false;
+                buyTicketData['SecondLegCheck'] = false;
                 setState(() {
                   Navigator.pushNamed(context, searchTicketScreen,
-                      arguments: this.buyTicketObject);
+                      arguments: this.buyTicketData);
                 });
               }
             },
@@ -417,17 +425,18 @@ class _OneWayFormState extends State<OneWayForm> {
 
   Future _travelSelectedDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: new DateTime(2019),
-        lastDate: new DateTime(2020));
+      context: context,
+      initialDate: DateTime.now().add(Duration(days: 0)),
+      firstDate: DateTime.now().add(Duration(days: -1)),
+      lastDate: DateTime.now().add(Duration(days: 730)),
+    );
     if (picked != null)
       setState(() {
         this._travelInputDate = new TextEditingController(
             text: "${picked.day}.${picked.month}.${picked.year}");
-        buyTicketObject.day = picked.day;
-        buyTicketObject.month = picked.month;
-        buyTicketObject.year = picked.year;
+        buyTicketData['DepartureDay'] = picked.day;
+        buyTicketData['DepartureMonth'] = picked.month;
+        buyTicketData['DepartureYear'] = picked.year;
       });
   }
 }

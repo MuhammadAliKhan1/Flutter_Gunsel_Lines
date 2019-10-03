@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gunsel/data/buy_ticket.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/travel_list_one_way_model.dart';
 
 class SearchTicket extends StatelessWidget {
-  BuyTicketOneWayData oneWayData;
+  Map<String, dynamic> buyTicketData;
   SearchTicket({
-    this.oneWayData,
+    this.buyTicketData,
   });
   Widget build(BuildContext context) {
     return GunselScaffold(
@@ -18,17 +17,38 @@ class SearchTicket extends StatelessWidget {
       appBarTitleIncluded: true,
       drawerIncluded: false,
       bodyWidget: SearchTicketScreen(
-        oneWayData: this.oneWayData,
+        buyTicketMap: this.buyTicketData,
+      ),
+    );
+  }
+}
+
+class SearchTicketRoundWay extends StatelessWidget {
+  Map<String, dynamic> buyTicketData;
+  SearchTicketRoundWay({
+    this.buyTicketData,
+  });
+  Widget build(BuildContext context) {
+    return GunselScaffold(
+      appBarIcon: backArrow,
+      appBarIncluded: true,
+      backgroundImage: scaffoldImg,
+      appBarColor: gunselColor,
+      appBarTitle: 'Search Ticket',
+      appBarTitleIncluded: true,
+      drawerIncluded: false,
+      bodyWidget: SearchTicketScreen(
+        buyTicketMap: this.buyTicketData,
       ),
     );
   }
 }
 
 class SearchTicketScreen extends StatefulWidget {
-  final BuyTicketOneWayData oneWayData;
+  Map<String, dynamic> buyTicketMap;
   TabController tabs;
   SearchTicketScreen({
-    this.oneWayData,
+    this.buyTicketMap,
   });
   @override
   State<StatefulWidget> createState() {
@@ -41,25 +61,65 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
   int initialMonth;
   int initialYear;
   bool makeItGrey;
+  bool stopClick;
   Map<String, dynamic> travelListTicketData;
+  Future<dynamic> _datafetched;
   @override
   void initState() {
     super.initState();
-    getData();
-    initialDay = widget.oneWayData.day;
-    initialMonth = widget.oneWayData.month;
-    initialYear = widget.oneWayData.year;
+    if (widget.buyTicketMap['SecondLegCheck'] != null) {
+      travelListTicketData = Map();
+      travelListTicketData['BuyTicketData'] = widget.buyTicketMap;
+    } else {
+      travelListTicketData = widget.buyTicketMap;
+      travelListTicketData['BuyTicketData']['SecondLegCheck'] = true;
+    }
+    _datafetched = getData();
+    if (travelListTicketData['BuyTicketData']['SecondLegCheck']) {
+      initialDay = travelListTicketData['BuyTicketData']['ReturnDay'];
+      initialMonth = travelListTicketData['BuyTicketData']['ReturnMonth'];
+      initialYear = travelListTicketData['BuyTicketData']['ReturnYear'];
+    } else {
+      initialDay = travelListTicketData['BuyTicketData']['DepartureDay'];
+      initialMonth = travelListTicketData['BuyTicketData']['DepartureMonth'];
+      initialYear = travelListTicketData['BuyTicketData']['DepartureYear'];
+    }
     makeItGrey = true;
+    stopClick = false;
   }
 
   getData() async {
+    stopClick = true;
     TravelListOneWayModel travelListPODO = TravelListOneWayModel();
-    travelListTicketData = await travelListPODO.getTravelList(
-        widget.oneWayData.arrivalStationID,
-        widget.oneWayData.departureStationID,
-        widget.oneWayData.year,
-        widget.oneWayData.month,
-        widget.oneWayData.day);
+    if (travelListTicketData['BuyTicketData']['RoundWayCheck']) {
+      if (travelListTicketData['BuyTicketData']['SecondLegCheck']) {
+        travelListTicketData['SecondLegTickets'] =
+            await travelListPODO.getRoundWaySecondLegList(
+          travelListTicketData['BuyTicketData']['DepartureStationId'],
+          travelListTicketData['BuyTicketData']['ArrivalStationId'],
+          travelListTicketData['BuyTicketData']['ReturnYear'],
+          travelListTicketData['BuyTicketData']['ReturnMonth'],
+          travelListTicketData['BuyTicketData']['ReturnDay'],
+        );
+      } else {
+        travelListTicketData['FirstLegTickets'] =
+            await travelListPODO.getTravelList(
+          travelListTicketData['BuyTicketData']['ArrivalStationId'],
+          travelListTicketData['BuyTicketData']['DepartureStationId'],
+          travelListTicketData['BuyTicketData']['DepartureYear'],
+          travelListTicketData['BuyTicketData']['DepartureMonth'],
+          travelListTicketData['BuyTicketData']['DepartureDay'],
+        );
+      }
+    } else
+      travelListTicketData['FirstLegTickets'] =
+          await travelListPODO.getTravelList(
+        travelListTicketData['BuyTicketData']['ArrivalStationId'],
+        travelListTicketData['BuyTicketData']['DepartureStationId'],
+        travelListTicketData['BuyTicketData']['DepartureYear'],
+        travelListTicketData['BuyTicketData']['DepartureMonth'],
+        travelListTicketData['BuyTicketData']['DepartureDay'],
+      );
   }
 
   @override
@@ -68,13 +128,21 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
       children: <Widget>[
         Stack(
           children: <Widget>[
-            getTicketContainer(
-              widget.oneWayData.departureStation,
-              widget.oneWayData.arrivalStation,
-              widget.oneWayData.day,
-              widget.oneWayData.month,
-              widget.oneWayData.year,
-            ),
+            travelListTicketData['BuyTicketData']['SecondLegCheck']
+                ? getTicketContainer(
+                    travelListTicketData['BuyTicketData']['ArrivalStation'],
+                    travelListTicketData['BuyTicketData']['DepartureStation'],
+                    travelListTicketData['BuyTicketData']['ReturnDay'],
+                    travelListTicketData['BuyTicketData']['ReturnMonth'],
+                    travelListTicketData['BuyTicketData']['ReturnYear'],
+                  )
+                : getTicketContainer(
+                    travelListTicketData['BuyTicketData']['DepartureStation'],
+                    travelListTicketData['BuyTicketData']['ArrivalStation'],
+                    travelListTicketData['BuyTicketData']['DepartureDay'],
+                    travelListTicketData['BuyTicketData']['DepartureMonth'],
+                    travelListTicketData['BuyTicketData']['DepartureYear'],
+                  ),
             Align(
               alignment: Alignment.topLeft,
               child: getSliderLeft(),
@@ -85,7 +153,10 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
             ),
           ],
         ),
-        Expanded(child: getTicketList())
+        Expanded(
+            child: travelListTicketData['BuyTicketData']['SecondLegCheck']
+                ? getTicketSecondLegList(_datafetched)
+                : getTicketFirstLegList(_datafetched))
       ],
     );
   }
@@ -109,30 +180,103 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                 height: 20,
               ),
               label: Text(""),
-              onPressed: () {
-                setState(() {
-                  if (widget.oneWayData.day != this.initialDay ||
-                      widget.oneWayData.month != this.initialMonth ||
-                      widget.oneWayData.year !=
-                          this.initialYear) if (widget.oneWayData.day >= 1) {
-                    if (widget.oneWayData.day == 1) {
-                      getData();
-                      if (widget.oneWayData.month == 1) {
-                        widget.oneWayData.year--;
-                        widget.oneWayData.day = 31;
-                        widget.oneWayData.month = 12;
-                      } else {
-                        widget.oneWayData.month--;
-                        widget.oneWayData.day = 31;
+              onPressed: travelListTicketData['BuyTicketData']['SecondLegCheck']
+                  ? () async {
+                      if (!stopClick) {
+                        if (!makeItGrey) {
+                          if (travelListTicketData['BuyTicketData']
+                                  ['ReturnDay'] >=
+                              1) {
+                            if (travelListTicketData['BuyTicketData']
+                                    ['ReturnDay'] ==
+                                1) {
+                              if (travelListTicketData['BuyTicketData']
+                                      ['ReturnMonth'] ==
+                                  1) {
+                                travelListTicketData['BuyTicketData']
+                                    ['ReturnYear']--;
+                                travelListTicketData['BuyTicketData']
+                                    ['ReturnDay'] = 31;
+                                travelListTicketData['BuyTicketData']
+                                    ['ReturnMonth'] = 12;
+                              } else {
+                                travelListTicketData['BuyTicketData']
+                                    ['ReturnMonth']--;
+                                travelListTicketData['BuyTicketData']
+                                    ['ReturnDay'] = 31;
+                              }
+                            } else {
+                              travelListTicketData['BuyTicketData']
+                                  ['ReturnDay']--;
+                            }
+                          }
+                          setState(() {
+                            _datafetched = getData();
+                          });
+                        }
+                        if (travelListTicketData['BuyTicketData']
+                                    ['ReturnDay'] ==
+                                this.initialDay &&
+                            travelListTicketData['BuyTicketData']
+                                    ['ReturnMonth'] ==
+                                this.initialMonth &&
+                            travelListTicketData['BuyTicketData']
+                                    ['ReturnYear'] ==
+                                this.initialYear) makeItGrey = true;
+                        if (!makeItGrey)
+                          setState(() {
+                            _datafetched = getData();
+                          });
                       }
-                    } else {
-                      getData();
-                      widget.oneWayData.day--;
                     }
-                  } else
-                    makeItGrey = true;
-                });
-              },
+                  : () async {
+                      if (!stopClick) {
+                        if (!makeItGrey) {
+                          if (travelListTicketData['BuyTicketData']
+                                  ['DepartureDay'] >=
+                              1) {
+                            if (travelListTicketData['BuyTicketData']
+                                    ['DepartureDay'] ==
+                                1) {
+                              if (travelListTicketData['BuyTicketData']
+                                      ['DepartureMonth'] ==
+                                  1) {
+                                travelListTicketData['BuyTicketData']
+                                    ['DepartureYear']--;
+                                travelListTicketData['BuyTicketData']
+                                    ['DepartureDay'] = 31;
+                                travelListTicketData['BuyTicketData']
+                                    ['DepartureMonth'] = 12;
+                              } else {
+                                travelListTicketData['BuyTicketData']
+                                    ['DepartureMonth']--;
+                                travelListTicketData['BuyTicketData']
+                                    ['DepartureDay'] = 31;
+                              }
+                            } else {
+                              travelListTicketData['BuyTicketData']
+                                  ['DepartureDay']--;
+                            }
+                          }
+                          setState(() {
+                            _datafetched = getData();
+                          });
+                        }
+                        if (travelListTicketData['BuyTicketData']
+                                    ['DepartureDay'] ==
+                                this.initialDay &&
+                            travelListTicketData['BuyTicketData']
+                                    ['DepartureMonth'] ==
+                                this.initialMonth &&
+                            travelListTicketData['BuyTicketData']
+                                    ['DepartureYear'] ==
+                                this.initialYear) makeItGrey = true;
+                        if (!makeItGrey)
+                          setState(() {
+                            _datafetched = getData();
+                          });
+                      }
+                    },
             ),
           )
         ],
@@ -160,25 +304,73 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                 height: 20,
               ),
               label: Text(""),
-              onPressed: () {
-                setState(() {
-                  if (widget.oneWayData.day <= 31) {
-                    if (widget.oneWayData.day == 31) {
-                      if (widget.oneWayData.month == 12) {
-                        widget.oneWayData.year++;
-                        widget.oneWayData.day = 1;
-                        widget.oneWayData.month = 1;
-                      } else {
-                        widget.oneWayData.month++;
-                        widget.oneWayData.day = 1;
+              onPressed: travelListTicketData['BuyTicketData']['SecondLegCheck']
+                  ? () async {
+                      if (!stopClick) {
+                        if (travelListTicketData['BuyTicketData']
+                                ['ReturnDay'] <=
+                            31) {
+                          if (travelListTicketData['BuyTicketData']
+                                  ['ReturnDay'] ==
+                              31) {
+                            if (travelListTicketData['BuyTicketData']
+                                    ['ReturnMonth'] ==
+                                12) {
+                              travelListTicketData['BuyTicketData']
+                                  ['ReturnYear']++;
+                              travelListTicketData['BuyTicketData']
+                                  ['ReturnDay'] = 1;
+                              travelListTicketData['BuyTicketData']
+                                  ['ReturnMonth'] = 1;
+                            } else {
+                              travelListTicketData['BuyTicketData']
+                                  ['ReturnMonth']++;
+                              travelListTicketData['BuyTicketData']
+                                  ['ReturnDay'] = 1;
+                            }
+                          } else
+                            travelListTicketData['BuyTicketData']
+                                ['ReturnDay']++;
+                        }
+                        makeItGrey = false;
+                        setState(() {
+                          _datafetched = getData();
+                        });
                       }
-                    } else
-                      widget.oneWayData.day++;
-                  }
-                  makeItGrey = false;
-                  getData();
-                });
-              },
+                    }
+                  : () async {
+                      if (!stopClick) {
+                        if (travelListTicketData['BuyTicketData']
+                                ['DepartureDay'] <=
+                            31) {
+                          if (travelListTicketData['BuyTicketData']
+                                  ['DepartureDay'] ==
+                              31) {
+                            if (travelListTicketData['BuyTicketData']
+                                    ['DepartureMonth'] ==
+                                12) {
+                              travelListTicketData['BuyTicketData']
+                                  ['DepartureYear']++;
+                              travelListTicketData['BuyTicketData']
+                                  ['DepartureDay'] = 1;
+                              travelListTicketData['BuyTicketData']
+                                  ['DepartureMonth'] = 1;
+                            } else {
+                              travelListTicketData['BuyTicketData']
+                                  ['DepartureMonth']++;
+                              travelListTicketData['BuyTicketData']
+                                  ['DepartureDay'] = 1;
+                            }
+                          } else
+                            travelListTicketData['BuyTicketData']
+                                ['DepartureDay']++;
+                        }
+                        makeItGrey = false;
+                        setState(() {
+                          _datafetched = getData();
+                        });
+                      }
+                    },
             ),
           )
         ],
@@ -214,9 +406,9 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
     );
   }
 
-  getTicketList() {
+  getTicketFirstLegList(_future) {
     return FutureBuilder(
-      future: getData(),
+      future: _future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting)
           return Center(
@@ -226,7 +418,8 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
             ),
           );
         else {
-          if (travelListTicketData['Data'] == null)
+          stopClick = false;
+          if (travelListTicketData['FirstLegTickets']['Data'] == null)
             return Padding(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -263,23 +456,128 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
             );
           else
             return ListView.builder(
-              itemCount: travelListTicketData['Data'].length,
+              itemCount: travelListTicketData['FirstLegTickets']['Data'].length,
               itemBuilder: (BuildContext context, int index) {
+                Map<String, dynamic> ticketData = {
+                  'FirstLeg': {
+                    'TicketData': travelListTicketData['FirstLegTickets']
+                        ['Data'][index]
+                  },
+                  'BuyTicketData': travelListTicketData['BuyTicketData'],
+                };
                 return Ticket(
-                  travelListTicketData['Data'][index]['DepartureDate']
+                  travelListTicketData['FirstLegTickets']['Data'][index]
+                          ['DepartureDate']
                       .substring(0, 10),
-                  travelListTicketData['Data'][index]['ArrivalDate']
+                  travelListTicketData['FirstLegTickets']['Data'][index]
+                          ['ArrivalDate']
                       .substring(0, 10),
-                  travelListTicketData['Data'][index]['DepartureTime']
+                  travelListTicketData['FirstLegTickets']['Data'][index]
+                          ['DepartureTime']
                       .substring(0, 5),
-                  travelListTicketData['Data'][index]['ArrivalTime']
+                  travelListTicketData['FirstLegTickets']['Data'][index]
+                          ['ArrivalTime']
                       .substring(0, 5),
-                  travelListTicketData['Data'][index]['TicketPrice'],
-                  travelListTicketData['Data'][index]['Currency']
-                      ['CurrencyName'],
-                  travelListTicketData['Data'][index]['EmptySeatCount'],
-                  travelListTicketData['Data'][index]['VehicleType']
-                      ['VehicleTypeName'],
+                  travelListTicketData['FirstLegTickets']['Data'][index]
+                      ['TicketPrice'],
+                  travelListTicketData['FirstLegTickets']['Data'][index]
+                      ['Currency']['CurrencyName'],
+                  travelListTicketData['FirstLegTickets']['Data'][index]
+                      ['EmptySeatCount'],
+                  travelListTicketData['FirstLegTickets']['Data'][index]
+                      ['VehicleType']['VehicleTypeName'],
+                  ticketData,
+                );
+              },
+            );
+        }
+      },
+    );
+  }
+
+  getTicketSecondLegList(_future) {
+    return FutureBuilder(
+      future: _future,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting)
+          return Center(
+            child: Image(
+              image: loadingAnim,
+              height: ScreenUtil().setSp(150),
+            ),
+          );
+        else {
+          stopClick = false;
+
+          if (travelListTicketData['SecondLegTickets']['Data'] == null) {
+            return Padding(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Spacer(),
+                  Spacer(),
+                  Text(
+                    'Looks like there are no buses available on this date',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: ScreenUtil().setSp(35),
+                        fontFamily: 'MyriadPro'),
+                  ),
+                  Spacer(),
+                  Text(
+                    'Please change the date to get your result',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: ScreenUtil().setSp(35),
+                        fontFamily: 'MyriadPro'),
+                  ),
+                  Image(
+                    image: noSearchTicketImage,
+                    height: ScreenUtil().setSp(250),
+                  ),
+                  Spacer(),
+                  Spacer(),
+                ],
+              ),
+              padding: EdgeInsets.all(50),
+            );
+          } else
+            return ListView.builder(
+              itemCount:
+                  travelListTicketData['SecondLegTickets']['Data'].length,
+              itemBuilder: (BuildContext context, int index) {
+                Map<String, dynamic> ticketData = {
+                  'SecondLeg': {
+                    'TicketData': travelListTicketData['SecondLegTickets']
+                        ['Data'][index]
+                  },
+                  'BuyTicketData': travelListTicketData['BuyTicketData'],
+                };
+                return Ticket(
+                  travelListTicketData['SecondLegTickets']['Data'][index]
+                          ['DepartureDate']
+                      .substring(0, 10),
+                  travelListTicketData['SecondLegTickets']['Data'][index]
+                          ['ArrivalDate']
+                      .substring(0, 10),
+                  travelListTicketData['SecondLegTickets']['Data'][index]
+                          ['DepartureTime']
+                      .substring(0, 5),
+                  travelListTicketData['SecondLegTickets']['Data'][index]
+                          ['ArrivalTime']
+                      .substring(0, 5),
+                  travelListTicketData['SecondLegTickets']['Data'][index]
+                      ['TicketPrice'],
+                  travelListTicketData['SecondLegTickets']['Data'][index]
+                      ['Currency']['CurrencyName'],
+                  travelListTicketData['SecondLegTickets']['Data'][index]
+                      ['EmptySeatCount'],
+                  travelListTicketData['SecondLegTickets']['Data'][index]
+                      ['VehicleType']['VehicleTypeName'],
+                  ticketData,
                 );
               },
             );
@@ -298,6 +596,7 @@ class Ticket extends StatefulWidget {
   double ticketPrice;
   String currencyName;
   String vehicleTypeName;
+  Map<String, dynamic> ticketData;
   Ticket(
     this.departureDate,
     this.arrivalDate,
@@ -307,6 +606,7 @@ class Ticket extends StatefulWidget {
     this.currencyName,
     this.numberOfSeats,
     this.vehicleTypeName,
+    this.ticketData,
   );
 
   @override
@@ -318,7 +618,8 @@ class _TicketState extends State<Ticket> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.pushNamed(context, selectSeatScreen);
+          Navigator.pushNamed(context, selectSeatScreen,
+              arguments: widget.ticketData);
         },
         child: FittedBox(
             child: Container(
@@ -431,7 +732,7 @@ class _TicketState extends State<Ticket> {
                               Container(
                                 height: 43,
                                 child: Text(
-                                  '${widget.ticketPrice}',
+                                  '${widget.ticketPrice.toStringAsFixed(0)}',
                                   style: TextStyle(
                                     color: darkBlue,
                                     fontSize: 40,

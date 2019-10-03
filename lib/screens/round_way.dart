@@ -1,4 +1,5 @@
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:gunsel/data/buy_ticket.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/stationlist_model.dart';
 import 'package:gunsel/widgets/button.dart';
@@ -26,7 +27,7 @@ class SearchTicketContainer extends StatelessWidget {
         alignment:
             Alignment.lerp(Alignment.topCenter, Alignment.bottomCenter, 0.2),
         child: Container(
-          height: ScreenUtil().setHeight(800),
+          height: ScreenUtil().setHeight(730),
           child: Stack(
             children: <Widget>[
               Align(
@@ -36,7 +37,7 @@ class SearchTicketContainer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(color: Colors.white),
                       color: Colors.black26),
-                  height: ScreenUtil().setHeight(770),
+                  height: ScreenUtil().setHeight(700),
                   width: ScreenUtil().setWidth(610),
                   child: ListView(
                     children: <Widget>[
@@ -79,30 +80,39 @@ class SearchTicketContainer extends StatelessWidget {
 
 class RoundWayForm extends StatefulWidget {
   @override
-  _OneWayFormState createState() => _OneWayFormState();
+  _RoundWayFormState createState() => _RoundWayFormState();
 }
 
-class _OneWayFormState extends State<RoundWayForm> {
-  final _oneWayForm = GlobalKey<FormState>();
+class _RoundWayFormState extends State<RoundWayForm> {
+  final _RoundWayForm = GlobalKey<FormState>();
   TextEditingController _arrivalStation = TextEditingController();
   TextEditingController _departureStation = TextEditingController();
-  TextEditingController _travelInputDate;
   TextEditingController _departureInputDate;
+  TextEditingController _returnInputDate;
+  Map<String, dynamic> buyTicketData;
   String _arrivalStationVal;
   String _departureStationVal;
+  List<String> stationID = [];
   List<String> stationList;
   int passengers;
-  bool stationListFetched = false;
+  bool stationListFetched;
+
   @override
   void initState() {
+    buyTicketData = Map();
     super.initState();
     this.passengers = 1;
+    stationListFetched = false;
+    stationID = [];
+    setInitialDate();
   }
+
+  setInitialDate() async {}
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _oneWayForm,
+      key: _RoundWayForm,
       child: Column(
         children: <Widget>[
           Align(
@@ -130,7 +140,7 @@ class _OneWayFormState extends State<RoundWayForm> {
                     image: locationIcon,
                     height: 10.0,
                   ),
-                  hintText: "Enter departure city",
+                  hintText: "Enter arrival station",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -155,7 +165,8 @@ class _OneWayFormState extends State<RoundWayForm> {
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please select an arrival station';
-                }
+                } else if (!stationList.contains(value))
+                  return 'Please select a valid arrival station';
               },
               onSaved: (value) => this._arrivalStationVal = value,
             ),
@@ -201,7 +212,7 @@ class _OneWayFormState extends State<RoundWayForm> {
                     image: locationIcon,
                     height: 10.0,
                   ),
-                  hintText: "Enter arrival city",
+                  hintText: "Enter departure station",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -226,7 +237,10 @@ class _OneWayFormState extends State<RoundWayForm> {
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please select an departure station';
-                }
+                } else if (!stationList.contains(value))
+                  return 'Please select a valid departure station';
+                else if (this._arrivalStation.text == value)
+                  return 'Please select different stations.';
               },
               onSaved: (value) => this._departureStationVal = value,
             ),
@@ -238,18 +252,23 @@ class _OneWayFormState extends State<RoundWayForm> {
             width: ScreenUtil().setWidth(550),
             child: InkWell(
               onTap: () {
-                _travelSelectedDate(context);
+                _selectDepartureDate(context);
               },
               child: AbsorbPointer(
                 child: TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) return 'Please input departure date';
+                  },
                   style: TextStyle(color: Colors.blue, fontSize: 17.0),
                   keyboardType: TextInputType.datetime,
-                  controller: this._travelInputDate,
+                  controller: this._departureInputDate,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Image(image: calendarIcon),
+                      prefixIcon: Image(
+                        image: calendarIcon,
+                      ),
                       hintText: "Select the departure date",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
@@ -264,18 +283,36 @@ class _OneWayFormState extends State<RoundWayForm> {
             width: ScreenUtil().setWidth(550),
             child: InkWell(
               onTap: () {
-                _departureSelectedDate(context);
+                _selectReturnDate(context);
               },
               child: AbsorbPointer(
                 child: TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty)
+                      return 'Please input return date';
+                    else if (buyTicketData['DepartureDay'] ==
+                        buyTicketData['ReturnDay']) {
+                      if (buyTicketData['DepartureMonth'] ==
+                          buyTicketData['ReturnMonth']) {
+                        if (buyTicketData['DepartureYear'] ==
+                            buyTicketData['ReturnYear'])
+                          return 'Please input different dates';
+                      }
+                    } else if (buyTicketData['ReturnDay'] <
+                        buyTicketData['DepartureDay']) {
+                      return 'Return date less than departure date';
+                    }
+                  },
                   style: TextStyle(color: Colors.blue, fontSize: 17.0),
                   keyboardType: TextInputType.datetime,
-                  controller: this._departureInputDate,
+                  controller: this._returnInputDate,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Image(image: calendarIcon),
+                      prefixIcon: Image(
+                        image: calendarIcon,
+                      ),
                       hintText: "Select the return date",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
@@ -293,7 +330,7 @@ class _OneWayFormState extends State<RoundWayForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Number of Passengers:',
+                  'Number of passengers:',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: ScreenUtil().setSp(24),
@@ -352,12 +389,22 @@ class _OneWayFormState extends State<RoundWayForm> {
             btnFontFamily: 'Helvetica',
             btnTextColor: gunselColor,
             btnTextFontSize: 40,
-            whenPressed: () {
-              setState(() {
-                if (_oneWayForm.currentState.validate()) {
-                  Navigator.pushNamed(context, searchTicketScreen);
-                }
-              });
+            whenPressed: () async {
+              if (_RoundWayForm.currentState.validate()) {
+                buyTicketData['ArrivalStation'] = this._arrivalStation.text;
+                buyTicketData['DepartureStation'] = this._departureStation.text;
+                buyTicketData['ArrivalStationId'] = stationID[
+                    (stationList.indexOf(buyTicketData['ArrivalStation']))];
+                buyTicketData['DepartureStationId'] = stationID[
+                    (stationList.indexOf(buyTicketData['DepartureStation']))];
+                buyTicketData['PassengerCount'] = this.passengers;
+                buyTicketData['SecondLegCheck'] = false;
+                buyTicketData['RoundWayCheck'] = true;
+                setState(() {
+                  Navigator.pushNamed(context, searchTicketScreen,
+                      arguments: this.buyTicketData);
+                });
+              }
             },
           ),
         ],
@@ -382,6 +429,7 @@ class _OneWayFormState extends State<RoundWayForm> {
     };
     for (var station in (StationList.fromJson(stationMap).toJson()['Data'])) {
       list.add(station['StationName']);
+      stationID.add(station['StationId']);
     }
     return list;
   }
@@ -415,29 +463,37 @@ class _OneWayFormState extends State<RoundWayForm> {
     return list;
   }
 
-  Future _travelSelectedDate(BuildContext context) async {
+  Future _selectDepartureDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: new DateTime(2019),
-        lastDate: new DateTime(2020));
-    if (picked != null)
-      setState(() {
-        this._travelInputDate = new TextEditingController(
-            text: "${picked.day}.${picked.month}.${picked.year}");
-      });
-  }
-
-  Future _departureSelectedDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: new DateTime(2019),
-        lastDate: new DateTime(2020));
+      context: context,
+      initialDate: DateTime.now().add(Duration(days: 0)),
+      firstDate: DateTime.now().add(Duration(days: -1)),
+      lastDate: DateTime.now().add(Duration(days: 730)),
+    );
     if (picked != null)
       setState(() {
         this._departureInputDate = new TextEditingController(
             text: "${picked.day}.${picked.month}.${picked.year}");
+        buyTicketData['DepartureDay'] = picked.day;
+        buyTicketData['DepartureMonth'] = picked.month;
+        buyTicketData['DepartureYear'] = picked.year;
+      });
+  }
+
+  Future _selectReturnDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(Duration(days: 0)),
+      firstDate: DateTime.now().add(Duration(days: -1)),
+      lastDate: DateTime.now().add(Duration(days: 730)),
+    );
+    if (picked != null)
+      setState(() {
+        this._returnInputDate = new TextEditingController(
+            text: "${picked.day}.${picked.month}.${picked.year}");
+        buyTicketData['ReturnDay'] = picked.day;
+        buyTicketData['ReturnMonth'] = picked.month;
+        buyTicketData['ReturnYear'] = picked.year;
       });
   }
 }

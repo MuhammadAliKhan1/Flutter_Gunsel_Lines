@@ -26,12 +26,13 @@ dependencies:
   flutter_screenutil: ^0.4.2
   url_launcher: ^5.0.3
   http: ^0.12.0
+  webview_flutter: ^0.3.4
   shared_preferences: ^0.5.3+4
   flutter_facebook_login: ^1.2.0
+  flutter_widget_from_html_core: ^0.2.3+3
   flutter_typeahead: ^1.6.1
   carousel_pro: ^1.0.0
   rflutter_alert: ^1.0.3
-
 dev_dependencies:
   flutter_launcher_icons: "^0.7.2"
   flutter_test:
@@ -86,6 +87,9 @@ flutter:
     - assets/2.png
     - assets/3.png
     - assets/4.png
+    - assets/free_seat.png
+    - assets/busy_seat.png
+    - assets/selected_seat.png
     - assets/bus.png
     - assets/aboutcompany.png
     - assets/money.png
@@ -110,11 +114,8 @@ flutter:
     - assets/england.png
     - assets/payment_thumb.png
     - images/front.webp
-    - images/seat.png
     - images/news1.webp
-    - images/green_seat.png
     - assets/gradient.png
-    - images/red_seat.png
     - assets/checked.png
     - assets/menu_background.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -140,7 +141,7 @@ flutter:
         - asset: fonts/SFProText_Light.ttf
           weight: 300
         - asset: fonts/SFProText_Heavy.ttf
-          weight: 400
+          weight: 700
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

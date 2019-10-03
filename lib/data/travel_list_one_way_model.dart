@@ -23,9 +23,58 @@ class TravelListOneWayModel {
     return data;
   }
 
+  Future getRoundWayFirstLegList(String arrivalStationID,
+      String departureStationID, int year, int month, int day) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    http.Response response = await http.get(
+      Uri.encodeFull(
+          'https://test-api.gunsel.ua/Public.svc/GetTravelVariantList?1=1c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c4=false'),
+      headers: {
+        'token': prefs.getString('Token'),
+      },
+    );
+    print(response.body);
+    DataStatusSeperator seperator =
+        DataStatusSeperator.fromJson(jsonDecode(response.body));
+    if ((seperator.toJson()['Data']) != null) {
+      Map<String, dynamic> map = {
+        'Data': jsonDecode((seperator.toJson())['Data'])
+      };
+      TravelListOneWayModel travelListModelObj =
+          TravelListOneWayModel.fromJson(map);
+      return travelListModelObj.toJson();
+    } else
+      return seperator.toJson();
+  }
+
+  Future getRoundWaySecondLegList(String arrivalStationID,
+      String departureStationID, int year, int month, int day) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    http.Response response = await http.get(
+      Uri.encodeFull(
+          'https://test-api.gunsel.ua/Public.svc/GetTravelVariantList?1=1c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c3=true&c4=false'),
+      headers: {
+        'token': prefs.getString('Token'),
+      },
+    );
+    print(response.body);
+    DataStatusSeperator seperator =
+        DataStatusSeperator.fromJson(jsonDecode(response.body));
+    if ((seperator.toJson()['Data']) != null) {
+      Map<String, dynamic> map = {
+        'Data': jsonDecode((seperator.toJson())['Data'])
+      };
+      TravelListOneWayModel travelListModelObj =
+          TravelListOneWayModel.fromJson(map);
+      return travelListModelObj.toJson();
+    } else
+      return seperator.toJson();
+  }
+
   Future getTravelList(String arrivalStationID, String departureStationID,
       int year, int month, int day) async {
-    print('Called');
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     http.Response response = await http.get(

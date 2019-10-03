@@ -75,6 +75,9 @@ const AssetImage gunselLoginLogo = AssetImage('assets/logo_light.png');
 const AssetImage visaLogo = AssetImage('assets/visaverify.png');
 const AssetImage mastercardLogo = AssetImage('assets/mastercard.png');
 const AssetImage historyOfTravelIcon = AssetImage('assets/history_icon.png');
+const AssetImage emptySeat = AssetImage('assets/free_seat.png');
+const AssetImage busySeat = AssetImage('assets/busy_seat.png');
+const AssetImage selectedSeat = AssetImage('assets/selected_seat.png');
 const countryCode = {
   '+38(0': ukraineFlag,
   '+48': polandFlag,
