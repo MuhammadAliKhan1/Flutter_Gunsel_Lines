@@ -1,36 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 
-final Color gunselColor = Color(0xff035EA7);
+import 'package:gunsel/data/sharedPreference.dart';
 
 class FinalCancelTicket extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return FinalCancelTicketState();
   }
 }
 
 class FinalCancelTicketState extends State<FinalCancelTicket> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String cancelTicket = "Cancel Ticket";
+  @override
+  void initState() {
+    super.initState();
+    finalCancellan();
+  }
+
+  void finalCancellan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        cancelTicket = "Скасувати квиток";
+      } else if (b == 2) {
+        cancelTicket = "Cancel Ticket";
+      } else if (b == 3) {
+        cancelTicket = "Отменить билет";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: gunselColor,
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          leading: GestureDetector(
-            child: Image(image: backArrow),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          backgroundColor: gunselColor,
-          centerTitle: true,
-          title: Text("Cancel Ticket",
-              style: TextStyle(fontFamily: "SFProText", fontSize: 22.0)),
-          elevation: 0.0,
-        ),
-        body: ListView(children: <Widget>[
+    return GunselScaffold(
+        appBarIcon: backArrow,
+        appBarIncluded: true,
+        appBarTitle: cancelTicket,
+        appBarTitleIncluded: true,
+        drawerIncluded: false,
+        backgroundImage: scaffoldImg,
+        bodyWidget: ListView(children: <Widget>[
           Container(
             height: 402.0,
             margin: EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),

@@ -134,5 +134,6 @@ class TokenGetter {
                 .toJson()['Data']))
             .toJson()['Token']));
 
+    prefs.getString('Token');
   }
 }

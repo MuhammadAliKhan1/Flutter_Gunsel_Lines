@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
-import 'package:gunsel/widgets/button.dart';
 
 class PaymentResult extends StatelessWidget {
   @override

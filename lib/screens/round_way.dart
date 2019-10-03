@@ -5,14 +5,48 @@ import 'package:gunsel/data/stationlist_model.dart';
 import 'package:gunsel/widgets/button.dart';
 import 'package:http/http.dart' as http;
 
-class RoundWay extends StatelessWidget {
+import 'package:gunsel/data/sharedPreference.dart';
+
+class RoundWay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return RoundWayState();
+  }
+}
+
+class RoundWayState extends State<RoundWay> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String searchTicket = "Search Ticket";
+  @override
+  void initState() {
+    super.initState();
+    searchTicketlan();
+  }
+
+  void searchTicketlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        searchTicket = "Пошуковий квиток";
+      } else if (b == 2) {
+        searchTicket = "Seach Ticket";
+      } else if (b == 3) {
+        searchTicket = "Поиск билета";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GunselScaffold(
       appBarIcon: menuIcon,
       backgroundImage: scaffoldImg,
       appBarTitleIncluded: true,
-      appBarTitle: 'Search Ticket',
+      appBarTitle: searchTicket,
       appBarIncluded: true,
       bodyWidget: SingleChildScrollView(child: SearchTicketContainer()),
       drawerIncluded: true,
@@ -20,7 +54,40 @@ class RoundWay extends StatelessWidget {
   }
 }
 
-class SearchTicketContainer extends StatelessWidget {
+class SearchTicketContainer extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return SearchTicketContainerState();
+  }
+}
+
+class SearchTicketContainerState extends State<SearchTicketContainer> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String roundWay = "ROUND WAY";
+  @override
+  void initState() {
+    super.initState();
+    roundWayButtonlan();
+  }
+
+  void roundWayButtonlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        roundWay = "КРУГЛИЙ ШЛЯХ";
+      } else if (b == 2) {
+        roundWay = "ROUND WAY";
+      } else if (b == 3) {
+        roundWay = "КРУГЛЫЙ ПУТЬ";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -52,12 +119,12 @@ class SearchTicketContainer extends StatelessWidget {
                     height: ScreenUtil(allowFontScaling: false).setSp(120),
                     child: Align(
                       alignment: Alignment.lerp(
-                          Alignment.centerLeft, Alignment.centerRight, 0.75),
+                          Alignment.centerLeft, Alignment.centerRight, 0.80),
                       child: SizedBox(
                         height: ScreenUtil(allowFontScaling: false).setSp(90),
                         child: RaisedButton(
                           child: Text(
-                            "ROUND WAY",
+                            roundWay,
                             style: TextStyle(
                                 color: Colors.black, fontFamily: "MyriadPro"),
                           ),
@@ -97,6 +164,14 @@ class _RoundWayFormState extends State<RoundWayForm> {
   int passengers;
   bool stationListFetched;
 
+  SharePreferencelogin sh = SharePreferencelogin();
+  String departHint = "Enter departure city",
+      arrivalHint = "Enter arrival city",
+      departCalHint = "Select the departure date",
+      returnCalHint = "Select the return date",
+      numOfpassenger = "Number of passengers",
+      btnSearch = "search";
+
   @override
   void initState() {
     buyTicketData = Map();
@@ -105,6 +180,40 @@ class _RoundWayFormState extends State<RoundWayForm> {
     stationListFetched = false;
     stationID = [];
     setInitialDate();
+    roundWaylan();
+  }
+
+  void roundWaylan() async {
+    int b;
+    int a = await sh.getshared1();
+    //print("Name is" + nameProfile);
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        departHint = "Введіть місто відправлення";
+        arrivalHint = "Введіть місто відправлення";
+        departCalHint = "Виберіть дату відправлення";
+        returnCalHint = "Виберіть дату повернення";
+        numOfpassenger = "Кількість пасажирів";
+        btnSearch = "пошук";
+      } else if (b == 2) {
+        departHint = "Enter departure city";
+        arrivalHint = "Enter arrival city";
+        departCalHint = "Select the departure date";
+        returnCalHint = "Select the return date";
+        numOfpassenger = "Number of passengers";
+        btnSearch = "search";
+      } else if (b == 3) {
+        departHint = "Введите город отправления";
+        arrivalHint = "Введите город прибытия";
+        departCalHint = "Выберите дату отъезда";
+        returnCalHint = "Выберите дату возвращения";
+        numOfpassenger = "Количество пассажиров";
+        btnSearch = "поиск";
+      }
+    });
   }
 
   setInitialDate() async {}
@@ -140,7 +249,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
                     image: locationIcon,
                     height: 10.0,
                   ),
-                  hintText: "Enter arrival station",
+                  hintText: departHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -212,7 +321,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
                     image: locationIcon,
                     height: 10.0,
                   ),
-                  hintText: "Enter departure station",
+                  hintText: arrivalHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -266,10 +375,8 @@ class _RoundWayFormState extends State<RoundWayForm> {
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Image(
-                        image: calendarIcon,
-                      ),
-                      hintText: "Select the departure date",
+                      prefixIcon: Image(image: calendarIcon),
+                      hintText: departCalHint,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 ),
@@ -310,10 +417,8 @@ class _RoundWayFormState extends State<RoundWayForm> {
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Image(
-                        image: calendarIcon,
-                      ),
-                      hintText: "Select the return date",
+                      prefixIcon: Image(image: calendarIcon),
+                      hintText: returnCalHint,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 ),
@@ -330,7 +435,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Number of passengers:',
+                  numOfpassenger,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: ScreenUtil().setSp(24),
@@ -385,7 +490,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
           ),
           GunselButton(
             btnWidth: 550,
-            btnText: 'Search',
+            btnText: btnSearch,
             btnFontFamily: 'Helvetica',
             btnTextColor: gunselColor,
             btnTextFontSize: 40,
@@ -498,12 +603,45 @@ class _RoundWayFormState extends State<RoundWayForm> {
   }
 }
 
-class OneWayButton extends StatelessWidget {
+class OneWayButton extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return OneWayButtonState();
+  }
+}
+
+class OneWayButtonState extends State<OneWayButton> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String oneWay = "ONE WAY";
+  @override
+  void initState() {
+    super.initState();
+    oneWayButtonlan();
+  }
+
+  void oneWayButtonlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        oneWay = "ОДНОСТОРОННІЙ";
+      } else if (b == 2) {
+        oneWay = "ONE WAY";
+      } else if (b == 3) {
+        oneWay = "В ОДНУ СТОРОНУ";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
       child: Text(
-        "ONE WAY",
+        oneWay,
         style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
       ),
       elevation: 0.0,

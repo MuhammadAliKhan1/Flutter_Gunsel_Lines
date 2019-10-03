@@ -646,7 +646,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '${widget.departureTime}',
                             style: TextStyle(
-                                color: darkBlue,
+                                color: Color.fromRGBO(14, 52, 113, 10),
                                 fontSize: 40,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
@@ -654,7 +654,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             'DEPARTURE',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Color.fromRGBO(14, 52, 113, 10),
                                 fontSize: 15,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
@@ -662,7 +662,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '${widget.departureDate}',
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Color.fromRGBO(14, 52, 113, 10),
                               fontSize: 15,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,
@@ -671,7 +671,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '${widget.numberOfSeats} seats',
                             style: TextStyle(
-                              color: darkBlue,
+                              color: Color.fromRGBO(14, 52, 113, 10),
                               fontSize: 15,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,
@@ -689,7 +689,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '${widget.arrivalTime}',
                             style: TextStyle(
-                                color: darkBlue,
+                                color: Color.fromRGBO(14, 52, 113, 10),
                                 fontSize: 40,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
@@ -734,8 +734,8 @@ class _TicketState extends State<Ticket> {
                                 child: Text(
                                   '${widget.ticketPrice.toStringAsFixed(0)}',
                                   style: TextStyle(
-                                    color: darkBlue,
-                                    fontSize: 40,
+                                    color: Color.fromRGBO(14, 52, 113, 10),
+                                    fontSize: 50,
                                     fontFamily: 'Helvetica',
                                     fontWeight: FontWeight.w800,
                                   ),

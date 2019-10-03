@@ -513,7 +513,7 @@ class SelectSeatTicket extends StatelessWidget {
                         '$departureTime',
                         style: TextStyle(
                           fontSize: 80,
-                          color: darkBlue,
+                          color: Color.fromRGBO(14, 52, 113, 10),
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
                         ),
