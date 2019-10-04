@@ -654,7 +654,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             'DEPARTURE',
                             style: TextStyle(
-                                color: Color.fromRGBO(14, 52, 113, 10),
+                                color: Colors.black,
                                 fontSize: 15,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
@@ -662,7 +662,7 @@ class _TicketState extends State<Ticket> {
                           Text(
                             '${widget.departureDate}',
                             style: TextStyle(
-                              color: Color.fromRGBO(14, 52, 113, 10),
+                              color: Colors.black,
                               fontSize: 15,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,

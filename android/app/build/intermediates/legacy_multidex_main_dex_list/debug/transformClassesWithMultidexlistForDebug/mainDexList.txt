@@ -127,11 +127,6 @@ androidx/versionedparcelable/NonParcelField.class
 androidx/versionedparcelable/ParcelField.class
 androidx/versionedparcelable/VersionedParcelize.class
 androidx/viewpager/widget/ViewPager$DecorView.class
-androidx/webkit/ServiceWorkerWebSettingsCompat$CacheMode.class
-androidx/webkit/WebResourceErrorCompat$NetErrorCode.class
-androidx/webkit/WebSettingsCompat$MenuItemFlags.class
-androidx/webkit/WebViewClientCompat$SafeBrowsingThreat.class
-androidx/webkit/WebViewFeature$WebViewSupportFeature.class
 com/google/android/gms/auth/api/accounttransfer/AuthenticatorTransferCompletionStatus.class
 com/google/android/gms/auth/api/credentials/Credential.class
 com/google/android/gms/auth/api/credentials/CredentialPickerConfig$Prompt.class

@@ -1,32 +1,33 @@
 import 'package:gunsel/data/constants.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
-class Pay extends StatelessWidget {
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+
+class Pay extends StatefulWidget {
   final String payForm;
+
   Pay({
     @required this.payForm,
   });
 
   @override
+  _PayState createState() => _PayState();
+}
+
+class _PayState extends State<Pay> {
+
+  @override
   Widget build(BuildContext context) {
-    return GunselScaffold(
-      appBarIncluded: false,
-      backgroundImage: scaffoldImg,
-      appBarIcon: backArrow,
-      bodyWidget: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.only(top: 20.0),
-          child: PayScreen(
-            payForm: payForm,
-          ),
-        ),
-      ),
-      appBarTitleIncluded: false,
-      drawerIncluded: false,
+    return WebviewScaffold(
+      url: Uri.dataFromString(widget.payForm,
+              mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
+          .toString(),
+      withJavascript: true,
+      withLocalUrl: true,
+      allowFileURLs: true,
     );
   }
 }
-
+/* 
 class PayScreen extends StatefulWidget {
   final String payForm;
   PayScreen({
@@ -50,20 +51,7 @@ class _PayScreenState extends State<PayScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: WebView(
-        initialUrl: '',
-        javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) {
-          _controller = webViewController;
-          _loadHtmlFromAssets();
-        },
-      ),
-    );
-  }
+  Widget build(BuildContext context) {}
 
   void _loadHtmlFromAssets() {
     _controller.loadUrl(
@@ -72,4 +60,4 @@ class _PayScreenState extends State<PayScreen> {
           .toString(),
     );
   }
-}
+} */

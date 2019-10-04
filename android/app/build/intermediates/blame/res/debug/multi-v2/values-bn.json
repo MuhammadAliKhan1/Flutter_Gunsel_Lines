@@ -38,23 +38,6 @@
                     }
                 },
                 {
-                    "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/values-bn/values-bn.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "71",
-                        "startColumns": "4",
-                        "startOffsets": "8200",
-                        "endColumns": "100",
-                        "endOffsets": "8296"
-                    }
-                },
-                {
                     "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/jetified-play-services-basement-17.0.0.aar/26acd0162e045a88add519743992b50c/res/values-bn/values.xml",
                     "from": {
                         "startLines": "4",
@@ -69,6 +52,23 @@
                         "startOffsets": "6598",
                         "endColumns": "210",
                         "endOffsets": "6804"
+                    }
+                },
+                {
+                    "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/values-bn/values-bn.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "71",
+                        "startColumns": "4",
+                        "startOffsets": "8200",
+                        "endColumns": "100",
+                        "endOffsets": "8296"
                     }
                 },
                 {

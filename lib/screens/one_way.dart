@@ -230,78 +230,7 @@ class _OneWayFormState extends State<OneWayForm> {
           SizedBox(
             height: 20.0,
           ),
-          Container(
-            width: ScreenUtil().setWidth(550),
-            child: TypeAheadFormField(
-              textFieldConfiguration: TextFieldConfiguration(
-                keyboardType: TextInputType.text,
-                controller: this._arrivalStation,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
-                  fillColor: Colors.white,
-                  filled: true,
-                  prefixIcon: Image(
-                    image: locationIcon,
-                    height: 10.0,
-                  ),
-                  hintText: arrivalHint,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-              ),
-              suggestionsCallback: (pattern) {
-                return filterStations(pattern);
-              },
-              itemBuilder: (context, suggestion) {
-                return ListTile(
-                  title: Text(
-                    suggestion,
-                  ),
-                );
-              },
-              transitionBuilder: (context, suggestionsBox, controller) {
-                return suggestionsBox;
-              },
-              onSuggestionSelected: (suggestion) {
-                this._arrivalStation.text = suggestion;
-              },
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please select an arrival station';
-                } else if (!stationList.contains(value))
-                  return 'Please select a valid arrival station';
-              },
-              onSaved: (value) => this._arrivalStationVal = value,
-            ),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Container(
-            width: ScreenUtil().setWidth(550),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    setState(
-                      () {
-                        var temp = this._arrivalStation;
-                        this._arrivalStation = this._departureStation;
-                        this._departureStation = temp;
-                      },
-                    );
-                  },
-                  child: Image(image: swappingIcon, height: 35.0),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
+
           Container(
             width: ScreenUtil().setWidth(550),
             child: TypeAheadFormField(
@@ -349,6 +278,79 @@ class _OneWayFormState extends State<OneWayForm> {
               onSaved: (value) => this._departureStationVal = value,
             ),
           ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Container(
+            width: ScreenUtil().setWidth(550),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {
+                    setState(
+                      () {
+                        var temp = this._arrivalStation;
+                        this._arrivalStation = this._departureStation;
+                        this._departureStation = temp;
+                      },
+                    );
+                  },
+                  child: Image(image: swappingIcon, height: 35.0),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Container(
+            width: ScreenUtil().setWidth(550),
+            child: TypeAheadFormField(
+              textFieldConfiguration: TextFieldConfiguration(
+                keyboardType: TextInputType.text,
+                controller: this._arrivalStation,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                  fillColor: Colors.white,
+                  filled: true,
+                  prefixIcon: Image(
+                    image: locationIcon,
+                    height: 10.0,
+                  ),
+                  hintText: arrivalHint,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                ),
+              ),
+              suggestionsCallback: (pattern) {
+                return filterStations(pattern);
+              },
+              itemBuilder: (context, suggestion) {
+                return ListTile(
+                  title: Text(
+                    suggestion,
+                  ),
+                );
+              },
+              transitionBuilder: (context, suggestionsBox, controller) {
+                return suggestionsBox;
+              },
+              onSuggestionSelected: (suggestion) {
+                this._arrivalStation.text = suggestion;
+              },
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please select an arrival station';
+                } else if (!stationList.contains(value))
+                  return 'Please select a valid arrival station';
+              },
+              onSaved: (value) => this._arrivalStationVal = value,
+            ),
+          ),
+          
           SizedBox(
             height: 10.0,
           ),

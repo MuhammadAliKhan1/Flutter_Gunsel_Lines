@@ -17,7 +17,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_notification_action_tombstone.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/layout/notification_action_tombstone.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/layout/notification_action_tombstone.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_ic_menu_paste_mtrl_am_alpha.png.flat",
@@ -33,7 +33,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_notification_template_icon_group.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/layout/notification_template_icon_group.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/layout/notification_template_icon_group.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable_tooltip_frame_light.xml.flat",
@@ -41,7 +41,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-xhdpi-v4/notification_bg_low_normal.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-xhdpi-v4/notification_bg_low_normal.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/color_abc_primary_text_material_dark.xml.flat",
@@ -181,7 +181,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_abc_screen_simple_overlay_action_mode.xml.flat",
@@ -197,7 +197,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_notification_template_part_chronometer.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/layout/notification_template_part_chronometer.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/layout/notification_template_part_chronometer.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_notification_media_action.xml.flat",
@@ -285,7 +285,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout-v21_notification_action_tombstone.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/layout-v21/notification_action_tombstone.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/layout-v21/notification_action_tombstone.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_select_dialog_item_material.xml.flat",
@@ -317,7 +317,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout-v21_notification_action.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/layout-v21/notification_action.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/layout-v21/notification_action.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable_abc_ratingbar_small_material.xml.flat",
@@ -361,7 +361,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-ldrtl-xhdpi-v17_abc_ic_menu_cut_mtrl_alpha.png.flat",
@@ -405,7 +405,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout-v21_notification_template_icon_group.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/layout-v21/notification_template_icon_group.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/layout-v21/notification_template_icon_group.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
@@ -537,7 +537,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable_notification_bg.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable/notification_bg.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable/notification_bg.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable_common_google_signin_btn_text_light_focused.xml.flat",
@@ -641,7 +641,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-xhdpi-v4/notification_bg_normal.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-xhdpi-v4/notification_bg_normal.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_text_select_handle_left_mtrl_dark.png.flat",
@@ -686,6 +686,10 @@
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_ic_star_half_black_16dp.png.flat",
         "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/appcompat-1.0.0.aar/d8318dd5fe19cc7a101ab6626cf91a2a/res/drawable-xhdpi-v4/abc_ic_star_half_black_16dp.png"
+    },
+    {
+        "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/xml_filepaths.xml.flat",
+        "source": "/usr/lib/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_webview_plugin-0.3.8/android/build/intermediates/packaged_res/debug/xml/filepaths.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_com_facebook_button_like_icon_selected.png.flat",
@@ -797,7 +801,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_googleg_standard_color_18.png.flat",
@@ -845,7 +849,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-hdpi-v4/notification_bg_normal.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-hdpi-v4/notification_bg_normal.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_abc_alert_dialog_material.xml.flat",
@@ -853,11 +857,11 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable_notification_bg_low.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable/notification_bg_low.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable/notification_bg_low.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_scrubber_control_off_mtrl_alpha.png.flat",
@@ -869,7 +873,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-hdpi-v4/notify_panel_notification_icon_bg.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-hdpi-v4/notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_notification_template_big_media.xml.flat",
@@ -925,7 +929,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable_notification_icon_background.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable/notification_icon_background.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable/notification_icon_background.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
@@ -949,7 +953,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout-v21_notification_template_custom_big.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/layout-v21/notification_template_custom_big.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/layout-v21/notification_template_custom_big.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/color_abc_tint_spinner.xml.flat",
@@ -1041,7 +1045,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_notification_template_part_time.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/layout/notification_template_part_time.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/layout/notification_template_part_time.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_list_divider_mtrl_alpha.9.png.flat",
@@ -1113,7 +1117,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout-v16_notification_template_custom_big.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/layout-v16/notification_template_custom_big.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/layout-v16/notification_template_custom_big.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_common_google_signin_btn_icon_light_normal_background.9.png.flat",
@@ -1185,7 +1189,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-v21_notification_action_background.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-v21/notification_action_background.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-v21/notification_action_background.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/color_abc_primary_text_disable_only_material_light.xml.flat",
@@ -1193,7 +1197,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-hdpi-v4/notification_bg_low_normal.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-hdpi-v4/notification_bg_low_normal.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_text_select_handle_right_mtrl_dark.png.flat",
@@ -1225,11 +1229,11 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-ldrtl-mdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
@@ -1441,7 +1445,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/anim_abc_tooltip_enter.xml.flat",
@@ -1465,7 +1469,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-mdpi-v4/notification_bg_normal.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-mdpi-v4/notification_bg_normal.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
@@ -1537,7 +1541,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable_notification_tile_bg.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable/notification_tile_bg.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable/notification_tile_bg.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_abc_action_menu_layout.xml.flat",
@@ -1573,7 +1577,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
@@ -1609,7 +1613,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_notification_action.xml.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/layout/notification_action.xml"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/layout/notification_action.xml"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/layout_notification_template_lines_media.xml.flat",
@@ -1769,7 +1773,7 @@
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/2bdcbec7486acd66cb959a9a1957c772/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
+        "source": "/home/ali/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/ded7f7c11fbda719d802debc76e43121/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
         "merged": "/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/res/merged/debug/drawable_com_facebook_button_icon.xml.flat",

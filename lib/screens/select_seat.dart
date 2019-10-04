@@ -274,6 +274,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
                 crossAxisSpacing: 20,
+                mainAxisSpacing: 7
               ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
