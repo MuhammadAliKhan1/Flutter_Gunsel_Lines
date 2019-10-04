@@ -201,6 +201,9 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                                   .substring(0, 5),
                             ),
                     ),
+                    ListTile(
+                      title: Text('Bus Info:'),
+                    ),
                   ],
                 ),
               ),
@@ -272,10 +275,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
           return SliverPadding(
             sliver: SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 7
-              ),
+                  crossAxisCount: 4, crossAxisSpacing: 20, mainAxisSpacing: 7),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   return GridTile(
@@ -365,6 +365,7 @@ class _SeatState extends State<Seat> {
                   'token': token,
                 },
               );
+              widget.seatData['SeatStatus'] = 10;
               if (jsonDecode(response.body)['Data'] != null) {
                 makeItGreen = true;
                 widget.seatData['TravelSeatBlockId'] = (jsonDecode(
@@ -416,11 +417,18 @@ class _SeatState extends State<Seat> {
                     ? widget.seatData['PointNumber'].toString()
                     : selectedSeats.length < 4
                         ? widget.seatData['PointNumber'].toString()
-                        : '', // commented code is for disappearing seats number when 4 seats are selected
+                        : '',
+                // commented code is for disappearing seats number when 4 seats are selected
                 style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'Helvetica'),
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'Helvetica',
+                  color: makeItGreen
+                      ? Colors.white
+                      : widget.seatData['SeatStatus'] == 0
+                          ? Colors.black
+                          : Colors.white,
+                ),
               ),
             ),
           )
@@ -493,7 +501,7 @@ class SelectSeatTicket extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    width: (day > 9 ? 55.0 : 130.0),
+                    width: (day > 9 ? 80.0 : 90.0),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -514,7 +522,7 @@ class SelectSeatTicket extends StatelessWidget {
                         '$departureTime',
                         style: TextStyle(
                           fontSize: 80,
-                          color: Color.fromRGBO(14, 52, 113, 10),
+                          color: lightBlue,
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
                         ),
@@ -552,7 +560,7 @@ class SelectSeatTicket extends StatelessWidget {
                         '$arrivalTime',
                         style: TextStyle(
                           fontSize: 80,
-                          color: darkBlue,
+                          color: lightBlue,
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
                         ),

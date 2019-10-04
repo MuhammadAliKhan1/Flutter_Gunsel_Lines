@@ -127,6 +127,6 @@ const gunselColor = Color(0xff035EA7);
 const darkBlue = Color(0xff000080);
 const red = Color(0xffFF0000);
 const green = Color(0xff07D603);
-
+const lightBlue = Color.fromRGBO(14, 52, 113, 10);
 //height and width
 const double searchTicketTabHeight = 59;

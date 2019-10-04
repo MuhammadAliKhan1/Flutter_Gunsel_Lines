@@ -24,6 +24,7 @@ class _PayState extends State<Pay> {
       withJavascript: true,
       withLocalUrl: true,
       allowFileURLs: true,
+      withLocalStorage: true,
     );
   }
 }

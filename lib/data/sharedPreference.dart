@@ -15,7 +15,7 @@ class SharePreferencelogin {
       String loginCategory1) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    prefs.setString("tokens", token1);
+    prefs.setString("Token", token1);
     prefs.setString("firstname", firstName1);
     prefs.setString("lastname", lastName1);
     prefs.setString("picture", picture1);
@@ -27,7 +27,7 @@ class SharePreferencelogin {
 
   Future<String> gettokens() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString("tokens");
+    return prefs.getString("Token");
   }
 
   Future<String> getfirstname() async {
