@@ -3,19 +3,53 @@ import 'package:http/http.dart' as http;
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/widgets/button.dart';
 
-class TicketSummary extends StatelessWidget {
+import 'package:gunsel/data/sharedPreference.dart';
+
+class TicketSummary extends StatefulWidget {
   Map<String, dynamic> ticketData;
   TicketSummary({
     @required this.ticketData,
   });
+
+  @override
+  _TicketSummaryState createState() => _TicketSummaryState();
+}
+
+class _TicketSummaryState extends State<TicketSummary> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String paymentInfo = "Payment Info";
+
+  void selectTicketlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        paymentInfo = "Платіжна інформація";
+      } else if (b == 2) {
+        paymentInfo = "Payment Info";
+      } else if (b == 3) {
+        paymentInfo = "Информация о платеже";
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    selectTicketlan();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GunselScaffold(
       appBarIcon: backArrow,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
-      bodyWidget: TicketSummaryScreen(ticketData: this.ticketData),
-      appBarTitle: 'Payment Info',
+      bodyWidget: TicketSummaryScreen(ticketData: this.widget.ticketData),
+      appBarTitle: paymentInfo,
       appBarTitleIncluded: true,
       drawerIncluded: false,
     );
@@ -33,8 +67,61 @@ class TicketSummaryScreen extends StatefulWidget {
 
 class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
   @override
+  String total;
+  Map<String, dynamic> userData;
   void initState() {
+    detailslan();
     super.initState();
+    widget.ticketData['BuyTicketData']['RoundWayCheck']
+        ? total = ((widget.ticketData['FirstLeg']['TicketData']['TicketPrice'] *
+                    widget.ticketData['FirstLeg']['SeatCount']) +
+                (widget.ticketData['SecondLeg']['TicketData']['TicketPrice'] *
+                    widget.ticketData['SecondLeg']['SeatCount']))
+            .toStringAsFixed(0)
+        : total = (widget.ticketData['FirstLeg']['TicketData']['TicketPrice'] *
+                widget.ticketData['FirstLeg']['SeatCount'])
+            .toStringAsFixed(0);
+    userData = Map();
+  }
+
+  SharePreferencelogin sh = SharePreferencelogin();
+  String yourSeat = "Your seat";
+  String details = "Details";
+  String purchaseDetails = "Purchase Details";
+  String purchase = "Purchase";
+  String totalPrice = "Total Price";
+  String pay = "Pay";
+
+  void detailslan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        yourSeat = "Ваше місце";
+        details = "Деталі";
+        purchaseDetails = "Деталі придбання";
+        purchase = "Купівля";
+        totalPrice = "Загальна сума";
+        pay = "Платити";
+      } else if (b == 2) {
+        yourSeat = "Your seat";
+        details = "Details";
+        purchaseDetails = "Purchase Details";
+        purchase = "Purchase";
+        totalPrice = "Total Price";
+        pay = "Pay";
+      } else if (b == 3) {
+        yourSeat = "Ваше место";
+        details = "подробности";
+        purchaseDetails = "Детали покупки";
+        purchase = "покупка";
+        totalPrice = "Итоговая цена";
+        pay = "платить";
+      }
+    });
   }
 
   @override
@@ -51,27 +138,27 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text("Your seat",
+                        Text(yourSeat,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w600)),
                         Text(
-                          "Details",
+                          details,
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "Purchase Details",
+                          purchaseDetails,
                           style: TextStyle(
                               color: Colors.yellow,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "Purchase",
+                          purchase,
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Helvetica',
@@ -126,6 +213,45 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                       childCount: widget.ticketData['FirstLeg']['SeatCount'],
                     ),
                   )),
+              widget.ticketData['BuyTicketData']['RoundWayCheck']
+                  ? SliverPadding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return TicketSummaryTicket(
+                              day: int.parse(widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureDate']
+                                  .substring(8, 10)),
+                              month: int.parse(widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureDate']
+                                  .substring(5, 7)),
+                              year: int.parse(widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureDate']
+                                  .substring(0, 4)),
+                              arrivalStation: widget.ticketData['SecondLeg']
+                                  ['TicketData']['ToStation']['StationName'],
+                              departureStation: widget.ticketData['SecondLeg']
+                                  ['TicketData']['FromStation']['StationName'],
+                              departureTime: widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureTime']
+                                  .substring(0, 5),
+                              arrivalTime: widget.ticketData['SecondLeg']
+                                      ['TicketData']['ArrivalTime']
+                                  .substring(0, 5),
+                              seatsDetail: widget.ticketData['SecondLeg']
+                                  ['SeatVoyagerInfo'][(index + 1)],
+                              ticketPrice: widget.ticketData['SecondLeg']
+                                  ['TicketData']['TicketPrice'],
+                              currencyType: widget.ticketData['SecondLeg']
+                                  ['TicketData']['Currency']['CurrencyName'],
+                            );
+                          },
+                          childCount: widget.ticketData['SecondLeg']
+                              ['SeatCount'],
+                        ),
+                      ))
+                  : SliverToBoxAdapter(),
               SliverList(
                 delegate: SliverChildListDelegate([
                   FittedBox(
@@ -151,7 +277,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                       ),
                       child: Center(
                           child: Text(
-                        'Total Price:          ${(widget.ticketData['FirstLeg']['TicketData']['TicketPrice'] * widget.ticketData['FirstLeg']['SeatCount']).toStringAsFixed(0)} UAH',
+                        '$totalPrice:          $total UAH',
                         style: TextStyle(
                           fontFamily: 'MyriadPro',
                           color: darkBlue,
@@ -174,7 +300,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
         Align(
           child: GunselButton(
             btnWidth: 500,
-            btnText: 'Pay',
+            btnText: pay,
             btnTextFontSize: 40,
             btnTextColor: darkBlue,
             whenPressed: () async {
@@ -208,24 +334,47 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                       ['SelectedSeatsBlockIds'][(i - 1)],
                 });
               }
+              if (widget.ticketData['BuyTicketData']['RoundWayCheck'])
+                for (int i = 1;
+                    i <= widget.ticketData['SecondLeg']['SeatCount'];
+                    ++i) {
+                  tickets.add({
+                    "SeatNo": widget.ticketData['SecondLeg']['SeatVoyagerInfo']
+                        [i]['SeatNumber'],
+                    "FirstName": widget.ticketData['SecondLeg']
+                        ['SeatVoyagerInfo'][i]['Name'],
+                    "LastName": widget.ticketData['SecondLeg']
+                        ['SeatVoyagerInfo'][i]['Surname'],
+                    "PhoneNumber": widget.ticketData['SecondLeg']
+                            ['SeatVoyagerInfo'][i]['Number']
+                        .substring(1),
+                    "Email": widget.ticketData['SecondLeg']['SeatVoyagerInfo']
+                        [i]['Email'],
+                    "ChairNumber": widget.ticketData['SecondLeg']
+                        ['SeatVoyagerInfo'][i]['SeatNumber'],
+                    "PassengerOrder": widget.ticketData['SecondLeg']
+                        ['SeatCount'],
+                    "CountryId": widget.ticketData['SecondLeg']['TicketData']
+                        ['FromStation']['CountryId'],
+                    "TravelVariantId": widget.ticketData['SecondLeg']
+                        ['TicketData']['TravelVariantId'],
+                    "TravelSeatBlockId": widget.ticketData['SecondLeg']
+                        ['SelectedSeatsBlockIds'][(i - 1)],
+                  });
+                }
               body = json.encode({
-                "CustomerFirstName": widget.ticketData['FirstLeg']
-                    ['SeatVoyagerInfo'][1]['Name'],
-                "CustomerLastName": widget.ticketData['FirstLeg']
-                    ['SeatVoyagerInfo'][1]['Surname'],
+                "CustomerFirstName": null.toString(),
+                "CustomerLastName": null.toString(),
                 "CustomerCountryId": widget.ticketData['FirstLeg']['TicketData']
                     ['FromStation']['CountryId'],
-                "CustomerPhoneNumber": widget.ticketData['FirstLeg']
-                        ['SeatVoyagerInfo'][1]['Number']
-                    .substring(1),
-                "CustomerEmail": widget.ticketData['FirstLeg']
-                    ['SeatVoyagerInfo'][1]['Email'],
+                "CustomerPhoneNumber": null.toString(),
+                "CustomerEmail": null.toString(),
                 "CustomerTravelSeatBlockId": widget.ticketData['FirstLeg']
                     ['SelectedSeatsBlockIds'][0],
                 "PaymentChannel": 40,
                 "TicketItems": tickets,
                 "AddSubscriber": widget.ticketData['FirstLeg']
-                    ['SubscriberCheckBox']
+                    ['SubscriberCheckBox'],
               });
               String url = 'https://test-api.gunsel.ua/Public.svc/SellTicket';
               http.Response response = await http.post(
@@ -235,19 +384,22 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                   'token': token,
                 },
               );
-              String payFormHtml =
-                  '<html>${jsonDecode(jsonDecode(response.body)['Data'])['HTML']}</html>';
-              debugPrint(jsonDecode(jsonDecode(response.body)['Data'])['HTML'],
-                  wrapWidth: 1024);
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                oneWayScreen,
-                (Route<dynamic> route) => false,
-              );
-              Navigator.pushNamed(
-                context,
-                payScreen,
-                arguments: payFormHtml,
-              );
+
+              if (jsonDecode(response.body)['Data'] != null) {
+                String payFormHtml =
+                    '<html>${jsonDecode(jsonDecode(response.body)['Data'])['HTML']}</html>';
+                userData = widget.ticketData;
+                userData['PayFormHTML'] = payFormHtml;
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  oneWayScreen,
+                  (Route<dynamic> route) => false,
+                );
+                Navigator.pushNamed(context, payScreen, arguments: userData);
+              } else {
+                print('Data is null');
+                print(response.body);
+                print(body);
+              }
             },
           ),
           alignment: Alignment.bottomCenter,
@@ -257,7 +409,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
   }
 }
 
-class TicketSummaryTicket extends StatelessWidget {
+class TicketSummaryTicket extends StatefulWidget {
   String departureStation,
       departureTime,
       arrivalStation,
@@ -279,6 +431,50 @@ class TicketSummaryTicket extends StatelessWidget {
     @required this.currencyType,
     @required this.seatsDetail,
   });
+
+  @override
+  _TicketSummaryTicketState createState() => _TicketSummaryTicketState();
+}
+
+class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String bustype = "Bus Type: Comfort";
+  String seats = "Seats";
+  String departure = "DEPARTURE";
+  String arrival = "ARRIVAL";
+
+  void detailsBarlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        bustype = "Тип автобуса: Комфорт";
+        seats = "Сидіння";
+        departure = "ВИДАЛЕННЯ";
+        arrival = "ПРИЙНЯТТЯ";
+      } else if (b == 2) {
+        bustype = "Bus Type: Comfort";
+        seats = "Seats";
+        departure = "DEPARTURE";
+        arrival = "ARRIVAL";
+      } else if (b == 3) {
+        bustype = "Тип автобуса: Комфорт";
+        seats = "места";
+        departure = "ВЫЕЗД";
+        arrival = "ПРИБЫТИЕ";
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    detailsBarlan();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FittedBox(
@@ -335,7 +531,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                       child: Column(
                                         children: <Widget>[
                                           Text(
-                                            '$day',
+                                            '${widget.day}',
                                             style: TextStyle(
                                               fontSize: ScreenUtil(
                                                       allowFontScaling: true)
@@ -346,7 +542,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            '$month $year',
+                                            '${widget.month} ${widget.year}',
                                             style: TextStyle(
                                               fontSize: 35,
                                               color: Colors.black,
@@ -358,7 +554,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      'Bus Type: Comfort +',
+                                      '$bustype +',
                                       style: TextStyle(
                                         color: darkBlue,
                                         fontFamily: 'Helvetica',
@@ -374,7 +570,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          'Seat: ',
+                                          '$seats: ',
                                           style: TextStyle(
                                             color: darkBlue,
                                             fontFamily: 'Helvetica',
@@ -385,7 +581,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '${seatsDetail['SeatNumber']}',
+                                          '${widget.seatsDetail['SeatNumber']}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontFamily: 'Helvetica',
@@ -422,7 +618,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '$departureStation                            ',
+                                                  '${widget.departureStation}                            ',
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                     color: Colors.black,
@@ -435,7 +631,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '$departureTime',
+                                                  '${widget.departureTime}',
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
@@ -455,7 +651,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  'DEPARTURE',
+                                                  departure,
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
@@ -475,7 +671,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '$arrivalStation                            ',
+                                                  '${widget.arrivalStation}                            ',
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                     color: Colors.black,
@@ -488,7 +684,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '$arrivalTime',
+                                                  '${widget.arrivalTime}',
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
@@ -508,7 +704,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  'ARRIVAL',
+                                                  arrival,
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
@@ -530,7 +726,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          '     ${seatsDetail['Name']} ${seatsDetail['Surname']}',
+                                          '     ${widget.seatsDetail['Name']} ${widget.seatsDetail['Surname']}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontFamily: 'Helvetica',
@@ -547,7 +743,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          '${ticketPrice.toStringAsFixed(0)}',
+                                          '${widget.ticketPrice.toStringAsFixed(0)}',
                                           style: TextStyle(
                                             color: darkBlue,
                                             fontFamily: 'Helvetica',
@@ -558,7 +754,7 @@ class TicketSummaryTicket extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '$currencyType      ',
+                                          '${widget.currencyType}      ',
                                           style: TextStyle(
                                             color: darkBlue,
                                             fontFamily: 'Helvetica',
@@ -722,14 +918,14 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
             ),
           ],
         ),
-        
+
         FittedBox(
           child: SizedBox(
             height: 3,
             width: 100,
           ),
         ),
-        
+
         SizedBox(
           height: 14,
         ),

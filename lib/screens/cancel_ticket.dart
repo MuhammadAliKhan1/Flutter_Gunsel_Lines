@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 
 import 'package:gunsel/data/sharedPreference.dart';
+import 'package:gunsel/screens/final_cancelticket.dart';
+import 'package:gunsel/data/sharedPreference.dart';
+import 'package:gunsel/data/cancelticketinfomodel.dart';
+import 'package:http/http.dart';
 
 class CancelTicket extends StatefulWidget {
   @override
@@ -11,6 +15,10 @@ class CancelTicket extends StatefulWidget {
 }
 
 class CancelTicketState extends State<CancelTicket> {
+  SharePreferencelogin shPref = SharePreferencelogin();
+  TextEditingController _secureCode = TextEditingController();
+  TextEditingController _ticketNumber = TextEditingController();
+
   SharePreferencelogin sh = SharePreferencelogin();
   String cancelTicket = "Cancel Ticket",
       secureHint = "Secure code",
@@ -81,6 +89,7 @@ class CancelTicketState extends State<CancelTicket> {
                       }
                     },
                     keyboardType: TextInputType.text,
+                    controller: this._secureCode,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -101,6 +110,7 @@ class CancelTicketState extends State<CancelTicket> {
                       }
                     },
                     keyboardType: TextInputType.text,
+                    controller: this._ticketNumber,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -127,15 +137,209 @@ class CancelTicketState extends State<CancelTicket> {
                         topLeft: Radius.circular(10.0)),
                   ),
                   onPressed: () {
-                    setState(() {
-                      Navigator.pushNamed(context, finalCancelTicketScreen);
-                      debugPrint("Cancel button is pressed");
-                    });
+                    getticketInformation();
+//                    Navigator.push(
+//                        context,
+//                        MaterialPageRoute(
+//                            builder: (context) => FinalCancelTicket(
+//                                secureCode: _secureCode.text ,
+//                                ticketNumber: _ticketNumber.text,
+//                                )));
                   },
                 ),
               ),
             ])),
       ]),
     );
+  }
+
+
+
+  Future<void> getticketInformation() async {
+    try {
+      String tokens = await shPref.gettokens();
+
+      print("Token is:" + tokens);
+      print("Ticket number is:" + _ticketNumber.text);
+      print("Security code is:" + _secureCode.text);
+
+      String ticketNumber, secureCode;
+      ticketNumber = _ticketNumber.text;
+      secureCode = _secureCode.text;
+
+      String url =
+          'https://test-api.gunsel.ua/Public.svc/GetTicketInformation?1=1&c0=$ticketNumber&c3=$secureCode';
+      print("url is:" + url.toString());
+
+      Map<String, String> headers = {"token": tokens};
+      Response response = await get(url, headers: headers);
+      // check the status code for the result
+      int statusCode = response.statusCode;
+      //String body = response.body;
+      print("response body is:" + response.body);
+
+      Map<String, dynamic> infoapiData = {
+        'Data': jsonDecode(jsonDecode(response.body)['Data'])
+      };
+      print(infoapiData);
+      Cancelticketinfo infoapimodelobj =
+      Cancelticketinfo.fromJson(infoapiData);
+      var infoapifinalData = infoapimodelobj.toJson();
+
+//
+//    print("Authenticated token is:" + fbProfData['Data']['Token']);
+//    print("First Name is:" + fbProfData['Data']['FirstName']);
+//    print("Last Name is:" + fbProfData['Data']['LastName']);
+//    print("Image is:" + fbProfData['Data']['ImageURL']);
+//    print("Email is:" + fbProfData['Data']['Email']);
+
+
+      print("status code is:" + statusCode.toString());
+
+
+      // print("Allow cancel is:"+infoapifinalData['Data']['PenaltyRate'].toString());
+      var _ticketId = infoapifinalData['Data']['Ticket']['TicketNo'];
+      var _departPlace = infoapifinalData['Data']['Ticket']['FromStation']['CityName'];
+      var _departTime = infoapifinalData['Data']['Ticket']['DepartureTime']
+          .substring(0, 5);
+      var _arrivalPlace = infoapifinalData['Data']['Ticket']['ToStation']['CityName'];
+      var _arrivalTime = infoapifinalData['Data']['Ticket']['ArrivalTime']
+          .substring(0, 5);
+      var _name = infoapifinalData['Data']['Ticket']['FirstName'] + " " +
+          infoapifinalData['Data']['Ticket']['LastName'];
+      var _seatNumber = infoapifinalData['Data']['Ticket']['SeatNumber'];
+      var _bookingDate = infoapifinalData['Data']['Ticket']['TicketDate'];
+      var _currencyName = infoapifinalData['Data']['Ticket']['Currency']['CurrencyName'];
+      var _paidBack = infoapifinalData['Data']['TotalPaidBack'].toString();
+      var _totalCut = infoapifinalData['Data']['TotalCut'].toString();
+
+
+      // print("Ticket id is :"+infoapifinalData['Data']['Ticket']['TicketId']);
+      //print("Departure place :"+infoapifinalData['Data']['Ticket']['FromStation']['CityName']);
+      //print("Departure time :"+infoapifinalData['Data']['Ticket']['DepartureTime']);
+      //print("Arrival place :"+infoapifinalData['Data']['Ticket']['ToStation']['CityName']);
+      //print("Arrival time :"+infoapifinalData['Data']['Ticket']['ArrivalTime']);
+      //print("Name:"+infoapifinalData['Data']['Ticket']['FirstName']+" "+infoapifinalData['Data']['Ticket']['LastName']);
+      //print("Seat Number :"+infoapifinalData['Data']['Ticket']['SeatNumber']);
+      //print("Booking Date :"+infoapifinalData['Data']['Ticket']['TicketDate']);
+      //print("Currency Name :"+infoapifinalData['Data']['Ticket']['Currency']['CurrencyName']);
+      //print("Total Paid Back is :"+infoapifinalData['Data']['TotalPaidBack'].toString());
+      //print("Total cut:"+infoapifinalData['Data']['TotalCut'].toString());
+
+
+      var moonLanding = DateTime.parse(
+          infoapifinalData['Data']['Ticket']['TicketDate']);
+      var _year = moonLanding.year.toString();
+      var _day = moonLanding.day.toString();
+      var _month = moonLanding.month.toString();
+      String monthName;
+
+      if (_month == "1") {
+        monthName = "January";
+      }
+      else if (_month == "2") {
+        monthName = "February";
+      }
+      else if (_month == "3") {
+        monthName = "March";
+      }
+      else if (_month == "4") {
+        monthName = "April";
+      }
+      else if (_month == "5") {
+        monthName = "May";
+      }
+      else if (_month == "6") {
+        monthName = "June";
+      }
+      else if (_month == "7") {
+        monthName = "July";
+      }
+      else if (_month == "8") {
+        monthName = "August";
+      }
+      else if (_month == "9") {
+        monthName = "September";
+      }
+      else if (_month == "10") {
+        monthName = "October";
+      }
+      else if (_month == "11") {
+        monthName = "November";
+      }
+      else {
+        monthName = "December";
+      }
+
+
+//    print("Year is:"+moonLanding.year.toString());
+//    print("Date is:"+moonLanding.day.toString());
+//    print("Month is:"+moonLanding.month.toString());
+
+
+      if (statusCode == 200) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    FinalCancelTicket(
+                      secureCode: _secureCode.text,
+                      ticketNumber: _ticketNumber.text,
+                      ticketId: _ticketId,
+                      departPlace: _departPlace,
+                      departTime: _departTime,
+                      arrivalPlace: _arrivalPlace,
+                      arrivalTime: _arrivalTime,
+                      name: _name,
+                      seatNumber: _seatNumber,
+                      bookingDate: _bookingDate,
+                      currencyName: _currencyName,
+                      paidBack: _paidBack,
+                      totalCut: _totalCut,
+                      day: _day,
+                      month: monthName.toUpperCase(),
+                      year: _year,
+                    )));
+      }else
+        {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text(
+                    "Error",
+                  ),
+                  content: Text("Enter the correct data."),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("OK"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                );
+              });
+        }
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                "Error",
+              ),
+              content: Text("Enter the correct data."),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
+    }
   }
 }

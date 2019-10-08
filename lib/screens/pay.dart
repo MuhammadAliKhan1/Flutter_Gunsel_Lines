@@ -3,10 +3,10 @@ import 'package:gunsel/data/constants.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class Pay extends StatefulWidget {
-  final String payForm;
+  final Map<String, dynamic> userData;
 
   Pay({
-    @required this.payForm,
+    @required this.userData,
   });
 
   @override
@@ -14,13 +14,43 @@ class Pay extends StatefulWidget {
 }
 
 class _PayState extends State<Pay> {
+  FlutterWebviewPlugin flutterWebViewPlugin;
+  int counter = 0;
+  @override
+  void initState() {
+    super.initState();
+    flutterWebViewPlugin = FlutterWebviewPlugin();
+
+    flutterWebViewPlugin.onUrlChanged.listen((String url) {
+      counter++;
+
+      if (counter == 2) {
+        flutterWebViewPlugin.close();
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            oneWayScreen, (Route<dynamic> route) => false);
+        Navigator.pushNamed(
+          context,
+          paymentResultScreen,
+          arguments: widget.userData,
+        );
+      }
+      if (url == 'https://ecg.test.upc.ua/go/pay?locale=en#')
+        setState(() {
+          flutterWebViewPlugin.close();
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              oneWayScreen, (Route<dynamic> route) => false);
+        });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
-      url: Uri.dataFromString(widget.payForm,
-              mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
-          .toString(),
+      url: Uri.dataFromString(
+        widget.userData['PayFormHTML'],
+        mimeType: 'text/html',
+        encoding: Encoding.getByName('utf-8'),
+      ).toString(),
       withJavascript: true,
       withLocalUrl: true,
       allowFileURLs: true,
@@ -28,7 +58,7 @@ class _PayState extends State<Pay> {
     );
   }
 }
-/* 
+/*
 class PayScreen extends StatefulWidget {
   final String payForm;
   PayScreen({

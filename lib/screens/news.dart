@@ -44,7 +44,10 @@ class _NewsState extends State<News> {
 
   //Backend
   Map<String, dynamic> stationListMap;
-  Map<String, dynamic> stationListMapdata;
+  //Map<String, dynamic> stationListMapdata;
+  List conName = [];
+  List conText = [];
+  List conImage = [];
   NewDataModel stationListObj = NewDataModel();
   bool dataFetched = false;
   String imageUrl = "https://test-lines-api.gunsel.ua/Files/";
@@ -61,8 +64,27 @@ class _NewsState extends State<News> {
 
   Future getStationList(BuildContext context) async {
     stationListMap = await stationListObj.getStationListFromAPI();
-    print(this._parseHtmlString(stationListMap['Data'][0]['ContentName']));
-    print(imageUrl + stationListMap['Data'][0]['BigImage']);
+    conName.clear();
+    conText.clear();
+    conImage.clear();
+    for(int i=0 ; i<stationListMap['Data'].length;i++) {
+      if (!(stationListMap['Data'][i]['BigImage'] == "" || stationListMap['Data'][i]['BigImage'] == null ||stationListMap['Data'][i]['ContentName'] == "" || stationListMap['Data'][i]['ContentName'] == null || stationListMap['Data'][i]['Text'] == "" || stationListMap['Data'][i]['Text'] == null )){
+        conName.add(_parseHtmlString(stationListMap['Data'][i]['ContentName']));
+        conText.add(_parseHtmlString(stationListMap['Data'][i]['Text']));
+        conImage.add(stationListMap['Data'][i]['BigImage']);
+
+      print(i);
+      }
+    }
+      print("Con name is:"+conName.length.toString());
+      for(int j=0; j<conName.length;j++)
+        {
+          print(conName[j]);
+        }
+
+
+//    print(this._parseHtmlString(stationListMap['Data'][0]['ContentName']));
+//    print(imageUrl + stationListMap['Data'][0]['BigImage']);
   }
 
   String _parseHtmlStrings(String htmlString) {
@@ -103,16 +125,26 @@ class _NewsState extends State<News> {
                           width: double.infinity,
                           child: Carousel(
                             images: [
-                              Image.network(imageUrl +
-                                  stationListMap['Data'][0]['BigImage']),
-                              Image.network(imageUrl +
-                                  stationListMap['Data'][1]['BigImage']),
-                              Image.network(imageUrl +
-                                  stationListMap['Data'][2]['BigImage']),
-                              Image.network(imageUrl +
-                                  stationListMap['Data'][3]['BigImage']),
-                              Image.network(imageUrl +
-                                  stationListMap['Data'][4]['BigImage'])
+                              Image.network(
+                                  imageUrl +
+                                      conImage[0],
+                                  fit: BoxFit.fill),
+                              Image.network(
+                                  imageUrl +
+                                      conImage[1],
+                                  fit: BoxFit.fill),
+                              Image.network(
+                                  imageUrl +
+                                      conImage[2],
+                                  fit: BoxFit.fill),
+                              Image.network(
+                                  imageUrl +
+                                      conImage[3],
+                                  fit: BoxFit.fill),
+                              Image.network(
+                                  imageUrl +
+                                      conImage[4],
+                                  fit: BoxFit.fill)
                             ],
                             autoplay: true,
                             indicatorBgPadding: 10.0,
@@ -135,28 +167,26 @@ class _NewsState extends State<News> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => ArticleScreen(
-                                              title: _parseHtmlStrings(
-                                                  stationListMap['Data'][index]
-                                                      ['ContentName']),
-                                              text: _parseHtmlStrings(
-                                                  stationListMap['Data'][index]
-                                                      ['Text']),
+                                              title: conName[index],
+                                              text: conText[index],
                                               imageURL: imageUrl +
-                                                  stationListMap['Data'][index]
-                                                      ['BigImage'])));
+                                                  conImage[index])));
                                 },
                                 child: Row(
                                   children: <Widget>[
                                     Flexible(
                                         child: Container(
                                             padding: EdgeInsets.only(
-                                                left: 5.0, right: 5.0),
+                                                left: 5.0,
+                                                right: 5.0,
+                                            top: 3.0,
+                                            bottom: 10.0),
                                             child: Image.network(
                                                 imageUrl +
-                                                    stationListMap['Data']
-                                                        [index]['BigImage'],
+                                                    conImage[index],
                                                 height: 110.0,
-                                                width: 150.0))),
+                                                width: 150.0,
+                                                fit: BoxFit.fill))),
                                     Flexible(
                                       child: Container(
                                           height: 100.0,
@@ -164,16 +194,13 @@ class _NewsState extends State<News> {
                                               text:
                                                   TextSpan(children: <TextSpan>[
                                             TextSpan(
-                                                text: stationListMap['Data']
-                                                    [index]['ContentName'],
+                                                text: conName[index],
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black,
                                                     fontFamily: "MyriadPro")),
                                             TextSpan(
-                                                text: _parseHtmlStrings(
-                                                    stationListMap['Data']
-                                                        [index]['Text']),
+                                                text: "\n"+conText[index].trim(),
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontFamily: "MyriadPro"))
@@ -183,7 +210,7 @@ class _NewsState extends State<News> {
                                 )),
                           ],
                         );
-                      }, childCount: stationListMap['Data'].length),
+                      }, childCount: conName.length),
                     )
                   ],
                 );

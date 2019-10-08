@@ -79,4 +79,24 @@ class SharePreferencelogin {
     final SharedPreferences prefla = await SharedPreferences.getInstance();
     return prefla.getInt("languageIndicator");
   }
+  
+  
+  
+  //For mobile image
+
+  Future<String> setmobileImage(String image) async {
+    final SharedPreferences prefla = await SharedPreferences.getInstance();
+
+    prefla.setString("mobileImage", image);
+  }
+
+
+  Future<String> getmobileImage() async {
+    final SharedPreferences prefla = await SharedPreferences.getInstance();
+    return prefla.getString("mobileImage");
+  }
+
+  
+  
+  
 }

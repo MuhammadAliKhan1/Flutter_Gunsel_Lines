@@ -4,6 +4,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/sharedPreference.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as paths;
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 
 
 
@@ -16,7 +21,8 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   SharePreferencelogin sh = SharePreferencelogin();
-  File imageFile ;
+  final facebookLogins = FacebookLogin();
+  final googleSignins = GoogleSignIn();
 
   String editProfileInformation = "Edit Profile Information",
       firstName = "First Name",
@@ -24,8 +30,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       email = "Email",
       phoneNumber = "Phone Number",
       btnSaveChange = "Save Changes",
-      profile = "Profile";
-
+      profile = "Profile",
+      updateInformation = "Data is successfully Updated",
+      noupdateInformation = "Data is not updated",
+      ok = "Ok";
   void profilelan() async {
     int b;
     int a = await sh.getshared1();
@@ -40,6 +48,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         phoneNumber = "Номер телефону";
         btnSaveChange = "Зберегти зміни";
         profile = "Профіль";
+        updateInformation = "Дані успішно оновлюються";
+        noupdateInformation = "Дані не оновлюються";
+        ok = "Гаразд";
       } else if (b == 2) {
         editProfileInformation = "Edit Profile Information";
         firstName = "First Name";
@@ -48,6 +59,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         phoneNumber = "Phone Number";
         btnSaveChange = "Save Changes";
         profile = "Profile";
+        updateInformation = "Data is successfully Updated";
+        noupdateInformation = "Data is not updated";
+        ok = "Ok";
       } else if (b == 3) {
         editProfileInformation = "Изменить информацию профиля";
         firstName = "Имя";
@@ -56,6 +70,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         phoneNumber = "Номер телефона";
         btnSaveChange = "Сохранить изменения";
         profile = "Профиль";
+        updateInformation = "Данные успешно обновлены";
+        noupdateInformation = "Данные не обновляются";
+        ok = "Хорошо";
       }
     });
   }
@@ -87,6 +104,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       countryidProfileset,
       loginCategory,
       loginCategoryset;
+
+  String imageFile="" ;
+  String checkImage="";
   @override
   void initState() {
     profilelan();
@@ -104,6 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     profileNumber();
     profileCountryid();
     loginCategorys();
+    checkmobileImage();
 
     super.initState();
   }
@@ -131,13 +152,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     print("Name is" + pictureProfile);
     setState(() {
       if(pictureProfile == "" )
-        {
-          pictureProfileset ="https://www.pngfind.com/pngs/m/60-600869_logo-person-png-person-logo-transparent-png-download.png";
-        }
-        else {
+      {
+        pictureProfileset ="https://www.pngfind.com/pngs/m/60-600869_logo-person-png-person-logo-transparent-png-download.png";
+      }
+      else {
         pictureProfileset = pictureProfile;
       }
-          });
+    });
   }
 
   void profileemail() async {
@@ -178,6 +199,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+
+  void checkmobileImage() async
+  {
+    checkImage = await shPref.getmobileImage();
+    print("Check Image is:"+checkImage);
+  }
+
+  void languageChange(BuildContext context,int number)
+  {
+    shPref.setshared("", "", "", "", "","","","");
+    shPref.setmobileImage("");
+    shPref.setshared1(number);
+    facebookLogins.logOut();
+    googleSignins.signOut();
+    Navigator.pushReplacementNamed(context, loginScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -190,381 +228,396 @@ class _ProfileScreenState extends State<ProfileScreen> {
         drawerIncluded: true,
         backgroundImage: profileScreenBackground,
         bodyWidget: SingleChildScrollView(
-          padding: EdgeInsets.only(top: 30.0),
-          child: Center(
-        child: FittedBox(
-      child: Container(
-        width: MediaQuery.of(context).size.width / 1.2,
-        height: MediaQuery.of(context).size.height / 1.3,
-        child: Stack(
-          children: <Widget>[
-            Container(
-              alignment: Alignment.bottomCenter,
-              width: MediaQuery.of(context).size.width / 1.2,
-              height: MediaQuery.of(context).size.height / 1.2,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              )),
-              child: Image(
-                image: person,
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height / 1.3,
-              ),
-            ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                height: 250,
-                width: MediaQuery.of(context).size.width / 1.2 - 46,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 95,
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: InkWell(
-                          onTap: () {
-                            editData();
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return SingleChildScrollView(
-                                      child: Container(
-                                          child: AlertDialog(
-                                              backgroundColor: gunselColor,
-                                              title: Text(
-                                                editProfileInformation,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontFamily: "Helvetica",
-                                                    fontSize: 20.0),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              content: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  Row(children: <Widget>[
-                                                    Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 15.0),
-                                                        child: Text(
-                                                          firstName,
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 10.0,
-                                                              fontFamily:
-                                                                  "Helvetica"),
-                                                        )),
-                                                    Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 15.0,
-                                                                left: 80.0),
-                                                        child: Text(
-                                                          "           $lastName",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 10.0,
-                                                              fontFamily:
-                                                                  "Helvetica"),
-                                                        ))
-                                                  ]),
-                                                  Row(children: <Widget>[
-                                                    Expanded(
-                                                        child: TextField(
-                                                      controller:
-                                                          this._firstName,
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                      keyboardType:
-                                                          TextInputType.text,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        focusedBorder:
-                                                            UnderlineInputBorder(
-                                                                borderSide: BorderSide(
-                                                                    color: Colors
-                                                                        .white)),
-                                                        enabledBorder:
-                                                            UnderlineInputBorder(
-                                                                borderSide: BorderSide(
-                                                                    color: Colors
-                                                                        .white)),
-                                                      ),
-                                                    )),
-                                                    SizedBox(
-                                                      width: 5.0,
-                                                    ),
-                                                    Expanded(
-                                                        child: TextField(
-                                                      controller:
-                                                          this._lastName,
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                      keyboardType:
-                                                          TextInputType.text,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        focusedBorder:
-                                                            UnderlineInputBorder(
-                                                                borderSide: BorderSide(
-                                                                    color: Colors
-                                                                        .white)),
-                                                        enabledBorder:
-                                                            UnderlineInputBorder(
-                                                                borderSide: BorderSide(
-                                                                    color: Colors
-                                                                        .white)),
-                                                      ),
-                                                    ))
-                                                  ]),
-                                                  SizedBox(
-                                                    height: 5.0,
-                                                  ),
-                                                  Padding(
-                                                      padding: EdgeInsets.only(
-                                                          right: 25.0),
-                                                      child: Text(
-                                                        "$email                                                                                ",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 10.0,
-                                                            fontFamily:
-                                                                "Helvetica"),
-                                                      )),
-                                                  TextField(
-                                                    controller: this._email,
-                                                    keyboardType: TextInputType
-                                                        .emailAddress,
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                    decoration: InputDecoration(
-                                                      focusedBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .white)),
-                                                      enabledBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .white)),
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 5.0),
-                                                  Padding(
-                                                      padding: EdgeInsets.only(
-                                                          right: 170.0),
-                                                      child: Text(phoneNumber,
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 10.0,
-                                                              fontFamily:
-                                                                  "Helvetica"))),
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Expanded(
-                                                          flex: 2,
-                                                          child: Container(
-                                                            height: ScreenUtil()
-                                                                .setHeight(50),
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    left: 5.0),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5.0),
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                            child:
-                                                                DropdownButtonHideUnderline(
-                                                                    child:
-                                                                        DropdownButton(
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .keyboard_arrow_down,
-                                                                color:
-                                                                    Colors.grey,
-                                                                size:
-                                                                    ScreenUtil(
-                                                                  allowFontScaling:
-                                                                      true,
-                                                                ).setHeight(40),
-                                                              ),
-                                                              elevation: 0,
-                                                              value:
-                                                                  _currentFlag,
-                                                              items:
-                                                                  _dropDownMenuItems,
-                                                              onChanged:
-                                                                  changedDropDownItem,
-                                                            )),
-                                                          )),
-                                                      SizedBox(width: 5.0),
-                                                      Expanded(
-                                                          flex: 5,
-                                                          child: TextField(
-                                                            controller:
-                                                                this._number,
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .text,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              focusedBorder: UnderlineInputBorder(
-                                                                  borderSide:
-                                                                      BorderSide(
-                                                                          color:
-                                                                              Colors.white)),
-                                                              prefix: Text(
-                                                                "$_currentCode",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
-                                                              enabledBorder: UnderlineInputBorder(
-                                                                  borderSide:
-                                                                      BorderSide(
-                                                                          color:
-                                                                              Colors.white)),
-                                                            ),
-                                                          ))
-                                                    ],
-                                                  ),
-                                                  Padding(
-                                                      padding: EdgeInsets.only(
-                                                          top: 30.0),
-                                                      child: RaisedButton(
-                                                        child: Text(
-                                                          btnSaveChange,
-                                                          style: TextStyle(
-                                                              fontSize: 20.0,
-                                                              color: darkBlue),
-                                                        ),
-                                                        highlightColor:
-                                                            Colors.yellow,
-                                                        color: Colors.yellow,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                                  bottomRight:
-                                                                      Radius.circular(
-                                                                          10.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          10.0)),
-                                                        ),
-                                                        onPressed: () {
-                                                          saveChanges();
-                                                        },
-                                                      ))
-                                                ],
-                                              ))));
-                                });
-                          },
+            padding: EdgeInsets.only(top: 30.0),
+            child: Center(
+                child: FittedBox(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    height: MediaQuery.of(context).size.height / 1.3,
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.bottomCenter,
+                          width: MediaQuery.of(context).size.width / 1.2,
+                          height: MediaQuery.of(context).size.height / 1.2,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              )),
                           child: Image(
-                            image: editProfileIcon,
-                            height: 25,
+                            image: person,
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height / 1.3,
                           ),
                         ),
-                      ),
-                    ),
-                    Center(
-                        child: Text(
-                      firstnameProfileset+" "+lastnameProfileset,
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Helvetica"),
-                    )),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Center(
-                      child: Text(
-                        '$emailProfileset',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: "Helvetica",
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            height: 250,
+                            width: MediaQuery.of(context).size.width / 1.2 - 46,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 95,
+                                  child: Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: InkWell(
+                                      onTap: () {
+                                        editData();
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return SingleChildScrollView(
+                                                  child: Container(
+                                                      child: AlertDialog(
+                                                          backgroundColor: gunselColor,
+                                                          title: Text(
+                                                            editProfileInformation,
+                                                            style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontFamily: "Helvetica",
+                                                                fontSize: 20.0),
+                                                            textAlign: TextAlign.center,
+                                                          ),
+                                                          content: Column(
+                                                            mainAxisSize: MainAxisSize.min,
+                                                            children: <Widget>[
+                                                              Row(children: <Widget>[
+                                                                Padding(
+                                                                    padding:
+                                                                    EdgeInsets.only(
+                                                                        top: 15.0),
+                                                                    child: Text(
+                                                                      firstName,
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                          Colors.white,
+                                                                          fontSize: 10.0,
+                                                                          fontFamily:
+                                                                          "Helvetica"),
+                                                                    )),
+                                                                Padding(
+                                                                    padding:
+                                                                    EdgeInsets.only(
+                                                                        top: 15.0,
+                                                                        left: 80.0),
+                                                                    child: Text(
+                                                                      "           $lastName",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                          Colors.white,
+                                                                          fontSize: 10.0,
+                                                                          fontFamily:
+                                                                          "Helvetica"),
+                                                                    ))
+                                                              ]),
+                                                              Row(children: <Widget>[
+                                                                Expanded(
+                                                                    child: TextField(
+                                                                      controller:
+                                                                      this._firstName,
+                                                                      style: TextStyle(
+                                                                          color: Colors.white),
+                                                                      keyboardType:
+                                                                      TextInputType.text,
+                                                                      decoration:
+                                                                      InputDecoration(
+                                                                        focusedBorder:
+                                                                        UnderlineInputBorder(
+                                                                            borderSide: BorderSide(
+                                                                                color: Colors
+                                                                                    .white)),
+                                                                        enabledBorder:
+                                                                        UnderlineInputBorder(
+                                                                            borderSide: BorderSide(
+                                                                                color: Colors
+                                                                                    .white)),
+                                                                      ),
+                                                                    )),
+                                                                SizedBox(
+                                                                  width: 5.0,
+                                                                ),
+                                                                Expanded(
+                                                                    child: TextField(
+                                                                      controller:
+                                                                      this._lastName,
+                                                                      style: TextStyle(
+                                                                          color: Colors.white),
+                                                                      keyboardType:
+                                                                      TextInputType.text,
+                                                                      decoration:
+                                                                      InputDecoration(
+                                                                        focusedBorder:
+                                                                        UnderlineInputBorder(
+                                                                            borderSide: BorderSide(
+                                                                                color: Colors
+                                                                                    .white)),
+                                                                        enabledBorder:
+                                                                        UnderlineInputBorder(
+                                                                            borderSide: BorderSide(
+                                                                                color: Colors
+                                                                                    .white)),
+                                                                      ),
+                                                                    ))
+                                                              ]),
+                                                              SizedBox(
+                                                                height: 5.0,
+                                                              ),
+                                                              Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      right: 25.0),
+                                                                  child: Text(
+                                                                    "$email                                                                                ",
+                                                                    style: TextStyle(
+                                                                        color: Colors.white,
+                                                                        fontSize: 10.0,
+                                                                        fontFamily:
+                                                                        "Helvetica"),
+                                                                  )),
+                                                              TextField(
+                                                                controller: this._email,
+                                                                keyboardType: TextInputType
+                                                                    .emailAddress,
+                                                                style: TextStyle(
+                                                                    color: Colors.white),
+                                                                decoration: InputDecoration(
+                                                                  focusedBorder:
+                                                                  UnderlineInputBorder(
+                                                                      borderSide: BorderSide(
+                                                                          color: Colors
+                                                                              .white)),
+                                                                  enabledBorder:
+                                                                  UnderlineInputBorder(
+                                                                      borderSide: BorderSide(
+                                                                          color: Colors
+                                                                              .white)),
+                                                                ),
+                                                              ),
+                                                              SizedBox(height: 5.0),
+                                                              Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      right: 170.0),
+                                                                  child: Text(phoneNumber,
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                          Colors.white,
+                                                                          fontSize: 10.0,
+                                                                          fontFamily:
+                                                                          "Helvetica"))),
+                                                              Row(
+                                                                children: <Widget>[
+                                                                  Expanded(
+                                                                      flex: 2,
+                                                                      child: Container(
+                                                                        height: ScreenUtil()
+                                                                            .setHeight(50),
+                                                                        padding:
+                                                                        EdgeInsets.only(
+                                                                            left: 5.0),
+                                                                        decoration:
+                                                                        BoxDecoration(
+                                                                          borderRadius:
+                                                                          BorderRadius
+                                                                              .circular(
+                                                                              5.0),
+                                                                          color:
+                                                                          Colors.white,
+                                                                        ),
+                                                                        child:
+                                                                        DropdownButtonHideUnderline(
+                                                                            child:
+                                                                            DropdownButton(
+                                                                              icon: Icon(
+                                                                                Icons
+                                                                                    .keyboard_arrow_down,
+                                                                                color:
+                                                                                Colors.grey,
+                                                                                size:
+                                                                                ScreenUtil(
+                                                                                  allowFontScaling:
+                                                                                  true,
+                                                                                ).setHeight(40),
+                                                                              ),
+                                                                              elevation: 0,
+                                                                              value:
+                                                                              _currentFlag,
+                                                                              items:
+                                                                              _dropDownMenuItems,
+                                                                              onChanged:
+                                                                              changedDropDownItem,
+                                                                            )),
+                                                                      )),
+                                                                  SizedBox(width: 5.0),
+                                                                  Expanded(
+                                                                      flex: 5,
+                                                                      child: TextField(
+                                                                        controller:
+                                                                        this._number,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .white),
+                                                                        keyboardType:
+                                                                        TextInputType
+                                                                            .text,
+                                                                        decoration:
+                                                                        InputDecoration(
+                                                                          focusedBorder: UnderlineInputBorder(
+                                                                              borderSide:
+                                                                              BorderSide(
+                                                                                  color:
+                                                                                  Colors.white)),
+                                                                          prefix: Text(
+                                                                            "$_currentCode",
+                                                                            style: TextStyle(
+                                                                                color: Colors
+                                                                                    .white),
+                                                                          ),
+                                                                          enabledBorder: UnderlineInputBorder(
+                                                                              borderSide:
+                                                                              BorderSide(
+                                                                                  color:
+                                                                                  Colors.white)),
+                                                                        ),
+                                                                      ))
+                                                                ],
+                                                              ),
+                                                              Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      top: 30.0),
+                                                                  child: RaisedButton(
+                                                                    child: Text(
+                                                                      btnSaveChange,
+                                                                      style: TextStyle(
+                                                                          fontSize: 20.0,
+                                                                          color: darkBlue),
+                                                                    ),
+                                                                    highlightColor:
+                                                                    Colors.yellow,
+                                                                    color: Colors.yellow,
+                                                                    shape:
+                                                                    RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                      BorderRadius.only(
+                                                                          bottomRight:
+                                                                          Radius.circular(
+                                                                              10.0),
+                                                                          topLeft: Radius
+                                                                              .circular(
+                                                                              10.0)),
+                                                                    ),
+                                                                    onPressed: () {
+                                                                      saveChanges();
+                                                                    },
+                                                                  ))
+                                                            ],
+                                                          ))));
+                                            });
+                                      },
+                                      child: Image(
+                                        image: editProfileIcon,
+                                        height: 25,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                    child: Text(
+                                      firstnameProfileset+" "+lastnameProfileset,
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "Helvetica"),
+                                    )),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Center(
+                                  child: Text(
+                                    '$emailProfileset',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: "Helvetica",
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Center(
+                                  child: Text(
+                                    '$phoneProfileset',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: "Helvetica",
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        GestureDetector(
+                                          onTap: (){
+                                            languageChange(context,3);
+                                          },
+                                        child:Column(
+                                          children: <Widget>[
+                                            Image(
+                                              image: profileScreenLanguageIcon,
+                                              height: 35,
+                                            ),
+                                            Text('RU',
+                                                style: TextStyle(fontFamily: "Helvetica")),
+                                          ],
+                                        ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: (){
+                                            languageChange(context,1);
+                                          },
+                                        child:Column(
+                                          children: <Widget>[
+                                            Image(
+                                              image: profileScreenLanguageIcon,
+                                              height: 35,
+                                            ),
+                                            Text('UA',
+                                                style: TextStyle(fontFamily: "Helvetica")),
+                                          ],
+                                        ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: (){
+                                            languageChange(context,2);
+                                          },
+                                        child:Column(
+                                          children: <Widget>[
+                                            Image(
+                                              image: profileScreenLanguageIcon,
+                                              height: 35,
+                                            ),
+                                            Text('EN',
+                                                style: TextStyle(fontFamily: "Helvetica")),
+                                          ],
+                                        ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Center(
-                      child: Text(
-                        '$phoneProfileset',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: "Helvetica",
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                Image(
-                                  image: profileScreenLanguageIcon,
-                                  height: 35,
-                                ),
-                                Text('RU',
-                                    style: TextStyle(fontFamily: "Helvetica")),
-                              ],
-                            ),
-                            Column(
-                              children: <Widget>[
-                                Image(
-                                  image: profileScreenLanguageIcon,
-                                  height: 35,
-                                ),
-                                Text('UA',
-                                    style: TextStyle(fontFamily: "Helvetica")),
-                              ],
-                            ),
-                            Column(
-                              children: <Widget>[
-                                Image(
-                                  image: profileScreenLanguageIcon,
-                                  height: 35,
-                                ),
-                                Text('EN',
-                                    style: TextStyle(fontFamily: "Helvetica")),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-            //Image Profile ka liya ha ya
-            Container(
+                        //Image Profile ka liya ha ya
+                        Container(
 //              height: 80.0,
 //                width: 80.0,
 //                margin: EdgeInsets.only(left: 110.0),
@@ -575,43 +628,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
 //                )
 //
 //                ),
-             child: GestureDetector(
-                onTap: (){
-                  _showChoiceDialog(context);
-                },
-                child: _decideImageView(),
-              ),
+                          child: GestureDetector(
+                            onTap: (){
+                              _showChoiceDialog(context);
+                            },
+                            child: _decideImageView(),
+                          ),
 
-                ),
+                        ),
 
-          ],
-        ),
-      ),
-    ))
+                      ],
+                    ),
+                  ),
+                ))
         ),
       ),
     );
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   List<DropdownMenuItem<AssetImage>> getDropDownMenuItems() {
@@ -636,6 +689,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _currentIds = countryId.keys
         .firstWhere((j) => countryId[j] == selectedFlag, orElse: () => '');
     this.selectedCountryIds = _currentIds;
+
+
+//    print("currentcode:"+_currentCode);
+
   }
 
   void editData() {
@@ -647,6 +704,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _email.text = emailProfile;
       _number.text = phoneProfile;
 
+      //print("Country id is:"+countryidProfileset);
+
     } else if (loginCategory == "custom") {
       print("First Name" + firstnameProfile);
       //print("Last Name" + names[1]);
@@ -654,6 +713,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _lastName.text = lastnameProfile;
       _email.text = emailProfile;
       _number.text = phoneProfile;
+
+      //print("Country id is:"+countryidProfileset);
+
     } else if (loginCategory == "google") {
 
       print("First Name" + firstnameProfile);
@@ -662,6 +724,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _lastName.text = lastnameProfile;
       _email.text = emailProfile;
       _number.text = phoneProfile;
+
+     // print("Country id is:"+countryidProfileset);
 
 
 //      var names = nameProfile.split(" ");
@@ -676,13 +740,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<String> saveChanges() async {
-String editFirstname,editLastname,editCountryid,editPhonenumber,editEmail;
+    String editFirstname,editLastname,editCountryid,editPhonenumber,editEmail;
 
-editFirstname = _firstName.text;
-editLastname = _lastName.text;
-editCountryid = _currentIds.toString();
-editPhonenumber = _number.text;
-editEmail = _email.text;
+    editFirstname = _firstName.text;
+    editLastname = _lastName.text;
+    editCountryid = _currentIds.toString();
+    editPhonenumber = _number.text;
+    editEmail = _email.text;
+
+    print("current id is:"+editCountryid);
 
 //print("Current code is:"+editCountryid);
 //print("Current phone is:"+editPhonenumber);
@@ -702,24 +768,39 @@ editEmail = _email.text;
     print("response is"+response.body.toString());
 
     if(statusCode == 200)
-      {
-        //String body = response.body;
-        print("status code:"+statusCode.toString());
+    {
+      //String body = response.body;
+      print("status code:"+statusCode.toString());
 
 
-        shPref.setshared(tokenData,editFirstname,editLastname, pictureProfile, editEmail, editPhonenumber,editCountryid, loginCategory);
-    profilefirstName();
-    profilelastName();
-    profileImage();
-    profileemail();
-    profileNumber();
-    loginCategorys();
-        Navigator.pop(context);
+      shPref.setshared(tokenData,editFirstname,editLastname, pictureProfile, editEmail, editPhonenumber,editCountryid, loginCategory);
+      profilefirstName();
+      profilelastName();
+      profileImage();
+      profileemail();
+      profileNumber();
+      loginCategorys();
+      //profileCountryid();
+      Navigator.pop(context);
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(updateInformation),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text(ok),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
 
-
-        //print("Body is:"+body);
-      }
-     else{
+      //print("Body is:"+body);
+    }
+    else{
       showDialog(
           context: context,
           builder: (context) {
@@ -727,10 +808,10 @@ editEmail = _email.text;
               title: Text(
                 "Error",
               ),
-              content: Text("Data not updated"),
+              content: Text(noupdateInformation),
               actions: <Widget>[
                 FlatButton(
-                  child: Text("OK"),
+                  child: Text(ok),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -773,14 +854,14 @@ editEmail = _email.text;
                 },
               ),
 
-              Padding(padding: EdgeInsets.all(8.0)),
 
-              GestureDetector(
-                child: Text('Camera'),
-                onTap: (){
-                  _openCamera(context);
-                },
-              )
+
+//              GestureDetector(
+//                child: Text('Camera'),
+//                onTap: (){
+//                 // _openCamera(context);
+//                },
+//              )
 
             ],
           ),
@@ -802,9 +883,9 @@ editEmail = _email.text;
 
   Widget _decideImageView(){
 
-    if(imageFile==null){
+    if(imageFile=="" && checkImage == ""){
       return Container(
-        margin: EdgeInsets.only(left: 110.0),
+        margin: EdgeInsets.only(left: 110.0,top: 10.0),
         width: 80,
         height: 80,
         decoration: BoxDecoration(
@@ -822,7 +903,7 @@ editEmail = _email.text;
     }
     else{
       return Container(
-        margin: EdgeInsets.only(left: 110.0),
+        margin: EdgeInsets.only(left: 110.0,top: 10.0),
         width: 80,
         height: 80,
         decoration: BoxDecoration(
@@ -831,7 +912,7 @@ editEmail = _email.text;
           border: new Border.all(color: Colors.white,width: 2.0),
         ),
         child: ClipOval(
-            child:Image.file(imageFile,width: 160,height: 160,fit: BoxFit.fill,)
+            child:Image(image:FileImage(File(checkImage),),fit: BoxFit.fill,)
 //          Image(image: AssetImage("images/salon_employeeimage.jpg"),fit: BoxFit.fill,),
         ),
 
@@ -843,8 +924,19 @@ editEmail = _email.text;
 
 
   _openGallery(BuildContext context) async{
-    var picture= await ImagePicker.pickImage(source: ImageSource.gallery);
-    print("Picture is"+picture.toString());
+    var image= await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    Directory dir = await getApplicationDocumentsDirectory();
+    String path = dir.path;
+    String fileName = paths.basename(image.path);
+    final File localImage = await image.copy('$path/$fileName');
+    print("File path is:"+localImage.path);
+    print("File is:"+localImage.toString());
+
+    shPref.setmobileImage(localImage.path);
+
+
+    //print("Picture is"+picture.toString());
     //data
 //    var names = nameProfile.split(" ");
 //    print(names);
@@ -858,16 +950,33 @@ editEmail = _email.text;
 //        _email.text, _number.text, loginCategory);
     //data
     this.setState((){
-      imageFile = picture;
+      checkImage = localImage.path;
     });
     Navigator.of(context).pop();
   }
 
   _openCamera(BuildContext context) async{
-    var picture= await ImagePicker.pickImage(source: ImageSource.camera);
+//    var picture= await ImagePicker.pickImage(source: ImageSource.camera);
+//    this.setState((){
+//      imageFile = picture;
+//    });
+
+    var image= await ImagePicker.pickImage(source: ImageSource.camera);
+
+    Directory dir = await getApplicationDocumentsDirectory();
+    String path = dir.path;
+    String fileName = paths.basename(image.path);
+    final File localImage = await image.copy('$path/$fileName');
+    print("File path is:"+localImage.path);
+    print("File is:"+localImage.toString());
+
+    shPref.setmobileImage(localImage.path);
+
     this.setState((){
-      imageFile = picture;
+      checkImage = localImage.path;
     });
+
+
     Navigator.of(context).pop();
   }
 

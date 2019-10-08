@@ -1,10 +1,10 @@
-#Fri Oct 04 19:58:02 PKT 2019
+#Tue Oct 08 19:06:27 PKT 2019
 path.2=classes3.dex
 path.1=classes2.dex
 path.0=classes.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
-base.2=/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/transforms/dexMerger/debug/0
-base.1=/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/transforms/dexMerger/debug/0
-base.0=/home/ali/Desktop/experimental gunsel/gunsel_lines_3/android/app/build/intermediates/transforms/dexMerger/debug/0
+base.2=C\:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+base.1=C\:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+base.0=C\:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0

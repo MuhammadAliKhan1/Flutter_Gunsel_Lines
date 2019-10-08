@@ -23,13 +23,13 @@ class SelectSeatModel {
 
     http.Response response = await http.get(
       Uri.encodeFull(
-          'https://test-api.gunsel.ua/Public.svc/GetTravelVariantDetails/$travelVariantId'),
+          'https://test-api.gunsel.ua/Public.svc/GetTravelVariantDetails/$travelVariantId?c1=true'),
       headers: {
         'token': prefs.getString('Token'),
       },
     );
     DataStatusSeperator seperator =
-        DataStatusSeperator.fromJson(jsonDecode(response.body));
+    DataStatusSeperator.fromJson(jsonDecode(response.body));
     if ((seperator.toJson()['Data']) != null) {
       Map<String, dynamic> map = {
         'Data': jsonDecode((seperator.toJson())['Data'])
@@ -84,44 +84,44 @@ class Data {
 
   Data(
       {this.fromStationId,
-      this.fromStationName,
-      this.toStationId,
-      this.toStationName,
-      this.travelDate,
-      this.travelTime,
-      this.vehicleTypeModel,
-      this.travelStations,
-      this.discountTypes,
-      this.officeCustomerNameRequired,
-      this.officeCustomerPhoneNumberRequired,
-      this.officeCustomerEmailRequired,
-      this.publicCustomerNameRequired,
-      this.publicCustomerPhoneNumberRequired,
-      this.publicCustomerEmailRequired,
-      this.remainingSaleableSeatCount,
-      this.travelId,
-      this.travelVariantId,
-      this.travelType,
-      this.tripCode,
-      this.tripName,
-      this.departureDate,
-      this.departureTime,
-      this.departureDateTime,
-      this.arrivalDate,
-      this.arrivalTime,
-      this.arrivalDateTime,
-      this.onTheWay,
-      this.emptySeatCount,
-      this.ticketPrice,
-      this.isInternational,
-      this.distanceKM,
-      this.travelStatus,
-      this.fromStation,
-      this.toStation,
-      this.currency,
-      this.vehicleType,
-      this.availableSeatCount,
-      this.travelVariantLeg2});
+        this.fromStationName,
+        this.toStationId,
+        this.toStationName,
+        this.travelDate,
+        this.travelTime,
+        this.vehicleTypeModel,
+        this.travelStations,
+        this.discountTypes,
+        this.officeCustomerNameRequired,
+        this.officeCustomerPhoneNumberRequired,
+        this.officeCustomerEmailRequired,
+        this.publicCustomerNameRequired,
+        this.publicCustomerPhoneNumberRequired,
+        this.publicCustomerEmailRequired,
+        this.remainingSaleableSeatCount,
+        this.travelId,
+        this.travelVariantId,
+        this.travelType,
+        this.tripCode,
+        this.tripName,
+        this.departureDate,
+        this.departureTime,
+        this.departureDateTime,
+        this.arrivalDate,
+        this.arrivalTime,
+        this.arrivalDateTime,
+        this.onTheWay,
+        this.emptySeatCount,
+        this.ticketPrice,
+        this.isInternational,
+        this.distanceKM,
+        this.travelStatus,
+        this.fromStation,
+        this.toStation,
+        this.currency,
+        this.vehicleType,
+        this.availableSeatCount,
+        this.travelVariantLeg2});
 
   Data.fromJson(Map<String, dynamic> json) {
     fromStationId = json['FromStationId'];
@@ -144,11 +144,11 @@ class Data {
     }
     officeCustomerNameRequired = json['OfficeCustomerNameRequired'];
     officeCustomerPhoneNumberRequired =
-        json['OfficeCustomerPhoneNumberRequired'];
+    json['OfficeCustomerPhoneNumberRequired'];
     officeCustomerEmailRequired = json['OfficeCustomerEmailRequired'];
     publicCustomerNameRequired = json['PublicCustomerNameRequired'];
     publicCustomerPhoneNumberRequired =
-        json['PublicCustomerPhoneNumberRequired'];
+    json['PublicCustomerPhoneNumberRequired'];
     publicCustomerEmailRequired = json['PublicCustomerEmailRequired'];
     remainingSaleableSeatCount = json['RemainingSaleableSeatCount'];
     travelId = json['TravelId'];
@@ -246,13 +246,13 @@ class VehicleTypeModel {
 
   VehicleTypeModel(
       {this.rowCount,
-      this.columnCount,
-      this.vehicleTypePlanItems,
-      this.vehicleTypeId,
-      this.vehicleTypeName,
-      this.vehicleTypeCode,
-      this.vehicleCategory,
-      this.properties});
+        this.columnCount,
+        this.vehicleTypePlanItems,
+        this.vehicleTypeId,
+        this.vehicleTypeName,
+        this.vehicleTypeCode,
+        this.vehicleCategory,
+        this.properties});
 
   VehicleTypeModel.fromJson(Map<String, dynamic> json) {
     rowCount = json['RowCount'];
@@ -304,13 +304,13 @@ class VehicleTypePlanItems {
 
   VehicleTypePlanItems(
       {this.vehicleTypePlanId,
-      this.rowIndex,
-      this.columnIndex,
-      this.pointType,
-      this.pointTypeDesc,
-      this.pointNumber,
-      this.seatStatus,
-      this.travelSeatBlockId});
+        this.rowIndex,
+        this.columnIndex,
+        this.pointType,
+        this.pointTypeDesc,
+        this.pointNumber,
+        this.seatStatus,
+        this.travelSeatBlockId});
 
   VehicleTypePlanItems.fromJson(Map<String, dynamic> json) {
     vehicleTypePlanId = json['VehicleTypePlanId'];
@@ -350,14 +350,14 @@ class TravelStations {
 
   TravelStations(
       {this.travelStationId,
-      this.stationId,
-      this.stationName,
-      this.address,
-      this.stationType,
-      this.stationTypeDesc,
-      this.orderIndex,
-      this.plannedEnterTime,
-      this.plannedExitTime});
+        this.stationId,
+        this.stationName,
+        this.address,
+        this.stationType,
+        this.stationTypeDesc,
+        this.orderIndex,
+        this.plannedEnterTime,
+        this.plannedExitTime});
 
   TravelStations.fromJson(Map<String, dynamic> json) {
     travelStationId = json['TravelStationId'];
@@ -395,10 +395,10 @@ class Currency {
 
   Currency(
       {this.currencyId,
-      this.currencyCode,
-      this.currencyName,
-      this.symbol,
-      this.isDefault});
+        this.currencyCode,
+        this.currencyName,
+        this.symbol,
+        this.isDefault});
 
   Currency.fromJson(Map<String, dynamic> json) {
     currencyId = json['CurrencyId'];

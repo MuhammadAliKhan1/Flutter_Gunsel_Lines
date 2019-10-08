@@ -3,6 +3,9 @@ import 'package:gunsel/screens/Drawer/menu_row.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:gunsel/data/sharedPreference.dart';
+import 'dart:io';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class SideDrawer extends StatefulWidget {
   @override
@@ -16,8 +19,12 @@ class _SideDrawerState extends State<SideDrawer> {
       cancelTicket = "Cancel Ticket",
       news = "News",
       language = "Language",
-      company = "About Gunsel Lines";
+      company = "About Gunsel Lines",
+      history = "History of travels";
+
   bool accountIncluded = true;
+  String checkprofileImage = "";
+  bool checkImage;
 
   String profileImage, profilefirstName, profileEmail, profileLastName;
 
@@ -44,6 +51,7 @@ class _SideDrawerState extends State<SideDrawer> {
         news = "Новини";
         language = "Мова";
         company = "Про гюнзельні лінії";
+        history = "Історія подорожей";
       } else if (b == 2) {
         myProfile = "My Profile";
         buyTicket = "Buy Ticket";
@@ -51,6 +59,7 @@ class _SideDrawerState extends State<SideDrawer> {
         news = "News";
         language = "Language";
         company = "About Gunsel Lines";
+        history = "History of travels";
       } else if (b == 3) {
         myProfile = "Мой профайл";
         buyTicket = "Купить билет";
@@ -58,6 +67,7 @@ class _SideDrawerState extends State<SideDrawer> {
         news = "Новости";
         language = "язык";
         company = "О Gunsel Линии";
+        history = "История путешествий";
       }
     });
   }
@@ -76,17 +86,27 @@ class _SideDrawerState extends State<SideDrawer> {
       accountIncluded = false;
     }
 
-    print("Category is" + category);
+    //print("Category is"+category);
   }
 
   Future<String> drawerProfile() async {
     profilefirstName = await shpref.getfirstname();
     profileLastName = await shpref.getlastname();
     profileEmail = await shpref.getemail();
-    profileImage = await shpref.getpicture();
+
+    checkprofileImage = await shpref.getmobileImage();
+
+    if (checkprofileImage == "") {
+      profileImage = await shpref.getpicture();
+      checkImage = true;
+    } else if (checkprofileImage != "") {
+      profileImage = checkprofileImage;
+      checkImage = false;
+    }
   }
 
   final facebookLogin = FacebookLogin();
+  final googleSignin = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -136,14 +156,29 @@ class _SideDrawerState extends State<SideDrawer> {
                 width: 30,
               ),
               //Image.network(profileImage,height: ScreenUtil().setHeight(130),),
-              Container(
-                  height: 80.0,
-                  width: 80.0,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(profileImage)))),
+              checkImage
+                  ? Container(
+                      height: 80.0,
+                      width: 80.0,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(profileImage))))
+                  : Container(
+                      height: 80.0,
+                      width: 80.0,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: FileImage(
+                              File(profileImage),
+                            ),
+                          ))),
+
               Spacer(
                 flex: 1,
               ),
@@ -248,7 +283,7 @@ class _SideDrawerState extends State<SideDrawer> {
           },
         ),
         MenuRow(
-          title: 'History of travels',
+          title: history,
           pngImageAllow: true,
           pngImage: historyOfTravelIcon,
           onTap: () {
@@ -334,16 +369,6 @@ class _SideDrawerState extends State<SideDrawer> {
     return Flexible(
         child: ListView(
       children: <Widget>[
-        MenuRow(
-          title: myProfile,
-          pngImage: profileIcon,
-          onTap: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                oneWayScreen, (Route<dynamic> route) => false);
-            Navigator.pushNamed(context, profileScreen);
-          },
-          pngImageAllow: true,
-        ),
         MenuRow(
           title: buyTicket,
           pngImageAllow: true,
@@ -448,6 +473,11 @@ class _SideDrawerState extends State<SideDrawer> {
   _logout() {
     SharePreferencelogin shPref = SharePreferencelogin();
     shPref.setshared("", "", "", "", "", "", "", "");
+    shPref.setmobileImage("");
     facebookLogin.logOut();
+    googleSignin.signOut();
+
+    TokenGetter token = TokenGetter();
+    token.getToken();
   }
 }

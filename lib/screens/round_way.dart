@@ -1,5 +1,4 @@
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:gunsel/data/buy_ticket.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/stationlist_model.dart';
 import 'package:gunsel/widgets/button.dart';
@@ -57,7 +56,6 @@ class RoundWayState extends State<RoundWay> {
 class SearchTicketContainer extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return SearchTicketContainerState();
   }
 }
@@ -169,7 +167,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
       arrivalHint = "Enter arrival city",
       departCalHint = "Select the departure date",
       returnCalHint = "Select the return date",
-      numOfpassenger = "Number of passengers",
+      numOfpassenger = "Number of passengers:",
       btnSearch = "search";
 
   @override
@@ -196,21 +194,21 @@ class _RoundWayFormState extends State<RoundWayForm> {
         arrivalHint = "Введіть місто відправлення";
         departCalHint = "Виберіть дату відправлення";
         returnCalHint = "Виберіть дату повернення";
-        numOfpassenger = "Кількість пасажирів";
+        numOfpassenger = "Кількість пасажирів:";
         btnSearch = "пошук";
       } else if (b == 2) {
         departHint = "Enter departure city";
         arrivalHint = "Enter arrival city";
         departCalHint = "Select the departure date";
         returnCalHint = "Select the return date";
-        numOfpassenger = "Number of passengers";
+        numOfpassenger = "Number of passengers:";
         btnSearch = "search";
       } else if (b == 3) {
         departHint = "Введите город отправления";
         arrivalHint = "Введите город прибытия";
         departCalHint = "Выберите дату отъезда";
         returnCalHint = "Выберите дату возвращения";
-        numOfpassenger = "Количество пассажиров";
+        numOfpassenger = "Количество пассажиров:";
         btnSearch = "поиск";
       }
     });
@@ -240,7 +238,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
             child: TypeAheadFormField(
               textFieldConfiguration: TextFieldConfiguration(
                 keyboardType: TextInputType.text,
-                controller: this._arrivalStation,
+                controller: this._departureStation,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                   fillColor: Colors.white,
@@ -269,15 +267,15 @@ class _RoundWayFormState extends State<RoundWayForm> {
                 return suggestionsBox;
               },
               onSuggestionSelected: (suggestion) {
-                this._arrivalStation.text = suggestion;
+                this._departureStation.text = suggestion;
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please select an arrival station';
+                  return 'Please select an departure station';
                 } else if (!stationList.contains(value))
-                  return 'Please select a valid arrival station';
+                  return 'Please select a valid departure station';
               },
-              onSaved: (value) => this._arrivalStationVal = value,
+              onSaved: (value) => this._departureStationVal = value,
             ),
           ),
           SizedBox(
@@ -312,7 +310,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
             child: TypeAheadFormField(
               textFieldConfiguration: TextFieldConfiguration(
                 keyboardType: TextInputType.text,
-                controller: this._departureStation,
+                controller: this._arrivalStation,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                   fillColor: Colors.white,
@@ -341,17 +339,17 @@ class _RoundWayFormState extends State<RoundWayForm> {
                 return suggestionsBox;
               },
               onSuggestionSelected: (suggestion) {
-                this._departureStation.text = suggestion;
+                this._arrivalStation.text = suggestion;
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please select an departure station';
+                  return 'Please select an arrival station';
                 } else if (!stationList.contains(value))
-                  return 'Please select a valid departure station';
-                else if (this._arrivalStation.text == value)
+                  return 'Please select a valid arrival station';
+                else if (this._departureStation.text == value)
                   return 'Please select different stations.';
               },
-              onSaved: (value) => this._departureStationVal = value,
+              onSaved: (value) => this._arrivalStationVal = value,
             ),
           ),
           SizedBox(

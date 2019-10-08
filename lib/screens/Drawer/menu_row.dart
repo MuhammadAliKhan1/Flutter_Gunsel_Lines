@@ -1,5 +1,7 @@
 import 'package:gunsel/data/constants.dart';
 
+import 'package:auto_size_text/auto_size_text.dart';
+
 class MenuRow extends StatefulWidget {
   final String title;
   final IconData icon;
@@ -44,13 +46,13 @@ class _MenuRowState extends State<MenuRow> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(
+            AutoSizeText(
               "${widget.title}",
               style: TextStyle(
                 fontFamily: "Helvetica",
                 fontWeight: FontWeight.w600,
                 color: gunselColor,
-                fontSize: ScreenUtil().setSp(37),
+                fontSize: ScreenUtil().setSp(31),
               ),
             ),
           ],

@@ -37,17 +37,17 @@ class Data {
 
   Data(
       {this.stationId,
-      this.stationCategory,
-      this.stationName,
-      this.stationCode,
-      this.address,
-      this.countryId,
-      this.countryName,
-      this.cityId,
-      this.cityName,
-      this.mapX,
-      this.mapY,
-      this.translations});
+        this.stationCategory,
+        this.stationName,
+        this.stationCode,
+        this.address,
+        this.countryId,
+        this.countryName,
+        this.cityId,
+        this.cityName,
+        this.mapX,
+        this.mapY,
+        this.translations});
 
   Data.fromJson(Map<String, dynamic> json) {
     stationId = json['StationId'];
@@ -81,4 +81,3 @@ class Data {
     return data;
   }
 }
-

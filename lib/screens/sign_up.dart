@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart';
 import 'package:gunsel/data/sharedPreference.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -341,17 +342,22 @@ class SignUpState extends State<SignUp> {
                           )),
                       Row(
                         children: <Widget>[
-                          Switch(
-                            activeColor: Colors.green,
-                            value: switchValue,
-                            onChanged: (bool value) {
-                              switchButton(value);
-                            },
-                          ),
-                          Text(
-                            agreementText,
-                            style: TextStyle(color: Colors.white),
-                          ),
+                          Expanded(
+                              flex: 1,
+                              child: Switch(
+                                activeColor: Colors.green,
+                                value: switchValue,
+                                onChanged: (bool value) {
+                                  switchButton(value);
+                                },
+                              )),
+                          Expanded(
+                              flex: 5,
+                              child: AutoSizeText(
+                                agreementText,
+                                style: TextStyle(color: Colors.white),
+                                maxLines: 1,
+                              )),
                         ],
                       ),
 
@@ -392,7 +398,7 @@ class SignUpState extends State<SignUp> {
                       onPressed: () {
                         //_makePostRequest();
 
-                        if (_password == _repassword) {
+                        if (_password.text != _repassword.text) {
                           showDialog(
                               context: context,
                               builder: (context) {
@@ -413,7 +419,13 @@ class SignUpState extends State<SignUp> {
                               });
                           if (_signUpForm.currentState.validate()) {}
                         } else {
-                          _makePostRequest();
+                          if (_signUpForm.currentState.validate()) {
+                            _makePostRequest();
+                          }
+                          else{
+                            print("Show data is");
+
+                          }
                         }
                       }),
                 ),
@@ -506,6 +518,29 @@ class SignUpState extends State<SignUp> {
             });
       }
     } else if (switchOnoff == false) {
+
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                error,
+              ),
+              content: Text(acceptAgreement),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text(oktext),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
+
+
+
+
       signSwitched();
     }
   }

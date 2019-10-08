@@ -8,7 +8,6 @@ import 'package:gunsel/data/sharedPreference.dart';
 class OneWay extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return OneWayState();
   }
 }
@@ -164,7 +163,7 @@ class _OneWayFormState extends State<OneWayForm> {
   String arrivalHint = "Enter arrival station",
       departHint = "Enter departure station",
       calenderHint = "Select the travel date",
-      numOfPassengers = "Number of passengers",
+      numOfPassengers = "Number of passengers:",
       btnSearch = "search",
       oneWay = "ONE WAY",
       roundWay = "ROUND WAY";
@@ -195,19 +194,19 @@ class _OneWayFormState extends State<OneWayForm> {
         arrivalHint = "Введіть станцію прибуття";
         departHint = "Введіть станцію відправлення";
         calenderHint = "Виберіть дату подорожі";
-        numOfPassengers = "Кількість пасажирів";
+        numOfPassengers = "Кількість пасажирів:";
         btnSearch = "пошук";
       } else if (b == 2) {
         arrivalHint = "Enter arrival station";
         departHint = "Enter departure station";
         calenderHint = "Select the travel date";
-        numOfPassengers = "Number of passengers";
+        numOfPassengers = "Number of passengers:";
         btnSearch = "search";
       } else if (b == 3) {
         arrivalHint = "Введите станцию ​​прибытия";
         departHint = "Введите станцию ​​отправления";
         calenderHint = "Выберите дату поездки";
-        numOfPassengers = "Количество пассажиров";
+        numOfPassengers = "Количество пассажиров:";
         btnSearch = "поиск";
       }
     });
@@ -230,7 +229,6 @@ class _OneWayFormState extends State<OneWayForm> {
           SizedBox(
             height: 20.0,
           ),
-
           Container(
             width: ScreenUtil().setWidth(550),
             child: TypeAheadFormField(
@@ -350,7 +348,6 @@ class _OneWayFormState extends State<OneWayForm> {
               onSaved: (value) => this._arrivalStationVal = value,
             ),
           ),
-          
           SizedBox(
             height: 10.0,
           ),
@@ -483,6 +480,11 @@ class _OneWayFormState extends State<OneWayForm> {
     print('entered');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String gunselToken = prefs.getString('Token');
+
+    //String gunselToken ="BB7D3752C7184D51A412D08C03EAA585B1DCB425392B5D6FC6DDEB0E29ACFB41D8AFBE9535B6ECC1E4F018B3307ECBCAE07A113740AD83200EFAADEBB70A18FE5DBB4F695991EF6EAF917836C3C00EBAB55C26D33DE1B3B2B763629D092DA63697B944A037A305BACA2D12F79B1726231DD3032B897F79039C10E5008F1BF6D21202279832AA150A3AF5B68AC4BD6EE1FB884BFC2BC0B195A71DCD964F8FF6CC2CBA901668B9199F34C821BEA780E8AEBF7A8A43874948ABC6003A996A74155FBA2BF184A62DA513FD28312E1395ED7BD201B77EB44CEF9EC1D66037B286417FC02F062B1355E81925DE553B8BE2FBCE6D82C05C1D08CBF67763BC43FF15EAD68D08F27E5E021083CE998AED3E156A5AD6E0BBE22AD0A266D88813CD97C8D67CDBA226F20CF75C9104E5F34C96C9C82D70FA0504852AC382BD0F845DB47457AABE26ACA6B2878B09C47C7B1EB43013FD05B6E5E2CD17E5A2F7DFCBF165C5E8F4";
+
+    print("gunsel token is:" + gunselToken);
+
     List<String> list = [];
     http.Response response = await http.get(
       Uri.encodeFull(stationListAPI),
@@ -507,6 +509,7 @@ class _OneWayFormState extends State<OneWayForm> {
 
   Future<List<String>> filterStations(String pattern) async {
     List<String> list = [];
+    //if list is null{
     pattern = pattern.toUpperCase();
     if (this.stationListFetched) {
       for (String station in this.stationList) {

@@ -1,44 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/travel_list_one_way_model.dart';
+import 'package:gunsel/data/sharedPreference.dart';
 
-class SearchTicket extends StatelessWidget {
+class SearchTicket extends StatefulWidget {
   Map<String, dynamic> buyTicketData;
   SearchTicket({
     this.buyTicketData,
   });
-  Widget build(BuildContext context) {
-    return GunselScaffold(
-      appBarIcon: backArrow,
-      appBarIncluded: true,
-      backgroundImage: scaffoldImg,
-      appBarColor: gunselColor,
-      appBarTitle: 'Search Ticket',
-      appBarTitleIncluded: true,
-      drawerIncluded: false,
-      bodyWidget: SearchTicketScreen(
-        buyTicketMap: this.buyTicketData,
-      ),
-    );
-  }
+
+  @override
+  _SearchTicketState createState() => _SearchTicketState();
 }
 
-class SearchTicketRoundWay extends StatelessWidget {
-  Map<String, dynamic> buyTicketData;
-  SearchTicketRoundWay({
-    this.buyTicketData,
-  });
+class _SearchTicketState extends State<SearchTicket> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String searchTicket = "Search Ticket";
+
+  void searchTicketlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        searchTicket = "Пошуковий квиток";
+      } else if (b == 2) {
+        searchTicket = "Search Ticket";
+      } else if (b == 3) {
+        searchTicket = "Поиск билета";
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    searchTicketlan();
+  }
+
   Widget build(BuildContext context) {
     return GunselScaffold(
       appBarIcon: backArrow,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       appBarColor: gunselColor,
-      appBarTitle: 'Search Ticket',
+      appBarTitle: searchTicket,
       appBarTitleIncluded: true,
       drawerIncluded: false,
       bodyWidget: SearchTicketScreen(
-        buyTicketMap: this.buyTicketData,
+        buyTicketMap: widget.buyTicketData,
       ),
     );
   }
@@ -64,62 +76,36 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
   bool stopClick;
   Map<String, dynamic> travelListTicketData;
   Future<dynamic> _datafetched;
+  Function refresh;
   @override
   void initState() {
     super.initState();
-    if (widget.buyTicketMap['SecondLegCheck'] != null) {
-      travelListTicketData = Map();
-      travelListTicketData['BuyTicketData'] = widget.buyTicketMap;
-    } else {
-      travelListTicketData = widget.buyTicketMap;
-      travelListTicketData['BuyTicketData']['SecondLegCheck'] = true;
-    }
+    travelListTicketData = Map();
+    travelListTicketData['BuyTicketData'] = widget.buyTicketMap;
     _datafetched = getData();
-    if (travelListTicketData['BuyTicketData']['SecondLegCheck']) {
-      initialDay = travelListTicketData['BuyTicketData']['ReturnDay'];
-      initialMonth = travelListTicketData['BuyTicketData']['ReturnMonth'];
-      initialYear = travelListTicketData['BuyTicketData']['ReturnYear'];
-    } else {
-      initialDay = travelListTicketData['BuyTicketData']['DepartureDay'];
-      initialMonth = travelListTicketData['BuyTicketData']['DepartureMonth'];
-      initialYear = travelListTicketData['BuyTicketData']['DepartureYear'];
-    }
+    initialDay = travelListTicketData['BuyTicketData']['DepartureDay'];
+    initialMonth = travelListTicketData['BuyTicketData']['DepartureMonth'];
+    initialYear = travelListTicketData['BuyTicketData']['DepartureYear'];
+
     makeItGrey = true;
     stopClick = false;
+    refresh = () {
+      setState(() {});
+    };
   }
 
   getData() async {
     stopClick = true;
     TravelListOneWayModel travelListPODO = TravelListOneWayModel();
-    if (travelListTicketData['BuyTicketData']['RoundWayCheck']) {
-      if (travelListTicketData['BuyTicketData']['SecondLegCheck']) {
-        travelListTicketData['SecondLegTickets'] =
-            await travelListPODO.getRoundWaySecondLegList(
-          travelListTicketData['BuyTicketData']['DepartureStationId'],
-          travelListTicketData['BuyTicketData']['ArrivalStationId'],
-          travelListTicketData['BuyTicketData']['ReturnYear'],
-          travelListTicketData['BuyTicketData']['ReturnMonth'],
-          travelListTicketData['BuyTicketData']['ReturnDay'],
-        );
-      } else {
-        travelListTicketData['FirstLegTickets'] =
-            await travelListPODO.getTravelList(
-          travelListTicketData['BuyTicketData']['ArrivalStationId'],
-          travelListTicketData['BuyTicketData']['DepartureStationId'],
-          travelListTicketData['BuyTicketData']['DepartureYear'],
-          travelListTicketData['BuyTicketData']['DepartureMonth'],
-          travelListTicketData['BuyTicketData']['DepartureDay'],
-        );
-      }
-    } else
-      travelListTicketData['FirstLegTickets'] =
-          await travelListPODO.getTravelList(
-        travelListTicketData['BuyTicketData']['ArrivalStationId'],
-        travelListTicketData['BuyTicketData']['DepartureStationId'],
-        travelListTicketData['BuyTicketData']['DepartureYear'],
-        travelListTicketData['BuyTicketData']['DepartureMonth'],
-        travelListTicketData['BuyTicketData']['DepartureDay'],
-      );
+
+    travelListTicketData['FirstLegTickets'] =
+        await travelListPODO.getRoundWayFirstLegList(
+      travelListTicketData['BuyTicketData']['ArrivalStationId'],
+      travelListTicketData['BuyTicketData']['DepartureStationId'],
+      travelListTicketData['BuyTicketData']['DepartureYear'],
+      travelListTicketData['BuyTicketData']['DepartureMonth'],
+      travelListTicketData['BuyTicketData']['DepartureDay'],
+    );
   }
 
   @override
@@ -128,21 +114,13 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
       children: <Widget>[
         Stack(
           children: <Widget>[
-            travelListTicketData['BuyTicketData']['SecondLegCheck']
-                ? getTicketContainer(
-                    travelListTicketData['BuyTicketData']['ArrivalStation'],
-                    travelListTicketData['BuyTicketData']['DepartureStation'],
-                    travelListTicketData['BuyTicketData']['ReturnDay'],
-                    travelListTicketData['BuyTicketData']['ReturnMonth'],
-                    travelListTicketData['BuyTicketData']['ReturnYear'],
-                  )
-                : getTicketContainer(
-                    travelListTicketData['BuyTicketData']['DepartureStation'],
-                    travelListTicketData['BuyTicketData']['ArrivalStation'],
-                    travelListTicketData['BuyTicketData']['DepartureDay'],
-                    travelListTicketData['BuyTicketData']['DepartureMonth'],
-                    travelListTicketData['BuyTicketData']['DepartureYear'],
-                  ),
+            getTicketContainer(
+              travelListTicketData['BuyTicketData']['DepartureStation'],
+              travelListTicketData['BuyTicketData']['ArrivalStation'],
+              travelListTicketData['BuyTicketData']['DepartureDay'],
+              travelListTicketData['BuyTicketData']['DepartureMonth'],
+              travelListTicketData['BuyTicketData']['DepartureYear'],
+            ),
             Align(
               alignment: Alignment.topLeft,
               child: getSliderLeft(),
@@ -154,15 +132,15 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
           ],
         ),
         Expanded(
-            child: travelListTicketData['BuyTicketData']['SecondLegCheck']
-                ? getTicketSecondLegList(_datafetched)
-                : getTicketFirstLegList(_datafetched))
+          child: getTicketFirstLegList(_datafetched),
+        )
       ],
     );
   }
 
   getSliderLeft() {
     return Container(
+      padding: EdgeInsets.only(left: 5.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,103 +158,49 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                 height: 20,
               ),
               label: Text(""),
-              onPressed: travelListTicketData['BuyTicketData']['SecondLegCheck']
-                  ? () async {
-                      if (!stopClick) {
-                        if (!makeItGrey) {
-                          if (travelListTicketData['BuyTicketData']
-                                  ['ReturnDay'] >=
-                              1) {
-                            if (travelListTicketData['BuyTicketData']
-                                    ['ReturnDay'] ==
-                                1) {
-                              if (travelListTicketData['BuyTicketData']
-                                      ['ReturnMonth'] ==
-                                  1) {
-                                travelListTicketData['BuyTicketData']
-                                    ['ReturnYear']--;
-                                travelListTicketData['BuyTicketData']
-                                    ['ReturnDay'] = 31;
-                                travelListTicketData['BuyTicketData']
-                                    ['ReturnMonth'] = 12;
-                              } else {
-                                travelListTicketData['BuyTicketData']
-                                    ['ReturnMonth']--;
-                                travelListTicketData['BuyTicketData']
-                                    ['ReturnDay'] = 31;
-                              }
-                            } else {
-                              travelListTicketData['BuyTicketData']
-                                  ['ReturnDay']--;
-                            }
-                          }
-                          setState(() {
-                            _datafetched = getData();
-                          });
-                        }
+              onPressed: () async {
+                if (!stopClick) {
+                  if (!makeItGrey) {
+                    if (travelListTicketData['BuyTicketData']['DepartureDay'] >=
+                        1) {
+                      if (travelListTicketData['BuyTicketData']
+                              ['DepartureDay'] ==
+                          1) {
                         if (travelListTicketData['BuyTicketData']
-                                    ['ReturnDay'] ==
-                                this.initialDay &&
-                            travelListTicketData['BuyTicketData']
-                                    ['ReturnMonth'] ==
-                                this.initialMonth &&
-                            travelListTicketData['BuyTicketData']
-                                    ['ReturnYear'] ==
-                                this.initialYear) makeItGrey = true;
-                        if (!makeItGrey)
-                          setState(() {
-                            _datafetched = getData();
-                          });
+                                ['DepartureMonth'] ==
+                            1) {
+                          travelListTicketData['BuyTicketData']
+                              ['DepartureYear']--;
+                          travelListTicketData['BuyTicketData']
+                              ['DepartureDay'] = 31;
+                          travelListTicketData['BuyTicketData']
+                              ['DepartureMonth'] = 12;
+                        } else {
+                          travelListTicketData['BuyTicketData']
+                              ['DepartureMonth']--;
+                          travelListTicketData['BuyTicketData']
+                              ['DepartureDay'] = 31;
+                        }
+                      } else {
+                        travelListTicketData['BuyTicketData']['DepartureDay']--;
                       }
                     }
-                  : () async {
-                      if (!stopClick) {
-                        if (!makeItGrey) {
-                          if (travelListTicketData['BuyTicketData']
-                                  ['DepartureDay'] >=
-                              1) {
-                            if (travelListTicketData['BuyTicketData']
-                                    ['DepartureDay'] ==
-                                1) {
-                              if (travelListTicketData['BuyTicketData']
-                                      ['DepartureMonth'] ==
-                                  1) {
-                                travelListTicketData['BuyTicketData']
-                                    ['DepartureYear']--;
-                                travelListTicketData['BuyTicketData']
-                                    ['DepartureDay'] = 31;
-                                travelListTicketData['BuyTicketData']
-                                    ['DepartureMonth'] = 12;
-                              } else {
-                                travelListTicketData['BuyTicketData']
-                                    ['DepartureMonth']--;
-                                travelListTicketData['BuyTicketData']
-                                    ['DepartureDay'] = 31;
-                              }
-                            } else {
-                              travelListTicketData['BuyTicketData']
-                                  ['DepartureDay']--;
-                            }
-                          }
-                          setState(() {
-                            _datafetched = getData();
-                          });
-                        }
-                        if (travelListTicketData['BuyTicketData']
-                                    ['DepartureDay'] ==
-                                this.initialDay &&
-                            travelListTicketData['BuyTicketData']
-                                    ['DepartureMonth'] ==
-                                this.initialMonth &&
-                            travelListTicketData['BuyTicketData']
-                                    ['DepartureYear'] ==
-                                this.initialYear) makeItGrey = true;
-                        if (!makeItGrey)
-                          setState(() {
-                            _datafetched = getData();
-                          });
-                      }
-                    },
+                    setState(() {
+                      _datafetched = getData();
+                    });
+                  }
+                  if (travelListTicketData['BuyTicketData']['DepartureDay'] ==
+                          this.initialDay &&
+                      travelListTicketData['BuyTicketData']['DepartureMonth'] ==
+                          this.initialMonth &&
+                      travelListTicketData['BuyTicketData']['DepartureYear'] ==
+                          this.initialYear) makeItGrey = true;
+                  if (!makeItGrey)
+                    setState(() {
+                      _datafetched = getData();
+                    });
+                }
+              },
             ),
           )
         ],
@@ -286,6 +210,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
 
   getSliderRight() {
     return Container(
+      padding: EdgeInsets.only(right: 5.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -304,73 +229,36 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                 height: 20,
               ),
               label: Text(""),
-              onPressed: travelListTicketData['BuyTicketData']['SecondLegCheck']
-                  ? () async {
-                      if (!stopClick) {
-                        if (travelListTicketData['BuyTicketData']
-                                ['ReturnDay'] <=
-                            31) {
-                          if (travelListTicketData['BuyTicketData']
-                                  ['ReturnDay'] ==
-                              31) {
-                            if (travelListTicketData['BuyTicketData']
-                                    ['ReturnMonth'] ==
-                                12) {
-                              travelListTicketData['BuyTicketData']
-                                  ['ReturnYear']++;
-                              travelListTicketData['BuyTicketData']
-                                  ['ReturnDay'] = 1;
-                              travelListTicketData['BuyTicketData']
-                                  ['ReturnMonth'] = 1;
-                            } else {
-                              travelListTicketData['BuyTicketData']
-                                  ['ReturnMonth']++;
-                              travelListTicketData['BuyTicketData']
-                                  ['ReturnDay'] = 1;
-                            }
-                          } else
-                            travelListTicketData['BuyTicketData']
-                                ['ReturnDay']++;
-                        }
-                        makeItGrey = false;
-                        setState(() {
-                          _datafetched = getData();
-                        });
+              onPressed: () async {
+                if (!stopClick) {
+                  if (travelListTicketData['BuyTicketData']['DepartureDay'] <=
+                      31) {
+                    if (travelListTicketData['BuyTicketData']['DepartureDay'] ==
+                        31) {
+                      if (travelListTicketData['BuyTicketData']
+                              ['DepartureMonth'] ==
+                          12) {
+                        travelListTicketData['BuyTicketData']
+                            ['DepartureYear']++;
+                        travelListTicketData['BuyTicketData']['DepartureDay'] =
+                            1;
+                        travelListTicketData['BuyTicketData']
+                            ['DepartureMonth'] = 1;
+                      } else {
+                        travelListTicketData['BuyTicketData']
+                            ['DepartureMonth']++;
+                        travelListTicketData['BuyTicketData']['DepartureDay'] =
+                            1;
                       }
-                    }
-                  : () async {
-                      if (!stopClick) {
-                        if (travelListTicketData['BuyTicketData']
-                                ['DepartureDay'] <=
-                            31) {
-                          if (travelListTicketData['BuyTicketData']
-                                  ['DepartureDay'] ==
-                              31) {
-                            if (travelListTicketData['BuyTicketData']
-                                    ['DepartureMonth'] ==
-                                12) {
-                              travelListTicketData['BuyTicketData']
-                                  ['DepartureYear']++;
-                              travelListTicketData['BuyTicketData']
-                                  ['DepartureDay'] = 1;
-                              travelListTicketData['BuyTicketData']
-                                  ['DepartureMonth'] = 1;
-                            } else {
-                              travelListTicketData['BuyTicketData']
-                                  ['DepartureMonth']++;
-                              travelListTicketData['BuyTicketData']
-                                  ['DepartureDay'] = 1;
-                            }
-                          } else
-                            travelListTicketData['BuyTicketData']
-                                ['DepartureDay']++;
-                        }
-                        makeItGrey = false;
-                        setState(() {
-                          _datafetched = getData();
-                        });
-                      }
-                    },
+                    } else
+                      travelListTicketData['BuyTicketData']['DepartureDay']++;
+                  }
+                  makeItGrey = false;
+                  setState(() {
+                    _datafetched = getData();
+                  });
+                }
+              },
             ),
           )
         ],
@@ -494,97 +382,6 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
       },
     );
   }
-
-  getTicketSecondLegList(_future) {
-    return FutureBuilder(
-      future: _future,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting)
-          return Center(
-            child: Image(
-              image: loadingAnim,
-              height: ScreenUtil().setSp(150),
-            ),
-          );
-        else {
-          stopClick = false;
-
-          if (travelListTicketData['SecondLegTickets']['Data'] == null) {
-            return Padding(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Spacer(),
-                  Spacer(),
-                  Text(
-                    'Looks like there are no buses available on this date',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: ScreenUtil().setSp(35),
-                        fontFamily: 'MyriadPro'),
-                  ),
-                  Spacer(),
-                  Text(
-                    'Please change the date to get your result',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: ScreenUtil().setSp(35),
-                        fontFamily: 'MyriadPro'),
-                  ),
-                  Image(
-                    image: noSearchTicketImage,
-                    height: ScreenUtil().setSp(250),
-                  ),
-                  Spacer(),
-                  Spacer(),
-                ],
-              ),
-              padding: EdgeInsets.all(50),
-            );
-          } else
-            return ListView.builder(
-              itemCount:
-                  travelListTicketData['SecondLegTickets']['Data'].length,
-              itemBuilder: (BuildContext context, int index) {
-                Map<String, dynamic> ticketData = {
-                  'SecondLeg': {
-                    'TicketData': travelListTicketData['SecondLegTickets']
-                        ['Data'][index]
-                  },
-                  'BuyTicketData': travelListTicketData['BuyTicketData'],
-                };
-                return Ticket(
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                          ['DepartureDate']
-                      .substring(0, 10),
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                          ['ArrivalDate']
-                      .substring(0, 10),
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                          ['DepartureTime']
-                      .substring(0, 5),
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                          ['ArrivalTime']
-                      .substring(0, 5),
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                      ['TicketPrice'],
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                      ['Currency']['CurrencyName'],
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                      ['EmptySeatCount'],
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                      ['VehicleType']['VehicleTypeName'],
-                  ticketData,
-                );
-              },
-            );
-        }
-      },
-    );
-  }
 }
 
 class Ticket extends StatefulWidget {
@@ -614,12 +411,49 @@ class Ticket extends StatefulWidget {
 }
 
 class _TicketState extends State<Ticket> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String departure = "DEPARTURE";
+  String arrival = "ARRIVAL";
+  String seats = "seats";
+
+  void searchTicketlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        departure = "ВИДАЛЕННЯ";
+        arrival = "ПРИЙНЯТТЯ";
+        seats = "місць";
+      } else if (b == 2) {
+        departure = "DEPARTURE";
+        arrival = "ARRIVAL";
+        seats = "seats";
+      } else if (b == 3) {
+        departure = "ВЫЕЗД";
+        arrival = "ПРИБЫТИЕ";
+        seats = "места";
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    searchTicketlan();
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.pushNamed(context, selectSeatScreen,
-              arguments: widget.ticketData);
+          Navigator.pushNamed(
+            context,
+            selectSeatScreen,
+            arguments: widget.ticketData,
+          );
         },
         child: FittedBox(
             child: Container(
@@ -652,7 +486,7 @@ class _TicketState extends State<Ticket> {
                                 fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            'DEPARTURE',
+                            departure,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
@@ -669,7 +503,7 @@ class _TicketState extends State<Ticket> {
                             ),
                           ),
                           Text(
-                            '${widget.numberOfSeats} seats',
+                            '${widget.numberOfSeats} $seats',
                             style: TextStyle(
                               color: Color.fromRGBO(14, 52, 113, 10),
                               fontSize: 15,
@@ -695,7 +529,7 @@ class _TicketState extends State<Ticket> {
                                 fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            'ARRIVAL',
+                            arrival,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,

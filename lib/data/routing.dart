@@ -1,4 +1,7 @@
 import 'package:gunsel/data/facebook_login.dart';
+import 'package:gunsel/screens/DetailsRoundWay.dart';
+import 'package:gunsel/screens/RoundWaySearchTicket.dart';
+import 'package:gunsel/screens/SelectSeatRoundWay.dart';
 import 'package:gunsel/screens/details.dart';
 import 'package:gunsel/screens/payment_result.dart';
 
@@ -39,17 +42,35 @@ class Router {
     switch (settings.name) {
       case homeScreen:
         return CustomRoute(builder: (BuildContext context) => OneWay());
+      case searchTicketRoundWay:
+        return CustomRoute(
+            builder: (BuildContext context) => SearchTicket_RoundWay(
+                  userData: settings.arguments,
+                ));
       case detailScreen:
         return CustomRoute(
             builder: (BuildContext context) => Detail(
                   ticketData: settings.arguments,
                 ));
       case paymentResultScreen:
-        return CustomRoute(builder: (BuildContext context) => PaymentResult());
+        return CustomRoute(
+            builder: (BuildContext context) => PaymentResult(
+                  userData: settings.arguments,
+                ));
+      case selectSeatRoundWay:
+        return CustomRoute(
+            builder: (BuildContext context) => SelectSeat_RoundWay(
+                  ticketData: settings.arguments,
+                ));
+      case detailsRoundWay:
+        return CustomRoute(
+            builder: (BuildContext context) => DetailRoundWay(
+                  ticketData: settings.arguments,
+                ));
       case payScreen:
         return CustomRoute(
             builder: (BuildContext context) => Pay(
-                  payForm: settings.arguments,
+                  userData: settings.arguments,
                 ));
       case loginScreen:
         return CustomRoute(builder: (_) => LoginScreen());
@@ -64,6 +85,7 @@ class Router {
                 ));
       case signUpScreen:
         return CustomRoute(builder: (_) => SignUp());
+
       case roundWayScreen:
         return CustomRoute(builder: (_) => RoundWay());
       case cancelTicketScreen:

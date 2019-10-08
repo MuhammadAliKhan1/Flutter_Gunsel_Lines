@@ -1,4 +1,5 @@
 import 'package:gunsel/data/constants.dart';
+import 'package:gunsel/data/sharedPreference.dart';
 
 class GunselSplash extends StatefulWidget {
   @override
@@ -6,16 +7,35 @@ class GunselSplash extends StatefulWidget {
 }
 
 class _GunselSplashState extends State<GunselSplash> {
+SharePreferencelogin shPref = SharePreferencelogin();
   TokenGetter token = TokenGetter();
   @override
   void initState() {
     super.initState();
     getToken();
+
   }
 
   Future<Timer> getToken() async {
-    token.getToken();
-    return Timer(Duration(seconds: 3), navigateToHome);
+   // if != logged in call below
+String category="";
+category = await shPref.getloginCategory();
+
+if(category == "custom" || category == "facebook" || category == "google")
+  {
+         print("Category is:"+category);
+         return Timer(Duration(seconds: 3), navigateToHome);
+  }
+
+  else{
+  token.getToken();
+  return Timer(Duration(seconds: 3), navigateToHome);
+  }
+
+
+    //public token
+
+
   }
 
   navigateToHome() async {

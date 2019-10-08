@@ -18,13 +18,13 @@ const AssetImage czechFlag = AssetImage('assets/czech.png');
 const AssetImage ukraineFlag = AssetImage('assets/ukraine.png');
 const AssetImage englandFlag = AssetImage('assets/england.png');
 const AssetImage noSearchTicketImage =
-    AssetImage('assets/empty_state_image.png');
+AssetImage('assets/empty_state_image.png');
 const AssetImage loadingAnim = AssetImage('assets/loading.gif');
 const AssetImage russiaFlag = AssetImage('assets/russia.png');
 //Images
 const AssetImage person = AssetImage('assets/person.png');
 const AssetImage selectSeatScreenTicket =
-    AssetImage('assets/selectseatscreen.png');
+AssetImage('assets/selectseatscreen.png');
 const AssetImage smallTicket = AssetImage('assets/ticketw729h201.png');
 
 const AssetImage personImage = AssetImage('assets/person-image.png');
@@ -42,7 +42,7 @@ const AssetImage facebookLogo = AssetImage('assets/facebook.png');
 const AssetImage whiteImage = AssetImage('assets/white.jpg');
 const AssetImage profileHolder = AssetImage('assets/profileholder.png');
 const AssetImage profileScreenLanguageIcon =
-    AssetImage('assets/profileicon.png');
+AssetImage('assets/profileicon.png');
 const AssetImage editProfileIcon = AssetImage('assets/profile_edit.png');
 const AssetImage calenderIcon = AssetImage('assets/calender.png');
 const AssetImage refreshIcon = AssetImage('assets/news_icon.svg');
@@ -121,6 +121,9 @@ const String detailScreen = '/detailScreen';
 const String historyScreen = '/history';
 const String paymentResultScreen = '/paymentresultscreen';
 const String facebookLoginScreen = '/facebookLoginScreen';
+const String searchTicketRoundWay = '/searchTicketRoundWay';
+const String selectSeatRoundWay = '/selectSeatRoundWay';
+const String detailsRoundWay = '/detailsRoundWay';
 
 //Colors
 const gunselColor = Color(0xff035EA7);
