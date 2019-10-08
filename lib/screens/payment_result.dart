@@ -340,7 +340,7 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                                           },
                                                           keyboardType:
                                                               TextInputType
-                                                                  .text,
+                                                                  .emailAddress,
                                                           decoration: InputDecoration(
                                                               fillColor:
                                                                   Colors.white,
