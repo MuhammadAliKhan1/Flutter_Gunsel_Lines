@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:gunsel/data/constants.dart';
 
-
 class Token {
   String token;
   SystemParameters systemParameters;
@@ -48,24 +47,24 @@ class SystemParameters {
 
   SystemParameters(
       {this.defaultLanguage,
-        this.defaultCurrency,
-        this.companyName,
-        this.insuranceCompanyName,
-        this.hostessRole,
-        this.custMaxSeatBlockCount,
-        this.custSeatBlockTimeoutSec,
-        this.custOnPaymentTimeoutSec,
-        this.officeMaxSeatBlockCount,
-        this.officeSeatBlockTimeoutSec,
-        this.gunselAgencyId,
-        this.officeCustomerNameRequired,
-        this.officeCustomerPhoneNumberRequired,
-        this.officeCustomerEmailRequired,
-        this.publicCustomerNameRequired,
-        this.publicCustomerPhoneNumberRequired,
-        this.publicCustomerEmailRequired,
-        this.officeMaxTicketDayCount,
-        this.publicMaxTicketDayCount});
+      this.defaultCurrency,
+      this.companyName,
+      this.insuranceCompanyName,
+      this.hostessRole,
+      this.custMaxSeatBlockCount,
+      this.custSeatBlockTimeoutSec,
+      this.custOnPaymentTimeoutSec,
+      this.officeMaxSeatBlockCount,
+      this.officeSeatBlockTimeoutSec,
+      this.gunselAgencyId,
+      this.officeCustomerNameRequired,
+      this.officeCustomerPhoneNumberRequired,
+      this.officeCustomerEmailRequired,
+      this.publicCustomerNameRequired,
+      this.publicCustomerPhoneNumberRequired,
+      this.publicCustomerEmailRequired,
+      this.officeMaxTicketDayCount,
+      this.publicMaxTicketDayCount});
 
   SystemParameters.fromJson(Map<String, dynamic> json) {
     defaultLanguage = json['DefaultLanguage'];
@@ -81,11 +80,11 @@ class SystemParameters {
     gunselAgencyId = json['GunselAgencyId'];
     officeCustomerNameRequired = json['Office_CustomerNameRequired'];
     officeCustomerPhoneNumberRequired =
-    json['Office_CustomerPhoneNumberRequired'];
+        json['Office_CustomerPhoneNumberRequired'];
     officeCustomerEmailRequired = json['Office_CustomerEmailRequired'];
     publicCustomerNameRequired = json['Public_CustomerNameRequired'];
     publicCustomerPhoneNumberRequired =
-    json['Public_CustomerPhoneNumberRequired'];
+        json['Public_CustomerPhoneNumberRequired'];
     publicCustomerEmailRequired = json['Public_CustomerEmailRequired'];
     officeMaxTicketDayCount = json['Office_MaxTicketDayCount'];
     publicMaxTicketDayCount = json['Public_MaxTicketDayCount'];
@@ -127,12 +126,13 @@ class TokenGetter {
         'Accept': 'application/json',
       },
     );
+
     prefs.setString(
         'Token',
         (Token.fromJson(jsonDecode((DataStatusSeperator.fromJson(
           jsonDecode(response.body),
         ))
-            .toJson()['Data']))
+                .toJson()['Data']))
             .toJson()['Token']));
 
     prefs.getString('Token');

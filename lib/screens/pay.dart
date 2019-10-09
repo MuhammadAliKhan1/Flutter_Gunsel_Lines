@@ -1,5 +1,4 @@
 import 'package:gunsel/data/constants.dart';
-
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class Pay extends StatefulWidget {
@@ -15,16 +14,14 @@ class Pay extends StatefulWidget {
 
 class _PayState extends State<Pay> {
   FlutterWebviewPlugin flutterWebViewPlugin;
-  int counter = 0;
   @override
   void initState() {
     super.initState();
     flutterWebViewPlugin = FlutterWebviewPlugin();
 
     flutterWebViewPlugin.onUrlChanged.listen((String url) {
-      counter++;
-
-      if (counter == 2) {
+      if (url.contains('token')) {
+        widget.userData['PaymentToken'] = url.substring(51);
         flutterWebViewPlugin.close();
         Navigator.of(context).pushNamedAndRemoveUntil(
             oneWayScreen, (Route<dynamic> route) => false);
@@ -34,12 +31,14 @@ class _PayState extends State<Pay> {
           arguments: widget.userData,
         );
       }
-      if (url == 'https://ecg.test.upc.ua/go/pay?locale=en#')
+
+      if (url == 'https://ecg.test.upc.ua/go/pay?locale=en#') {
         setState(() {
           flutterWebViewPlugin.close();
           Navigator.of(context).pushNamedAndRemoveUntil(
               oneWayScreen, (Route<dynamic> route) => false);
         });
+      }
     });
   }
 
@@ -58,37 +57,3 @@ class _PayState extends State<Pay> {
     );
   }
 }
-/*
-class PayScreen extends StatefulWidget {
-  final String payForm;
-  PayScreen({
-    @required this.payForm,
-  });
-  @override
-  _PayScreenState createState() => _PayScreenState(
-        payForm: payForm,
-      );
-}
-
-class _PayScreenState extends State<PayScreen> {
-  final String payForm;
-  _PayScreenState({
-    @required this.payForm,
-  });
-  WebViewController _controller;
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {}
-
-  void _loadHtmlFromAssets() {
-    _controller.loadUrl(
-      Uri.dataFromString(payForm,
-              mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
-          .toString(),
-    );
-  }
-} */

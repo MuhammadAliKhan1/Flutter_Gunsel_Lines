@@ -223,8 +223,76 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                       ),
                     ),
                     ListTile(
-                      title: Text('$busInfo:'),
+                      contentPadding: EdgeInsets.only(
+                        left: 30.0,
+                        right: 50.0,
+                      ),
+                      title: Text(
+                        '$busInfo:',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Helvetica',
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      trailing: Image(
+                        image: bus,
+                        height: ScreenUtil().setSp(50),
+                      ),
                     ),
+                    Padding(
+                        padding: EdgeInsets.only(left: 10.0,right: 100),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Busy   ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  color: red,
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Empty   ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  color: Colors.white,
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Selected   ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  color: green,
+                                )
+                              ],
+                            ),
+                          ],
+                        ))
                   ],
                 ),
               ),
@@ -339,9 +407,9 @@ class _SeatState extends State<Seat> {
     return InkWell(
       onTap: () async {
         if (selectedSeats.length < 4 || makeItGreen) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          String token = prefs.getString('Token');
           if (widget.seatData['SeatStatus'] == 0) {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            String token = prefs.getString('Token');
             if (!makeItGreen) {
               var body = json.encode({
                 "SeatNo": widget.seatData['PointNumber'].toString(),
@@ -377,17 +445,20 @@ class _SeatState extends State<Seat> {
                   () {},
                 );
               }
-            } else {
-              http.Response response = await http.delete(
-                'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
-                headers: {'token': token},
-              );
+            }
+          } else if (makeItGreen) {
+            http.Response response = await http.delete(
+              'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
+              headers: {'token': token},
+            );
+
+            if (response.statusCode == 200) {
+              makeItGreen = false;
+              widget.seatData['SeatStatus'] = 0;
               widget.seatData['TravelSeatBlockId'] = null;
               selectedSeats.remove(widget.seatData['PointNumber']);
               widget.refresh();
-              setState(() {
-                makeItGreen = false;
-              });
+              setState(() {});
             }
           }
         }
@@ -412,11 +483,7 @@ class _SeatState extends State<Seat> {
             height: 40.0,
             child: Center(
               child: Text(
-                makeItGreen
-                    ? widget.seatData['PointNumber'].toString()
-                    : selectedSeats.length < 4
-                        ? widget.seatData['PointNumber'].toString()
-                        : '',
+                widget.seatData['PointNumber'].toString(),
                 // commented code is for disappearing seats number when 4 seats are selected
                 style: TextStyle(
                   fontSize: 20.0,
