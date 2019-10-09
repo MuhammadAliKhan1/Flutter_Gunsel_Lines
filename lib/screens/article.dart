@@ -1,11 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:html/parser.dart';
+import 'package:gunsel/data/sharedPreference.dart';
 
-class ArticleScreen extends StatelessWidget {
+class ArticleScreen extends StatefulWidget {
   String text, title, imageURL;
   ArticleScreen({Key key, this.text, this.title, this.imageURL})
       : super(key: key);
+
+  @override
+  _ArticleScreenState createState() => _ArticleScreenState();
+}
+
+class _ArticleScreenState extends State<ArticleScreen> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String searchTicket = "Article";
+
+  void searchTicketlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        searchTicket = "Стаття";
+      } else if (b == 2) {
+        searchTicket = "Article";
+      } else if (b == 3) {
+        searchTicket = "Статья";
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    searchTicketlan();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GunselScaffold(
@@ -13,11 +46,11 @@ class ArticleScreen extends StatelessWidget {
       appBarIcon: backArrow,
       appBarIncluded: true,
       bodyWidget: Article(
-        text: this.text,
-        title: this.title,
-        imageURL: this.imageURL,
+        text: this.widget.text,
+        title: this.widget.title,
+        imageURL: this.widget.imageURL,
       ),
-      appBarTitle: 'Article',
+      appBarTitle: searchTicket,
       appBarTitleIncluded: true,
       drawerIncluded: true,
       backgroundImage: whiteImage,

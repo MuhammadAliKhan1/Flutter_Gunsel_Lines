@@ -177,9 +177,6 @@ class _HistoryTicketState extends State<HistoryTicket> {
 
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
 
