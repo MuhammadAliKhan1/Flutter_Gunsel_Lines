@@ -92,7 +92,7 @@ class SearchTicketContainerState extends State<SearchTicketContainer> {
         alignment:
             Alignment.lerp(Alignment.topCenter, Alignment.bottomCenter, 0.2),
         child: Container(
-          height: ScreenUtil().setHeight(730),
+          height: ScreenUtil().setHeight(820),
           child: Stack(
             children: <Widget>[
               Align(
@@ -102,7 +102,7 @@ class SearchTicketContainerState extends State<SearchTicketContainer> {
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(color: Colors.white),
                       color: Colors.black26),
-                  height: ScreenUtil().setHeight(700),
+                  height: ScreenUtil().setHeight(790),
                   width: ScreenUtil().setWidth(610),
                   child: ListView(
                     children: <Widget>[
@@ -168,7 +168,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
       departCalHint = "Select the departure date",
       returnCalHint = "Select the return date",
       numOfpassenger = "Number of passengers:",
-      btnSearch = "search";
+      btnSearch = "Search";
 
   @override
   void initState() {
@@ -195,21 +195,21 @@ class _RoundWayFormState extends State<RoundWayForm> {
         departCalHint = "Виберіть дату відправлення";
         returnCalHint = "Виберіть дату повернення";
         numOfpassenger = "Кількість пасажирів:";
-        btnSearch = "пошук";
+        btnSearch = "Пошук";
       } else if (b == 2) {
         departHint = "Enter departure city";
         arrivalHint = "Enter arrival city";
         departCalHint = "Select the departure date";
         returnCalHint = "Select the return date";
         numOfpassenger = "Number of passengers:";
-        btnSearch = "search";
+        btnSearch = "Search";
       } else if (b == 3) {
         departHint = "Введите город отправления";
         arrivalHint = "Введите город прибытия";
         departCalHint = "Выберите дату отъезда";
         returnCalHint = "Выберите дату возвращения";
         numOfpassenger = "Количество пассажиров:";
-        btnSearch = "поиск";
+        btnSearch = "Поиск";
       }
     });
   }

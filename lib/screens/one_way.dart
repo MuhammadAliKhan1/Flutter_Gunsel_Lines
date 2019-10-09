@@ -164,9 +164,12 @@ class _OneWayFormState extends State<OneWayForm> {
       departHint = "Enter departure station",
       calenderHint = "Select the travel date",
       numOfPassengers = "Number of passengers:",
-      btnSearch = "search",
+      btnSearch = "Search",
       oneWay = "ONE WAY",
-      roundWay = "ROUND WAY";
+      roundWay = "ROUND WAY",
+      selectDepartureStation = "Please select an departure station",
+      selectValidStation = "Please select a valid departure station";
+
   @override
   void initState() {
     buyTicketData = Map();
@@ -195,19 +198,26 @@ class _OneWayFormState extends State<OneWayForm> {
         departHint = "Введіть станцію відправлення";
         calenderHint = "Виберіть дату подорожі";
         numOfPassengers = "Кількість пасажирів:";
-        btnSearch = "пошук";
+        btnSearch = "Пошук";
+        selectDepartureStation = "Виберіть пункт відправлення";
+        selectValidStation = "Виберіть дійсну станцію відправлення";
       } else if (b == 2) {
         arrivalHint = "Enter arrival station";
         departHint = "Enter departure station";
         calenderHint = "Select the travel date";
         numOfPassengers = "Number of passengers:";
-        btnSearch = "search";
+        btnSearch = "Search";
+        selectDepartureStation = "Please select an departure station";
+        selectValidStation = "Please select a valid departure station";
       } else if (b == 3) {
         arrivalHint = "Введите станцию ​​прибытия";
         departHint = "Введите станцию ​​отправления";
         calenderHint = "Выберите дату поездки";
         numOfPassengers = "Количество пассажиров:";
-        btnSearch = "поиск";
+        btnSearch = "Поиск";
+        selectDepartureStation = "Пожалуйста, выберите станцию ​​отправления";
+        selectValidStation =
+            "Пожалуйста, выберите действующую станцию ​​отправления";
       }
     });
   }
@@ -267,11 +277,11 @@ class _OneWayFormState extends State<OneWayForm> {
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please select an departure station';
+                  return selectDepartureStation;
                 } else if (!stationList.contains(value))
-                  return 'Please select a valid departure station';
+                  return selectValidStation;
                 else if (this._arrivalStation.text == value)
-                  return 'Please select different stations.';
+                  return selectDepartureStation;
               },
               onSaved: (value) => this._departureStationVal = value,
             ),
