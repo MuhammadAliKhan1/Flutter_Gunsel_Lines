@@ -73,7 +73,6 @@ const AssetImage backArrow = AssetImage("assets/backArrow_2.png");
 const AssetImage menuIcon = AssetImage("assets/menu_icon_2.png");
 const AssetImage paymentThumb = AssetImage('assets/payment_thumb.png');
 const AssetImage gunselLoginLogo = AssetImage('assets/logo_light.png');
-const AssetImage visaLogo = AssetImage('assets/visaverify.png');
 const AssetImage mastercardLogo = AssetImage('assets/mastercard.png');
 const AssetImage historyOfTravelIcon = AssetImage('assets/history_icon.png');
 const AssetImage emptySeat = AssetImage('assets/free_seat.png');

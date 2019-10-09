@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gunsel/data/PaymentResultModel.dart';
 import 'package:gunsel/data/constants.dart';
-
 import 'package:gunsel/data/sharedPreference.dart';
 
 class PaymentResult extends StatefulWidget {
@@ -47,7 +47,7 @@ class _PaymentResultState extends State<PaymentResult> {
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       bodyWidget: PaymentResultScreen(
-        userData: this.widget.userData,
+        ticketData: this.widget.userData,
       ),
       appBarTitle: information,
       appBarTitleIncluded: true,
@@ -57,22 +57,31 @@ class _PaymentResultState extends State<PaymentResult> {
 }
 
 class PaymentResultScreen extends StatefulWidget {
-  Map<String, dynamic> userData;
+  Map<String, dynamic> ticketData;
   @override
   _PaymentResultScreenState createState() => _PaymentResultScreenState();
   PaymentResultScreen({
-    @required this.userData,
+    @required this.ticketData,
   });
 }
 
 class _PaymentResultScreenState extends State<PaymentResultScreen> {
+  Future _dataFetched;
+  Map<String, dynamic> paymentResultTicketData;
+  TextEditingController _email = TextEditingController();
+  PaymentResultModel paymentResultModelObj;
   @override
   void initState() {
-    detailslan();
     super.initState();
-    print('USER DATA BELOW');
-    print(widget.userData);
-    print(widget.userData['SeatCount']);
+    detailslan();
+    paymentResultModelObj = PaymentResultModel();
+    paymentResultTicketData = Map();
+    _dataFetched = getData();
+  }
+
+  getData() async {
+    paymentResultTicketData = await paymentResultModelObj
+        .getPaymentResult(widget.ticketData['PaymentToken']);
   }
 
   SharePreferencelogin sh = SharePreferencelogin();
@@ -149,288 +158,337 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.all(5.0),
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(yourSeat,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Helvetica',
-                        fontWeight: FontWeight.w600)),
-                Text(
-                  details,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Helvetica',
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  purchaseDetails,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Helvetica',
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  purchase,
-                  style: TextStyle(
-                      color: Colors.yellow,
-                      fontFamily: 'Helvetica',
-                      fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-            FittedBox(
-              alignment: Alignment.center,
+    return FutureBuilder(
+      future: _dataFetched,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting)
+          return SliverToBoxAdapter(
               child: Image(
-                height: 30,
-                width: 310,
-                image: wizardFour,
+            image: loadingAnim,
+            height: ScreenUtil().setSp(150),
+          ));
+        else {
+          return CustomScrollView(
+            slivers: <Widget>[
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Column(
+                      children: <Widget>[
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text(yourSeat,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Helvetica',
+                                    fontWeight: FontWeight.w600)),
+                            Text(
+                              details,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Helvetica',
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              purchaseDetails,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Helvetica',
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              purchase,
+                              style: TextStyle(
+                                  color: Colors.yellow,
+                                  fontFamily: 'Helvetica',
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                        FittedBox(
+                          alignment: Alignment.center,
+                          child: Image(
+                            height: 30,
+                            width: 310,
+                            image: wizardFour,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-        /*  ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return PaymentResultTicket(
-              day: int.parse(widget.userData['FirstLeg']['TicketData']
-                      ['DepartureDate']
-                  .substring(8, 10)),
-              month: int.parse(widget.userData['FirstLeg']['TicketData']
-                      ['DepartureDate']
-                  .substring(5, 7)),
-              year: int.parse(widget.userData['FirstLeg']['TicketData']
-                      ['DepartureDate']
-                  .substring(0, 4)),
-              arrivalStation: widget.userData['FirstLeg']['TicketData']
-                  ['ToStation']['StationName'],
-              departureStation: widget.userData['FirstLeg']['TicketData']
-                  ['FromStation']['StationName'],
-              departureTime: widget.userData['FirstLeg']['TicketData']
-                      ['DepartureTime']
-                  .substring(0, 5),
-              arrivalTime: widget.userData['FirstLeg']['TicketData']
-                      ['ArrivalTime']
-                  .substring(0, 5),
-              seatsDetail: widget.userData['FirstLeg']['SeatVoyagerInfo']
-                  [(index + 1)],
-              ticketPrice: widget.userData['FirstLeg']['TicketData']
-                  ['TicketPrice'],
-              currencyType: widget.userData['FirstLeg']['TicketData']
-                  ['Currency']['CurrencyName'],
-            );
-          },
-          itemCount: widget.userData['FirstLeg']['SeatCount'],
-        ),
-        widget.userData['BuyTicketData']['RoundWayCheck']
-            ? ListView.builder(
-                itemBuilder: (BuildContext context, int index) {
-                  return PaymentResultTicket(
-                    day: int.parse(widget.userData['FirstLeg']['TicketData']
-                            ['DepartureDate']
-                        .substring(8, 10)),
-                    month: int.parse(widget.userData['FirstLeg']['TicketData']
-                            ['DepartureDate']
-                        .substring(5, 7)),
-                    year: int.parse(widget.userData['FirstLeg']['TicketData']
-                            ['DepartureDate']
-                        .substring(0, 4)),
-                    arrivalStation: widget.userData['FirstLeg']['TicketData']
-                        ['ToStation']['StationName'],
-                    departureStation: widget.userData['FirstLeg']['TicketData']
-                        ['FromStation']['StationName'],
-                    departureTime: widget.userData['FirstLeg']['TicketData']
-                            ['DepartureTime']
-                        .substring(0, 5),
-                    arrivalTime: widget.userData['FirstLeg']['TicketData']
-                            ['ArrivalTime']
-                        .substring(0, 5),
-                    seatsDetail: widget.userData['FirstLeg']['SeatVoyagerInfo']
-                        [(index + 1)],
-                    ticketPrice: widget.userData['FirstLeg']['TicketData']
-                        ['TicketPrice'],
-                    currencyType: widget.userData['FirstLeg']['TicketData']
-                        ['Currency']['CurrencyName'],
-                  );
-                },
-                itemCount: widget.userData['SecondLeg']['SeatCount'],
-              )
-            : Container(), */
-        FittedBox(
-          child: Center(
-            child: Container(
-                width: 40,
-                height: 20,
-                child: Stack(
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        width: 50,
-                        height: 18,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(1))),
-                        child: Container(
-                          child: Align(
+              SliverPadding(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return PaymentResultTicket(
+                          day: int.parse(widget.ticketData['FirstLeg']
+                                  ['TicketData']['DepartureDate']
+                              .substring(8, 10)),
+                          month: int.parse(widget.ticketData['FirstLeg']
+                                  ['TicketData']['DepartureDate']
+                              .substring(5, 7)),
+                          year: int.parse(widget.ticketData['FirstLeg']
+                                  ['TicketData']['DepartureDate']
+                              .substring(0, 4)),
+                          arrivalStation: widget.ticketData['FirstLeg']
+                              ['TicketData']['ToStation']['StationName'],
+                          departureStation: widget.ticketData['FirstLeg']
+                              ['TicketData']['FromStation']['StationName'],
+                          departureTime: widget.ticketData['FirstLeg']
+                                  ['TicketData']['DepartureTime']
+                              .substring(0, 5),
+                          arrivalTime: widget.ticketData['FirstLeg']
+                                  ['TicketData']['ArrivalTime']
+                              .substring(0, 5),
+                          seatsDetail: widget.ticketData['FirstLeg']
+                              ['SeatVoyagerInfo'][(index + 1)],
+                          ticketPrice: widget.ticketData['FirstLeg']
+                              ['TicketData']['TicketPrice'],
+                          currencyType: widget.ticketData['FirstLeg']
+                              ['TicketData']['Currency']['CurrencyName'],
+                        );
+                      },
+                      childCount: widget.ticketData['FirstLeg']['SeatCount'],
+                    ),
+                  )),
+              widget.ticketData['BuyTicketData']['RoundWayCheck']
+                  ? SliverPadding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return PaymentResultTicket(
+                              day: int.parse(widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureDate']
+                                  .substring(8, 10)),
+                              month: int.parse(widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureDate']
+                                  .substring(5, 7)),
+                              year: int.parse(widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureDate']
+                                  .substring(0, 4)),
+                              arrivalStation: widget.ticketData['SecondLeg']
+                                  ['TicketData']['ToStation']['StationName'],
+                              departureStation: widget.ticketData['SecondLeg']
+                                  ['TicketData']['FromStation']['StationName'],
+                              departureTime: widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureTime']
+                                  .substring(0, 5),
+                              arrivalTime: widget.ticketData['SecondLeg']
+                                      ['TicketData']['ArrivalTime']
+                                  .substring(0, 5),
+                              seatsDetail: widget.ticketData['SecondLeg']
+                                  ['SeatVoyagerInfo'][(index + 1)],
+                              ticketPrice: widget.ticketData['SecondLeg']
+                                  ['TicketData']['TicketPrice'],
+                              currencyType: widget.ticketData['SecondLeg']
+                                  ['TicketData']['Currency']['CurrencyName'],
+                            );
+                          },
+                          childCount: widget.ticketData['SecondLeg']
+                              ['SeatCount'],
+                        ),
+                      ))
+                  : SliverToBoxAdapter(),
+              SliverToBoxAdapter(
+                child: FittedBox(
+                  child: Center(
+                    child: Container(
+                      width: 40,
+                      height: 20,
+                      child: Stack(
+                        children: <Widget>[
+                          Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
-                              width: 40,
-                              height: 14.5,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text(
-                                    payment,
-                                    style: TextStyle(
-                                        fontSize: 1.7,
-                                        fontFamily: 'Helvetica',
-                                        color: darkBlue.withOpacity(0.9),
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  Text(
-                                    received,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 1.5,
-                                      fontFamily: 'MyriadPro',
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                                backgroundColor: Colors.white,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10.0))),
-                                                title: Text(
-                                                  sendmail,
-                                                  style: TextStyle(
-                                                      color: gunselColor),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                content: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: <Widget>[
-                                                    Text(mailAgain),
-                                                    Container(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 10.0),
-                                                        child: TextFormField(
-                                                          validator:
-                                                              (String value) {
-                                                            if (value.isEmpty) {
-                                                              return "Please enter your email";
-                                                            }
-                                                          },
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .text,
-                                                          decoration: InputDecoration(
-                                                              fillColor:
-                                                                  Colors.white,
-                                                              filled: true,
-                                                              hintText: email,
-                                                              border: OutlineInputBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5.0))),
-                                                        )),
-                                                    Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 20.0),
-                                                        child: RaisedButton(
-                                                          child: Text(
-                                                            sendEmail,
-                                                            textScaleFactor:
-                                                                1.5,
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .yellow),
-                                                          ),
-                                                          color: gunselColor,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.only(
-                                                                bottomRight: Radius
-                                                                    .circular(
-                                                                        10.0),
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        10.0)),
-                                                          ),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              //TODO: Send mail button
-                                                              debugPrint(
-                                                                  "Send button is pressed");
-                                                            });
-                                                          },
-                                                        ))
-                                                  ],
-                                                ));
-                                          });
-                                    },
-                                    child: Container(
-                                      width: 35,
-                                      height: 3.5,
-                                      child: Center(
-                                        child: Text(
-                                          sendmailAgain,
+                              width: 50,
+                              height: 18,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(1))),
+                              child: Container(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                    width: 40,
+                                    height: 14.5,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Text(
+                                          payment,
                                           style: TextStyle(
-                                            fontSize: 2,
-                                            color: Colors.yellow,
-                                            fontFamily: 'Helvetica',
-                                            fontWeight: FontWeight.w700,
+                                              fontSize: 1.7,
+                                              fontFamily: 'Helvetica',
+                                              color: darkBlue.withOpacity(0.9),
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        Text(
+                                          received,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 1.5,
+                                            fontFamily: 'MyriadPro',
                                           ),
                                         ),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: darkBlue,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(2),
-                                          bottomRight: Radius.circular(2),
+                                        InkWell(
+                                          onTap: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                      backgroundColor:
+                                                          Colors.white,
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      10.0))),
+                                                      title: Text(
+                                                        sendmail,
+                                                        style: TextStyle(
+                                                            color: gunselColor),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                      content: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: <Widget>[
+                                                          Text(mailAgain),
+                                                          Container(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top:
+                                                                          10.0),
+                                                              child:
+                                                                  TextFormField(
+                                                                controller:
+                                                                    _email,
+                                                                validator:
+                                                                    (String
+                                                                        value) {
+                                                                  if (value
+                                                                      .isEmpty) {
+                                                                    return "Please enter your email";
+                                                                  }
+                                                                },
+                                                                keyboardType:
+                                                                    TextInputType
+                                                                        .text,
+                                                                decoration: InputDecoration(
+                                                                    fillColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    filled:
+                                                                        true,
+                                                                    hintText:
+                                                                        email,
+                                                                    border: OutlineInputBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5.0))),
+                                                              )),
+                                                          Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top:
+                                                                          20.0),
+                                                              child:
+                                                                  RaisedButton(
+                                                                child: Text(
+                                                                  sendEmail,
+                                                                  textScaleFactor:
+                                                                      1.5,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .yellow),
+                                                                ),
+                                                                color:
+                                                                    gunselColor,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius: BorderRadius.only(
+                                                                      bottomRight:
+                                                                          Radius.circular(
+                                                                              10.0),
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              10.0)),
+                                                                ),
+                                                                onPressed:
+                                                                    () async {
+                                                                  await paymentResultModelObj.sendEmail(
+                                                                      paymentResultTicketData[
+                                                                              'Data']
+                                                                          [
+                                                                          'PaymentNo'],
+                                                                      _email
+                                                                          .text);
+                                                                  setState(
+                                                                      () {});
+                                                                },
+                                                              ))
+                                                        ],
+                                                      ));
+                                                });
+                                          },
+                                          child: Container(
+                                            width: 35,
+                                            height: 3.5,
+                                            child: Center(
+                                              child: Text(
+                                                sendmailAgain,
+                                                style: TextStyle(
+                                                  fontSize: 2,
+                                                  color: Colors.yellow,
+                                                  fontFamily: 'Helvetica',
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: darkBlue,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(2),
+                                                bottomRight: Radius.circular(2),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Image(
+                              image: paymentThumb,
+                              height: 5,
+                              width: 30,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Image(
-                        image: paymentThumb,
-                        height: 5,
-                        width: 30,
-                      ),
-                    ),
-                  ],
-                )),
-          ),
-        )
-      ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+      },
     );
   }
 }
@@ -457,6 +515,7 @@ class PaymentResultTicket extends StatelessWidget {
     @required this.currencyType,
     @required this.seatsDetail,
   });
+
   @override
   Widget build(BuildContext context) {
     return FittedBox(

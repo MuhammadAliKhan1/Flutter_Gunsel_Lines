@@ -35,15 +35,14 @@ class TravelListOneWayModel {
       },
     );
 
-
     DataStatusSeperator seperator =
-    DataStatusSeperator.fromJson(jsonDecode(response.body));
+        DataStatusSeperator.fromJson(jsonDecode(response.body));
     if ((seperator.toJson()['Data']) != null) {
       Map<String, dynamic> map = {
         'Data': jsonDecode((seperator.toJson())['Data'])
       };
       TravelListOneWayModel travelListModelObj =
-      TravelListOneWayModel.fromJson(map);
+          TravelListOneWayModel.fromJson(map);
       return travelListModelObj.toJson();
     } else
       return seperator.toJson();
@@ -61,13 +60,13 @@ class TravelListOneWayModel {
       },
     );
     DataStatusSeperator seperator =
-    DataStatusSeperator.fromJson(jsonDecode(response.body));
+        DataStatusSeperator.fromJson(jsonDecode(response.body));
     if ((seperator.toJson()['Data']) != null) {
       Map<String, dynamic> map = {
         'Data': jsonDecode((seperator.toJson())['Data'])
       };
       TravelListOneWayModel travelListModelObj =
-      TravelListOneWayModel.fromJson(map);
+          TravelListOneWayModel.fromJson(map);
       return travelListModelObj.toJson();
     } else
       return seperator.toJson();
@@ -85,13 +84,13 @@ class TravelListOneWayModel {
       },
     );
     DataStatusSeperator seperator =
-    DataStatusSeperator.fromJson(jsonDecode(response.body));
+        DataStatusSeperator.fromJson(jsonDecode(response.body));
     if ((seperator.toJson()['Data']) != null) {
       Map<String, dynamic> map = {
         'Data': jsonDecode((seperator.toJson())['Data'])
       };
       TravelListOneWayModel travelListModelObj =
-      TravelListOneWayModel.fromJson(map);
+          TravelListOneWayModel.fromJson(map);
       return travelListModelObj.toJson();
     } else
       return seperator.toJson();
@@ -125,28 +124,28 @@ class Data {
 
   Data(
       {this.travelId,
-        this.travelVariantId,
-        this.travelType,
-        this.tripCode,
-        this.tripName,
-        this.departureDate,
-        this.departureTime,
-        this.departureDateTime,
-        this.arrivalDate,
-        this.arrivalTime,
-        this.arrivalDateTime,
-        this.onTheWay,
-        this.emptySeatCount,
-        this.ticketPrice,
-        this.isInternational,
-        this.distanceKM,
-        this.travelStatus,
-        this.fromStation,
-        this.toStation,
-        this.currency,
-        this.vehicleType,
-        this.availableSeatCount,
-        this.travelVariantLeg2});
+      this.travelVariantId,
+      this.travelType,
+      this.tripCode,
+      this.tripName,
+      this.departureDate,
+      this.departureTime,
+      this.departureDateTime,
+      this.arrivalDate,
+      this.arrivalTime,
+      this.arrivalDateTime,
+      this.onTheWay,
+      this.emptySeatCount,
+      this.ticketPrice,
+      this.isInternational,
+      this.distanceKM,
+      this.travelStatus,
+      this.fromStation,
+      this.toStation,
+      this.currency,
+      this.vehicleType,
+      this.availableSeatCount,
+      this.travelVariantLeg2});
 
   Data.fromJson(Map<String, dynamic> json) {
     travelId = json['TravelId'];
@@ -235,17 +234,17 @@ class FromStation {
 
   FromStation(
       {this.stationId,
-        this.stationCategory,
-        this.stationName,
-        this.stationCode,
-        this.address,
-        this.countryId,
-        this.countryName,
-        this.cityId,
-        this.cityName,
-        this.mapX,
-        this.mapY,
-        this.translations});
+      this.stationCategory,
+      this.stationName,
+      this.stationCode,
+      this.address,
+      this.countryId,
+      this.countryName,
+      this.cityId,
+      this.cityName,
+      this.mapX,
+      this.mapY,
+      this.translations});
 
   FromStation.fromJson(Map<String, dynamic> json) {
     stationId = json['StationId'];
@@ -289,10 +288,10 @@ class Currency {
 
   Currency(
       {this.currencyId,
-        this.currencyCode,
-        this.currencyName,
-        this.symbol,
-        this.isDefault});
+      this.currencyCode,
+      this.currencyName,
+      this.symbol,
+      this.isDefault});
 
   Currency.fromJson(Map<String, dynamic> json) {
     currencyId = json['CurrencyId'];
@@ -322,10 +321,10 @@ class VehicleType {
 
   VehicleType(
       {this.vehicleTypeId,
-        this.vehicleTypeName,
-        this.vehicleTypeCode,
-        this.vehicleCategory,
-        this.properties});
+      this.vehicleTypeName,
+      this.vehicleTypeCode,
+      this.vehicleCategory,
+      this.properties});
 
   VehicleType.fromJson(Map<String, dynamic> json) {
     vehicleTypeId = json['VehicleTypeId'];
