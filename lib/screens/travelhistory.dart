@@ -2,6 +2,7 @@ import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/sharedPreference.dart';
 import 'package:http/http.dart';
 import 'package:gunsel/data/TravelHistory.dart';
+import 'package:gunsel/widgets/button.dart';
 class History extends StatefulWidget {
   @override
   _HistoryState createState() => _HistoryState();
@@ -67,7 +68,10 @@ class _HistoryTicketState extends State<HistoryTicket> {
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
   String seats = "Seat No";
-  String ticketError = "OOPS! You have not bought any Ticket";
+  String noTickets = "You have no tickets available";
+  String ticketDes = "You have a destination? Find out the best tickets";
+  String here = "Here";
+  //String ticketError = "OOPS! You have not bought any Ticket";
   @override
   void initState() {
     //getToken();
@@ -94,17 +98,26 @@ class _HistoryTicketState extends State<HistoryTicket> {
         departure = "ВИДАЛЕННЯ";
         arrival = "ПРИЙНЯТТЯ";
         seats = "Сидіння №";
-        ticketError = "OOPS! Ви не купили жодного квитка";
+        noTickets = "У вас немає квитків";
+        ticketDes = "У вас є місце призначення? Дізнайтеся найкращі квитки";
+        here = "Ось";
+        //ticketError = "OOPS! Ви не купили жодного квитка";
       } else if (b == 2) {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
         seats = "Seat No";
-        ticketError = "OOPS! You have not bought any Ticket";
+        noTickets = "You have no tickets available";
+        ticketDes = "You have a destination? Find out the best tickets";
+        here = "Here";
+        //ticketError = "OOPS! You have not bought any Ticket";
       } else if (b == 3) {
         departure = "ВЫЕЗД";
         arrival = "ПРИБЫТИЕ";
         seats = "Сиденье №";
-        ticketError = "OOPS! Вы не купили билет";
+        noTickets = "У вас нет доступных билетов";
+        ticketDes = "У вас есть пункт назначения? Узнайте лучшие билеты";
+        here = "Вот";
+        //ticketError = "OOPS! Вы не купили билет";
       }
     });
   }
@@ -349,13 +362,64 @@ class _HistoryTicketState extends State<HistoryTicket> {
               ),
             )));
       }):
-       Container(
-         child:Center(
-         child: Text(ticketError,style: TextStyle(
-           color: Colors.red,
-           fontSize: 25,
+        Container(
+          margin: EdgeInsets.only(top: 120.0),
+       child:Column(
+         children: <Widget>[
+           Center(
+       child:Container(
+         child: Text(noTickets,style: TextStyle(
+         color: Colors.white,
+         fontSize: 20,
 
-         ),textAlign: TextAlign.center,),
-       ));});
+       ),textAlign: TextAlign.center),
+       ),),
+
+
+           Center(
+             child:Container(
+               margin: EdgeInsets.only(top: 25.0),
+               child: Text(ticketDes,style: TextStyle(
+                 color: Colors.white,
+                 fontSize: 20,
+
+               ),textAlign: TextAlign.center),
+             ),),
+
+
+
+
+
+           Center(
+            child:Container(
+               height: 60,
+               width: 450,
+               child: Row(
+                 crossAxisAlignment: CrossAxisAlignment.center,
+                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                 children: <Widget>[
+
+                   GunselButton(
+                     btnWidth: 290,
+                     whenPressed: () {
+                       Navigator.pushNamed(context, oneWayScreen);
+                     },
+                     btnFontFamily: 'SFProText',
+                     textWeight: FontWeight.w500,
+                     btnText: here,
+                     btnTextFontSize: 35,
+                     btnHeight: 42,
+                   ),
+                  ],
+
+             ),
+
+           ),
+
+           ),
+         ],
+       ),);
+
+    });
   }
 }

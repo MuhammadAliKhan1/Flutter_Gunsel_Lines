@@ -48,9 +48,6 @@ class PaymentResultModel {
         'token': token,
       },
     );
-    print(
-        'https://test-api.gunsel.ua/Public.svc/SendTicketAsEmail?c0=$paymentNumber&c1=$email');
-    print(response.body);
   }
 }
 

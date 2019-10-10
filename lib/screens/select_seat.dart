@@ -20,6 +20,7 @@ class SelectSeat extends StatefulWidget {
 class _SelectSeatState extends State<SelectSeat> {
   SharePreferencelogin sh = SharePreferencelogin();
   String selectTicket = "Select a Seat";
+  bool unblockLoad;
 
   void selectTicketlan() async {
     int b;
@@ -42,6 +43,7 @@ class _SelectSeatState extends State<SelectSeat> {
   void initState() {
     super.initState();
     selectTicketlan();
+    unblockLoad = false;
   }
 
   @override
@@ -50,10 +52,42 @@ class _SelectSeatState extends State<SelectSeat> {
       appBarIcon: backArrow,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
-      bodyWidget: SelectSeatScreen(
-        ticketData: this.widget.ticketData,
+      bodyWidget: Stack(
+        children: <Widget>[
+          SelectSeatScreen(
+            ticketData: this.widget.ticketData,
+          ),
+          unblockLoad
+              ? Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  color: Colors.black.withOpacity(0.5),
+                )
+              : Container(),
+        ],
       ),
       appBarTitle: selectTicket,
+      customFunction: () async {
+        if (selectedSeats.length > 0) {
+          List pointNumbers = selectedSeats.keys.toList();
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          String token = prefs.getString('Token');
+          unblockLoad = true;
+          setState(() {});
+          for (int pointNumber in pointNumbers) {
+            http.Response response = await http.delete(
+              'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
+              headers: {'token': token},
+            );
+            print(response.body);
+          }
+          selectedSeats.clear();
+        }
+        Navigator.of(context).pop();
+      },
       appBarTitleIncluded: true,
       drawerIncluded: false,
     );
@@ -444,8 +478,8 @@ class _SeatState extends State<Seat> {
                   'token': token,
                 },
               );
-              widget.seatData['SeatStatus'] = 10;
               if (jsonDecode(response.body)['Data'] != null) {
+                widget.seatData['SeatStatus'] = 10;
                 makeItGreen = true;
                 widget.seatData['TravelSeatBlockId'] = (jsonDecode(
                     jsonDecode(response.body)['Data'])['TravelSeatBlockId']);
@@ -463,7 +497,7 @@ class _SeatState extends State<Seat> {
               'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
               headers: {'token': token},
             );
-
+            print(response.body);
             if (response.statusCode == 200) {
               makeItGreen = false;
               widget.seatData['SeatStatus'] = 0;

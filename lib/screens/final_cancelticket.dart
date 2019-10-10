@@ -102,20 +102,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
       this.year);
 
   SharePreferencelogin sh = SharePreferencelogin();
-  String cancelTicket = "Cancel Ticket",
-      ticket = "Ticket",
-      busType = "Bus type comfort:",
-      departure = "DEPARTURE",
-      seatNo = "Seat no: ",
-      arrival = "ARRIVAL",
-      totalCutText = "Total cut:",
-      paidBackText = "Paid back:",
-      cancelTicketText = "Cancel ticket",
-      error = "Error",
-      ticketCancelled = "Ticket has been cancelled",
-      ok = "OK",
-      correctData = "Enter the correct data";
-
+  String cancelTicket = "Cancel Ticket";
   @override
   void initState() {
     super.initState();
@@ -134,46 +121,10 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
 
       if (b == 1) {
         cancelTicket = "Скасувати квиток";
-        ticket = "Квиток";
-        busType = "Тип автобуса: комфорт +";
-        departure = "ВИДАЛЕННЯ";
-        seatNo = "Ні місця:";
-        arrival = "ПРИЙНЯТТЯ";
-        totalCutText = "Загальний обріз:";
-        paidBackText = "Оплачено:";
-        cancelTicketText = "Скасувати квиток";
-        error = "Помилка";
-        ticketCancelled = "Квиток скасований";
-        ok = "гаразд";
-        correctData = "Введіть правильні дані";
       } else if (b == 2) {
         cancelTicket = "Cancel Ticket";
-        ticket = "Ticket";
-        busType = "Bus type: comfort+";
-        departure = "DEPARTURE";
-        seatNo = "Seat no: ";
-        arrival = "ARRIVAL";
-        totalCutText = "Total cut:";
-        paidBackText = "Paid back:";
-        cancelTicketText = "Cancel ticket";
-        error = "Error";
-        ticketCancelled = "Ticket has been cancelled";
-        ok = "OK";
-        correctData = "Enter the correct data";
       } else if (b == 3) {
         cancelTicket = "Отменить билет";
-        ticket = "Проездной билет";
-        busType = "Тип автобуса: комфорт +";
-        departure = "ВЫЕЗД";
-        seatNo = "Место нет:";
-        arrival = "ПРИБЫТИЕ";
-        totalCutText = "Общий срез:";
-        paidBackText = "Отомстил:";
-        cancelTicketText = "Отменить билет";
-        error = "ошибка";
-        ticketCancelled = "Билет был отменен";
-        ok = "Хорошо";
-        correctData = "Введите правильные данные";
       }
     });
   }
@@ -204,7 +155,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                 height: 50.0,
                 child: Center(
                     child: AutoSizeText(
-                  "$ticket " + ticketId,
+                  "Ticket " + ticketId,
                   maxLines: 1,
                   style: TextStyle(
                       color: Colors.white,
@@ -223,7 +174,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                         Padding(
                             padding: EdgeInsets.only(left: 10.0, top: 10.0),
                             child: AutoSizeText(
-                              busType,
+                              "Bus type comfort+",
                               style: TextStyle(color: darkBlue),
                             )),
                         Padding(
@@ -262,7 +213,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                             padding: EdgeInsets.only(
                               left: 85.0,
                             ),
-                            child: AutoSizeText(departure,
+                            child: AutoSizeText("DEPARTURE",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -293,7 +244,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                         Padding(
                             padding: EdgeInsets.only(left: 10.0, bottom: 20.0),
                             child: AutoSizeText(
-                              "$seatNo " + seatNumber,
+                              "Seat no: " + seatNumber,
                               style: TextStyle(fontSize: 15.0),
                             )),
                         Padding(
@@ -319,7 +270,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                                     fontWeight: FontWeight.bold))),
                         Padding(
                             padding: EdgeInsets.only(left: 90.0),
-                            child: AutoSizeText(arrival,
+                            child: AutoSizeText("ARRIVAL",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -403,7 +354,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                     Padding(
                         padding: EdgeInsets.only(left: 10.0, top: 2.0),
                         child: AutoSizeText(
-                          totalCutText,
+                          "Total cut:",
                           style: TextStyle(
                               color: Colors.red,
                               fontSize: 25.0,
@@ -438,7 +389,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                       Padding(
                           padding: EdgeInsets.only(left: 30.0, top: 5.0),
                           child: AutoSizeText(
-                            paidBackText,
+                            "Paid back:",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.0,
@@ -472,7 +423,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
             margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
             child: RaisedButton(
               child: AutoSizeText(
-                cancelTicketText,
+                "Cancel ticket",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 30.0,
@@ -574,24 +525,21 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
     print("status code is:" + statuscode.toString());
 
     if (statuscode == 200) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(
-                error,
-              ),
-              content: Text(ticketCancelled),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text(ok),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            );
-          });
+//      showDialog(
+//          context: context,
+//          builder: (context) {
+//            return AlertDialog(
+//              content: Text("Ticket has been cancelled"),
+//              actions: <Widget>[
+//                FlatButton(
+//                  child: Text("OK"),
+//                  onPressed: () {
+//                    Navigator.pop(context);
+//                  },
+//                )
+//              ],
+//            );
+//          });
 
       Navigator.pushReplacementNamed(context, oneWayScreen);
     } else {
@@ -600,12 +548,12 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
           builder: (context) {
             return AlertDialog(
               title: Text(
-                error,
+                "Error",
               ),
-              content: Text(correctData),
+              content: Text("Sorry sir,Ticket can not be cancelled."),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(ok),
+                  child: Text("OK"),
                   onPressed: () {
                     Navigator.pop(context);
                   },

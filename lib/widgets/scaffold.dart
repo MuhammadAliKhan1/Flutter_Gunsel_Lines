@@ -7,6 +7,8 @@ class GunselScaffold extends StatefulWidget {
   final bool appBarIncluded;
   final bool appBarTitleIncluded;
   final String appBarTitle;
+  final Function customFunction;
+  final bool allowCustomFunction;
   final AssetImage backgroundImage;
   final Color appBarColor;
   final AssetImage appBarIcon;
@@ -20,6 +22,8 @@ class GunselScaffold extends StatefulWidget {
     this.appBarTitle,
     this.appBarTitleIncluded,
     this.backgroundImage,
+    this.customFunction,
+    this.allowCustomFunction,
   }) : super(key: key);
 
   @override
@@ -62,9 +66,13 @@ class _GunselScaffoldState extends State<GunselScaffold> {
                         image: widget.appBarIcon,
                       ),
                       onTap: () {
-                        widget.appBarIcon == menuIcon
-                            ? _scaffoldKey.currentState.openDrawer()
-                            : Navigator.pop(context);
+                        if (widget.customFunction == null) {
+                          widget.appBarIcon == menuIcon
+                              ? _scaffoldKey.currentState.openDrawer()
+                              : Navigator.pop(context);
+                        } else {
+                          widget.customFunction();
+                        }
                       }),
                   backgroundColor: widget.appBarColor == null
                       ? Colors.transparent

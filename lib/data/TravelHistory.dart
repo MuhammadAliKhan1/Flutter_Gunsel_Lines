@@ -48,28 +48,28 @@ class Data {
 
   Data(
       {this.xID,
-        this.agency,
-        this.agencyBranch,
-        this.paymentNo,
-        this.ticketNo,
-        this.ticketDate,
-        this.travelDate,
-        this.departureDate,
-        this.departureTime,
-        this.arrivalDate,
-        this.arrivalTime,
-        this.tripCode,
-        this.tripName,
-        this.fromStation,
-        this.toStation,
-        this.seatNo,
-        this.passengerTitle,
-        this.passengerPhoneNumber,
-        this.passengerEmail,
-        this.ticketPrice,
-        this.currency,
-        this.ticketStatus,
-        this.vehicleType});
+      this.agency,
+      this.agencyBranch,
+      this.paymentNo,
+      this.ticketNo,
+      this.ticketDate,
+      this.travelDate,
+      this.departureDate,
+      this.departureTime,
+      this.arrivalDate,
+      this.arrivalTime,
+      this.tripCode,
+      this.tripName,
+      this.fromStation,
+      this.toStation,
+      this.seatNo,
+      this.passengerTitle,
+      this.passengerPhoneNumber,
+      this.passengerEmail,
+      this.ticketPrice,
+      this.currency,
+      this.ticketStatus,
+      this.vehicleType});
 
   Data.fromJson(Map<String, dynamic> json) {
     xID = json['XID'];
@@ -142,13 +142,13 @@ class VehicleType {
 
   VehicleType(
       {this.rowCount,
-        this.columnCount,
-        this.vehicleTypePlanItems,
-        this.vehicleTypeId,
-        this.vehicleTypeName,
-        this.vehicleTypeCode,
-        this.vehicleCategory,
-        this.properties});
+      this.columnCount,
+      this.vehicleTypePlanItems,
+      this.vehicleTypeId,
+      this.vehicleTypeName,
+      this.vehicleTypeCode,
+      this.vehicleCategory,
+      this.properties});
 
   VehicleType.fromJson(Map<String, dynamic> json) {
     rowCount = json['RowCount'];
@@ -202,13 +202,13 @@ class VehicleTypePlanItems {
 
   VehicleTypePlanItems(
       {this.vehicleTypePlanId,
-        this.rowIndex,
-        this.columnIndex,
-        this.pointType,
-        this.pointTypeDesc,
-        this.pointNumber,
-        this.seatStatus,
-        this.travelSeatBlockId});
+      this.rowIndex,
+      this.columnIndex,
+      this.pointType,
+      this.pointTypeDesc,
+      this.pointNumber,
+      this.seatStatus,
+      this.travelSeatBlockId});
 
   VehicleTypePlanItems.fromJson(Map<String, dynamic> json) {
     vehicleTypePlanId = json['VehicleTypePlanId'];

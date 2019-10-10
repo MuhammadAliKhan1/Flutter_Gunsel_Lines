@@ -18,9 +18,9 @@ class SelectSeat_RoundWay extends StatefulWidget {
 }
 
 class _SelectSeat_RoundWayState extends State<SelectSeat_RoundWay> {
-
   SharePreferencelogin sh = SharePreferencelogin();
   String selectTicket = "Select a Seat";
+  bool unblockLoad;
 
   void selectTicketlan() async {
     int b;
@@ -43,10 +43,9 @@ class _SelectSeat_RoundWayState extends State<SelectSeat_RoundWay> {
   void initState() {
     super.initState();
     selectTicketlan();
+
+    unblockLoad = false;
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +53,41 @@ class _SelectSeat_RoundWayState extends State<SelectSeat_RoundWay> {
       appBarIcon: backArrow,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
-      bodyWidget: SelectSeatScreen(
-        ticketData: this.widget.ticketData,
+      bodyWidget: Stack(
+        children: <Widget>[
+          SelectSeatScreen(
+            ticketData: this.widget.ticketData,
+          ),
+          unblockLoad
+              ? Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  color: Colors.black.withOpacity(0.5),
+                )
+              : Container(),
+        ],
       ),
+      customFunction: () async {
+        if (selectedSeats.length > 0) {
+          List pointNumbers = selectedSeats.keys.toList();
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          String token = prefs.getString('Token');
+          unblockLoad = true;
+          setState(() {});
+          for (int pointNumber in pointNumbers) {
+            http.Response response = await http.delete(
+              'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
+              headers: {'token': token},
+            );
+            print(response.body);
+          }
+          selectedSeats.clear();
+        }
+        Navigator.of(context).pop();
+      },
       appBarTitle: selectTicket,
       appBarTitleIncluded: true,
       drawerIncluded: false,
@@ -104,7 +135,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
     columns = this.seatsData['Data']['VehicleTypeModel']['RowCount'];
 
     for (var seat in this.seatsData['Data']['VehicleTypeModel']
-    ['VehicleTypePlanItems']) {
+        ['VehicleTypePlanItems']) {
       if (seat['PointType'] == 10) {
         seatMap[seat['PointNumber']] = seat;
       }
@@ -152,10 +183,6 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
       }
     });
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -211,27 +238,42 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                         padding: EdgeInsets.all(5.0),
                         child: SelectSeatTicket(
                           day: int.parse(widget.ticketData['SecondLeg']
-                          ['TicketData']['DepartureDate']
+                                  ['TicketData']['DepartureDate']
                               .substring(8, 10)),
                           month: int.parse(widget.ticketData['SecondLeg']
-                          ['TicketData']['DepartureDate']
+                                  ['TicketData']['DepartureDate']
                               .substring(5, 7)),
                           year: int.parse(widget.ticketData['SecondLeg']
-                          ['TicketData']['DepartureDate']
+                                  ['TicketData']['DepartureDate']
                               .substring(0, 4)),
                           arrivalStation: widget.ticketData['SecondLeg']
-                          ['TicketData']['ToStation']['StationName'],
+                              ['TicketData']['ToStation']['StationName'],
                           departureStation: widget.ticketData['SecondLeg']
-                          ['TicketData']['FromStation']['StationName'],
+                              ['TicketData']['FromStation']['StationName'],
                           departureTime: widget.ticketData['SecondLeg']
-                          ['TicketData']['DepartureTime']
+                                  ['TicketData']['DepartureTime']
                               .substring(0, 5),
                           arrivalTime: widget.ticketData['SecondLeg']
-                          ['TicketData']['ArrivalTime']
+                                  ['TicketData']['ArrivalTime']
                               .substring(0, 5),
                         )),
                     ListTile(
-                      title: Text(busInfo),
+                      contentPadding: EdgeInsets.only(
+                        left: 30.0,
+                        right: 50.0,
+                      ),
+                      title: Text(
+                        '$busInfo:',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Helvetica',
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      trailing: Image(
+                        image: bus,
+                        height: ScreenUtil().setSp(50),
+                      ),
                     ),
                   ],
                 ),
@@ -248,23 +290,23 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         selectedSeats.length == 0
             ? Container()
             : Align(
-          child: GunselButton(
-            btnWidth: 500,
-            btnText: search,
-            btnTextFontSize: 40,
-            whenPressed: () {
-              if (selectedSeats.length != 0) {
-                widget.ticketData['SecondLeg']['SelectedSeatsNumber'] =
-                    selectedSeats.keys.toList();
-                widget.ticketData['SecondLeg']['SelectedSeatsBlockIds'] =
-                    selectedSeats.values.toList();
-                Navigator.pushNamed(context, detailsRoundWay,
-                    arguments: widget.ticketData);
-              }
-            },
-          ),
-          alignment: Alignment.bottomCenter,
-        ),
+                child: GunselButton(
+                  btnWidth: 500,
+                  btnText: search,
+                  btnTextFontSize: 40,
+                  whenPressed: () {
+                    if (selectedSeats.length != 0) {
+                      widget.ticketData['SecondLeg']['SelectedSeatsNumber'] =
+                          selectedSeats.keys.toList();
+                      widget.ticketData['SecondLeg']['SelectedSeatsBlockIds'] =
+                          selectedSeats.values.toList();
+                      Navigator.pushNamed(context, detailsRoundWay,
+                          arguments: widget.ticketData);
+                    }
+                  },
+                ),
+                alignment: Alignment.bottomCenter,
+              ),
       ],
     );
   }
@@ -276,9 +318,9 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         if (snapshot.connectionState == ConnectionState.waiting)
           return SliverToBoxAdapter(
               child: Image(
-                image: loadingAnim,
-                height: ScreenUtil().setSp(150),
-              ));
+            image: loadingAnim,
+            height: ScreenUtil().setSp(150),
+          ));
 
         if (this.seatsData == null)
           return SliverToBoxAdapter(child: Text('null'));
@@ -291,23 +333,23 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                 mainAxisSpacing: 10,
               ),
               delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
+                (BuildContext context, int index) {
                   return GridTile(
                       child: Row(
-                        children: <Widget>[
-                          (index == 2 || (index / 2) % 2 == 0)
-                              ? getSpacer()
-                              : Container(),
-                          (index == 2 || (index / 2) % 2 == 1)
-                              ? getSpacer()
-                              : Container(),
-                          Seat(
-                            refresh: this.refresh,
-                            seatData: seatMap[(index + 1)],
-                            ticketData: widget.ticketData,
-                          ),
-                        ],
-                      ));
+                    children: <Widget>[
+                      (index == 2 || (index / 2) % 2 == 0)
+                          ? getSpacer()
+                          : Container(),
+                      (index == 2 || (index / 2) % 2 == 1)
+                          ? getSpacer()
+                          : Container(),
+                      Seat(
+                        refresh: this.refresh,
+                        seatData: seatMap[(index + 1)],
+                        ticketData: widget.ticketData,
+                      ),
+                    ],
+                  ));
                 },
                 childCount: seatMap.length,
               ),
@@ -337,14 +379,10 @@ class Seat extends StatefulWidget {
 class _SeatState extends State<Seat> {
   bool makeItGreen;
 
-
-
-
-
   @override
   void initState() {
     super.initState();
-  //  searchTicketlan();
+    //  searchTicketlan();
     makeItGreen = selectedSeats.containsKey(widget.seatData['PointNumber'])
         ? true
         : false;
@@ -369,7 +407,7 @@ class _SeatState extends State<Seat> {
                 "PassengerOrder": 1.toString(),
                 "CountryId": null.toString(),
                 "TravelVariantId": widget.ticketData['SecondLeg']['TicketData']
-                ['TravelVariantId'],
+                    ['TravelVariantId'],
               });
               String url =
                   'https://test-api.gunsel.ua/Public.svc/BlockTravelSeat';
@@ -386,11 +424,11 @@ class _SeatState extends State<Seat> {
                 widget.seatData['TravelSeatBlockId'] = (jsonDecode(
                     jsonDecode(response.body)['Data'])['TravelSeatBlockId']);
                 selectedSeats[widget.seatData['PointNumber']] =
-                widget.seatData['TravelSeatBlockId'];
+                    widget.seatData['TravelSeatBlockId'];
 
                 widget.refresh();
                 setState(
-                      () {},
+                  () {},
                 );
               }
             } else {
@@ -431,8 +469,8 @@ class _SeatState extends State<Seat> {
                 makeItGreen
                     ? widget.seatData['PointNumber'].toString()
                     : selectedSeats.length < 4
-                    ? widget.seatData['PointNumber'].toString()
-                    : '',
+                        ? widget.seatData['PointNumber'].toString()
+                        : '',
                 // commented code is for disappearing seats number when 4 seats are selected
                 style: TextStyle(
                   fontSize: 20.0,
@@ -441,8 +479,8 @@ class _SeatState extends State<Seat> {
                   color: makeItGreen
                       ? Colors.white
                       : widget.seatData['SeatStatus'] == 0
-                      ? Colors.black
-                      : Colors.white,
+                          ? Colors.black
+                          : Colors.white,
                 ),
               ),
             ),
@@ -471,7 +509,6 @@ class SelectSeatTicket extends StatefulWidget {
 }
 
 class _SelectSeatTicketState extends State<SelectSeatTicket> {
-
   SharePreferencelogin sh = SharePreferencelogin();
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
@@ -501,8 +538,6 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
     super.initState();
     searchTicketlan();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -538,7 +573,8 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                             ),
                           ),
                         ),
-                        padding: EdgeInsets.only(left: (widget.day > 9 ? 0.0 : 30.0)),
+                        padding: EdgeInsets.only(
+                            left: (widget.day > 9 ? 0.0 : 30.0)),
                       ),
                       Padding(
                         child: Text(
@@ -550,7 +586,8 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        padding: EdgeInsets.only(left: (widget.day > 9 ? 0.0 : 30.0)),
+                        padding: EdgeInsets.only(
+                            left: (widget.day > 9 ? 0.0 : 30.0)),
                       )
                     ],
                   ),
