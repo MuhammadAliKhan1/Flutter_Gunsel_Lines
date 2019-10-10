@@ -5,27 +5,117 @@ import 'package:gunsel/data/sharedPreference.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:gunsel/data/cancelticketinfomodel.dart';
 
-
 class FinalCancelTicket extends StatefulWidget {
-  String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace, arrivalTime, name, seatNumber, bookingDate, currencyName, paidBack, totalCut, day, month, year;
-  FinalCancelTicket({Key key, this.secureCode, this.ticketNumber, this.ticketId, this.departPlace, this.departTime, this.arrivalPlace, this.arrivalTime, this.name, this.seatNumber, this.bookingDate, this.currencyName, this.paidBack,this.totalCut, this.day, this.month, this.year})
+  String secureCode,
+      ticketNumber,
+      ticketId,
+      departPlace,
+      departTime,
+      arrivalPlace,
+      arrivalTime,
+      name,
+      seatNumber,
+      bookingDate,
+      currencyName,
+      paidBack,
+      totalCut,
+      day,
+      month,
+      year;
+  FinalCancelTicket(
+      {Key key,
+      this.secureCode,
+      this.ticketNumber,
+      this.ticketId,
+      this.departPlace,
+      this.departTime,
+      this.arrivalPlace,
+      this.arrivalTime,
+      this.name,
+      this.seatNumber,
+      this.bookingDate,
+      this.currencyName,
+      this.paidBack,
+      this.totalCut,
+      this.day,
+      this.month,
+      this.year})
       : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return FinalCancelTicketState(this.secureCode, this.ticketNumber, this.ticketId, this.departPlace, this.departTime, this.arrivalPlace, this.arrivalTime, this.name, this.seatNumber, this.bookingDate, this.currencyName, this.paidBack,this.totalCut, this.day, this.month, this.year);
+    return FinalCancelTicketState(
+        this.secureCode,
+        this.ticketNumber,
+        this.ticketId,
+        this.departPlace,
+        this.departTime,
+        this.arrivalPlace,
+        this.arrivalTime,
+        this.name,
+        this.seatNumber,
+        this.bookingDate,
+        this.currencyName,
+        this.paidBack,
+        this.totalCut,
+        this.day,
+        this.month,
+        this.year);
   }
 }
 
 class FinalCancelTicketState extends State<FinalCancelTicket> {
-SharePreferencelogin shPref = SharePreferencelogin();
+  SharePreferencelogin shPref = SharePreferencelogin();
 
+  String secureCode,
+      ticketNumber,
+      ticketId,
+      departPlace,
+      departTime,
+      arrivalPlace,
+      arrivalTime,
+      name,
+      seatNumber,
+      bookingDate,
+      currencyName,
+      paidBack,
+      totalCut,
+      day,
+      month,
+      year;
 
-String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace, arrivalTime, name, seatNumber, bookingDate, currencyName, paidBack, totalCut, day, month, year;
-
-  FinalCancelTicketState(this.secureCode, this.ticketNumber, this.ticketId, this.departPlace, this.departTime, this.arrivalPlace, this.arrivalTime, this.name, this.seatNumber, this.bookingDate, this.currencyName, this.paidBack,this.totalCut, this.day, this.month, this.year);
+  FinalCancelTicketState(
+      this.secureCode,
+      this.ticketNumber,
+      this.ticketId,
+      this.departPlace,
+      this.departTime,
+      this.arrivalPlace,
+      this.arrivalTime,
+      this.name,
+      this.seatNumber,
+      this.bookingDate,
+      this.currencyName,
+      this.paidBack,
+      this.totalCut,
+      this.day,
+      this.month,
+      this.year);
 
   SharePreferencelogin sh = SharePreferencelogin();
-  String cancelTicket = "Cancel Ticket";
+  String cancelTicket = "Cancel Ticket",
+      ticket = "Ticket",
+      busType = "Bus type comfort:",
+      departure = "DEPARTURE",
+      seatNo = "Seat no: ",
+      arrival = "ARRIVAL",
+      totalCutText = "Total cut:",
+      paidBackText = "Paid back:",
+      cancelTicketText = "Cancel ticket",
+      error = "Error",
+      ticketCancelled = "Ticket has been cancelled",
+      ok = "OK",
+      correctData = "Enter the correct data";
+
   @override
   void initState() {
     super.initState();
@@ -33,10 +123,6 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
     //print("Security Code:"+securityCode+" Book ticket Number:"+bookticketNumber);
 
     finalCancellan();
-
-
-
-
   }
 
   void finalCancellan() async {
@@ -48,10 +134,46 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
 
       if (b == 1) {
         cancelTicket = "Скасувати квиток";
+        ticket = "Квиток";
+        busType = "Тип автобуса: комфорт +";
+        departure = "ВИДАЛЕННЯ";
+        seatNo = "Ні місця:";
+        arrival = "ПРИЙНЯТТЯ";
+        totalCutText = "Загальний обріз:";
+        paidBackText = "Оплачено:";
+        cancelTicketText = "Скасувати квиток";
+        error = "Помилка";
+        ticketCancelled = "Квиток скасований";
+        ok = "гаразд";
+        correctData = "Введіть правильні дані";
       } else if (b == 2) {
         cancelTicket = "Cancel Ticket";
+        ticket = "Ticket";
+        busType = "Bus type: comfort+";
+        departure = "DEPARTURE";
+        seatNo = "Seat no: ";
+        arrival = "ARRIVAL";
+        totalCutText = "Total cut:";
+        paidBackText = "Paid back:";
+        cancelTicketText = "Cancel ticket";
+        error = "Error";
+        ticketCancelled = "Ticket has been cancelled";
+        ok = "OK";
+        correctData = "Enter the correct data";
       } else if (b == 3) {
         cancelTicket = "Отменить билет";
+        ticket = "Проездной билет";
+        busType = "Тип автобуса: комфорт +";
+        departure = "ВЫЕЗД";
+        seatNo = "Место нет:";
+        arrival = "ПРИБЫТИЕ";
+        totalCutText = "Общий срез:";
+        paidBackText = "Отомстил:";
+        cancelTicketText = "Отменить билет";
+        error = "ошибка";
+        ticketCancelled = "Билет был отменен";
+        ok = "Хорошо";
+        correctData = "Введите правильные данные";
       }
     });
   }
@@ -82,7 +204,7 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
                 height: 50.0,
                 child: Center(
                     child: AutoSizeText(
-                  "Ticket " + ticketId,
+                  "$ticket " + ticketId,
                   maxLines: 1,
                   style: TextStyle(
                       color: Colors.white,
@@ -101,7 +223,7 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
                         Padding(
                             padding: EdgeInsets.only(left: 10.0, top: 10.0),
                             child: AutoSizeText(
-                              "Bus type comfort+",
+                              busType,
                               style: TextStyle(color: darkBlue),
                             )),
                         Padding(
@@ -140,7 +262,7 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
                             padding: EdgeInsets.only(
                               left: 85.0,
                             ),
-                            child: AutoSizeText("DEPARTURE",
+                            child: AutoSizeText(departure,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -171,7 +293,7 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
                         Padding(
                             padding: EdgeInsets.only(left: 10.0, bottom: 20.0),
                             child: AutoSizeText(
-                              "Seat no: " + seatNumber,
+                              "$seatNo " + seatNumber,
                               style: TextStyle(fontSize: 15.0),
                             )),
                         Padding(
@@ -197,7 +319,7 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
                                     fontWeight: FontWeight.bold))),
                         Padding(
                             padding: EdgeInsets.only(left: 90.0),
-                            child: AutoSizeText("ARRIVAL",
+                            child: AutoSizeText(arrival,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -281,7 +403,7 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
                     Padding(
                         padding: EdgeInsets.only(left: 10.0, top: 2.0),
                         child: AutoSizeText(
-                          "Total cut:",
+                          totalCutText,
                           style: TextStyle(
                               color: Colors.red,
                               fontSize: 25.0,
@@ -316,7 +438,7 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
                       Padding(
                           padding: EdgeInsets.only(left: 30.0, top: 5.0),
                           child: AutoSizeText(
-                            "Paid back:",
+                            paidBackText,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.0,
@@ -350,7 +472,7 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
             margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
             child: RaisedButton(
               child: AutoSizeText(
-                "Cancel ticket",
+                cancelTicketText,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 30.0,
@@ -371,9 +493,6 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
           ),
         ]));
   }
-
-
-
 
 //  Future<void> getticketInformation() async{
 //    String tokens = await shPref.gettokens();
@@ -438,36 +557,34 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
 //
 //  }
 
-
-Future<void> ticketCancel() async{
+  Future<void> ticketCancel() async {
     String tokens = await shPref.gettokens();
     String ticketnum = ticketNumber;
     String securitycode = secureCode;
 
-  String url = 'https://test-api.gunsel.ua/Public.svc/CancelTicket?c0=$ticketnum&c1=A1A1A4B5-D1C8-4AEC-BD08-2A3FF55440DB&c2=42 131 23 32&c3=$securitycode';
-  print("url:"+url.toString());
+    String url =
+        'https://test-api.gunsel.ua/Public.svc/CancelTicket?c0=$ticketnum&c1=A1A1A4B5-D1C8-4AEC-BD08-2A3FF55440DB&c2=42 131 23 32&c3=$securitycode';
+    print("url:" + url.toString());
 
-  Map<String, String> headers = {"token": tokens};
-  Response response = await delete(url, headers: headers);
-  // check the status code for the result
-  int statuscode =response.statusCode;
+    Map<String, String> headers = {"token": tokens};
+    Response response = await delete(url, headers: headers);
+    // check the status code for the result
+    int statuscode = response.statusCode;
 
-  print("status code is:"+statuscode.toString());
+    print("status code is:" + statuscode.toString());
 
-  if(statuscode  == 200)
-    {
-
+    if (statuscode == 200) {
       showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
               title: Text(
-                "Error",
+                error,
               ),
-              content: Text("Ticket has been cancelled"),
+              content: Text(ticketCancelled),
               actions: <Widget>[
                 FlatButton(
-                  child: Text("OK"),
+                  child: Text(ok),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -477,30 +594,25 @@ Future<void> ticketCancel() async{
           });
 
       Navigator.pushReplacementNamed(context, oneWayScreen);
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                error,
+              ),
+              content: Text(correctData),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text(ok),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
     }
-
-    else{
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              "Error",
-            ),
-            content: Text("Sorry sir,Ticket can not be cancelled."),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("OK"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        });
   }
-
-}
-
-
 }

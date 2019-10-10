@@ -16,7 +16,7 @@ class SearchTicket_RoundWay extends StatefulWidget {
 
 class _SearchTicket_RoundWayState extends State<SearchTicket_RoundWay> {
   SharePreferencelogin sh = SharePreferencelogin();
-  String information = "Passenger details";
+  String information = "Passenger details", searchTicket = "Search Ticket";
 
   void detailsBarlan() async {
     int b;
@@ -27,10 +27,13 @@ class _SearchTicket_RoundWayState extends State<SearchTicket_RoundWay> {
 
       if (b == 1) {
         information = "Реквізити пасажира";
+        searchTicket = "Поиск билета";
       } else if (b == 2) {
         information = "Passenger details";
+        searchTicket = "Search Ticket";
       } else if (b == 3) {
         information = "Пассажирские данные";
+        searchTicket = "Пошуковий квиток";
       }
     });
   }
@@ -47,7 +50,7 @@ class _SearchTicket_RoundWayState extends State<SearchTicket_RoundWay> {
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       appBarColor: gunselColor,
-      appBarTitle: 'Search Ticket',
+      appBarTitle: searchTicket,
       appBarTitleIncluded: true,
       drawerIncluded: false,
       bodyWidget: SearchTicketScreen(

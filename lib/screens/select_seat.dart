@@ -115,6 +115,9 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   String purchase = "Purchase";
   String search = "Search";
   String busInfo = "Bus Info";
+  String selected = "Selected";
+  String empty = "Empty";
+  String busy = "Busy";
 
   void selectTicketlan() async {
     int b;
@@ -130,6 +133,9 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         purchase = "Купівля";
         search = "Пошук";
         busInfo = "Інформація про автобус";
+        selected = "Вибрано";
+        empty = "ПорожнійПорожній";
+        busy = "Зайнято";
       } else if (b == 2) {
         yourSeat = "Your seat";
         details = "Details";
@@ -137,6 +143,9 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         purchase = "Purchase";
         search = "Search";
         busInfo = "Bus Info";
+        selected = "Selected";
+        empty = "Empty";
+        busy = "Busy";
       } else if (b == 3) {
         yourSeat = "Ваше место";
         details = "подробности";
@@ -144,6 +153,9 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         purchase = "покупка";
         search = "Поиск";
         busInfo = "Информация об автобусе";
+        selected = "выбранный";
+        empty = "пустой";
+        busy = "Занятый";
       }
     });
   }
@@ -241,7 +253,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsets.only(left: 10.0,right: 100),
+                        padding: EdgeInsets.only(left: 10.0, right: 100),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -249,7 +261,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                             Row(
                               children: <Widget>[
                                 Text(
-                                  'Busy   ',
+                                  '$busy   ',
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -264,7 +276,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                             Row(
                               children: <Widget>[
                                 Text(
-                                  'Empty   ',
+                                  '$empty   ',
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -279,7 +291,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                             Row(
                               children: <Widget>[
                                 Text(
-                                  'Selected   ',
+                                  '$selected   ',
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),

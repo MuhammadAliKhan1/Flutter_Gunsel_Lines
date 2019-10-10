@@ -33,7 +33,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       profile = "Profile",
       updateInformation = "Data is successfully Updated",
       noupdateInformation = "Data is not updated",
-      ok = "Ok";
+      error = "Error",
+      ok = "Ok",
+      choose = "Choose the given options",
+      gallery = "Gallery";
   void profilelan() async {
     int b;
     int a = await sh.getshared1();
@@ -51,6 +54,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         updateInformation = "Дані успішно оновлюються";
         noupdateInformation = "Дані не оновлюються";
         ok = "Гаразд";
+        error = "Помилка";
+        choose = "Виберіть задані варіанти";
+        gallery = "Галерея";
       } else if (b == 2) {
         editProfileInformation = "Edit Profile Information";
         firstName = "First Name";
@@ -62,6 +68,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         updateInformation = "Data is successfully Updated";
         noupdateInformation = "Data is not updated";
         ok = "Ok";
+        error = "Error";
+        choose = "Choose the given options"; 
+        gallery = "Gallery";
       } else if (b == 3) {
         editProfileInformation = "Изменить информацию профиля";
         firstName = "Имя";
@@ -73,6 +82,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         updateInformation = "Данные успешно обновлены";
         noupdateInformation = "Данные не обновляются";
         ok = "Хорошо";
+        error = "ошибка";
+        choose = "Выберите данные параметры";
+        gallery = "Галерея";
       }
     });
   }
@@ -806,7 +818,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           builder: (context) {
             return AlertDialog(
               title: Text(
-                "Error",
+                error,
               ),
               content: Text(noupdateInformation),
               actions: <Widget>[
@@ -842,13 +854,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _showChoiceDialog(BuildContext context){
     return showDialog(context: context,builder: (BuildContext context){
       return AlertDialog(
-        title: Text('Make a Choice!'),
+        title: Text(choose),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
 
               GestureDetector(
-                child: Text('Gallery'),
+                child: Text(gallery),
                 onTap: (){
                   _openGallery(context);
                 },

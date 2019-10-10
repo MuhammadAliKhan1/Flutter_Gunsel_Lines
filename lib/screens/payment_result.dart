@@ -493,7 +493,7 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
   }
 }
 
-class PaymentResultTicket extends StatelessWidget {
+class PaymentResultTicket extends StatefulWidget {
   String departureStation,
       departureTime,
       arrivalStation,
@@ -515,6 +515,49 @@ class PaymentResultTicket extends StatelessWidget {
     @required this.currencyType,
     @required this.seatsDetail,
   });
+
+  @override
+  _PaymentResultTicketState createState() => _PaymentResultTicketState();
+}
+
+class _PaymentResultTicketState extends State<PaymentResultTicket> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String departure = "DEPARTURE",
+      arrival = "ARRIVAL",
+      seat = "Seat: ",
+      busType = "Bus Type: Comfort +";
+
+  void detailsTicketlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        departure = "ВИДАЛЕННЯ";
+        arrival = "ПРИЙНЯТТЯ";
+        seat = "Місце:";
+        busType = "Тип автобуса: Комфорт +";
+      } else if (b == 2) {
+        departure = "DEPARTURE";
+        arrival = "ARRIVAL";
+        seat = "Seat: ";
+        busType = "Bus Type: Comfort +";
+      } else if (b == 3) {
+        departure = "ВЫЕЗД";
+        arrival = "ПРИБЫТИЕ";
+        seat = "сиденье:";
+        busType = "Тип автобуса: Комфорт +";
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    detailsTicketlan();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -572,7 +615,7 @@ class PaymentResultTicket extends StatelessWidget {
                                       child: Column(
                                         children: <Widget>[
                                           Text(
-                                            '$day',
+                                            '${widget.day}',
                                             style: TextStyle(
                                               fontSize: ScreenUtil(
                                                       allowFontScaling: true)
@@ -583,7 +626,7 @@ class PaymentResultTicket extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            '$month $year',
+                                            '${widget.month} ${widget.year}',
                                             style: TextStyle(
                                               fontSize: 35,
                                               color: Colors.black,
@@ -595,7 +638,7 @@ class PaymentResultTicket extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      'Bus Type: Comfort +',
+                                      busType,
                                       style: TextStyle(
                                         color: darkBlue,
                                         fontFamily: 'Helvetica',
@@ -611,7 +654,7 @@ class PaymentResultTicket extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          'Seat: ',
+                                          seat,
                                           style: TextStyle(
                                             color: darkBlue,
                                             fontFamily: 'Helvetica',
@@ -622,7 +665,7 @@ class PaymentResultTicket extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '${seatsDetail['SeatNumber']}',
+                                          '${widget.seatsDetail['SeatNumber']}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontFamily: 'Helvetica',
@@ -659,7 +702,7 @@ class PaymentResultTicket extends StatelessWidget {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '$departureStation                            ',
+                                                  '${widget.departureStation}                            ',
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                     color: Colors.black,
@@ -672,7 +715,7 @@ class PaymentResultTicket extends StatelessWidget {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '$departureTime',
+                                                  '${widget.departureTime}',
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
@@ -692,7 +735,7 @@ class PaymentResultTicket extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  'DEPARTURE',
+                                                  departure,
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
@@ -712,7 +755,7 @@ class PaymentResultTicket extends StatelessWidget {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '$arrivalStation                            ',
+                                                  '${widget.arrivalStation}                            ',
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                     color: Colors.black,
@@ -725,7 +768,7 @@ class PaymentResultTicket extends StatelessWidget {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '$arrivalTime',
+                                                  '${widget.arrivalTime}',
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
@@ -745,7 +788,7 @@ class PaymentResultTicket extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  'ARRIVAL',
+                                                  arrival,
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
@@ -767,7 +810,7 @@ class PaymentResultTicket extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          '     ${seatsDetail['Name']} ${seatsDetail['Surname']}',
+                                          '     ${widget.seatsDetail['Name']} ${widget.seatsDetail['Surname']}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontFamily: 'Helvetica',
@@ -784,7 +827,7 @@ class PaymentResultTicket extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          '${ticketPrice.toStringAsFixed(0)}',
+                                          '${widget.ticketPrice.toStringAsFixed(0)}',
                                           style: TextStyle(
                                             color: darkBlue,
                                             fontFamily: 'Helvetica',
@@ -795,7 +838,7 @@ class PaymentResultTicket extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '$currencyType      ',
+                                          '${widget.currencyType}      ',
                                           style: TextStyle(
                                             color: darkBlue,
                                             fontFamily: 'Helvetica',

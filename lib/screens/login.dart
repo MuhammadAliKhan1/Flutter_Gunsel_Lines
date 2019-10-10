@@ -131,7 +131,9 @@ class _LoginFormState extends State<LoginForm> {
       login = "Login",
       sendPassword = "Sending Password",
       noDatafound = "No Data Found",
-      ok = "Ok";
+      ok = "Ok",
+      error = "Error",
+      customLogin = "Invalid Username or Password";
 
   @override
   void initState() {
@@ -168,6 +170,8 @@ class _LoginFormState extends State<LoginForm> {
         sendPassword = "Відправлення пароля";
         noDatafound = "Даних не знайдено";
         ok = "Гаразд";
+        error = "Помилка";
+        customLogin = "Неправильне ім'я користувача або пароль";
       } else if (b == 2) {
         login = "Login";
         passwordHint = "Password";
@@ -181,6 +185,8 @@ class _LoginFormState extends State<LoginForm> {
         sendPassword = "Sending Password";
         noDatafound = "No Data Found";
         ok = "Ok";
+        error = "Error";
+        customLogin = "Invalid Username or Password";
       } else if (b == 3) {
         login = "Авторизоваться";
         passwordHint = "пароль";
@@ -194,6 +200,8 @@ class _LoginFormState extends State<LoginForm> {
         sendPassword = "Отправка пароля";
         noDatafound = "Данные не найдены";
         ok = "Хорошо";
+        error = "ошибка";
+        customLogin = "Неправильное имя пользователя или пароль";
       }
     });
   }
@@ -577,12 +585,12 @@ class _LoginFormState extends State<LoginForm> {
           builder: (context) {
             return AlertDialog(
               title: Text(
-                "Error",
+                error,
               ),
-              content: Text("Invalid Username or Password"),
+              content: Text(customLogin),
               actions: <Widget>[
                 FlatButton(
-                  child: Text("OK"),
+                  child: Text(ok),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -671,12 +679,12 @@ class _LoginFormState extends State<LoginForm> {
                 builder: (context) {
                   return AlertDialog(
                     title: Text(
-                      "Error",
+                      error,
                     ),
-                    content: Text("Error in Facebook Login."),
+                    content: Text(error),
                     actions: <Widget>[
                       FlatButton(
-                        child: Text("OK"),
+                        child: Text(ok),
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -724,7 +732,7 @@ class _LoginFormState extends State<LoginForm> {
           builder: (context) {
             return AlertDialog(
               title: Text(
-                  sendPassword,
+                sendPassword,
               ),
               actions: <Widget>[
                 FlatButton(
@@ -742,7 +750,7 @@ class _LoginFormState extends State<LoginForm> {
           builder: (context) {
             return AlertDialog(
               title: Text(
-                sendPassword,
+                error,
               ),
               content: Text(noDatafound),
               actions: <Widget>[
@@ -842,12 +850,11 @@ class _LoginFormState extends State<LoginForm> {
             builder: (context) {
               return AlertDialog(
                 title: Text(
-                  "Error",
+                  error,
                 ),
-                content: Text("Error in Gmail Login."),
                 actions: <Widget>[
                   FlatButton(
-                    child: Text("OK"),
+                    child: Text(ok),
                     onPressed: () {
                       Navigator.pop(context);
                     },
