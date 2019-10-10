@@ -131,7 +131,10 @@ class _LoginFormState extends State<LoginForm> {
       login = "Login",
       sendPassword = "Sending Password",
       noDatafound = "No Data Found",
-      ok = "Ok";
+      ok = "Ok",
+      error = "Sign up Error",
+      err = "Error",
+      passworderr = "Password field should not be empty";
 
   @override
   void initState() {
@@ -168,6 +171,9 @@ class _LoginFormState extends State<LoginForm> {
         sendPassword = "Відправлення пароля";
         noDatafound = "Даних не знайдено";
         ok = "Гаразд";
+        error = "Помилка реєстрації";
+        err = "Помилка";
+        passworderr= "Поле пароля не повинно бути порожнім";
       } else if (b == 2) {
         login = "Login";
         passwordHint = "Password";
@@ -181,6 +187,9 @@ class _LoginFormState extends State<LoginForm> {
         sendPassword = "Sending Password";
         noDatafound = "No Data Found";
         ok = "Ok";
+        error = "Sign up Error";
+        err = "Error";
+        passworderr = "Password field should not be empty";
       } else if (b == 3) {
         login = "Авторизоваться";
         passwordHint = "пароль";
@@ -194,6 +203,9 @@ class _LoginFormState extends State<LoginForm> {
         sendPassword = "Отправка пароля";
         noDatafound = "Данные не найдены";
         ok = "Хорошо";
+        error = "Ошибка регистрации";
+        err = "ошибка";
+        passworderr = "Поле пароля не должно быть пустым";
       }
     });
   }
@@ -579,10 +591,10 @@ class _LoginFormState extends State<LoginForm> {
               title: Text(
                 "Error",
               ),
-              content: Text("Invalid Username or Password"),
+              content: Text(error),
               actions: <Widget>[
                 FlatButton(
-                  child: Text("OK"),
+                  child: Text(ok),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -671,12 +683,12 @@ class _LoginFormState extends State<LoginForm> {
                 builder: (context) {
                   return AlertDialog(
                     title: Text(
-                      "Error",
+                      error,
                     ),
-                    content: Text("Error in Facebook Login."),
+                   // content: Text("Error in Facebook Login."),
                     actions: <Widget>[
                       FlatButton(
-                        child: Text("OK"),
+                        child: Text(ok),
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -717,45 +729,66 @@ class _LoginFormState extends State<LoginForm> {
 
     Map<String, dynamic> statusdata = jsonDecode(body.toString());
     // print("Status data:" + statusdata["Status"][]);
-
-    if (statusCode == 200) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(
-                  sendPassword,
-              ),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text(ok),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            );
-          });
-    } else {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(
-                sendPassword,
-              ),
-              content: Text(noDatafound),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text(noDatafound),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            );
-          });
-    }
+if(emailForForgetPassword !="") {
+  if (statusCode == 200) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              sendPassword,
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(ok),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+        });
+  } else {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              sendPassword,
+            ),
+            content: Text(noDatafound),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(noDatafound),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+        });
+  }
+}
+else{
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            err
+          ),
+          content: Text(passworderr),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(ok),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        );
+      });
+}
   }
 
   //Login with google
@@ -842,12 +875,11 @@ class _LoginFormState extends State<LoginForm> {
             builder: (context) {
               return AlertDialog(
                 title: Text(
-                  "Error",
+                  error,
                 ),
-                content: Text("Error in Gmail Login."),
                 actions: <Widget>[
                   FlatButton(
-                    child: Text("OK"),
+                    child: Text(ok),
                     onPressed: () {
                       Navigator.pop(context);
                     },

@@ -456,25 +456,21 @@ Future<void> ticketCancel() async{
 
   if(statuscode  == 200)
     {
-
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(
-                "Error",
-              ),
-              content: Text("Ticket has been cancelled"),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("OK"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            );
-          });
+//      showDialog(
+//          context: context,
+//          builder: (context) {
+//            return AlertDialog(
+//              content: Text("Ticket has been cancelled"),
+//              actions: <Widget>[
+//                FlatButton(
+//                  child: Text("OK"),
+//                  onPressed: () {
+//                    Navigator.pop(context);
+//                  },
+//                )
+//              ],
+//            );
+//          });
 
       Navigator.pushReplacementNamed(context, oneWayScreen);
     }

@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       btnSaveChange = "Save Changes",
       profile = "Profile",
       updateInformation = "Data is successfully Updated",
-      noupdateInformation = "Data is not updated",
+      noupdateInformation = "Data is not Updated",
       ok = "Ok";
   void profilelan() async {
     int b;
@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         btnSaveChange = "Save Changes";
         profile = "Profile";
         updateInformation = "Data is successfully Updated";
-        noupdateInformation = "Data is not updated";
+        noupdateInformation = "Data is not Updated";
         ok = "Ok";
       } else if (b == 3) {
         editProfileInformation = "Изменить информацию профиля";
@@ -208,12 +208,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void languageChange(BuildContext context,int number)
   {
-    shPref.setshared("", "", "", "", "","","","");
-    shPref.setmobileImage("");
+    //shPref.setshared("", "", "", "", "","","","");
+    //shPref.setmobileImage("");
     shPref.setshared1(number);
-    facebookLogins.logOut();
-    googleSignins.signOut();
-    Navigator.pushReplacementNamed(context, loginScreen);
+    //facebookLogins.logOut();
+    //googleSignins.signOut();
+   // Navigator.pushReplacementNamed(context, loginScreen);
+    Navigator.pushReplacementNamed(context, profileScreen);
   }
 
   @override
