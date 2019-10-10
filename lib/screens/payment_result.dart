@@ -67,6 +67,7 @@ class PaymentResultScreen extends StatefulWidget {
 
 class _PaymentResultScreenState extends State<PaymentResultScreen> {
   Future _dataFetched;
+  bool loadBlock = false;
   Map<String, dynamic> paymentResultTicketData;
   TextEditingController _email = TextEditingController();
   PaymentResultModel paymentResultModelObj;
@@ -162,7 +163,7 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
       future: _dataFetched,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting)
-          return SliverToBoxAdapter(
+          return Center(
               child: Image(
             image: loadingAnim,
             height: ScreenUtil().setSp(150),
@@ -343,16 +344,21 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                         InkWell(
                                           onTap: () {
                                             showDialog(
+                                                barrierDismissible: true,
                                                 context: context,
                                                 builder: (context) {
                                                   return AlertDialog(
                                                       backgroundColor:
                                                           Colors.white,
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10.0))),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                          Radius.circular(
+                                                            10.0,
+                                                          ),
+                                                        ),
+                                                      ),
                                                       title: Text(
                                                         sendmail,
                                                         style: TextStyle(
@@ -426,6 +432,10 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                                                 ),
                                                                 onPressed:
                                                                     () async {
+                                                                  loadBlock =
+                                                                      true;
+                                                                  setState(
+                                                                      () {});
                                                                   await paymentResultModelObj.sendEmail(
                                                                       paymentResultTicketData[
                                                                               'Data']
@@ -433,6 +443,11 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                                                           'PaymentNo'],
                                                                       _email
                                                                           .text);
+                                                                  loadBlock =
+                                                                      false;
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
                                                                   setState(
                                                                       () {});
                                                                 },
