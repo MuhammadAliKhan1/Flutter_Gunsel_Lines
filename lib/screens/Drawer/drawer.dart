@@ -155,7 +155,7 @@ class _SideDrawerState extends State<SideDrawer> {
               SizedBox(
                 width: 30,
               ),
-              //Image.network(profileImage,height: ScreenUtil().setHeight(130),),
+             
               checkImage
                   ? Container(
                       height: 80.0,
