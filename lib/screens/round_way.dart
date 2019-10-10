@@ -168,7 +168,16 @@ class _RoundWayFormState extends State<RoundWayForm> {
       departCalHint = "Select the departure date",
       returnCalHint = "Select the return date",
       numOfpassenger = "Number of passengers:",
-      btnSearch = "Search";
+      btnSearch = "Search",
+      selectDepartureStation = "Please select an departure station",
+      selectValidStation = "Please select a valid departure station",
+      selectArrivalStation = "Please select an arrival station",
+      selectArrivalValidStation = "Please select a valid arrival station",
+      selectDifferentStation = "Please select different stations.",
+      enterEmptyDepartureDate = "Please input departure date",
+      enterEmptyReturnDate = "Please input return date",
+      dateLessthan = "Return date less than departure date",
+      inputDifferentDate = "Please input different dates";
 
   @override
   void initState() {
@@ -196,6 +205,15 @@ class _RoundWayFormState extends State<RoundWayForm> {
         returnCalHint = "Виберіть дату повернення";
         numOfpassenger = "Кількість пасажирів:";
         btnSearch = "Пошук";
+        selectDepartureStation = "Виберіть пункт відправлення";
+        selectValidStation = "Виберіть дійсну станцію відправлення";
+        selectArrivalStation = "Виберіть станцію прибуття";
+        selectArrivalValidStation = "Виберіть дійсну станцію прибуття";
+        selectDifferentStation = "Виберіть інші станції.";
+        enterEmptyDepartureDate = "Введіть дату відправлення";
+        enterEmptyReturnDate = "Введіть дату повернення";
+        dateLessthan = "Дата повернення менше дати вильоту";
+        inputDifferentDate = "Введіть різні дати";
       } else if (b == 2) {
         departHint = "Enter departure city";
         arrivalHint = "Enter arrival city";
@@ -203,6 +221,15 @@ class _RoundWayFormState extends State<RoundWayForm> {
         returnCalHint = "Select the return date";
         numOfpassenger = "Number of passengers:";
         btnSearch = "Search";
+        selectDepartureStation = "Please select an departure station";
+        selectValidStation = "Please select a valid departure station";
+        selectArrivalStation = "Please select an arrival station";
+        selectArrivalValidStation = "Please select a valid arrival station";
+        selectDifferentStation = "Please select different stations.";
+        enterEmptyDepartureDate = "Please input departure date";
+        enterEmptyReturnDate = "Please input return date";
+        dateLessthan = "Return date less than departure date";
+        inputDifferentDate = "Please input different dates";
       } else if (b == 3) {
         departHint = "Введите город отправления";
         arrivalHint = "Введите город прибытия";
@@ -210,6 +237,17 @@ class _RoundWayFormState extends State<RoundWayForm> {
         returnCalHint = "Выберите дату возвращения";
         numOfpassenger = "Количество пассажиров:";
         btnSearch = "Поиск";
+        selectDepartureStation = "Пожалуйста, выберите станцию ​​отправления";
+        selectValidStation =
+            "Пожалуйста, выберите действующую станцию ​​отправления";
+        selectArrivalStation = "Пожалуйста, выберите станцию ​​прибытия";
+        selectArrivalValidStation =
+            "Пожалуйста, выберите действующую станцию ​​прибытия";
+        selectDifferentStation = "Пожалуйста, выберите разные станции.";
+        enterEmptyDepartureDate = "Пожалуйста, введите дату отъезда";
+        enterEmptyReturnDate = "Пожалуйста, введите дату возврата";
+        dateLessthan = "Дата возвращения меньше даты вылета";
+        inputDifferentDate = "Пожалуйста, введите разные даты";
       }
     });
   }
@@ -271,9 +309,9 @@ class _RoundWayFormState extends State<RoundWayForm> {
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please select an departure station';
+                  return selectDepartureStation;
                 } else if (!stationList.contains(value))
-                  return 'Please select a valid departure station';
+                  return selectValidStation;
               },
               onSaved: (value) => this._departureStationVal = value,
             ),
@@ -343,11 +381,11 @@ class _RoundWayFormState extends State<RoundWayForm> {
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please select an arrival station';
+                  return selectArrivalStation;
                 } else if (!stationList.contains(value))
-                  return 'Please select a valid arrival station';
+                  return selectArrivalValidStation;
                 else if (this._departureStation.text == value)
-                  return 'Please select different stations.';
+                  return selectDifferentStation;
               },
               onSaved: (value) => this._arrivalStationVal = value,
             ),
@@ -364,7 +402,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
               child: AbsorbPointer(
                 child: TextFormField(
                   validator: (value) {
-                    if (value.isEmpty) return 'Please input departure date';
+                    if (value.isEmpty) return enterEmptyDepartureDate;
                   },
                   style: TextStyle(color: Colors.blue, fontSize: 17.0),
                   keyboardType: TextInputType.datetime,
@@ -394,18 +432,18 @@ class _RoundWayFormState extends State<RoundWayForm> {
                 child: TextFormField(
                   validator: (value) {
                     if (value.isEmpty)
-                      return 'Please input return date';
+                      return enterEmptyReturnDate;
                     else if (buyTicketData['DepartureDay'] ==
                         buyTicketData['ReturnDay']) {
                       if (buyTicketData['DepartureMonth'] ==
                           buyTicketData['ReturnMonth']) {
                         if (buyTicketData['DepartureYear'] ==
                             buyTicketData['ReturnYear'])
-                          return 'Please input different dates';
+                          return inputDifferentDate;
                       }
                     } else if (buyTicketData['ReturnDay'] <
                         buyTicketData['DepartureDay']) {
-                      return 'Return date less than departure date';
+                      return dateLessthan;
                     }
                   },
                   style: TextStyle(color: Colors.blue, fontSize: 17.0),

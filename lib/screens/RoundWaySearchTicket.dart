@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/travel_list_one_way_model.dart';
+
 import 'package:gunsel/data/sharedPreference.dart';
 
 class SearchTicket_RoundWay extends StatefulWidget {
@@ -14,11 +15,10 @@ class SearchTicket_RoundWay extends StatefulWidget {
 }
 
 class _SearchTicket_RoundWayState extends State<SearchTicket_RoundWay> {
-
   SharePreferencelogin sh = SharePreferencelogin();
-  String searchTicket = "Search Ticket";
+  String information = "Passenger details";
 
-  void searchTicketlan() async {
+  void detailsBarlan() async {
     int b;
     int a = await sh.getshared1();
 
@@ -26,11 +26,11 @@ class _SearchTicket_RoundWayState extends State<SearchTicket_RoundWay> {
       b = a;
 
       if (b == 1) {
-        searchTicket = "Пошуковий квиток";
+        information = "Реквізити пасажира";
       } else if (b == 2) {
-        searchTicket = "Search Ticket";
+        information = "Passenger details";
       } else if (b == 3) {
-        searchTicket = "Поиск билета";
+        information = "Пассажирские данные";
       }
     });
   }
@@ -38,9 +38,8 @@ class _SearchTicket_RoundWayState extends State<SearchTicket_RoundWay> {
   @override
   void initState() {
     super.initState();
-    searchTicketlan();
+    detailsBarlan();
   }
-
 
   Widget build(BuildContext context) {
     return GunselScaffold(
@@ -48,7 +47,7 @@ class _SearchTicket_RoundWayState extends State<SearchTicket_RoundWay> {
       appBarIncluded: true,
       backgroundImage: scaffoldImg,
       appBarColor: gunselColor,
-      appBarTitle: searchTicket,
+      appBarTitle: 'Search Ticket',
       appBarTitleIncluded: true,
       drawerIncluded: false,
       bodyWidget: SearchTicketScreen(
@@ -71,6 +70,36 @@ class SearchTicketScreen extends StatefulWidget {
 }
 
 class SearchTicketScreenState extends State<SearchTicketScreen> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String busNotAvailable =
+      "Looks like there are no buses available on this date";
+  String changeDate = "Please change the date to get your result";
+  String departure = "DEPARTURE";
+
+  void detailsBarlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        busNotAvailable = "Схоже, немає автобусів на цю дату";
+        changeDate = "Будь ласка, змініть дату, щоб отримати результат";
+        departure = "ВИДАЛЕННЯ";
+      } else if (b == 2) {
+        busNotAvailable =
+            "Looks like there are no buses available on this date";
+        changeDate = "Please change the date to get your result";
+        departure = "DEPARTURE";
+      } else if (b == 3) {
+        busNotAvailable = "Похоже, что на эту дату нет автобусов";
+        changeDate = "Пожалуйста, измените дату, чтобы получить свой результат";
+        departure = "ВЫЕЗД";
+      }
+    });
+  }
+
   int initialDay;
   int initialMonth;
   int initialYear;
@@ -80,6 +109,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
   Future<dynamic> _datafetched;
   @override
   void initState() {
+    detailsBarlan();
     super.initState();
     travelListTicketData = widget.userData;
     _datafetched = getData();
@@ -96,7 +126,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
     TravelListOneWayModel travelListPODO = TravelListOneWayModel();
 
     travelListTicketData['SecondLegTickets'] =
-    await travelListPODO.getRoundWaySecondLegList(
+        await travelListPODO.getRoundWaySecondLegList(
       travelListTicketData['BuyTicketData']['DepartureStationId'],
       travelListTicketData['BuyTicketData']['ArrivalStationId'],
       travelListTicketData['BuyTicketData']['ReturnYear'],
@@ -160,22 +190,22 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                       if (travelListTicketData['BuyTicketData']['ReturnDay'] >=
                           1) {
                         if (travelListTicketData['BuyTicketData']
-                        ['ReturnDay'] ==
+                                ['ReturnDay'] ==
                             1) {
                           if (travelListTicketData['BuyTicketData']
-                          ['ReturnMonth'] ==
+                                  ['ReturnMonth'] ==
                               1) {
                             travelListTicketData['BuyTicketData']
-                            ['ReturnYear']--;
+                                ['ReturnYear']--;
                             travelListTicketData['BuyTicketData']['ReturnDay'] =
-                            31;
+                                31;
                             travelListTicketData['BuyTicketData']
-                            ['ReturnMonth'] = 12;
+                                ['ReturnMonth'] = 12;
                           } else {
                             travelListTicketData['BuyTicketData']
-                            ['ReturnMonth']--;
+                                ['ReturnMonth']--;
                             travelListTicketData['BuyTicketData']['ReturnDay'] =
-                            31;
+                                31;
                           }
                         } else {
                           travelListTicketData['BuyTicketData']['ReturnDay']--;
@@ -186,7 +216,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                       });
                     }
                     if (travelListTicketData['BuyTicketData']['ReturnDay'] ==
-                        this.initialDay &&
+                            this.initialDay &&
                         travelListTicketData['BuyTicketData']['ReturnMonth'] ==
                             this.initialMonth &&
                         travelListTicketData['BuyTicketData']['ReturnYear'] ==
@@ -230,12 +260,12 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                     if (travelListTicketData['BuyTicketData']['ReturnDay'] ==
                         31) {
                       if (travelListTicketData['BuyTicketData']
-                      ['ReturnMonth'] ==
+                              ['ReturnMonth'] ==
                           12) {
                         travelListTicketData['BuyTicketData']['ReturnYear']++;
                         travelListTicketData['BuyTicketData']['ReturnDay'] = 1;
                         travelListTicketData['BuyTicketData']['ReturnMonth'] =
-                        1;
+                            1;
                       } else {
                         travelListTicketData['BuyTicketData']['ReturnMonth']++;
                         travelListTicketData['BuyTicketData']['ReturnDay'] = 1;
@@ -306,7 +336,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                   Spacer(),
                   Spacer(),
                   Text(
-                    'Looks like there are no buses available on this date',
+                    busNotAvailable,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,
@@ -315,7 +345,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                   ),
                   Spacer(),
                   Text(
-                    'Please change the date to get your result',
+                    changeDate,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,
@@ -335,36 +365,36 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
           } else
             return ListView.builder(
               itemCount:
-              travelListTicketData['SecondLegTickets']['Data'].length,
+                  travelListTicketData['SecondLegTickets']['Data'].length,
               itemBuilder: (BuildContext context, int index) {
                 Map<String, dynamic> ticketData = {
                   'SecondLeg': {
                     'TicketData': travelListTicketData['SecondLegTickets']
-                    ['Data'][index]
+                        ['Data'][index]
                   },
                   'BuyTicketData': travelListTicketData['BuyTicketData'],
                 };
                 return Ticket(
                   travelListTicketData['SecondLegTickets']['Data'][index]
-                  ['DepartureDate']
+                          ['DepartureDate']
                       .substring(0, 10),
                   travelListTicketData['SecondLegTickets']['Data'][index]
-                  ['ArrivalDate']
+                          ['ArrivalDate']
                       .substring(0, 10),
                   travelListTicketData['SecondLegTickets']['Data'][index]
-                  ['DepartureTime']
+                          ['DepartureTime']
                       .substring(0, 5),
                   travelListTicketData['SecondLegTickets']['Data'][index]
-                  ['ArrivalTime']
+                          ['ArrivalTime']
                       .substring(0, 5),
                   travelListTicketData['SecondLegTickets']['Data'][index]
-                  ['TicketPrice'],
+                      ['TicketPrice'],
                   travelListTicketData['SecondLegTickets']['Data'][index]
-                  ['Currency']['CurrencyName'],
+                      ['Currency']['CurrencyName'],
                   travelListTicketData['SecondLegTickets']['Data'][index]
-                  ['EmptySeatCount'],
+                      ['EmptySeatCount'],
                   travelListTicketData['SecondLegTickets']['Data'][index]
-                  ['VehicleType']['VehicleTypeName'],
+                      ['VehicleType']['VehicleTypeName'],
                   ticketData,
                   travelListTicketData['FirstLeg'],
                 );
@@ -388,31 +418,28 @@ class Ticket extends StatefulWidget {
   Map<String, dynamic> ticketData;
   Map<String, dynamic> ticketDataFirstLeg;
   Ticket(
-      this.departureDate,
-      this.arrivalDate,
-      this.departureTime,
-      this.arrivalTime,
-      this.ticketPrice,
-      this.currencyName,
-      this.numberOfSeats,
-      this.vehicleTypeName,
-      this.ticketData,
-      this.ticketDataFirstLeg,
-      );
+    this.departureDate,
+    this.arrivalDate,
+    this.departureTime,
+    this.arrivalTime,
+    this.ticketPrice,
+    this.currencyName,
+    this.numberOfSeats,
+    this.vehicleTypeName,
+    this.ticketData,
+    this.ticketDataFirstLeg,
+  );
 
   @override
   _TicketState createState() => _TicketState();
 }
 
 class _TicketState extends State<Ticket> {
-
-
   SharePreferencelogin sh = SharePreferencelogin();
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
-  String seats = "seats";
 
-  void searchTicketlan() async {
+  void detailsBarlan() async {
     int b;
     int a = await sh.getshared1();
 
@@ -422,27 +449,22 @@ class _TicketState extends State<Ticket> {
       if (b == 1) {
         departure = "ВИДАЛЕННЯ";
         arrival = "ПРИЙНЯТТЯ";
-        seats = "місць";
       } else if (b == 2) {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
-        seats = "seats";
       } else if (b == 3) {
         departure = "ВЫЕЗД";
         arrival = "ПРИБЫТИЕ";
-        seats = "места";
       }
     });
   }
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    searchTicketlan();
+    detailsBarlan();
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -457,150 +479,150 @@ class _TicketState extends State<Ticket> {
         },
         child: FittedBox(
             child: Container(
-              margin: EdgeInsets.only(top: 10.0),
-              height: 112,
-              child: Stack(
-                children: <Widget>[
-                  Image(
-                    image: smallTicket,
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(left: 25.0, top: 5.0),
-                      child: Row(
+          margin: EdgeInsets.only(top: 10.0),
+          height: 112,
+          child: Stack(
+            children: <Widget>[
+              Image(
+                image: smallTicket,
+              ),
+              Padding(
+                  padding: EdgeInsets.only(left: 25.0, top: 5.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 25,
+                      ),
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          SizedBox(
-                            width: 25,
+                          Text(
+                            '${widget.departureTime}',
+                            style: TextStyle(
+                                color: Color.fromRGBO(14, 52, 113, 10),
+                                fontSize: 40,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w700),
                           ),
+                          Text(
+                            departure,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            '${widget.departureDate}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Text(
+                            '${widget.numberOfSeats} seats',
+                            style: TextStyle(
+                              color: Color.fromRGBO(14, 52, 113, 10),
+                              fontSize: 15,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 25,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text(
+                            '${widget.arrivalTime}',
+                            style: TextStyle(
+                                color: Color.fromRGBO(14, 52, 113, 10),
+                                fontSize: 40,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            arrival,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            '${widget.arrivalDate}', //Empty space as to not distur the alignment
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Text(
+                            '',
+                            style: TextStyle(
+                              color: darkBlue,
+                              fontSize: 15,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 45),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              Text(
-                                '${widget.departureTime}',
-                                style: TextStyle(
+                              Container(
+                                height: 43,
+                                child: Text(
+                                  '${widget.ticketPrice.toStringAsFixed(0)}',
+                                  style: TextStyle(
                                     color: Color.fromRGBO(14, 52, 113, 10),
-                                    fontSize: 40,
+                                    fontSize: 50,
                                     fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w700),
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
                               ),
                               Text(
-                                departure,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              Text(
-                                '${widget.departureDate}',
+                                '${widget.currencyName}', //Empty space as to not distur the alignment
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Helvetica',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              Text(
-                                '${widget.numberOfSeats} $seats',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(14, 52, 113, 10),
-                                  fontSize: 15,
-                                  fontFamily: 'Helvetica',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 25,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Text(
-                                '${widget.arrivalTime}',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(14, 52, 113, 10),
-                                    fontSize: 40,
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              Text(
-                                arrival,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              Text(
-                                '${widget.arrivalDate}', //Empty space as to not distur the alignment
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Helvetica',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              Text(
-                                '',
-                                style: TextStyle(
-                                  color: darkBlue,
-                                  fontSize: 15,
-                                  fontFamily: 'Helvetica',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 45),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  Container(
-                                    height: 43,
-                                    child: Text(
-                                      '${widget.ticketPrice.toStringAsFixed(0)}',
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(14, 52, 113, 10),
-                                        fontSize: 50,
-                                        fontFamily: 'Helvetica',
-                                        fontWeight: FontWeight.w800,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    '${widget.currencyName}', //Empty space as to not distur the alignment
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontFamily: 'Helvetica',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                '${widget.vehicleTypeName}', //Empty space as to not distur the alignment
-                                style: TextStyle(
-                                  color: Colors.black.withOpacity(0.5),
-                                  fontSize: 12,
+                                  fontSize: 20,
                                   fontFamily: 'Helvetica',
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ],
                           ),
+                          Text(
+                            '${widget.vehicleTypeName}', //Empty space as to not distur the alignment
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.5),
+                              fontSize: 12,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ],
-                      ))
-                ],
-              ),
-            )));
+                      ),
+                    ],
+                  ))
+            ],
+          ),
+        )));
   }
 }

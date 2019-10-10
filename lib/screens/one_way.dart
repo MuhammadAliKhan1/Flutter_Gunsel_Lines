@@ -168,7 +168,10 @@ class _OneWayFormState extends State<OneWayForm> {
       oneWay = "ONE WAY",
       roundWay = "ROUND WAY",
       selectDepartureStation = "Please select an departure station",
-      selectValidStation = "Please select a valid departure station";
+      selectValidStation = "Please select a valid departure station",
+      selectArrivalStation = "Please select an arrival station",
+      selectArrivalValidStation = "Please select a valid arrival station",
+      selectDifferentStation = "Please select different stations.";
 
   @override
   void initState() {
@@ -201,6 +204,9 @@ class _OneWayFormState extends State<OneWayForm> {
         btnSearch = "Пошук";
         selectDepartureStation = "Виберіть пункт відправлення";
         selectValidStation = "Виберіть дійсну станцію відправлення";
+        selectArrivalStation = "Виберіть станцію прибуття";
+        selectArrivalValidStation = "Виберіть дійсну станцію прибуття";
+        selectDifferentStation = "Виберіть інші станції.";
       } else if (b == 2) {
         arrivalHint = "Enter arrival station";
         departHint = "Enter departure station";
@@ -209,6 +215,9 @@ class _OneWayFormState extends State<OneWayForm> {
         btnSearch = "Search";
         selectDepartureStation = "Please select an departure station";
         selectValidStation = "Please select a valid departure station";
+        selectArrivalStation = "Please select an arrival station";
+        selectArrivalValidStation = "Please select a valid arrival station";
+        selectDifferentStation = "Please select different stations.";
       } else if (b == 3) {
         arrivalHint = "Введите станцию ​​прибытия";
         departHint = "Введите станцию ​​отправления";
@@ -218,6 +227,10 @@ class _OneWayFormState extends State<OneWayForm> {
         selectDepartureStation = "Пожалуйста, выберите станцию ​​отправления";
         selectValidStation =
             "Пожалуйста, выберите действующую станцию ​​отправления";
+        selectArrivalStation = "Пожалуйста, выберите станцию ​​прибытия";
+        selectArrivalValidStation =
+            "Пожалуйста, выберите действующую станцию ​​прибытия";
+        selectDifferentStation = "Пожалуйста, выберите разные станции.";
       }
     });
   }
@@ -281,7 +294,7 @@ class _OneWayFormState extends State<OneWayForm> {
                 } else if (!stationList.contains(value))
                   return selectValidStation;
                 else if (this._arrivalStation.text == value)
-                  return selectDepartureStation;
+                  return selectDifferentStation;
               },
               onSaved: (value) => this._departureStationVal = value,
             ),
@@ -351,9 +364,9 @@ class _OneWayFormState extends State<OneWayForm> {
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please select an arrival station';
+                  return selectArrivalStation;
                 } else if (!stationList.contains(value))
-                  return 'Please select a valid arrival station';
+                  return selectArrivalValidStation;
               },
               onSaved: (value) => this._arrivalStationVal = value,
             ),

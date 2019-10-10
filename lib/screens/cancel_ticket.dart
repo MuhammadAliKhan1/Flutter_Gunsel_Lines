@@ -3,7 +3,6 @@ import 'package:gunsel/data/constants.dart';
 
 import 'package:gunsel/data/sharedPreference.dart';
 import 'package:gunsel/screens/final_cancelticket.dart';
-import 'package:gunsel/data/sharedPreference.dart';
 import 'package:gunsel/data/cancelticketinfomodel.dart';
 import 'package:http/http.dart';
 
@@ -23,7 +22,23 @@ class CancelTicketState extends State<CancelTicket> {
   String cancelTicket = "Cancel Ticket",
       secureHint = "Secure code",
       ticketNumberHint = "Ticket number",
-      btnCancel = "Cancel";
+      btnCancel = "Cancel",
+      secureNumberRequired = "Secure code and ticket number is required",
+      ok = "Ok",
+      error = "Error",
+      january = "January",
+      feb = "February",
+      march = "March",
+      april = "April",
+      may = "May",
+      june = "June",
+      july = "July",
+      august = "August",
+      sep = "September",
+      oct = "October",
+      nov = "November",
+      dec = "December",
+      correnData = "Enter the correct data";
 
   @override
   void initState() {
@@ -44,16 +59,64 @@ class CancelTicketState extends State<CancelTicket> {
         ticketNumberHint = "Номер квитка";
         btnCancel = "Скасувати";
         cancelTicket = "Скасувати квиток";
+        secureNumberRequired = "Потрібні безпечний код та номер квитка";
+        ok = "гаразд";
+        error = "Помилка";
+        january = "Січень";
+        feb = "Лютий";
+        march = "Березень";
+        april = "Квітень";
+        may = "Може";
+        june = "Червень";
+        july = "Липень";
+        august = "Серпень";
+        sep = "Вересень";
+        oct = "Жовтень";
+        nov = "Листопад";
+        dec = "Грудень";
+        correnData = "Введіть правильні дані";
       } else if (b == 2) {
         cancelTicket = "Cancel Ticket";
         secureHint = "Secure code";
         ticketNumberHint = "Ticket number";
         btnCancel = "Cancel";
+        secureNumberRequired = "Secure code and ticket number is required";
+        ok = "OK";
+        error = "Error";
+        january = "January";
+        feb = "February";
+        march = "March";
+        april = "April";
+        may = "May";
+        june = "June";
+        july = "July";
+        august = "August";
+        sep = "September";
+        oct = "October";
+        nov = "November";
+        dec = "December";
+        correnData = "Enter the correct data";
       } else if (b == 3) {
         cancelTicket = "Отменить билет";
         secureHint = "Код безопасности";
         ticketNumberHint = "Номер билета";
         btnCancel = "Отмена";
+        secureNumberRequired = "Требуется безопасный код и номер билета";
+        ok = "Хорошо";
+        error = "ошибка";
+        january = "январь";
+        feb = "февраль";
+        march = "марш";
+        april = "апрель";
+        may = "май";
+        june = "июнь";
+        july = "июль";
+        august = "августейший";
+        sep = "сентябрь";
+        oct = "октября";
+        nov = "ноябрь";
+        dec = "Декабрь";
+        correnData = "Введите правильные данные";
       }
     });
   }
@@ -76,18 +139,11 @@ class CancelTicketState extends State<CancelTicket> {
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: ListView(children: <Widget>[
-              //Name
               Padding(
                   padding: EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),
                   child: TextFormField(
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 18.0),
-                    //TODO: Secure Code textfield
-                    validator: (String value) {
-                      if (value.isEmpty) {
-                        return "Please enter location";
-                      }
-                    },
                     keyboardType: TextInputType.text,
                     controller: this._secureCode,
                     decoration: InputDecoration(
@@ -104,11 +160,6 @@ class CancelTicketState extends State<CancelTicket> {
                   child: TextFormField(
                     style: TextStyle(fontSize: 18.0),
                     textAlign: TextAlign.center,
-                    validator: (String value) {
-                      if (value.isEmpty) {
-                        return "Please enter location";
-                      }
-                    },
                     keyboardType: TextInputType.text,
                     controller: this._ticketNumber,
                     decoration: InputDecoration(
@@ -138,6 +189,7 @@ class CancelTicketState extends State<CancelTicket> {
                   ),
                   onPressed: () {
                     getticketInformation();
+
 //                    Navigator.push(
 //                        context,
 //                        MaterialPageRoute(
@@ -152,8 +204,6 @@ class CancelTicketState extends State<CancelTicket> {
       ]),
     );
   }
-
-
 
   Future<void> getticketInformation() async {
     try {
@@ -182,8 +232,7 @@ class CancelTicketState extends State<CancelTicket> {
         'Data': jsonDecode(jsonDecode(response.body)['Data'])
       };
       print(infoapiData);
-      Cancelticketinfo infoapimodelobj =
-      Cancelticketinfo.fromJson(infoapiData);
+      Cancelticketinfo infoapimodelobj = Cancelticketinfo.fromJson(infoapiData);
       var infoapifinalData = infoapimodelobj.toJson();
 
 //
@@ -193,26 +242,27 @@ class CancelTicketState extends State<CancelTicket> {
 //    print("Image is:" + fbProfData['Data']['ImageURL']);
 //    print("Email is:" + fbProfData['Data']['Email']);
 
-
       print("status code is:" + statusCode.toString());
-
 
       // print("Allow cancel is:"+infoapifinalData['Data']['PenaltyRate'].toString());
       var _ticketId = infoapifinalData['Data']['Ticket']['TicketNo'];
-      var _departPlace = infoapifinalData['Data']['Ticket']['FromStation']['CityName'];
-      var _departTime = infoapifinalData['Data']['Ticket']['DepartureTime']
-          .substring(0, 5);
-      var _arrivalPlace = infoapifinalData['Data']['Ticket']['ToStation']['CityName'];
-      var _arrivalTime = infoapifinalData['Data']['Ticket']['ArrivalTime']
-          .substring(0, 5);
-      var _name = infoapifinalData['Data']['Ticket']['FirstName'] + " " +
+      var _departPlace =
+          infoapifinalData['Data']['Ticket']['FromStation']['CityName'];
+      var _departTime =
+          infoapifinalData['Data']['Ticket']['DepartureTime'].substring(0, 5);
+      var _arrivalPlace =
+          infoapifinalData['Data']['Ticket']['ToStation']['CityName'];
+      var _arrivalTime =
+          infoapifinalData['Data']['Ticket']['ArrivalTime'].substring(0, 5);
+      var _name = infoapifinalData['Data']['Ticket']['FirstName'] +
+          " " +
           infoapifinalData['Data']['Ticket']['LastName'];
       var _seatNumber = infoapifinalData['Data']['Ticket']['SeatNumber'];
       var _bookingDate = infoapifinalData['Data']['Ticket']['TicketDate'];
-      var _currencyName = infoapifinalData['Data']['Ticket']['Currency']['CurrencyName'];
+      var _currencyName =
+          infoapifinalData['Data']['Ticket']['Currency']['CurrencyName'];
       var _paidBack = infoapifinalData['Data']['TotalPaidBack'].toString();
       var _totalCut = infoapifinalData['Data']['TotalCut'].toString();
-
 
       // print("Ticket id is :"+infoapifinalData['Data']['Ticket']['TicketId']);
       //print("Departure place :"+infoapifinalData['Data']['Ticket']['FromStation']['CityName']);
@@ -226,63 +276,48 @@ class CancelTicketState extends State<CancelTicket> {
       //print("Total Paid Back is :"+infoapifinalData['Data']['TotalPaidBack'].toString());
       //print("Total cut:"+infoapifinalData['Data']['TotalCut'].toString());
 
-
-      var moonLanding = DateTime.parse(
-          infoapifinalData['Data']['Ticket']['TicketDate']);
+      var moonLanding =
+          DateTime.parse(infoapifinalData['Data']['Ticket']['TicketDate']);
       var _year = moonLanding.year.toString();
       var _day = moonLanding.day.toString();
       var _month = moonLanding.month.toString();
       String monthName;
 
       if (_month == "1") {
-        monthName = "January";
+        monthName = january;
+      } else if (_month == "2") {
+        monthName = feb;
+      } else if (_month == "3") {
+        monthName = march;
+      } else if (_month == "4") {
+        monthName = april;
+      } else if (_month == "5") {
+        monthName = may;
+      } else if (_month == "6") {
+        monthName = june;
+      } else if (_month == "7") {
+        monthName = july;
+      } else if (_month == "8") {
+        monthName = august;
+      } else if (_month == "9") {
+        monthName = sep;
+      } else if (_month == "10") {
+        monthName = oct;
+      } else if (_month == "11") {
+        monthName = nov;
+      } else {
+        monthName = dec;
       }
-      else if (_month == "2") {
-        monthName = "February";
-      }
-      else if (_month == "3") {
-        monthName = "March";
-      }
-      else if (_month == "4") {
-        monthName = "April";
-      }
-      else if (_month == "5") {
-        monthName = "May";
-      }
-      else if (_month == "6") {
-        monthName = "June";
-      }
-      else if (_month == "7") {
-        monthName = "July";
-      }
-      else if (_month == "8") {
-        monthName = "August";
-      }
-      else if (_month == "9") {
-        monthName = "September";
-      }
-      else if (_month == "10") {
-        monthName = "October";
-      }
-      else if (_month == "11") {
-        monthName = "November";
-      }
-      else {
-        monthName = "December";
-      }
-
 
 //    print("Year is:"+moonLanding.year.toString());
 //    print("Date is:"+moonLanding.day.toString());
 //    print("Month is:"+moonLanding.month.toString());
 
-
       if (statusCode == 200) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    FinalCancelTicket(
+                builder: (context) => FinalCancelTicket(
                       secureCode: _secureCode.text,
                       ticketNumber: _ticketNumber.text,
                       ticketId: _ticketId,
@@ -300,39 +335,38 @@ class CancelTicketState extends State<CancelTicket> {
                       month: monthName.toUpperCase(),
                       year: _year,
                     )));
-      }else
-        {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text(
-                    "Error",
-                  ),
-                  content: Text("Enter the correct data."),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text("OK"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    )
-                  ],
-                );
-              });
-        }
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text(
+                  error,
+                ),
+                content: Text(secureNumberRequired),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text(ok),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              );
+            });
+      }
     } catch (e) {
       showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
               title: Text(
-                "Error",
+                error,
               ),
-              content: Text("Enter the correct data."),
+              content: Text(correnData),
               actions: <Widget>[
                 FlatButton(
-                  child: Text("OK"),
+                  child: Text(ok),
                   onPressed: () {
                     Navigator.pop(context);
                   },

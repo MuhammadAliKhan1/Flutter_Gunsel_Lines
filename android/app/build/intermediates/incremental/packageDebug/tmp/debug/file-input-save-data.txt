@@ -1,5 +1,9 @@
 #Internal package file, do not edit.
+<<<<<<< HEAD
+#Tue Oct 08 21:47:11 PKT 2019
+=======
 #Tue Oct 08 23:48:22 PKT 2019
+>>>>>>> 8e6d23f51687a8452aa27c4b30d1d860a2b60b8b
 60.set=ASSET
 52.set=ASSET
 53.base=/home/ali/Desktop/Gunsel/android/app/build/intermediates/merged_assets/debug/mergeDebugAssets/out

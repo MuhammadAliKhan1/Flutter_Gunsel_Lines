@@ -547,6 +547,9 @@ class _DetailFormState extends State<DetailForm> {
   String surName = "Surname";
   String email = "Email";
   String seat = "Seat";
+  String enterName = "Please enter your name";
+  String enterSur = "Please enter your surname";
+  String enterEmail = "Please enter your email";
 
   void searchTicketlan() async {
     int b;
@@ -561,18 +564,27 @@ class _DetailFormState extends State<DetailForm> {
         surName = "Прізвище";
         email = "Електронна пошта";
         seat = "Сидіння";
+        enterName = "Введіть своє ім’я";
+        surName = "Введіть своє прізвище";
+        enterEmail = "Будь ласка, введіть свій електронний лист";
       } else if (b == 2) {
         information = "Voyager Information";
         name = "Name";
         surName = "Surname";
         email = "Email";
         seat = "Seat";
+        enterName = "Please enter your name";
+        enterSur = "Please enter your surname";
+        enterEmail = "Please enter your email";
       } else if (b == 3) {
         information = "Информация о Вояджере";
         name = "имя";
         surName = "Фамилия";
         email = "Электронное письмо";
         seat = "сиденье";
+        enterName = "Пожалуйста, введите Ваше имя";
+        enterSur = "Пожалуйста, введите вашу фамилию";
+        enterEmail = "Пожалуйста, введите ваш адрес электронной почты";
       }
     });
   }
@@ -612,7 +624,7 @@ class _DetailFormState extends State<DetailForm> {
               child: TextFormField(
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter your name.';
+                    return enterName;
                   }
                 },
                 controller: this._name,
@@ -636,7 +648,7 @@ class _DetailFormState extends State<DetailForm> {
               child: TextFormField(
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter your surname.';
+                    return surName;
                   }
                 },
                 controller: this._surname,
@@ -668,7 +680,7 @@ class _DetailFormState extends State<DetailForm> {
               child: TextFormField(
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter your email.';
+                    return enterEmail;
                   }
                 },
                 onSaved: (email) {
@@ -703,7 +715,7 @@ class _DetailFormState extends State<DetailForm> {
                                 child: DropdownButton(
                               icon: Text(
                                 ' ${this._currentCode} ',
-                                style: TextStyle(fontSize: 17),
+                                style: TextStyle(fontSize: 20),
                               ),
                               elevation: 0,
                               value: _currentFlag,
@@ -729,7 +741,8 @@ class _DetailFormState extends State<DetailForm> {
                                 }
                               },
                               inputFormatters: [
-                                WhitelistingTextInputFormatter.digitsOnly
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(9)
                               ],
                               controller: this._number,
                               keyboardType: TextInputType.number,
@@ -760,9 +773,10 @@ class _DetailFormState extends State<DetailForm> {
       // but I'll just use a simple text for this
       items.add(DropdownMenuItem(
           value: flag,
-          child: new Image(
+          child: Image(
             image: flag,
-            height: 25,
+            height: 40,
+            width: 40,
           )));
     }
     return items;
