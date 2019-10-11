@@ -26,7 +26,10 @@ class _SideDrawerState extends State<SideDrawer> {
   String checkprofileImage = "";
   bool checkImage = false;
 
-  String profileImage, profilefirstName, profileEmail, profileLastName;
+  String profileImage = "",
+      profilefirstName = "",
+      profileEmail = "",
+      profileLastName = "";
 
   @override
   void initState() {

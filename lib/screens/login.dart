@@ -18,7 +18,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 class LoginScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return LoginScreenState();
   }
 }
@@ -132,9 +131,11 @@ class _LoginFormState extends State<LoginForm> {
       sendPassword = "Sending Password",
       noDatafound = "No Data Found",
       ok = "Ok",
-      error = "Sign up Error",
+      error = "Sign in Error",
       err = "Error",
-      passworderr = "Password field should not be empty";
+      passworderr = "Password field should not be empty",
+      logError = "Login error",
+      invalidData = "-UserId or Phone Number Required!";
 
   @override
   void initState() {
@@ -171,9 +172,11 @@ class _LoginFormState extends State<LoginForm> {
         sendPassword = "Відправлення пароля";
         noDatafound = "Даних не знайдено";
         ok = "Гаразд";
-        error = "Помилка реєстрації";
+        error = "Помилка входу";
         err = "Помилка";
         passworderr = "Поле пароля не повинно бути порожнім";
+        logError = "Помилка входу";
+        invalidData = "-Використовується номер або номер телефону!";
       } else if (b == 2) {
         login = "Login";
         passwordHint = "Password";
@@ -187,9 +190,11 @@ class _LoginFormState extends State<LoginForm> {
         sendPassword = "Sending Password";
         noDatafound = "No Data Found";
         ok = "Ok";
-        error = "Sign up Error";
+        error = "Sign in Error";
         err = "Error";
         passworderr = "Password field should not be empty";
+        logError = "Login error";
+        invalidData = "-UserId or Phone Number Required!";
       } else if (b == 3) {
         login = "Авторизоваться";
         passwordHint = "пароль";
@@ -203,9 +208,11 @@ class _LoginFormState extends State<LoginForm> {
         sendPassword = "Отправка пароля";
         noDatafound = "Данные не найдены";
         ok = "Хорошо";
-        error = "Ошибка регистрации";
+        error = "Ошибка входа";
         err = "ошибка";
         passworderr = "Поле пароля не должно быть пустым";
+        logError = "Ошибка входа";
+        invalidData = "-UserId или номер телефона требуется!";
       }
     });
   }
@@ -548,21 +555,24 @@ class _LoginFormState extends State<LoginForm> {
 //        _currentId);
 
     // make POST request
-    Response response = await post(url, headers: headers, body: json);
 
-    // check the status code for the result
-    int statusCode = response.statusCode;
-    //String body = response.body;
-    // print("status code:" + statusCode.toString());
-    //print("Body is:" + body);
+    if (!(numbers == "" || passwordSignins == "")) {
+      Response response = await post(url, headers: headers, body: json);
 
-    if (statusCode == 200) {
-      Map<String, dynamic> apiDat = {
-        'Data': jsonDecode(jsonDecode(response.body)['Data'])
-      };
-      print(apiDat);
-      EditProfileModel editProfileModelObj = EditProfileModel.fromJson(apiDat);
-      var editProfData = editProfileModelObj.toJson();
+      // check the status code for the result
+      int statusCode = response.statusCode;
+      //String body = response.body;
+      // print("status code:" + statusCode.toString());
+      //print("Body is:" + body);
+
+      if (statusCode == 200) {
+        Map<String, dynamic> apiDat = {
+          'Data': jsonDecode(jsonDecode(response.body)['Data'])
+        };
+        print(apiDat);
+        EditProfileModel editProfileModelObj =
+            EditProfileModel.fromJson(apiDat);
+        var editProfData = editProfileModelObj.toJson();
 
 //      print("\nToken is:"+editProfData['Data']['Token']);
 //      print("\nFirstName is:"+editProfData['Data']['FirstName']);
@@ -572,26 +582,49 @@ class _LoginFormState extends State<LoginForm> {
 //      print("\nPhone Number is:"+editProfData['Data']['PhoneNumber']);
 //      print("\nCountry Id is:"+editProfData['Data']['CountryId']);
 
-      shPref.setshared(
-          editProfData['Data']['Token'],
-          editProfData['Data']['FirstName'],
-          editProfData['Data']['LastName'],
-          imageUrl,
-          editProfData['Data']['Email'],
-          editProfData['Data']['PhoneNumber'],
-          editProfData['Data']['CountryId'],
-          loginCategory);
+        shPref.setshared(
+            editProfData['Data']['Token'],
+            editProfData['Data']['FirstName'],
+            editProfData['Data']['LastName'],
+            imageUrl,
+            editProfData['Data']['Email'],
+            editProfData['Data']['PhoneNumber'],
+            editProfData['Data']['CountryId'],
+            loginCategory);
 
-      Navigator.pushNamed(context, oneWayScreen);
+        Navigator.pushNamed(context, oneWayScreen);
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text(
+                  err,
+                ),
+                content: Text(error),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text(ok),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              );
+            });
+      }
     } else {
       showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
               title: Text(
-                "Error",
+                logError,
               ),
-              content: Text(error),
+              content: Text(
+                invalidData,
+                style: TextStyle(fontSize: 14.0),
+              ),
               actions: <Widget>[
                 FlatButton(
                   child: Text(ok),
