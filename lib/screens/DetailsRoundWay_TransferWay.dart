@@ -436,23 +436,27 @@ class _DetailTicketState extends State<DetailTicket> {
                     ],
                   ),
                   SizedBox(
-                    width: (widget.day > 9 ? 80.0 : 90.0),
+                    width: (widget.day > 9 ? 90.0 : 100.0),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(right: 100),
-                          child: Text(
-                            '${widget.departureStation}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                              fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w600,
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            width: ScreenUtil().setSp(150),
+                            child: AutoSizeText(
+                              '${widget.departureStation}',
+                              style: TextStyle(fontSize: 25),
+                              maxLines: 2,
                             ),
-                          )),
+                          ),
+                          SizedBox(
+                            width: ScreenUtil().setSp(100),
+                          ),
+                        ],
+                      ),
                       Text(
                         '${widget.departureTime}',
                         style: TextStyle(
@@ -474,23 +478,27 @@ class _DetailTicketState extends State<DetailTicket> {
                     ],
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 50,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(right: 130),
-                          child: Text(
-                            '${widget.arrivalStation}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                              fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w600,
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            width: ScreenUtil().setSp(150),
+                            child: AutoSizeText(
+                              '${widget.arrivalStation}',
+                              style: TextStyle(fontSize: 25),
+                              maxLines: 2,
                             ),
-                          )),
+                          ),
+                          SizedBox(
+                            width: ScreenUtil().setSp(100),
+                          ),
+                        ],
+                      ),
                       Text(
                         '${widget.arrivalTime}',
                         style: TextStyle(
@@ -544,6 +552,7 @@ class _DetailFormState extends State<DetailForm> {
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
 
+  final FocusNode _focusNode = FocusNode();
   @override
   void initState() {
     searchTicketlan();
@@ -552,6 +561,19 @@ class _DetailFormState extends State<DetailForm> {
     _currentCode = countryCode.keys
         .firstWhere((k) => countryCode[k] == _currentFlag, orElse: () => '');
     super.initState();
+    _focusNode.addListener(() {
+      formsData[widget.index]['Number'] = this._number.text.trim();
+      if (this._number.text.length == 9) {
+        // The below code gives a range error if not 10.
+        RegExp phone = RegExp(r'(\d{2})(\d{3})(\d{2})(\d{2})');
+        var matches = phone.allMatches(_number.text.trim());
+        var match = matches.elementAt(0);
+        var newText =
+            '${match.group(1)})${match.group(2)}-${match.group(3)}-${match.group(4)}';
+        formsData[widget.index]['Number'] = this._number.text;
+        this._number.text = newText;
+      }
+    });
   }
 
   SharePreferencelogin sh = SharePreferencelogin();
@@ -738,9 +760,10 @@ class _DetailFormState extends State<DetailForm> {
                           ),
                           Flexible(
                             child: TextFormField(
-                              onSaved: (number) {
-                                formsData[widget.index]['Number'] =
-                                    number.trim();
+                              focusNode: _focusNode,
+                              onChanged: (number) {
+                                if (number.length > 8)
+                                  FocusScope.of(context).unfocus();
                               },
                               validator: (value) {
                                 if (value.isEmpty) {

@@ -175,14 +175,6 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
-                    RaisedButton(
-                      onPressed: () {
-                        debugPrint(
-                          paymentResultTicketData.toString(),
-                          wrapWidth: 1024,
-                        );
-                      },
-                    ),
                     Column(
                       children: <Widget>[
                         Row(

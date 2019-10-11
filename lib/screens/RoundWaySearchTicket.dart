@@ -465,7 +465,6 @@ class _TicketState extends State<Ticket> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     detailsBarlan();
   }
