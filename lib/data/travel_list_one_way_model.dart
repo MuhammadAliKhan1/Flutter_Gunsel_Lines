@@ -36,8 +36,7 @@ class TravelListOneWayModel {
         'token': prefs.getString('Token'),
       },
     );
-    print(
-        'https://test-api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c4=true');
+   
     DataStatusSeperator seperator =
         DataStatusSeperator.fromJson(jsonDecode(response.body));
     if ((seperator.toJson()['Data']) != null) {

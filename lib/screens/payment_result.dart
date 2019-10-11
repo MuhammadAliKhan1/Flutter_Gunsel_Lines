@@ -228,75 +228,41 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return PaymentResultTicket(
-                          day: int.parse(widget.ticketData['FirstLeg']
-                                  ['TicketData']['DepartureDate']
+                          day: int.parse(paymentResultTicketData['Data']
+                                  ['Tickets'][index]['TravelDate']
                               .substring(8, 10)),
-                          month: int.parse(widget.ticketData['FirstLeg']
-                                  ['TicketData']['DepartureDate']
+                          month: int.parse(paymentResultTicketData['Data']
+                                  ['Tickets'][index]['TravelDate']
                               .substring(5, 7)),
-                          year: int.parse(widget.ticketData['FirstLeg']
-                                  ['TicketData']['DepartureDate']
+                          year: int.parse(paymentResultTicketData['Data']
+                                  ['Tickets'][index]['TravelDate']
                               .substring(0, 4)),
-                          arrivalStation: widget.ticketData['FirstLeg']
-                              ['TicketData']['ToStation']['StationName'],
-                          departureStation: widget.ticketData['FirstLeg']
-                              ['TicketData']['FromStation']['StationName'],
-                          departureTime: widget.ticketData['FirstLeg']
-                                  ['TicketData']['DepartureTime']
+                          arrivalStation: paymentResultTicketData['Data']
+                              ['Tickets'][index]['ToStation']['StationName'],
+                          departureStation: paymentResultTicketData['Data']
+                              ['Tickets'][index]['FromStation']['StationName'],
+                          departureTime: paymentResultTicketData['Data']
+                                  ['Tickets'][index]['DepartureTime']
                               .substring(0, 5),
-                          arrivalTime: widget.ticketData['FirstLeg']
-                                  ['TicketData']['ArrivalTime']
+                          arrivalTime: paymentResultTicketData['Data']
+                                  ['Tickets'][index]['ArrivalTime']
                               .substring(0, 5),
-                          seatsDetail: widget.ticketData['FirstLeg']
-                              ['SeatVoyagerInfo'][(index + 1)],
-                          ticketPrice: widget.ticketData['FirstLeg']
-                              ['TicketData']['TicketPrice'],
-                          currencyType: widget.ticketData['FirstLeg']
-                              ['TicketData']['Currency']['CurrencyName'],
+                          firstName: paymentResultTicketData['Data']['Tickets']
+                              [index]['FirstName'],
+                          lastName: paymentResultTicketData['Data']['Tickets']
+                              [index]['LastName'],
+                          seatNumber: paymentResultTicketData['Data']['Tickets']
+                              [index]['SeatNumber'],
+                          ticketPrice: paymentResultTicketData['Data']
+                              ['Tickets'][index]['TicketPrice'],
+                          currencyType: paymentResultTicketData['Data']
+                              ['Tickets'][index]['Currency']['CurrencyName'],
                         );
                       },
-                      childCount: widget.ticketData['FirstLeg']['SeatCount'],
+                      childCount:
+                          paymentResultTicketData['Data']['Tickets'].length,
                     ),
                   )),
-              widget.ticketData['BuyTicketData']['RoundWayCheck']
-                  ? SliverPadding(
-                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                      sliver: SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            return PaymentResultTicket(
-                              day: int.parse(widget.ticketData['SecondLeg']
-                                      ['TicketData']['DepartureDate']
-                                  .substring(8, 10)),
-                              month: int.parse(widget.ticketData['SecondLeg']
-                                      ['TicketData']['DepartureDate']
-                                  .substring(5, 7)),
-                              year: int.parse(widget.ticketData['SecondLeg']
-                                      ['TicketData']['DepartureDate']
-                                  .substring(0, 4)),
-                              arrivalStation: widget.ticketData['SecondLeg']
-                                  ['TicketData']['ToStation']['StationName'],
-                              departureStation: widget.ticketData['SecondLeg']
-                                  ['TicketData']['FromStation']['StationName'],
-                              departureTime: widget.ticketData['SecondLeg']
-                                      ['TicketData']['DepartureTime']
-                                  .substring(0, 5),
-                              arrivalTime: widget.ticketData['SecondLeg']
-                                      ['TicketData']['ArrivalTime']
-                                  .substring(0, 5),
-                              seatsDetail: widget.ticketData['SecondLeg']
-                                  ['SeatVoyagerInfo'][(index + 1)],
-                              ticketPrice: widget.ticketData['SecondLeg']
-                                  ['TicketData']['TicketPrice'],
-                              currencyType: widget.ticketData['SecondLeg']
-                                  ['TicketData']['Currency']['CurrencyName'],
-                            );
-                          },
-                          childCount: widget.ticketData['SecondLeg']
-                              ['SeatCount'],
-                        ),
-                      ))
-                  : SliverToBoxAdapter(),
               SliverToBoxAdapter(
                 child: FittedBox(
                   child: Center(
@@ -526,10 +492,12 @@ class PaymentResultTicket extends StatefulWidget {
       departureTime,
       arrivalStation,
       arrivalTime,
-      currencyType;
+      currencyType,
+      seatNumber,
+      firstName,
+      lastName;
   int day, month, year;
   double ticketPrice;
-  Map<String, dynamic> seatsDetail;
 
   PaymentResultTicket({
     @required this.day,
@@ -541,7 +509,9 @@ class PaymentResultTicket extends StatefulWidget {
     @required this.arrivalTime,
     @required this.ticketPrice,
     @required this.currencyType,
-    @required this.seatsDetail,
+    @required this.firstName,
+    @required this.lastName,
+    @required this.seatNumber,
   });
 
   @override
@@ -694,7 +664,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                           ),
                                         ),
                                         Text(
-                                          '${widget.seatsDetail['SeatNumber']}',
+                                          '${widget.seatNumber}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontFamily: 'Helvetica',
@@ -849,7 +819,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          '     ${widget.seatsDetail['Name']} ${widget.seatsDetail['Surname']}',
+                                          '     ${widget.firstName} ${widget.lastName}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontFamily: 'Helvetica',

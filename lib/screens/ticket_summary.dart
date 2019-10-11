@@ -84,11 +84,13 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
         null)
       total += widget.ticketData['FirstLeg']['TicketData']['TravelVariantLeg2']
           ['TicketPrice'];
-    if (widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] !=
-        null)
-      total += widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2']
-          ['TicketPrice'];
-    userData = Map();
+    if (widget.ticketData['BuyTicketData']['RoundWayCheck']) {
+      if (widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] !=
+          null)
+        total += widget.ticketData['SecondLeg']['TicketData']
+            ['TravelVariantLeg2']['TicketPrice'];
+      userData = Map();
+    }
   }
 
   SharePreferencelogin sh = SharePreferencelogin();
@@ -309,7 +311,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                               ['SeatCount'],
                         ),
                       ))
-                  : SliverToBoxAdapter,
+                  : SliverToBoxAdapter(),
               (widget.ticketData['BuyTicketData']['RoundWayCheck'] &&
                       (widget.ticketData['SecondLeg']['TicketData']
                               ['TravelVariantLeg2'] !=
@@ -1026,124 +1028,3 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
     );
   }
 }
-/* import 'package:flutter/material.dart';
-import 'package:gunsel/data/constants.dart';
-import 'package:gunsel/widgets/button.dart';
-
-class TicketSummary extends StatelessWidget {
-  Map<String, dynamic> ticketData;
-  TicketSummary({
-    @required this.ticketData,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return GunselScaffold(
-      appBarIcon: backArrow,
-      appBarIncluded: true,
-      backgroundImage: scaffoldImg,
-      bodyWidget: TicketSummaryScreen(
-        ticketData: this.ticketData,
-      ),
-      appBarTitle: 'Payment Info',
-      appBarTitleIncluded: true,
-      drawerIncluded: false,
-    );
-  }
-}
-
-class TicketSummaryScreen extends StatefulWidget {
-  Map<String, dynamic> ticketData;
-  TicketSummaryScreen({
-    @required this.ticketData,
-  });
-  @override
-  _TicketSummaryScreenState createState() => _TicketSummaryScreenState();
-}
-
-class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.all(5.0),
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text("Your seat",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Helvetica',
-                        fontWeight: FontWeight.w600)),
-                Text(
-                  "Details",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Helvetica',
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  "Purchase Details",
-                  style: TextStyle(
-                      color: Colors.yellow,
-                      fontFamily: 'Helvetica',
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  "Purchase",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Helvetica',
-                      fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-            FittedBox(
-              alignment: Alignment.center,
-              child: Image(
-                height: 30,
-                width: 310,
-                image: wizardThree,
-              ),
-            ),
-          ],
-        ),
-
-        FittedBox(
-          child: SizedBox(
-            height: 3,
-            width: 100,
-          ),
-        ),
-
-        SizedBox(
-          height: 14,
-        ),
-        Center(
-            child: GunselButton(
-          btnWidth: 600,
-          btnFontFamily: 'Helvetica',
-          btnText: 'Pay',
-          textWeight: FontWeight.w800,
-          btnTextFontSize: 40,
-          btnTextColor: darkBlue,
-          whenPressed: () {
-            //Navigator.pushNamed(context, payScreen);
-            Navigator.pushNamed(context, paymentResultScreen);
-          },
-        )),
-      ],
-    );
-  }
-}
-
-
- */
