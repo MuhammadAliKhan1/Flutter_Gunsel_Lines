@@ -89,8 +89,8 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
           null)
         total += widget.ticketData['SecondLeg']['TicketData']
             ['TravelVariantLeg2']['TicketPrice'];
-      userData = Map();
     }
+    userData = Map();
   }
 
   SharePreferencelogin sh = SharePreferencelogin();

@@ -257,6 +257,8 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                               ['Tickets'][index]['TicketPrice'],
                           currencyType: paymentResultTicketData['Data']
                               ['Tickets'][index]['Currency']['CurrencyName'],
+                          ticketNumber: paymentResultTicketData['Data']
+                              ['Tickets'][index]['TicketNo'],
                         );
                       },
                       childCount:
@@ -495,7 +497,8 @@ class PaymentResultTicket extends StatefulWidget {
       currencyType,
       seatNumber,
       firstName,
-      lastName;
+      lastName,
+      ticketNumber;
   int day, month, year;
   double ticketPrice;
 
@@ -503,6 +506,7 @@ class PaymentResultTicket extends StatefulWidget {
     @required this.day,
     @required this.month,
     @required this.year,
+    @required this.ticketNumber,
     @required this.departureStation,
     @required this.arrivalStation,
     @required this.departureTime,
@@ -583,7 +587,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                         width: 500,
                         child: Center(
                           child: Text(
-                            '',
+                            'Ticket Number:      ${widget.ticketNumber}',
                             style: TextStyle(
                               fontSize: 30,
                               color: Colors.white,
