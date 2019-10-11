@@ -481,7 +481,7 @@ class _DetailTicketState extends State<DetailTicket> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                     Row(
+                      Row(
                         children: <Widget>[
                           Container(
                             width: ScreenUtil().setSp(150),
@@ -744,14 +744,8 @@ class _DetailFormState extends State<DetailForm> {
                           Flexible(
                             child: TextFormField(
                               onSaved: (number) {
-                                var code;
-                                if (this._currentCode != '+48')
-                                  code = this._currentCode.substring(0, 3) +
-                                      this._currentCode.substring(4);
-                                else
-                                  code = this._currentCode;
                                 formsData[widget.index]['Number'] =
-                                    ('$code$number');
+                                    number.trim();
                               },
                               validator: (value) {
                                 if (value.isEmpty) {

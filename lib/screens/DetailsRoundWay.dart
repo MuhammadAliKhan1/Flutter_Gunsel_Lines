@@ -718,22 +718,12 @@ class _DetailFormState extends State<DetailForm> {
                           Flexible(
                             child: TextFormField(
                               onSaved: (number) {
-                                var code;
-                                if (this._currentCode != '+48')
-                                  code = this._currentCode.substring(0, 3) +
-                                      this._currentCode.substring(4);
-                                else
-                                  code = this._currentCode;
                                 formsData[widget.index]['Number'] =
-                                    ('$code$number');
-                              },
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return;
-                                }
+                                    number.trim();
                               },
                               inputFormatters: [
-                                WhitelistingTextInputFormatter.digitsOnly
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(9)
                               ],
                               controller: this._number,
                               keyboardType: TextInputType.number,
