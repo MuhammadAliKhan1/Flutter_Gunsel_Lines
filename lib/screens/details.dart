@@ -434,17 +434,16 @@ class _DetailTicketState extends State<DetailTicket> {
                           child: Text(
                             '${widget.departureStation}',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 25,
                               color: Colors.black,
                               fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w600,
                             ),
                           )),
                       Text(
                         '${widget.departureTime}',
                         style: TextStyle(
                           fontSize: 80,
-                          color: darkBlue,
+                          color: Color.fromRGBO(14, 52, 113, 10),
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
                         ),
@@ -452,7 +451,7 @@ class _DetailTicketState extends State<DetailTicket> {
                       Text(
                         departure,
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 30,
                           color: Colors.black,
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
@@ -472,17 +471,16 @@ class _DetailTicketState extends State<DetailTicket> {
                           child: Text(
                             '${widget.arrivalStation}',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 25,
                               color: Colors.black,
                               fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w600,
                             ),
                           )),
                       Text(
                         '${widget.arrivalTime}',
                         style: TextStyle(
                           fontSize: 80,
-                          color: darkBlue,
+                          color: Color.fromRGBO(14, 52, 113, 10),
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
                         ),
@@ -490,7 +488,7 @@ class _DetailTicketState extends State<DetailTicket> {
                       Text(
                         arrival,
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 30,
                           color: Colors.black,
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
@@ -599,7 +597,7 @@ class _DetailFormState extends State<DetailForm> {
         ListTile(
           contentPadding: EdgeInsets.all(20),
           title: Text(
-            '${widget.index}.$information:',
+            '${widget.index}.$information',
             style: TextStyle(
               color: Colors.white,
               fontSize: 17,
@@ -607,7 +605,7 @@ class _DetailFormState extends State<DetailForm> {
             ),
           ),
           trailing: Text(
-            '$seat ${widget.seatNumber}',
+            '$seat: ${widget.seatNumber}',
             style: TextStyle(
               color: Colors.white,
               fontSize: 17,

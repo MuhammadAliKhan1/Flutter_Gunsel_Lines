@@ -295,7 +295,10 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                             Container(
                               height: 20,
                               width: 20,
-                              color: red,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: red,
+                              ),
                             ),
                             Text(
                               '   $busy',
@@ -310,7 +313,10 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                             Container(
                               height: 20,
                               width: 20,
-                              color: Colors.white,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: Colors.white,
+                              ),
                             ),
                             Text(
                               '   $empty',
@@ -325,7 +331,10 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                             Container(
                               height: 20,
                               width: 20,
-                              color: green,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: green,
+                              ),
                             ),
                             Text(
                               '   $selected',
