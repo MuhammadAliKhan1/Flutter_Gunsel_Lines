@@ -315,13 +315,12 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
         height: searchTicketTabHeight,
         color: Colors.black.withOpacity(0.4),
         alignment: Alignment.center,
-        padding: EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text(
-              "$departureStation-$arrivalStation",
+              "$departureStation - $arrivalStation",
               style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
             ),
             Text(
@@ -498,7 +497,7 @@ class _TicketState extends State<Ticket> {
         },
         child: FittedBox(
             child: Container(
-          margin: EdgeInsets.only(top: 10.0),
+          margin: EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
           height: 112,
           child: Stack(
             children: <Widget>[

@@ -148,10 +148,10 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   String purchaseDetails = "Purchase Details";
   String purchase = "Purchase";
   String search = "Search";
-  String busInfo = "Bus Info";
+  String busInfo = "Bus Info::";
   String selected = "Selected";
-  String empty = "Empty";
-  String busy = "Busy";
+  String empty = "Free";
+  String busy = "Occupied";
 
   void selectTicketlan() async {
     int b;
@@ -166,30 +166,30 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         purchaseDetails = "Деталі придбання";
         purchase = "Купівля";
         search = "Пошук";
-        busInfo = "Інформація про автобус";
+        busInfo = "Інформація про автобус ::";
         selected = "Вибрано";
-        empty = "ПорожнійПорожній";
-        busy = "Зайнято";
+        empty = "Безкоштовно";
+        busy = "Окуповані";
       } else if (b == 2) {
         yourSeat = "Your seat";
         details = "Details";
         purchaseDetails = "Purchase Details";
         purchase = "Purchase";
         search = "Search";
-        busInfo = "Bus Info";
+        busInfo = "Bus info::";
         selected = "Selected";
-        empty = "Empty";
-        busy = "Busy";
+        empty = "Free";
+        busy = "Occupied";
       } else if (b == 3) {
         yourSeat = "Ваше место";
         details = "подробности";
         purchaseDetails = "Детали покупки";
         purchase = "покупка";
         search = "Поиск";
-        busInfo = "Информация об автобусе";
+        busInfo = "Информация об автобусе ::";
         selected = "выбранный";
-        empty = "пустой";
-        busy = "Занятый";
+        empty = "Свободно";
+        busy = "занятый";
       }
     });
   }
@@ -274,7 +274,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                         right: 50.0,
                       ),
                       title: Text(
-                        '$busInfo:',
+                        busInfo,
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Helvetica',
@@ -283,62 +283,60 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                       ),
                       trailing: Image(
                         image: bus,
-                        height: ScreenUtil().setSp(50),
+                        height: ScreenUtil().setSp(55),
                       ),
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 100),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Row(
                           children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  '$busy   ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  color: red,
-                                )
-                              ],
+                            Container(
+                              height: 20,
+                              width: 20,
+                              color: red,
                             ),
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  '$empty   ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  color: Colors.white,
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  '$selected   ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  color: green,
-                                )
-                              ],
+                            Text(
+                              '   $busy',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
                           ],
-                        ))
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              height: 20,
+                              width: 20,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              '   $empty',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              height: 20,
+                              width: 20,
+                              color: green,
+                            ),
+                            Text(
+                              '   $selected',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

@@ -122,10 +122,6 @@ class _HistoryTicketState extends State<HistoryTicket> {
     });
   }
 
-
-
-
-
   Future<String> getTravelHistory(BuildContext context) async
   {
     try {

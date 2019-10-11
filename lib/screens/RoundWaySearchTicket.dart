@@ -482,7 +482,7 @@ class _TicketState extends State<Ticket> {
         },
         child: FittedBox(
             child: Container(
-          margin: EdgeInsets.only(top: 10.0),
+          margin: EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
           height: 112,
           child: Stack(
             children: <Widget>[
