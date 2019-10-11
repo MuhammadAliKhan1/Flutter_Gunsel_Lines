@@ -5,15 +5,17 @@ import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' as JSON;
 import 'package:gunsel/data/sharedPreference.dart';
 import 'package:gunsel/data/edit_profile_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:gunsel/data/facebookapimodel.dart';
 import 'package:gunsel/data/googleapimodel.dart';
+import 'package:flutter/services.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
+
+Map<int, dynamic> formsData;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -96,6 +98,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final FocusNode _focusNode = FocusNode();
   SharePreferencelogin shPref = SharePreferencelogin();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = new GoogleSignIn();
@@ -115,6 +118,8 @@ class _LoginFormState extends State<LoginForm> {
   String _currentCode = '';
   String _currentId = '';
   String data;
+  int index;
+  String number123 = "";
 
   Map userProfile;
   final facebookLogin = FacebookLogin();
@@ -150,6 +155,19 @@ class _LoginFormState extends State<LoginForm> {
 
     loginlan();
     publicToken();
+    _focusNode.addListener(() {
+      number123 = this._number.text.trim();
+      if (this._number.text.length == 9) {
+        // The below code gives a range error if not 10.
+        RegExp phone = RegExp(r'(\d{2})(\d{3})(\d{2})(\d{2})');
+        var matches = phone.allMatches(_number.text);
+        var match = matches.elementAt(0);
+        var newText =
+            '${match.group(1)})${match.group(2)}-${match.group(3)}-${match.group(4)}';
+        number123 = this._number.text.trim();
+        this._number.text = newText;
+      }
+    });
   }
 
   void loginlan() async {
@@ -260,8 +278,15 @@ class _LoginFormState extends State<LoginForm> {
                   width: 220,
                   height: 40,
                   child: TextFormField(
-                    maxLength: 9,
+                    focusNode: _focusNode,
+                    onChanged: (number) {
+                      if (number.length > 8) FocusScope.of(context).unfocus();
+                    },
                     controller: this._number,
+                    inputFormatters: [
+                      WhitelistingTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(9)
+                    ],
                     keyboardType: TextInputType.number,
                     style: TextStyle(color: Colors.white, fontSize: 25),
                     decoration: InputDecoration(
@@ -545,8 +570,6 @@ class _LoginFormState extends State<LoginForm> {
         "https://www.incase.com/media/images/icons/gray/profile.png";
     String loginCategory = "custom";
 
-    String json =
-        '{"PhoneNumber":"$numbers","Password":"$passwordSignins","CountryId":"$_currentId"}';
 //    print("Email:" +
 //        numbers +
 //        " Password:" +
@@ -556,7 +579,11 @@ class _LoginFormState extends State<LoginForm> {
 
     // make POST request
 
-    if (!(numbers == "" || passwordSignins == "")) {
+    print("Numbers are:" + number123);
+
+    if (!(number123 == "" || passwordSignins == "")) {
+      String json =
+          '{"PhoneNumber":"$number123","Password":"$passwordSignins","CountryId":"$_currentId"}';
       Response response = await post(url, headers: headers, body: json);
 
       // check the status code for the result

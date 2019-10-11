@@ -15,6 +15,8 @@ class SignUp extends StatefulWidget {
 }
 
 class SignUpState extends State<SignUp> {
+  String number123 = "";
+  final FocusNode _focusNode = FocusNode();
   SharePreferencelogin sh = SharePreferencelogin();
   String nameHint = "Name",
       surNameHint = "Surename",
@@ -124,6 +126,19 @@ class SignUpState extends State<SignUp> {
 
     super.initState();
     this.value = 0;
+    _focusNode.addListener(() {
+      number123 = this._number.text.trim();
+      if (this._number.text.length == 9) {
+        // The below code gives a range error if not 10.
+        RegExp phone = RegExp(r'(\d{2})(\d{3})(\d{2})(\d{2})');
+        var matches = phone.allMatches(_number.text);
+        var match = matches.elementAt(0);
+        var newText =
+            '${match.group(1)})${match.group(2)}-${match.group(3)}-${match.group(4)}';
+        number123 = this._number.text.trim();
+        this._number.text = newText;
+      }
+    });
   }
 
   bool switchValue = false;
@@ -250,6 +265,11 @@ class SignUpState extends State<SignUp> {
                                     borderRadius: BorderRadius.circular(5.0),
                                     color: Colors.white),
                                 child: TextFormField(
+                                    focusNode: _focusNode,
+                                    onChanged: (number) {
+                                      if (number.length > 8)
+                                        FocusScope.of(context).unfocus();
+                                    },
                                     controller: this._number,
                                     keyboardType: TextInputType.phone,
                                     inputFormatters: [
@@ -421,10 +441,8 @@ class SignUpState extends State<SignUp> {
                         } else {
                           if (_signUpForm.currentState.validate()) {
                             _makePostRequest();
-                          }
-                          else{
+                          } else {
                             print("Show data is");
-
                           }
                         }
                       }),
@@ -483,7 +501,7 @@ class SignUpState extends State<SignUp> {
       String surnames = _surname.text;
 
       String json =
-          '{"Platform":34,"Language":0,"DeviceToken":null,"UserId":"$emails","FirstName":"$names","MiddleName":"","LastName":"$surnames","PhoneNumber":"$numbers","BirthDate":null,"Gender":"","Password":"$passwords","CountryId": "$_currentId"}';
+          '{"Platform":34,"Language":0,"DeviceToken":null,"UserId":"$emails","FirstName":"$names","MiddleName":"","LastName":"$surnames","PhoneNumber":"$number123","BirthDate":null,"Gender":"","Password":"$passwords","CountryId": "$_currentId"}';
       print("${_currentId}");
 
       // make POST request
@@ -494,6 +512,7 @@ class SignUpState extends State<SignUp> {
       String body = response.body;
       print("status code:" + statusCode.toString());
       print("Body is:" + body);
+      print("Number" + number123);
 
       if (statusCode == 200) {
         Navigator.pushNamed(context, oneWayScreen);
@@ -518,7 +537,6 @@ class SignUpState extends State<SignUp> {
             });
       }
     } else if (switchOnoff == false) {
-
       showDialog(
           context: context,
           builder: (context) {
@@ -537,9 +555,6 @@ class SignUpState extends State<SignUp> {
               ],
             );
           });
-
-
-
 
       signSwitched();
     }

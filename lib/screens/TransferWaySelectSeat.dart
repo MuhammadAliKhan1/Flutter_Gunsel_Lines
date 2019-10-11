@@ -150,7 +150,10 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   String purchaseDetails = "Purchase Details";
   String purchase = "Purchase";
   String search = "Search";
-  String busInfo = "Bus Info";
+  String busInfo = "Bus Info::";
+  String selected = "Selected";
+  String empty = "Free";
+  String busy = "Occupied";
 
   void selectTicketlan() async {
     int b;
@@ -165,21 +168,30 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         purchaseDetails = "Деталі придбання";
         purchase = "Купівля";
         search = "Пошук";
-        busInfo = "Інформація про автобус";
+        busInfo = "Інформація про автобус ::";
+        selected = "Вибрано";
+        empty = "Безкоштовно";
+        busy = "Окуповані";
       } else if (b == 2) {
         yourSeat = "Your seat";
         details = "Details";
         purchaseDetails = "Purchase Details";
         purchase = "Purchase";
         search = "Search";
-        busInfo = "Bus Info";
+        busInfo = "Bus info::";
+        selected = "Selected";
+        empty = "Free";
+        busy = "Occupied";
       } else if (b == 3) {
         yourSeat = "Ваше место";
         details = "подробности";
         purchaseDetails = "Детали покупки";
         purchase = "покупка";
         search = "Поиск";
-        busInfo = "Информация об автобусе";
+        busInfo = "Информация об автобусе ::";
+        selected = "выбранный";
+        empty = "Свободно";
+        busy = "занятый";
       }
     });
   }
@@ -279,62 +291,78 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                       ),
                       trailing: Image(
                         image: bus,
-                        height: ScreenUtil().setSp(50),
+                        height: ScreenUtil().setSp(55),
                       ),
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 100),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Row(
                           children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  'Busy   ',
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: red,
+                              ),
+                            ),
+                            Container(
+                                width: ScreenUtil().setWidth(140),
+                                child: AutoSizeText(
+                                  '   $busy',
+                                  maxLines: 2,
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  color: red,
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  'Empty   ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  color: Colors.white,
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  'Selected   ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  color: green,
-                                )
-                              ],
-                            ),
+                                )),
                           ],
-                        ))
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: Colors.white,
+                              ),
+                            ),
+                            Container(
+                                width: ScreenUtil().setWidth(180),
+                                child: AutoSizeText(
+                                  '   $empty',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                )),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: green,
+                              ),
+                            ),
+                            Container(
+                                width: ScreenUtil().setWidth(170),
+                                child: AutoSizeText(
+                                  '   $selected',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

@@ -8,7 +8,6 @@ import 'package:gunsel/screens/TransferWayDetails.dart';
 import 'package:gunsel/screens/TransferWaySelectSeat.dart';
 import 'package:gunsel/screens/details.dart';
 import 'package:gunsel/screens/payment_result.dart';
-
 import 'constants.dart';
 import 'package:gunsel/screens/splash_screen.dart';
 import 'package:gunsel/screens/pay.dart';
