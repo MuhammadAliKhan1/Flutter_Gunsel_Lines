@@ -24,9 +24,12 @@ class _SideDrawerState extends State<SideDrawer> {
 
   bool accountIncluded = true;
   String checkprofileImage = "";
-  bool checkImage;
+  bool checkImage = false;
 
-  String profileImage, profilefirstName, profileEmail, profileLastName;
+  String profileImage = "",
+      profilefirstName = "",
+      profileEmail = "",
+      profileLastName = "";
 
   @override
   void initState() {
@@ -172,16 +175,14 @@ class _SideDrawerState extends State<SideDrawer> {
                       height: 80.0,
                       width: 80.0,
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: FileImage(
-                            File(profileImage),
-                          ),
-                        ),
-                      ),
-                    ),
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: FileImage(
+                              File(profileImage),
+                            ),
+                          ))),
               Spacer(
                 flex: 1,
               ),

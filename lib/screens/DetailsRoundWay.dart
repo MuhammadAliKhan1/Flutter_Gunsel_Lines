@@ -551,6 +551,9 @@ class _DetailFormState extends State<DetailForm> {
   String surName = "Surname";
   String email = "Email";
   String seat = "Seat";
+  String enterName = "Please enter your name";
+  String enterSur = "Please enter your surname";
+  String enterEmail = "Please enter your email";
 
   void searchTicketlan() async {
     int b;
@@ -565,18 +568,27 @@ class _DetailFormState extends State<DetailForm> {
         surName = "Прізвище";
         email = "Електронна пошта";
         seat = "Сидіння";
+        enterName = "Введіть своє ім’я";
+        surName = "Введіть своє прізвище";
+        enterEmail = "Будь ласка, введіть свій електронний лист";
       } else if (b == 2) {
         information = "Voyager Information";
         name = "Name";
         surName = "Surname";
         email = "Email";
         seat = "Seat";
+        enterName = "Please enter your name";
+        enterSur = "Please enter your surname";
+        enterEmail = "Please enter your email";
       } else if (b == 3) {
         information = "Информация о Вояджере";
         name = "имя";
         surName = "Фамилия";
         email = "Электронное письмо";
         seat = "сиденье";
+        enterName = "Пожалуйста, введите Ваше имя";
+        enterSur = "Пожалуйста, введите вашу фамилию";
+        enterEmail = "Пожалуйста, введите ваш адрес электронной почты";
       }
     });
   }
@@ -616,7 +628,7 @@ class _DetailFormState extends State<DetailForm> {
               child: TextFormField(
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter your name.';
+                    return enterName;
                   }
                 },
                 controller: this._name,
@@ -640,7 +652,7 @@ class _DetailFormState extends State<DetailForm> {
               child: TextFormField(
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter your surname.';
+                    return enterSur;
                   }
                 },
                 controller: this._surname,
@@ -672,7 +684,7 @@ class _DetailFormState extends State<DetailForm> {
               child: TextFormField(
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter your email.';
+                    return enterEmail;
                   }
                 },
                 onSaved: (email) {

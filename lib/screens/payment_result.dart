@@ -311,6 +311,7 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                     child: Container(
                       width: 40,
                       height: 20,
+                      margin: EdgeInsets.only(left: 1, right: 1),
                       child: Stack(
                         children: <Widget>[
                           Align(
@@ -339,7 +340,8 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                           style: TextStyle(
                                               fontSize: 1.7,
                                               fontFamily: 'Helvetica',
-                                              color: darkBlue.withOpacity(0.9),
+                                              color: Color.fromRGBO(
+                                                  14, 52, 113, 10),
                                               fontWeight: FontWeight.w700),
                                         ),
                                         Text(
@@ -371,7 +373,12 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                                       title: Text(
                                                         sendmail,
                                                         style: TextStyle(
-                                                            color: gunselColor),
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    14,
+                                                                    52,
+                                                                    113,
+                                                                    10)),
                                                         textAlign:
                                                             TextAlign.center,
                                                       ),
@@ -427,8 +434,12 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                                                       color: Colors
                                                                           .yellow),
                                                                 ),
-                                                                color:
-                                                                    gunselColor,
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        14,
+                                                                        52,
+                                                                        113,
+                                                                        10),
                                                                 shape:
                                                                     RoundedRectangleBorder(
                                                                   borderRadius: BorderRadius.only(
@@ -480,7 +491,8 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                               ),
                                             ),
                                             decoration: BoxDecoration(
-                                              color: darkBlue,
+                                              color: Color.fromRGBO(
+                                                  14, 52, 113, 10),
                                               borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(2),
                                                 bottomRight: Radius.circular(2),
@@ -517,7 +529,7 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
   }
 }
 
-class PaymentResultTicket extends StatelessWidget {
+class PaymentResultTicket extends StatefulWidget {
   String departureStation,
       departureTime,
       arrivalStation,
@@ -539,6 +551,49 @@ class PaymentResultTicket extends StatelessWidget {
     @required this.currencyType,
     @required this.seatsDetail,
   });
+
+  @override
+  _PaymentResultTicketState createState() => _PaymentResultTicketState();
+}
+
+class _PaymentResultTicketState extends State<PaymentResultTicket> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String departure = "DEPARTURE",
+      arrival = "ARRIVAL",
+      seat = "Seat: ",
+      busType = "Bus Type: Comfort +";
+
+  void detailsTicketlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        departure = "ВИДАЛЕННЯ";
+        arrival = "ПРИЙНЯТТЯ";
+        seat = "Місце:";
+        busType = "Тип автобуса: Комфорт +";
+      } else if (b == 2) {
+        departure = "DEPARTURE";
+        arrival = "ARRIVAL";
+        seat = "Seat: ";
+        busType = "Bus Type: Comfort +";
+      } else if (b == 3) {
+        departure = "ВЫЕЗД";
+        arrival = "ПРИБЫТИЕ";
+        seat = "сиденье:";
+        busType = "Тип автобуса: Комфорт +";
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    detailsTicketlan();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -596,20 +651,20 @@ class PaymentResultTicket extends StatelessWidget {
                                       child: Column(
                                         children: <Widget>[
                                           Text(
-                                            '$day',
+                                            '${widget.day}',
                                             style: TextStyle(
                                               fontSize: ScreenUtil(
                                                       allowFontScaling: true)
-                                                  .setSp(150),
+                                                  .setSp(200),
                                               color: Colors.black,
                                               fontFamily: 'SFProText',
                                               fontWeight: FontWeight.w900,
                                             ),
                                           ),
                                           Text(
-                                            '$month $year',
+                                            '${widget.month} ${widget.year}',
                                             style: TextStyle(
-                                              fontSize: 35,
+                                              fontSize: 40,
                                               color: Colors.black,
                                               fontFamily: 'Helvetica',
                                               fontWeight: FontWeight.w700,
@@ -619,13 +674,13 @@ class PaymentResultTicket extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      'Bus Type: Comfort +',
+                                      busType,
                                       style: TextStyle(
-                                        color: darkBlue,
+                                        color: Color.fromRGBO(14, 52, 113, 10),
                                         fontFamily: 'Helvetica',
                                         fontSize:
                                             ScreenUtil(allowFontScaling: true)
-                                                .setSp(33),
+                                                .setSp(45),
                                       ),
                                     ),
                                     Row(
@@ -635,9 +690,10 @@ class PaymentResultTicket extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          'Seat: ',
+                                          seat,
                                           style: TextStyle(
-                                            color: darkBlue,
+                                            color:
+                                                Color.fromRGBO(14, 52, 113, 10),
                                             fontFamily: 'Helvetica',
                                             fontWeight: FontWeight.w600,
                                             fontSize: ScreenUtil(
@@ -646,7 +702,7 @@ class PaymentResultTicket extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '${seatsDetail['SeatNumber']}',
+                                          '${widget.seatsDetail['SeatNumber']}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontFamily: 'Helvetica',
@@ -686,26 +742,27 @@ class PaymentResultTicket extends StatelessWidget {
                                                   width:
                                                       ScreenUtil().setSp(150),
                                                   child: AutoSizeText(
-                                                    '$departureStation',
+                                                    '${widget.departureStation}',
                                                     style:
                                                         TextStyle(fontSize: 25),
                                                     maxLines: 2,
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  width: ScreenUtil().setSp(100),
+                                                  width:
+                                                      ScreenUtil().setSp(100),
                                                 ),
                                               ],
                                             ),
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '$departureTime',
+                                                  '${widget.departureTime}',
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(130),
+                                                        .setSp(140),
                                                     color: darkBlue,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
@@ -720,12 +777,12 @@ class PaymentResultTicket extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  'DEPARTURE',
+                                                  departure,
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(35),
+                                                        .setSp(45),
                                                     color: Colors.black,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
@@ -739,31 +796,31 @@ class PaymentResultTicket extends StatelessWidget {
                                           children: <Widget>[
                                             Row(
                                               children: <Widget>[
-                                               Container(
+                                                Container(
                                                   width:
                                                       ScreenUtil().setSp(150),
                                                   child: AutoSizeText(
-                                                    '$arrivalStation',
+                                                    '${widget.arrivalStation}',
                                                     style:
                                                         TextStyle(fontSize: 25),
                                                     maxLines: 2,
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  width: ScreenUtil().setSp(100),
+                                                  width:
+                                                      ScreenUtil().setSp(100),
                                                 ),
-                                                
                                               ],
                                             ),
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '$arrivalTime',
+                                                  '${widget.arrivalTime}',
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(130),
+                                                        .setSp(140),
                                                     color: darkBlue,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
@@ -778,12 +835,12 @@ class PaymentResultTicket extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  'ARRIVAL',
+                                                  arrival,
                                                   style: TextStyle(
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(35),
+                                                        .setSp(45),
                                                     color: Colors.black,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
@@ -800,7 +857,7 @@ class PaymentResultTicket extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          '     ${seatsDetail['Name']} ${seatsDetail['Surname']}',
+                                          '     ${widget.seatsDetail['Name']} ${widget.seatsDetail['Surname']}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontFamily: 'Helvetica',
@@ -817,9 +874,10 @@ class PaymentResultTicket extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          '${ticketPrice.toStringAsFixed(0)}',
+                                          '${widget.ticketPrice.toStringAsFixed(0)}',
                                           style: TextStyle(
-                                            color: darkBlue,
+                                            color:
+                                                Color.fromRGBO(14, 52, 113, 10),
                                             fontFamily: 'Helvetica',
                                             fontWeight: FontWeight.w600,
                                             fontSize: ScreenUtil(
@@ -827,17 +885,21 @@ class PaymentResultTicket extends StatelessWidget {
                                             ).setSp(70),
                                           ),
                                         ),
-                                        Text(
-                                          '$currencyType      ',
-                                          style: TextStyle(
-                                            color: darkBlue,
-                                            fontFamily: 'Helvetica',
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: ScreenUtil(
-                                              allowFontScaling: true,
-                                            ).setSp(40),
-                                          ),
-                                        ),
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.only(bottom: 5.0),
+                                            child: Text(
+                                              '${widget.currencyType}           ',
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    14, 52, 113, 10),
+                                                fontFamily: 'Helvetica',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: ScreenUtil(
+                                                  allowFontScaling: true,
+                                                ).setSp(40),
+                                              ),
+                                            )),
                                       ],
                                     )
                                   ],

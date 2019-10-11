@@ -5,24 +5,101 @@ import 'package:gunsel/data/sharedPreference.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:gunsel/data/cancelticketinfomodel.dart';
 
-
 class FinalCancelTicket extends StatefulWidget {
-  String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace, arrivalTime, name, seatNumber, bookingDate, currencyName, paidBack, totalCut, day, month, year;
-  FinalCancelTicket({Key key, this.secureCode, this.ticketNumber, this.ticketId, this.departPlace, this.departTime, this.arrivalPlace, this.arrivalTime, this.name, this.seatNumber, this.bookingDate, this.currencyName, this.paidBack,this.totalCut, this.day, this.month, this.year})
+  String secureCode,
+      ticketNumber,
+      ticketId,
+      departPlace,
+      departTime,
+      arrivalPlace,
+      arrivalTime,
+      name,
+      seatNumber,
+      bookingDate,
+      currencyName,
+      paidBack,
+      totalCut,
+      day,
+      month,
+      year;
+  FinalCancelTicket(
+      {Key key,
+      this.secureCode,
+      this.ticketNumber,
+      this.ticketId,
+      this.departPlace,
+      this.departTime,
+      this.arrivalPlace,
+      this.arrivalTime,
+      this.name,
+      this.seatNumber,
+      this.bookingDate,
+      this.currencyName,
+      this.paidBack,
+      this.totalCut,
+      this.day,
+      this.month,
+      this.year})
       : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return FinalCancelTicketState(this.secureCode, this.ticketNumber, this.ticketId, this.departPlace, this.departTime, this.arrivalPlace, this.arrivalTime, this.name, this.seatNumber, this.bookingDate, this.currencyName, this.paidBack,this.totalCut, this.day, this.month, this.year);
+    return FinalCancelTicketState(
+        this.secureCode,
+        this.ticketNumber,
+        this.ticketId,
+        this.departPlace,
+        this.departTime,
+        this.arrivalPlace,
+        this.arrivalTime,
+        this.name,
+        this.seatNumber,
+        this.bookingDate,
+        this.currencyName,
+        this.paidBack,
+        this.totalCut,
+        this.day,
+        this.month,
+        this.year);
   }
 }
 
 class FinalCancelTicketState extends State<FinalCancelTicket> {
-SharePreferencelogin shPref = SharePreferencelogin();
+  SharePreferencelogin shPref = SharePreferencelogin();
 
+  String secureCode,
+      ticketNumber,
+      ticketId,
+      departPlace,
+      departTime,
+      arrivalPlace,
+      arrivalTime,
+      name,
+      seatNumber,
+      bookingDate,
+      currencyName,
+      paidBack,
+      totalCut,
+      day,
+      month,
+      year;
 
-String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace, arrivalTime, name, seatNumber, bookingDate, currencyName, paidBack, totalCut, day, month, year;
-
-  FinalCancelTicketState(this.secureCode, this.ticketNumber, this.ticketId, this.departPlace, this.departTime, this.arrivalPlace, this.arrivalTime, this.name, this.seatNumber, this.bookingDate, this.currencyName, this.paidBack,this.totalCut, this.day, this.month, this.year);
+  FinalCancelTicketState(
+      this.secureCode,
+      this.ticketNumber,
+      this.ticketId,
+      this.departPlace,
+      this.departTime,
+      this.arrivalPlace,
+      this.arrivalTime,
+      this.name,
+      this.seatNumber,
+      this.bookingDate,
+      this.currencyName,
+      this.paidBack,
+      this.totalCut,
+      this.day,
+      this.month,
+      this.year);
 
   SharePreferencelogin sh = SharePreferencelogin();
   String cancelTicket = "Cancel Ticket";
@@ -33,10 +110,6 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
     //print("Security Code:"+securityCode+" Book ticket Number:"+bookticketNumber);
 
     finalCancellan();
-
-
-
-
   }
 
   void finalCancellan() async {
@@ -372,9 +445,6 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
         ]));
   }
 
-
-
-
 //  Future<void> getticketInformation() async{
 //    String tokens = await shPref.gettokens();
 //
@@ -438,24 +508,23 @@ String secureCode, ticketNumber, ticketId, departPlace, departTime, arrivalPlace
 //
 //  }
 
-
-Future<void> ticketCancel() async{
+  Future<void> ticketCancel() async {
     String tokens = await shPref.gettokens();
     String ticketnum = ticketNumber;
     String securitycode = secureCode;
 
-  String url = 'https://test-api.gunsel.ua/Public.svc/CancelTicket?c0=$ticketnum&c1=A1A1A4B5-D1C8-4AEC-BD08-2A3FF55440DB&c2=42 131 23 32&c3=$securitycode';
-  print("url:"+url.toString());
+    String url =
+        'https://test-api.gunsel.ua/Public.svc/CancelTicket?c0=$ticketnum&c1=A1A1A4B5-D1C8-4AEC-BD08-2A3FF55440DB&c2=42 131 23 32&c3=$securitycode';
+    print("url:" + url.toString());
 
-  Map<String, String> headers = {"token": tokens};
-  Response response = await delete(url, headers: headers);
-  // check the status code for the result
-  int statuscode =response.statusCode;
+    Map<String, String> headers = {"token": tokens};
+    Response response = await delete(url, headers: headers);
+    // check the status code for the result
+    int statuscode = response.statusCode;
 
-  print("status code is:"+statuscode.toString());
+    print("status code is:" + statuscode.toString());
 
-  if(statuscode  == 200)
-    {
+    if (statuscode == 200) {
 //      showDialog(
 //          context: context,
 //          builder: (context) {
@@ -473,30 +542,25 @@ Future<void> ticketCancel() async{
 //          });
 
       Navigator.pushReplacementNamed(context, oneWayScreen);
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                "Error",
+              ),
+              content: Text("Sorry sir,Ticket can not be cancelled."),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
     }
-
-    else{
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              "Error",
-            ),
-            content: Text("Sorry sir,Ticket can not be cancelled."),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("OK"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        });
   }
-
-}
-
-
 }

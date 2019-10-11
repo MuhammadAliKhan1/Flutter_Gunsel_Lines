@@ -715,7 +715,7 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                             style: TextStyle(
                                               fontSize: ScreenUtil(
                                                       allowFontScaling: true)
-                                                  .setSp(150),
+                                                  .setSp(200),
                                               color: Colors.black,
                                               fontFamily: 'SFProText',
                                               fontWeight: FontWeight.w900,
@@ -724,7 +724,7 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                           Text(
                                             '${widget.month} ${widget.year}',
                                             style: TextStyle(
-                                              fontSize: 35,
+                                              fontSize: 40,
                                               color: Colors.black,
                                               fontFamily: 'Helvetica',
                                               fontWeight: FontWeight.w700,
@@ -736,11 +736,11 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                     Text(
                                       '$bustype +',
                                       style: TextStyle(
-                                        color: darkBlue,
+                                        color: Color.fromRGBO(14, 52, 113, 10),
                                         fontFamily: 'Helvetica',
                                         fontSize:
                                             ScreenUtil(allowFontScaling: true)
-                                                .setSp(33),
+                                                .setSp(45),
                                       ),
                                     ),
                                     Row(
@@ -752,7 +752,8 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                         Text(
                                           '$seats: ',
                                           style: TextStyle(
-                                            color: darkBlue,
+                                            color:
+                                                Color.fromRGBO(14, 52, 113, 10),
                                             fontFamily: 'Helvetica',
                                             fontWeight: FontWeight.w600,
                                             fontSize: ScreenUtil(
@@ -798,12 +799,11 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '${widget.departureStation}                            ',
+                                                  '${widget.departureStation}',
                                                   style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: 25,
                                                     color: Colors.black,
                                                     fontFamily: 'Helvetica',
-                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                 )
                                               ],
@@ -816,8 +816,9 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(130),
-                                                    color: darkBlue,
+                                                        .setSp(140),
+                                                    color: Color.fromRGBO(
+                                                        14, 52, 113, 10),
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
                                                   ),
@@ -836,7 +837,7 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(35),
+                                                        .setSp(45),
                                                     color: Colors.black,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
@@ -851,12 +852,11 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '${widget.arrivalStation}                            ',
+                                                  '${widget.arrivalStation}',
                                                   style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: 25,
                                                     color: Colors.black,
                                                     fontFamily: 'Helvetica',
-                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                 )
                                               ],
@@ -869,8 +869,9 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(130),
-                                                    color: darkBlue,
+                                                        .setSp(140),
+                                                    color: Color.fromRGBO(
+                                                        14, 52, 113, 10),
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
                                                   ),
@@ -889,7 +890,7 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(35),
+                                                        .setSp(45),
                                                     color: Colors.black,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
@@ -906,7 +907,7 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          '     ${widget.seatsDetail['Name']} ${widget.seatsDetail['Surname']}',
+                                          '    ${widget.seatsDetail['Name']} ${widget.seatsDetail['Surname']}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontFamily: 'Helvetica',
@@ -925,7 +926,8 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                         Text(
                                           '${widget.ticketPrice.toStringAsFixed(0)}',
                                           style: TextStyle(
-                                            color: darkBlue,
+                                            color:
+                                                Color.fromRGBO(14, 52, 113, 10),
                                             fontFamily: 'Helvetica',
                                             fontWeight: FontWeight.w600,
                                             fontSize: ScreenUtil(
@@ -933,17 +935,21 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                             ).setSp(70),
                                           ),
                                         ),
-                                        Text(
-                                          '${widget.currencyType}      ',
-                                          style: TextStyle(
-                                            color: darkBlue,
-                                            fontFamily: 'Helvetica',
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: ScreenUtil(
-                                              allowFontScaling: true,
-                                            ).setSp(40),
-                                          ),
-                                        ),
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.only(bottom: 5.0),
+                                            child: Text(
+                                              '${widget.currencyType}           ',
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    14, 52, 113, 10),
+                                                fontFamily: 'Helvetica',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: ScreenUtil(
+                                                  allowFontScaling: true,
+                                                ).setSp(40),
+                                              ),
+                                            )),
                                       ],
                                     )
                                   ],

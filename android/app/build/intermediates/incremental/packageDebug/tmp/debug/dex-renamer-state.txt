@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 #Fri Oct 11 09:46:15 PKT 2019
+=======
+#Fri Oct 11 14:02:32 PKT 2019
+>>>>>>> f225a2745b069d7513a32f8b1a069cfc532fa0ee
 path.2=classes3.dex
 path.1=classes2.dex
 path.0=classes.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
-base.2=/home/ali/Desktop/Gunsel/android/app/build/intermediates/transforms/dexMerger/debug/0
-base.1=/home/ali/Desktop/Gunsel/android/app/build/intermediates/transforms/dexMerger/debug/0
-base.0=/home/ali/Desktop/Gunsel/android/app/build/intermediates/transforms/dexMerger/debug/0
+base.2=C\:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+base.1=C\:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+base.0=C\:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0

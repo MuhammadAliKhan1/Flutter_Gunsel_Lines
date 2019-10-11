@@ -16,6 +16,9 @@ class SearchTicket extends StatefulWidget {
 class _SearchTicketState extends State<SearchTicket> {
   SharePreferencelogin sh = SharePreferencelogin();
   String searchTicket = "Search Ticket";
+  String busNotAvailable =
+      "Looks like there are no buses available on this date";
+  String changeDate = "Please change the date to get your result";
 
   void searchTicketlan() async {
     int b;
@@ -26,10 +29,17 @@ class _SearchTicketState extends State<SearchTicket> {
 
       if (b == 1) {
         searchTicket = "Пошуковий квиток";
+        busNotAvailable = "Схоже, немає автобусів на цю дату";
+        changeDate = "Будь ласка, змініть дату, щоб отримати результат";
       } else if (b == 2) {
         searchTicket = "Search Ticket";
+        busNotAvailable =
+            "Looks like there are no buses available on this date";
+        changeDate = "Please change the date to get your result";
       } else if (b == 3) {
         searchTicket = "Поиск билета";
+        busNotAvailable = "Похоже, что на эту дату нет автобусов";
+        changeDate = "Пожалуйста, измените дату, чтобы получить свой результат";
       }
     });
   }
@@ -69,6 +79,36 @@ class SearchTicketScreen extends StatefulWidget {
 }
 
 class SearchTicketScreenState extends State<SearchTicketScreen> {
+  SharePreferencelogin sh = SharePreferencelogin();
+  String searchTicket = "Search Ticket";
+  String busNotAvailable =
+      "Looks like there are no buses available on this date";
+  String changeDate = "Please change the date to get your result";
+
+  void searchTicketlan() async {
+    int b;
+    int a = await sh.getshared1();
+
+    setState(() {
+      b = a;
+
+      if (b == 1) {
+        searchTicket = "Пошуковий квиток";
+        busNotAvailable = "Схоже, немає автобусів на цю дату";
+        changeDate = "Будь ласка, змініть дату, щоб отримати результат";
+      } else if (b == 2) {
+        searchTicket = "Search Ticket";
+        busNotAvailable =
+            "Looks like there are no buses available on this date";
+        changeDate = "Please change the date to get your result";
+      } else if (b == 3) {
+        searchTicket = "Поиск билета";
+        busNotAvailable = "Похоже, что на эту дату нет автобусов";
+        changeDate = "Пожалуйста, измените дату, чтобы получить свой результат";
+      }
+    });
+  }
+
   int initialDay;
   int initialMonth;
   int initialYear;
@@ -80,6 +120,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
   @override
   void initState() {
     super.initState();
+    searchTicketlan();
     travelListTicketData = Map();
     travelListTicketData['BuyTicketData'] = widget.buyTicketMap;
     _datafetched = getData();
@@ -273,13 +314,12 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
         height: searchTicketTabHeight,
         color: Colors.black.withOpacity(0.4),
         alignment: Alignment.center,
-        padding: EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text(
-              "$departureStation-$arrivalStation",
+              "$departureStation - $arrivalStation",
               style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
             ),
             Text(
@@ -315,7 +355,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                   Spacer(),
                   Spacer(),
                   Text(
-                    'Looks like there are no buses available on this date',
+                    busNotAvailable,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,
@@ -324,7 +364,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                   ),
                   Spacer(),
                   Text(
-                    'Please change the date to get your result',
+                    changeDate,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,
@@ -456,7 +496,7 @@ class _TicketState extends State<Ticket> {
         },
         child: FittedBox(
             child: Container(
-          margin: EdgeInsets.only(top: 10.0),
+          margin: EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
           height: 112,
           child: Stack(
             children: <Widget>[
