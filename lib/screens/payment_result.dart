@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/PaymentResultModel.dart';
 import 'package:gunsel/data/constants.dart';
@@ -174,6 +175,14 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
+                    RaisedButton(
+                      onPressed: () {
+                        debugPrint(
+                          paymentResultTicketData.toString(),
+                          wrapWidth: 1024,
+                        );
+                      },
+                    ),
                     Column(
                       children: <Widget>[
                         Row(
@@ -673,15 +682,19 @@ class PaymentResultTicket extends StatelessWidget {
                                           children: <Widget>[
                                             Row(
                                               children: <Widget>[
-                                                Text(
-                                                  '$departureStation                            ',
-                                                  style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.black,
-                                                    fontFamily: 'Helvetica',
-                                                    fontWeight: FontWeight.w600,
+                                                Container(
+                                                  width:
+                                                      ScreenUtil().setSp(150),
+                                                  child: AutoSizeText(
+                                                    '$departureStation',
+                                                    style:
+                                                        TextStyle(fontSize: 25),
+                                                    maxLines: 2,
                                                   ),
-                                                )
+                                                ),
+                                                SizedBox(
+                                                  width: ScreenUtil().setSp(100),
+                                                ),
                                               ],
                                             ),
                                             Row(
@@ -726,15 +739,20 @@ class PaymentResultTicket extends StatelessWidget {
                                           children: <Widget>[
                                             Row(
                                               children: <Widget>[
-                                                Text(
-                                                  '$arrivalStation                            ',
-                                                  style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.black,
-                                                    fontFamily: 'Helvetica',
-                                                    fontWeight: FontWeight.w600,
+                                               Container(
+                                                  width:
+                                                      ScreenUtil().setSp(150),
+                                                  child: AutoSizeText(
+                                                    '$arrivalStation',
+                                                    style:
+                                                        TextStyle(fontSize: 25),
+                                                    maxLines: 2,
                                                   ),
-                                                )
+                                                ),
+                                                SizedBox(
+                                                  width: ScreenUtil().setSp(100),
+                                                ),
+                                                
                                               ],
                                             ),
                                             Row(
@@ -884,101 +902,3 @@ class PaymentResultTicket extends StatelessWidget {
     );
   }
 }
-/*
-class PaymentResultTicket extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FittedBox(
-      child: Container(
-        height: 490,
-        margin: EdgeInsets.only(
-          top: 10.0,
-          bottom: 20.0,
-        ),
-        child: Stack(
-          children: <Widget>[
-            Image(
-              image: purchasedTicket,
-            ),
-            Column(
-              children: <Widget>[
-                Container(
-                  height: 400,
-                  width: 729,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        height: 80,
-                        width: 500,
-                        child: Center(
-                          child: Text(
-                            'Ticket number: 123-AB-1333-45',
-                            style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
-                              fontFamily: 'MyriadPro',
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 320,
-                        width: 700,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                    width: 729,
-                    height: 90,
-                    child: Center(
-                      child: Container(
-                        height: 90,
-                        width: 649,
-                        decoration: BoxDecoration(
-                          color: Colors.yellow,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40.0),
-                            bottomRight: Radius.circular(40.0),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Center(
-                              child: Text(
-                                'Transfer via Dnipro',
-                                style: TextStyle(
-                                  fontSize: 25,
-                                  fontFamily: 'MyriadPro',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Text(
-                                'The night between Mon. and Tu.',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'MyriadPro',
-                                  fontWeight: FontWeight.w600,
-                                  color: red,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ))
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
- */

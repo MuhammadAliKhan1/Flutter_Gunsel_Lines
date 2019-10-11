@@ -301,17 +301,27 @@ class _DetailScreenState extends State<DetailScreen> {
                 widget.ticketData['FirstLeg']['SeatVoyagerInfo'] = formsData;
                 widget.ticketData['FirstLeg']['AgreementCheckBox'] = checkBox1;
                 widget.ticketData['FirstLeg']['SubscriberCheckBox'] = checkBox2;
-                widget.ticketData['BuyTicketData']['RoundWayCheck']
-                    ? Navigator.pushNamed(
-                        context,
-                        searchTicketRoundWay,
-                        arguments: widget.ticketData,
-                      )
-                    : Navigator.pushNamed(
-                        context,
-                        ticketSummaryScreen,
-                        arguments: widget.ticketData,
-                      );
+                if (widget.ticketData['FirstLeg']['TicketData']
+                        ['TravelVariantLeg2'] ==
+                    null) {
+                  widget.ticketData['BuyTicketData']['RoundWayCheck']
+                      ? Navigator.pushNamed(
+                          context,
+                          searchTicketRoundWay,
+                          arguments: widget.ticketData,
+                        )
+                      : Navigator.pushNamed(
+                          context,
+                          ticketSummaryScreen,
+                          arguments: widget.ticketData,
+                        );
+                } else {
+                  Navigator.pushNamed(
+                    context,
+                    selectSeats_TransferWay,
+                    arguments: widget.ticketData,
+                  );
+                }
               }
             },
           ),
@@ -423,23 +433,27 @@ class _DetailTicketState extends State<DetailTicket> {
                     ],
                   ),
                   SizedBox(
-                    width: (widget.day > 9 ? 80.0 : 90.0),
+                    width: (widget.day > 9 ? 90.0 : 100.0),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(right: 100),
-                          child: Text(
-                            '${widget.departureStation}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                              fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w600,
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            width: ScreenUtil().setSp(150),
+                            child: AutoSizeText(
+                              '${widget.departureStation}',
+                              style: TextStyle(fontSize: 25),
+                              maxLines: 2,
                             ),
-                          )),
+                          ),
+                          SizedBox(
+                            width: ScreenUtil().setSp(100),
+                          ),
+                        ],
+                      ),
                       Text(
                         '${widget.departureTime}',
                         style: TextStyle(
@@ -461,23 +475,27 @@ class _DetailTicketState extends State<DetailTicket> {
                     ],
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 50,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(right: 130),
-                          child: Text(
-                            '${widget.arrivalStation}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                              fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w600,
+                     Row(
+                        children: <Widget>[
+                          Container(
+                            width: ScreenUtil().setSp(150),
+                            child: AutoSizeText(
+                              '${widget.arrivalStation}',
+                              style: TextStyle(fontSize: 25),
+                              maxLines: 2,
                             ),
-                          )),
+                          ),
+                          SizedBox(
+                            width: ScreenUtil().setSp(100),
+                          ),
+                        ],
+                      ),
                       Text(
                         '${widget.arrivalTime}',
                         style: TextStyle(

@@ -17,7 +17,6 @@ class DetailRoundWay extends StatefulWidget {
 }
 
 class _DetailRoundWayState extends State<DetailRoundWay> {
-
   SharePreferencelogin sh = SharePreferencelogin();
   String information = "Voyagers Information";
 
@@ -43,10 +42,6 @@ class _DetailRoundWayState extends State<DetailRoundWay> {
     super.initState();
     detailsBarlan();
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +81,8 @@ class _DetailScreenState extends State<DetailScreen> {
     formsData = Map();
     detailslan();
     for (int i = 0;
-    i < (widget.ticketData['SecondLeg']['SelectedSeatsNumber'].length);
-    ++i) {
+        i < (widget.ticketData['SecondLeg']['SelectedSeatsNumber'].length);
+        ++i) {
       formsData[(i + 1)] = {
         'Name': 'null',
         'Surname': 'null',
@@ -97,8 +92,6 @@ class _DetailScreenState extends State<DetailScreen> {
       };
     }
   }
-
-
 
   SharePreferencelogin sh = SharePreferencelogin();
   String yourSeat = "Your seat";
@@ -148,12 +141,6 @@ class _DetailScreenState extends State<DetailScreen> {
       }
     });
   }
-
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -209,23 +196,23 @@ class _DetailScreenState extends State<DetailScreen> {
                       padding: EdgeInsets.all(5.0),
                       child: DetailTicket(
                         day: int.parse(widget.ticketData['SecondLeg']
-                        ['TicketData']['DepartureDate']
+                                ['TicketData']['DepartureDate']
                             .substring(8, 10)),
                         month: int.parse(widget.ticketData['SecondLeg']
-                        ['TicketData']['DepartureDate']
+                                ['TicketData']['DepartureDate']
                             .substring(5, 7)),
                         year: int.parse(widget.ticketData['SecondLeg']
-                        ['TicketData']['DepartureDate']
+                                ['TicketData']['DepartureDate']
                             .substring(0, 4)),
                         arrivalStation: widget.ticketData['SecondLeg']
-                        ['TicketData']['ToStation']['StationName'],
+                            ['TicketData']['ToStation']['StationName'],
                         departureStation: widget.ticketData['SecondLeg']
-                        ['TicketData']['FromStation']['StationName'],
+                            ['TicketData']['FromStation']['StationName'],
                         departureTime: widget.ticketData['SecondLeg']
-                        ['TicketData']['DepartureTime']
+                                ['TicketData']['DepartureTime']
                             .substring(0, 5),
                         arrivalTime: widget.ticketData['SecondLeg']
-                        ['TicketData']['ArrivalTime']
+                                ['TicketData']['ArrivalTime']
                             .substring(0, 5),
                       ),
                     ),
@@ -236,11 +223,11 @@ class _DetailScreenState extends State<DetailScreen> {
                   key: _detailForm,
                   child: SliverList(
                     delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
+                      (BuildContext context, int index) {
                         return DetailForm(
                           index: index + 1,
                           seatNumber: widget.ticketData['SecondLeg']
-                          ['SelectedSeatsNumber'][index],
+                              ['SelectedSeatsNumber'][index],
                         );
                       },
                       childCount: widget
@@ -314,11 +301,21 @@ class _DetailScreenState extends State<DetailScreen> {
                 widget.ticketData['SecondLeg']['AgreementCheckBox'] = checkBox1;
                 widget.ticketData['SecondLeg']['SubscriberCheckBox'] =
                     checkBox2;
-                Navigator.pushNamed(
-                  context,
-                  ticketSummaryScreen,
-                  arguments: widget.ticketData,
-                );
+                if (widget.ticketData['SecondLeg']['TicketData']
+                        ['TravelVariantLeg2'] ==
+                    null) {
+                  Navigator.pushNamed(
+                    context,
+                    ticketSummaryScreen,
+                    arguments: widget.ticketData,
+                  );
+                } else {
+                  Navigator.pushNamed(
+                    context,
+                    selectSeatRoundWay_TransferWay,
+                    arguments: widget.ticketData,
+                  );
+                }
               }
             },
           ),
@@ -347,8 +344,6 @@ class DetailTicket extends StatefulWidget {
 }
 
 class _DetailTicketState extends State<DetailTicket> {
-
-
   SharePreferencelogin sh = SharePreferencelogin();
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
@@ -378,9 +373,6 @@ class _DetailTicketState extends State<DetailTicket> {
     super.initState();
     detailsTicketlan();
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -416,7 +408,8 @@ class _DetailTicketState extends State<DetailTicket> {
                             ),
                           ),
                         ),
-                        padding: EdgeInsets.only(left: (widget.day > 9 ? 0.0 : 30.0)),
+                        padding: EdgeInsets.only(
+                            left: (widget.day > 9 ? 0.0 : 30.0)),
                       ),
                       Padding(
                         child: Text(
@@ -428,7 +421,8 @@ class _DetailTicketState extends State<DetailTicket> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        padding: EdgeInsets.only(left: (widget.day > 9 ? 0.0 : 30.0)),
+                        padding: EdgeInsets.only(
+                            left: (widget.day > 9 ? 0.0 : 30.0)),
                       )
                     ],
                   ),
@@ -551,8 +545,6 @@ class _DetailFormState extends State<DetailForm> {
     super.initState();
   }
 
-
-
   SharePreferencelogin sh = SharePreferencelogin();
   String information = "Voyager Information";
   String name = "Name";
@@ -588,10 +580,6 @@ class _DetailFormState extends State<DetailForm> {
       }
     });
   }
-
-
-
-
 
   String _currentCode = '';
   @override
@@ -717,15 +705,15 @@ class _DetailFormState extends State<DetailForm> {
                           FittedBox(
                             child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
-                                  icon: Text(
-                                    ' ${this._currentCode} ',
-                                    style: TextStyle(fontSize: 17),
-                                  ),
-                                  elevation: 0,
-                                  value: _currentFlag,
-                                  items: _dropDownMenuItems,
-                                  onChanged: changedDropDownItem,
-                                )),
+                              icon: Text(
+                                ' ${this._currentCode} ',
+                                style: TextStyle(fontSize: 17),
+                              ),
+                              elevation: 0,
+                              value: _currentFlag,
+                              items: _dropDownMenuItems,
+                              onChanged: changedDropDownItem,
+                            )),
                           ),
                           Flexible(
                             child: TextFormField(
@@ -737,7 +725,7 @@ class _DetailFormState extends State<DetailForm> {
                                 else
                                   code = this._currentCode;
                                 formsData[widget.index]['Number'] =
-                                ('$code$number');
+                                    ('$code$number');
                               },
                               validator: (value) {
                                 if (value.isEmpty) {
@@ -752,7 +740,7 @@ class _DetailFormState extends State<DetailForm> {
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 contentPadding:
-                                EdgeInsets.symmetric(vertical: 10.0),
+                                    EdgeInsets.symmetric(vertical: 10.0),
                                 fillColor: Colors.white,
                                 filled: true,
                               ),

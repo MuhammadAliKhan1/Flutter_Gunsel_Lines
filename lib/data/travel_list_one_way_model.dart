@@ -1,9 +1,11 @@
+import 'package:gunsel/data/TransferWayModel.dart';
+
 import 'constants.dart';
 import 'package:http/http.dart' as http;
 
 class TravelListOneWayModel {
   List<Data> data;
-
+  TransferWayModel transferWayModelObj;
   TravelListOneWayModel({this.data});
 
   TravelListOneWayModel.fromJson(Map<String, dynamic> json) {
@@ -34,16 +36,23 @@ class TravelListOneWayModel {
         'token': prefs.getString('Token'),
       },
     );
-
+    print(
+        'https://test-api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c4=true');
     DataStatusSeperator seperator =
         DataStatusSeperator.fromJson(jsonDecode(response.body));
     if ((seperator.toJson()['Data']) != null) {
       Map<String, dynamic> map = {
         'Data': jsonDecode((seperator.toJson())['Data'])
       };
-      TravelListOneWayModel travelListModelObj =
-          TravelListOneWayModel.fromJson(map);
-      return travelListModelObj.toJson();
+      if (map['Data'][0]['TravelVariantLeg2'] == null) {
+        TravelListOneWayModel travelListModelObj =
+            TravelListOneWayModel.fromJson(map);
+
+        return travelListModelObj.toJson();
+      } else {
+        transferWayModelObj = TransferWayModel.fromJson(map);
+        return transferWayModelObj.toJson();
+      }
     } else
       return seperator.toJson();
   }
@@ -65,33 +74,15 @@ class TravelListOneWayModel {
       Map<String, dynamic> map = {
         'Data': jsonDecode((seperator.toJson())['Data'])
       };
-      TravelListOneWayModel travelListModelObj =
-          TravelListOneWayModel.fromJson(map);
-      return travelListModelObj.toJson();
-    } else
-      return seperator.toJson();
-  }
 
-  Future getTravelList(String arrivalStationID, String departureStationID,
-      int year, int month, int day) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    http.Response response = await http.get(
-      Uri.encodeFull(
-          'https://test-api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c4=false'),
-      headers: {
-        'token': prefs.getString('Token'),
-      },
-    );
-    DataStatusSeperator seperator =
-        DataStatusSeperator.fromJson(jsonDecode(response.body));
-    if ((seperator.toJson()['Data']) != null) {
-      Map<String, dynamic> map = {
-        'Data': jsonDecode((seperator.toJson())['Data'])
-      };
-      TravelListOneWayModel travelListModelObj =
-          TravelListOneWayModel.fromJson(map);
-      return travelListModelObj.toJson();
+      if (map['Data'][0]['TravelVariantLeg2'] == null) {
+        TravelListOneWayModel travelListModelObj =
+            TravelListOneWayModel.fromJson(map);
+        return travelListModelObj.toJson();
+      } else {
+        transferWayModelObj = TransferWayModel.fromJson(map);
+        return transferWayModelObj.toJson();
+      }
     } else
       return seperator.toJson();
   }

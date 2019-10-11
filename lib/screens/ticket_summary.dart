@@ -67,20 +67,27 @@ class TicketSummaryScreen extends StatefulWidget {
 
 class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
   @override
-  String total;
+  double total;
   Map<String, dynamic> userData;
   void initState() {
     detailslan();
     super.initState();
     widget.ticketData['BuyTicketData']['RoundWayCheck']
         ? total = ((widget.ticketData['FirstLeg']['TicketData']['TicketPrice'] *
-                    widget.ticketData['FirstLeg']['SeatCount']) +
-                (widget.ticketData['SecondLeg']['TicketData']['TicketPrice'] *
-                    widget.ticketData['SecondLeg']['SeatCount']))
-            .toStringAsFixed(0)
+                widget.ticketData['FirstLeg']['SeatCount']) +
+            (widget.ticketData['SecondLeg']['TicketData']['TicketPrice'] *
+                widget.ticketData['SecondLeg']['SeatCount']))
         : total = (widget.ticketData['FirstLeg']['TicketData']['TicketPrice'] *
-                widget.ticketData['FirstLeg']['SeatCount'])
-            .toStringAsFixed(0);
+            widget.ticketData['FirstLeg']['SeatCount']);
+
+    if (widget.ticketData['FirstLeg']['TicketData']['TravelVariantLeg2'] !=
+        null)
+      total += widget.ticketData['FirstLeg']['TicketData']['TravelVariantLeg2']
+          ['TicketPrice'];
+    if (widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] !=
+        null)
+      total += widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2']
+          ['TicketPrice'];
     userData = Map();
   }
 
@@ -213,6 +220,57 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                       childCount: widget.ticketData['FirstLeg']['SeatCount'],
                     ),
                   )),
+              (widget.ticketData['FirstLeg']['TicketData']
+                          ['TravelVariantLeg2'] !=
+                      null)
+                  ? SliverPadding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return TicketSummaryTicket(
+                              day: int.parse(widget.ticketData['FirstLeg']
+                                          ['TicketData']['TravelVariantLeg2']
+                                      ['DepartureDate']
+                                  .substring(8, 10)),
+                              month: int.parse(widget.ticketData['FirstLeg']
+                                          ['TicketData']['TravelVariantLeg2']
+                                      ['DepartureDate']
+                                  .substring(5, 7)),
+                              year: int.parse(widget.ticketData['FirstLeg']
+                                          ['TicketData']['TravelVariantLeg2']
+                                      ['DepartureDate']
+                                  .substring(0, 4)),
+                              arrivalStation: widget.ticketData['FirstLeg']
+                                      ['TicketData']['TravelVariantLeg2']
+                                  ['ToStation']['StationName'],
+                              departureStation: widget.ticketData['FirstLeg']
+                                      ['TicketData']['TravelVariantLeg2']
+                                  ['FromStation']['StationName'],
+                              departureTime: widget.ticketData['FirstLeg']
+                                          ['TicketData']['TravelVariantLeg2']
+                                      ['DepartureTime']
+                                  .substring(0, 5),
+                              arrivalTime: widget.ticketData['FirstLeg']
+                                          ['TicketData']['TravelVariantLeg2']
+                                      ['ArrivalTime']
+                                  .substring(0, 5),
+                              seatsDetail: widget.ticketData['FirstLeg']
+                                      ['TravelVariantLeg2']['SeatVoyagerInfo']
+                                  [(index + 1)],
+                              ticketPrice: widget.ticketData['FirstLeg']
+                                      ['TicketData']['TravelVariantLeg2']
+                                  ['TicketPrice'],
+                              currencyType: widget.ticketData['FirstLeg']
+                                      ['TicketData']['TravelVariantLeg2']
+                                  ['Currency']['CurrencyName'],
+                            );
+                          },
+                          childCount: widget.ticketData['FirstLeg']
+                              ['TravelVariantLeg2']['SeatCount'],
+                        ),
+                      ))
+                  : SliverToBoxAdapter(),
               widget.ticketData['BuyTicketData']['RoundWayCheck']
                   ? SliverPadding(
                       padding: EdgeInsets.only(left: 10.0, right: 10.0),
@@ -251,6 +309,58 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                               ['SeatCount'],
                         ),
                       ))
+                  : SliverToBoxAdapter,
+              (widget.ticketData['BuyTicketData']['RoundWayCheck'] &&
+                      (widget.ticketData['SecondLeg']['TicketData']
+                              ['TravelVariantLeg2'] !=
+                          null))
+                  ? SliverPadding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return TicketSummaryTicket(
+                              day: int.parse(widget.ticketData['SecondLeg']
+                                          ['TicketData']['TravelVariantLeg2']
+                                      ['DepartureDate']
+                                  .substring(8, 10)),
+                              month: int.parse(widget.ticketData['SecondLeg']
+                                          ['TicketData']['TravelVariantLeg2']
+                                      ['DepartureDate']
+                                  .substring(5, 7)),
+                              year: int.parse(widget.ticketData['SecondLeg']
+                                          ['TicketData']['TravelVariantLeg2']
+                                      ['DepartureDate']
+                                  .substring(0, 4)),
+                              arrivalStation: widget.ticketData['SecondLeg']
+                                      ['TicketData']['TravelVariantLeg2']
+                                  ['ToStation']['StationName'],
+                              departureStation: widget.ticketData['SecondLeg']
+                                      ['TicketData']['TravelVariantLeg2']
+                                  ['FromStation']['StationName'],
+                              departureTime: widget.ticketData['SecondLeg']
+                                          ['TicketData']['TravelVariantLeg2']
+                                      ['DepartureTime']
+                                  .substring(0, 5),
+                              arrivalTime: widget.ticketData['SecondLeg']
+                                          ['TicketData']['TravelVariantLeg2']
+                                      ['ArrivalTime']
+                                  .substring(0, 5),
+                              seatsDetail: widget.ticketData['SecondLeg']
+                                      ['TravelVariantLeg2']['SeatVoyagerInfo']
+                                  [(index + 1)],
+                              ticketPrice: widget.ticketData['SecondLeg']
+                                      ['TicketData']['TravelVariantLeg2']
+                                  ['TicketPrice'],
+                              currencyType: widget.ticketData['SecondLeg']
+                                      ['TicketData']['TravelVariantLeg2']
+                                  ['Currency']['CurrencyName'],
+                            );
+                          },
+                          childCount: widget.ticketData['SecondLeg']
+                              ['TravelVariantLeg2']['SeatCount'],
+                        ),
+                      ))
                   : SliverToBoxAdapter(),
               SliverList(
                 delegate: SliverChildListDelegate([
@@ -277,7 +387,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                       ),
                       child: Center(
                           child: Text(
-                        '$totalPrice:          $total UAH',
+                        '$totalPrice:          ${total.toStringAsFixed(0)} UAH',
                         style: TextStyle(
                           fontFamily: 'MyriadPro',
                           color: darkBlue,
@@ -334,6 +444,40 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                       ['SelectedSeatsBlockIds'][(i - 1)],
                 });
               }
+              if (widget.ticketData['FirstLeg']['TicketData']
+                      ['TravelVariantLeg2'] !=
+                  null)
+                for (int i = 1;
+                    i <=
+                        widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                            ['SeatCount'];
+                    ++i) {
+                  tickets.add({
+                    "SeatNo": widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                        ['SeatVoyagerInfo'][i]['SeatNumber'],
+                    "FirstName": widget.ticketData['FirstLeg']
+                        ['TravelVariantLeg2']['SeatVoyagerInfo'][i]['Name'],
+                    "LastName": widget.ticketData['FirstLeg']
+                        ['TravelVariantLeg2']['SeatVoyagerInfo'][i]['Surname'],
+                    "PhoneNumber": widget.ticketData['FirstLeg']
+                                ['TravelVariantLeg2']['SeatVoyagerInfo'][i]
+                            ['Number']
+                        .substring(1),
+                    "Email": widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                        ['SeatVoyagerInfo'][i]['Email'],
+                    "ChairNumber": widget.ticketData['FirstLeg']
+                            ['TravelVariantLeg2']['SeatVoyagerInfo'][i]
+                        ['SeatNumber'],
+                    "PassengerOrder": widget.ticketData['FirstLeg']
+                        ['TravelVariantLeg2']['SeatCount'],
+                    "CountryId": widget.ticketData['FirstLeg']['TicketData']
+                        ['TravelVariantLeg2']['FromStation']['CountryId'],
+                    "TravelVariantId": widget.ticketData['FirstLeg']
+                        ['TicketData']['TravelVariantLeg2']['TravelVariantId'],
+                    "TravelSeatBlockId": widget.ticketData['FirstLeg']
+                        ['TravelVariantLeg2']['SelectedSeatsBlockIds'][(i - 1)],
+                  });
+                }
               if (widget.ticketData['BuyTicketData']['RoundWayCheck'])
                 for (int i = 1;
                     i <= widget.ticketData['SecondLeg']['SeatCount'];
@@ -360,6 +504,42 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                         ['TicketData']['TravelVariantId'],
                     "TravelSeatBlockId": widget.ticketData['SecondLeg']
                         ['SelectedSeatsBlockIds'][(i - 1)],
+                  });
+                }
+              if (widget.ticketData['BuyTicketData']['RoundWayCheck'] &&
+                  (widget.ticketData['SecondLeg']['TicketData']
+                          ['TravelVariantLeg2'] !=
+                      null))
+                for (int i = 1;
+                    i <=
+                        widget.ticketData['SecondLeg']['TravelVariantLeg2']
+                            ['SeatCount'];
+                    ++i) {
+                  tickets.add({
+                    "SeatNo": widget.ticketData['SecondLeg']
+                            ['TravelVariantLeg2']['SeatVoyagerInfo'][i]
+                        ['SeatNumber'],
+                    "FirstName": widget.ticketData['SecondLeg']
+                        ['TravelVariantLeg2']['SeatVoyagerInfo'][i]['Name'],
+                    "LastName": widget.ticketData['SecondLeg']
+                        ['TravelVariantLeg2']['SeatVoyagerInfo'][i]['Surname'],
+                    "PhoneNumber": widget.ticketData['SecondLeg']
+                                ['TravelVariantLeg2']['SeatVoyagerInfo'][i]
+                            ['Number']
+                        .substring(1),
+                    "Email": widget.ticketData['SecondLeg']['TravelVariantLeg2']
+                        ['SeatVoyagerInfo'][i]['Email'],
+                    "ChairNumber": widget.ticketData['SecondLeg']
+                            ['TravelVariantLeg2']['SeatVoyagerInfo'][i]
+                        ['SeatNumber'],
+                    "PassengerOrder": widget.ticketData['SecondLeg']
+                        ['TravelVariantLeg2']['SeatCount'],
+                    "CountryId": widget.ticketData['SecondLeg']['TicketData']
+                        ['TravelVariantLeg2']['FromStation']['CountryId'],
+                    "TravelVariantId": widget.ticketData['SecondLeg']
+                        ['TicketData']['TravelVariantLeg2']['TravelVariantId'],
+                    "TravelSeatBlockId": widget.ticketData['SecondLeg']
+                        ['TravelVariantLeg2']['SelectedSeatsBlockIds'][(i - 1)],
                   });
                 }
               body = json.encode({

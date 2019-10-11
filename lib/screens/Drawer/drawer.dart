@@ -155,30 +155,33 @@ class _SideDrawerState extends State<SideDrawer> {
               SizedBox(
                 width: 30,
               ),
-             
               checkImage
                   ? Container(
                       height: 80.0,
                       width: 80.0,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage(profileImage))))
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(profileImage),
+                        ),
+                      ),
+                    )
                   : Container(
                       height: 80.0,
                       width: 80.0,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: FileImage(
-                              File(profileImage),
-                            ),
-                          ))),
-
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: FileImage(
+                            File(profileImage),
+                          ),
+                        ),
+                      ),
+                    ),
               Spacer(
                 flex: 1,
               ),

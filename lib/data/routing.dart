@@ -1,7 +1,11 @@
 import 'package:gunsel/data/facebook_login.dart';
 import 'package:gunsel/screens/DetailsRoundWay.dart';
+import 'package:gunsel/screens/DetailsRoundWay_TransferWay.dart';
 import 'package:gunsel/screens/RoundWaySearchTicket.dart';
 import 'package:gunsel/screens/SelectSeatRoundWay.dart';
+import 'package:gunsel/screens/SelectSeatRoundWay_TransferWay.dart';
+import 'package:gunsel/screens/TransferWayDetails.dart';
+import 'package:gunsel/screens/TransferWaySelectSeat.dart';
 import 'package:gunsel/screens/details.dart';
 import 'package:gunsel/screens/payment_result.dart';
 
@@ -23,7 +27,6 @@ import 'package:gunsel/screens/profile.dart';
 import 'package:gunsel/screens/about_company.dart';
 import 'package:gunsel/screens/ticket_summary.dart';
 import 'package:gunsel/screens/language.dart';
-import 'package:gunsel/data/facebook_login.dart';
 
 class CustomRoute<T> extends MaterialPageRoute<T> {
   CustomRoute({WidgetBuilder builder, RouteSettings settings})
@@ -88,10 +91,25 @@ class Router {
 
       case roundWayScreen:
         return CustomRoute(builder: (_) => RoundWay());
+      case selectSeats_TransferWay:
+        return CustomRoute(
+            builder: (_) => SelectSeat_TransferWay(
+                  ticketData: settings.arguments,
+                ));
       case cancelTicketScreen:
         return CustomRoute(builder: (_) => CancelTicket());
       case oneWayScreen:
         return CustomRoute(builder: (_) => OneWay());
+      case selectSeatRoundWay_TransferWay:
+        return CustomRoute(
+            builder: (_) => SelectSeat_TransferWay_RoundWay(
+                  ticketData: settings.arguments,
+                ));
+      case detailsRoundWay_TransferWay:
+        return CustomRoute(
+            builder: (_) => DetailRoundWay_TransferWay(
+                  ticketData: settings.arguments,
+                ));
       case historyScreen:
         return CustomRoute(builder: (_) => History());
       case finalCancelTicketScreen:
@@ -100,6 +118,11 @@ class Router {
         return CustomRoute(builder: (_) => News());
       case articleScreen:
         return CustomRoute(builder: (_) => ArticleScreen());
+      case details_TransferWay:
+        return CustomRoute(
+            builder: (_) => DetailTransferWay(
+                  ticketData: settings.arguments,
+                ));
       case profileScreen:
         return CustomRoute(builder: (_) => ProfileScreen());
       case aboutCompanyScreen:

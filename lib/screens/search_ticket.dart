@@ -97,7 +97,6 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
   getData() async {
     stopClick = true;
     TravelListOneWayModel travelListPODO = TravelListOneWayModel();
-
     travelListTicketData['FirstLegTickets'] =
         await travelListPODO.getRoundWayFirstLegList(
       travelListTicketData['BuyTicketData']['ArrivalStationId'],
