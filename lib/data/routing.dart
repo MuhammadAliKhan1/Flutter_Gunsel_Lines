@@ -43,6 +43,7 @@ class CustomRoute<T> extends MaterialPageRoute<T> {
 class Router {
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+
       case homeScreen:
         return CustomRoute(builder: (BuildContext context) => OneWay());
       case searchTicketRoundWay:

@@ -798,14 +798,20 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                           children: <Widget>[
                                             Row(
                                               children: <Widget>[
-                                                Text(
-                                                  '${widget.departureStation}',
-                                                  style: TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.black,
-                                                    fontFamily: 'Helvetica',
+                                                Container(
+                                                  width:
+                                                      ScreenUtil().setSp(150),
+                                                  child: AutoSizeText(
+                                                    '${widget.departureStation}',
+                                                    style:
+                                                        TextStyle(fontSize: 25),
+                                                    maxLines: 2,
                                                   ),
-                                                )
+                                                ),
+                                                SizedBox(
+                                                  width:
+                                                      ScreenUtil().setSp(100),
+                                                ),
                                               ],
                                             ),
                                             Row(
@@ -851,14 +857,20 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                           children: <Widget>[
                                             Row(
                                               children: <Widget>[
-                                                Text(
-                                                  '${widget.arrivalStation}',
-                                                  style: TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.black,
-                                                    fontFamily: 'Helvetica',
+                                                Container(
+                                                  width:
+                                                      ScreenUtil().setSp(150),
+                                                  child: AutoSizeText(
+                                                    '${widget.arrivalStation}',
+                                                    style:
+                                                        TextStyle(fontSize: 25),
+                                                    maxLines: 2,
                                                   ),
-                                                )
+                                                ),
+                                                SizedBox(
+                                                  width:
+                                                      ScreenUtil().setSp(100),
+                                                ),
                                               ],
                                             ),
                                             Row(

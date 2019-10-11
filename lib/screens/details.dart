@@ -75,6 +75,7 @@ class _DetailScreenState extends State<DetailScreen> {
   bool checkBox2 = false;
   String path1 = "assets/unchecked.png";
   String path2 = "assets/unchecked.png";
+  var number;
   @override
   void initState() {
     super.initState();
@@ -549,6 +550,7 @@ class _DetailFormState extends State<DetailForm> {
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
 
+  final FocusNode _focusNode = FocusNode();
   @override
   void initState() {
     searchTicketlan();
@@ -557,6 +559,19 @@ class _DetailFormState extends State<DetailForm> {
     _currentCode = countryCode.keys
         .firstWhere((k) => countryCode[k] == _currentFlag, orElse: () => '');
     super.initState();
+    _focusNode.addListener(() {
+      formsData[widget.index]['Number'] = this._number.text.trim();
+      if (this._number.text.length == 9) {
+        // The below code gives a range error if not 10.
+        RegExp phone = RegExp(r'(\d{2})(\d{3})(\d{2})(\d{2})');
+        var matches = phone.allMatches(_number.text);
+        var match = matches.elementAt(0);
+        var newText =
+            '${match.group(1)})${match.group(2)}-${match.group(3)}-${match.group(4)}';
+        formsData[widget.index]['Number'] = this._number.text.trim();
+        this._number.text = newText;
+      }
+    });
   }
 
   SharePreferencelogin sh = SharePreferencelogin();
@@ -732,7 +747,7 @@ class _DetailFormState extends State<DetailForm> {
                             child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
                               icon: Text(
-                                ' ${this._currentCode} ',
+                                ' ${this._currentCode}',
                                 style: TextStyle(fontSize: 20),
                               ),
                               elevation: 0,
@@ -743,9 +758,10 @@ class _DetailFormState extends State<DetailForm> {
                           ),
                           Flexible(
                             child: TextFormField(
-                              onSaved: (number) {
-                                formsData[widget.index]['Number'] =
-                                    number.trim();
+                              focusNode: _focusNode,
+                              onChanged: (number) {
+                                if (number.length > 8)
+                                  FocusScope.of(context).unfocus();
                               },
                               validator: (value) {
                                 if (value.isEmpty) {
