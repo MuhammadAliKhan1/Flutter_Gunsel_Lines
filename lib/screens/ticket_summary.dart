@@ -578,7 +578,7 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                             fontWeight: FontWeight.w600,
                                             fontSize: ScreenUtil(
                                               allowFontScaling: true,
-                                            ).setSp(50),
+                                            ).setSp(40),
                                           ),
                                         ),
                                         Text(
@@ -746,7 +746,8 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                         Text(
                                           '${widget.ticketPrice.toStringAsFixed(0)}',
                                           style: TextStyle(
-                                            color: darkBlue,
+                                            color:
+                                                Color.fromRGBO(14, 52, 113, 10),
                                             fontFamily: 'Helvetica',
                                             fontWeight: FontWeight.w600,
                                             fontSize: ScreenUtil(
@@ -760,7 +761,8 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                             child: Text(
                                               '${widget.currencyType}           ',
                                               style: TextStyle(
-                                                color: darkBlue,
+                                                color: Color.fromRGBO(
+                                                    14, 52, 113, 10),
                                                 fontFamily: 'Helvetica',
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: ScreenUtil(

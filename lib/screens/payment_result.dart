@@ -302,6 +302,7 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                     child: Container(
                       width: 40,
                       height: 20,
+                      margin: EdgeInsets.only(left: 1, right: 1),
                       child: Stack(
                         children: <Widget>[
                           Align(
@@ -330,7 +331,8 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                           style: TextStyle(
                                               fontSize: 1.7,
                                               fontFamily: 'Helvetica',
-                                              color: darkBlue.withOpacity(0.9),
+                                              color: Color.fromRGBO(
+                                                  14, 52, 113, 10),
                                               fontWeight: FontWeight.w700),
                                         ),
                                         Text(
@@ -362,7 +364,12 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                                       title: Text(
                                                         sendmail,
                                                         style: TextStyle(
-                                                            color: gunselColor),
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    14,
+                                                                    52,
+                                                                    113,
+                                                                    10)),
                                                         textAlign:
                                                             TextAlign.center,
                                                       ),
@@ -418,8 +425,12 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                                                       color: Colors
                                                                           .yellow),
                                                                 ),
-                                                                color:
-                                                                    gunselColor,
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        14,
+                                                                        52,
+                                                                        113,
+                                                                        10),
                                                                 shape:
                                                                     RoundedRectangleBorder(
                                                                   borderRadius: BorderRadius.only(
@@ -471,7 +482,8 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                               ),
                                             ),
                                             decoration: BoxDecoration(
-                                              color: darkBlue,
+                                              color: Color.fromRGBO(
+                                                  14, 52, 113, 10),
                                               borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(2),
                                                 bottomRight: Radius.circular(2),
@@ -634,7 +646,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                             style: TextStyle(
                                               fontSize: ScreenUtil(
                                                       allowFontScaling: true)
-                                                  .setSp(150),
+                                                  .setSp(200),
                                               color: Colors.black,
                                               fontFamily: 'SFProText',
                                               fontWeight: FontWeight.w900,
@@ -643,7 +655,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                           Text(
                                             '${widget.month} ${widget.year}',
                                             style: TextStyle(
-                                              fontSize: 35,
+                                              fontSize: 40,
                                               color: Colors.black,
                                               fontFamily: 'Helvetica',
                                               fontWeight: FontWeight.w700,
@@ -655,11 +667,11 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                     Text(
                                       busType,
                                       style: TextStyle(
-                                        color: darkBlue,
+                                        color: Color.fromRGBO(14, 52, 113, 10),
                                         fontFamily: 'Helvetica',
                                         fontSize:
                                             ScreenUtil(allowFontScaling: true)
-                                                .setSp(33),
+                                                .setSp(45),
                                       ),
                                     ),
                                     Row(
@@ -671,7 +683,8 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                         Text(
                                           seat,
                                           style: TextStyle(
-                                            color: darkBlue,
+                                            color:
+                                                Color.fromRGBO(14, 52, 113, 10),
                                             fontFamily: 'Helvetica',
                                             fontWeight: FontWeight.w600,
                                             fontSize: ScreenUtil(
@@ -717,12 +730,11 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '${widget.departureStation}                            ',
+                                                  '${widget.departureStation}',
                                                   style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: 25,
                                                     color: Colors.black,
                                                     fontFamily: 'Helvetica',
-                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                 )
                                               ],
@@ -735,7 +747,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(130),
+                                                        .setSp(140),
                                                     color: darkBlue,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
@@ -755,7 +767,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(35),
+                                                        .setSp(45),
                                                     color: Colors.black,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
@@ -770,12 +782,11 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '${widget.arrivalStation}                            ',
+                                                  '${widget.arrivalStation}',
                                                   style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: 25,
                                                     color: Colors.black,
                                                     fontFamily: 'Helvetica',
-                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                 )
                                               ],
@@ -788,7 +799,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(130),
+                                                        .setSp(140),
                                                     color: darkBlue,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
@@ -808,7 +819,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                                     fontSize: ScreenUtil(
                                                             allowFontScaling:
                                                                 true)
-                                                        .setSp(35),
+                                                        .setSp(45),
                                                     color: Colors.black,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
@@ -844,7 +855,8 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                         Text(
                                           '${widget.ticketPrice.toStringAsFixed(0)}',
                                           style: TextStyle(
-                                            color: darkBlue,
+                                            color:
+                                                Color.fromRGBO(14, 52, 113, 10),
                                             fontFamily: 'Helvetica',
                                             fontWeight: FontWeight.w600,
                                             fontSize: ScreenUtil(
@@ -852,17 +864,21 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                             ).setSp(70),
                                           ),
                                         ),
-                                        Text(
-                                          '${widget.currencyType}      ',
-                                          style: TextStyle(
-                                            color: darkBlue,
-                                            fontFamily: 'Helvetica',
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: ScreenUtil(
-                                              allowFontScaling: true,
-                                            ).setSp(40),
-                                          ),
-                                        ),
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.only(bottom: 5.0),
+                                            child: Text(
+                                              '${widget.currencyType}           ',
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    14, 52, 113, 10),
+                                                fontFamily: 'Helvetica',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: ScreenUtil(
+                                                  allowFontScaling: true,
+                                                ).setSp(40),
+                                              ),
+                                            )),
                                       ],
                                     )
                                   ],
