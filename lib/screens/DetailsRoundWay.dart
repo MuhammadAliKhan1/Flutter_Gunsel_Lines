@@ -428,17 +428,16 @@ class _DetailTicketState extends State<DetailTicket> {
                           child: Text(
                             '${widget.departureStation}',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 25,
                               color: Colors.black,
                               fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w600,
                             ),
                           )),
                       Text(
                         '${widget.departureTime}',
                         style: TextStyle(
                           fontSize: 80,
-                          color: darkBlue,
+                          color: Color.fromRGBO(14, 52, 113, 10),
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
                         ),
@@ -466,17 +465,16 @@ class _DetailTicketState extends State<DetailTicket> {
                           child: Text(
                             '${widget.arrivalStation}',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 25,
                               color: Colors.black,
                               fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w600,
                             ),
                           )),
                       Text(
                         '${widget.arrivalTime}',
                         style: TextStyle(
                           fontSize: 80,
-                          color: darkBlue,
+                          color: Color.fromRGBO(14, 52, 113, 10),
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
                         ),
@@ -709,7 +707,7 @@ class _DetailFormState extends State<DetailForm> {
                                 child: DropdownButton(
                               icon: Text(
                                 ' ${this._currentCode} ',
-                                style: TextStyle(fontSize: 17),
+                                style: TextStyle(fontSize: 20),
                               ),
                               elevation: 0,
                               value: _currentFlag,
@@ -735,7 +733,8 @@ class _DetailFormState extends State<DetailForm> {
                                 }
                               },
                               inputFormatters: [
-                                WhitelistingTextInputFormatter.digitsOnly
+                                WhitelistingTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(9)
                               ],
                               controller: this._number,
                               keyboardType: TextInputType.number,
@@ -747,7 +746,7 @@ class _DetailFormState extends State<DetailForm> {
                                 filled: true,
                               ),
                             ),
-                          ),
+                          )
                         ],
                       )),
                 )
@@ -768,7 +767,8 @@ class _DetailFormState extends State<DetailForm> {
           value: flag,
           child: new Image(
             image: flag,
-            height: 25,
+            height: 40,
+            width: 40,
           )));
     }
     return items;

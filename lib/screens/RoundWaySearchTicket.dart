@@ -170,6 +170,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
 
   getSliderLeft() {
     return Container(
+      padding: EdgeInsets.only(left: 5.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,6 +239,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
 
   getSliderRight() {
     return Container(
+      padding: EdgeInsets.only(right: 5.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -297,13 +299,12 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
         height: searchTicketTabHeight,
         color: Colors.black.withOpacity(0.4),
         alignment: Alignment.center,
-        padding: EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text(
-              "$departureStation-$arrivalStation",
+              "$departureStation - $arrivalStation",
               style: TextStyle(color: Colors.white, fontFamily: "MyriadPro"),
             ),
             Text(

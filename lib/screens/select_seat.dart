@@ -672,7 +672,6 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                               fontSize: 20,
                               color: Colors.black,
                               fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w600,
                             ),
                           )),
                       Text(
@@ -710,7 +709,6 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                               fontSize: 20,
                               color: Colors.black,
                               fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w600,
                             ),
                           )),
                       Text(
