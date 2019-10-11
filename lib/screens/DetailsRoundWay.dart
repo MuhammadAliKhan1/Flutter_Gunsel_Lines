@@ -301,11 +301,21 @@ class _DetailScreenState extends State<DetailScreen> {
                 widget.ticketData['SecondLeg']['AgreementCheckBox'] = checkBox1;
                 widget.ticketData['SecondLeg']['SubscriberCheckBox'] =
                     checkBox2;
-                Navigator.pushNamed(
-                  context,
-                  ticketSummaryScreen,
-                  arguments: widget.ticketData,
-                );
+                if (widget.ticketData['SecondLeg']['TicketData']
+                        ['TravelVariantLeg2'] ==
+                    null) {
+                  Navigator.pushNamed(
+                    context,
+                    ticketSummaryScreen,
+                    arguments: widget.ticketData,
+                  );
+                } else {
+                  Navigator.pushNamed(
+                    context,
+                    selectSeatRoundWay_TransferWay,
+                    arguments: widget.ticketData,
+                  );
+                }
               }
             },
           ),
@@ -718,19 +728,8 @@ class _DetailFormState extends State<DetailForm> {
                           Flexible(
                             child: TextFormField(
                               onSaved: (number) {
-                                var code;
-                                if (this._currentCode != '+48')
-                                  code = this._currentCode.substring(0, 3) +
-                                      this._currentCode.substring(4);
-                                else
-                                  code = this._currentCode;
                                 formsData[widget.index]['Number'] =
-                                    ('$code$number');
-                              },
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return;
-                                }
+                                    number.trim();
                               },
                               inputFormatters: [
                                 WhitelistingTextInputFormatter.digitsOnly,

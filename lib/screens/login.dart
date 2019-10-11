@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:gunsel/data/facebookapimodel.dart';
 import 'package:gunsel/data/googleapimodel.dart';
+import 'package:flutter/services.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -260,8 +261,11 @@ class _LoginFormState extends State<LoginForm> {
                   width: 220,
                   height: 40,
                   child: TextFormField(
-                    maxLength: 9,
                     controller: this._number,
+                    inputFormatters: [
+                      WhitelistingTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(9)
+                    ],
                     keyboardType: TextInputType.number,
                     style: TextStyle(color: Colors.white, fontSize: 25),
                     decoration: InputDecoration(
