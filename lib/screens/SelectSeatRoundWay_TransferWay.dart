@@ -152,7 +152,10 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   String purchaseDetails = "Purchase Details";
   String purchase = "Purchase";
   String search = "Search";
-  String busInfo = "Bus Info";
+  String busInfo = "Bus Info::";
+  String selected = "Selected";
+  String empty = "Free";
+  String busy = "Occupied";
 
   void selectTicketlan() async {
     int b;
@@ -167,21 +170,30 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         purchaseDetails = "Деталі придбання";
         purchase = "Купівля";
         search = "Пошук";
-        busInfo = "Інформація про автобус";
+        busInfo = "Інформація про автобус ::";
+        selected = "Вибрано";
+        empty = "Безкоштовно";
+        busy = "Окуповані";
       } else if (b == 2) {
         yourSeat = "Your seat";
         details = "Details";
         purchaseDetails = "Purchase Details";
         purchase = "Purchase";
         search = "Search";
-        busInfo = "Bus Info";
+        busInfo = "Bus info::";
+        selected = "Selected";
+        empty = "Free";
+        busy = "Occupied";
       } else if (b == 3) {
         yourSeat = "Ваше место";
         details = "подробности";
         purchaseDetails = "Детали покупки";
         purchase = "покупка";
         search = "Поиск";
-        busInfo = "Информация об автобусе";
+        busInfo = "Информация об автобусе ::";
+        selected = "выбранный";
+        empty = "Свободно";
+        busy = "занятый";
       }
     });
   }
@@ -273,7 +285,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                         right: 50.0,
                       ),
                       title: Text(
-                        '$busInfo:',
+                        '$busInfo',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Helvetica',
@@ -285,59 +297,66 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                         height: ScreenUtil().setSp(50),
                       ),
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 100),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Row(
                           children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  'Busy   ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  color: red,
-                                )
-                              ],
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: red,
+                              ),
                             ),
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  'Empty   ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  color: Colors.white,
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  'Selected   ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  color: green,
-                                )
-                              ],
+                            Text(
+                              '   $busy',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
                           ],
-                        ))
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              '   $empty',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: green,
+                              ),
+                            ),
+                            Text(
+                              '   $selected',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

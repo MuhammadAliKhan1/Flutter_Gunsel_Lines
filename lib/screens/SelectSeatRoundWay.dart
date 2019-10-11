@@ -302,12 +302,15 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                                 color: red,
                               ),
                             ),
-                            Text(
-                              '   $busy',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
+                            Container(
+                                width: ScreenUtil().setWidth(140),
+                                child: AutoSizeText(
+                                  '   $busy',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                )),
                           ],
                         ),
                         Row(
@@ -320,12 +323,15 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                                 color: Colors.white,
                               ),
                             ),
-                            Text(
-                              '   $empty',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
+                            Container(
+                                width: ScreenUtil().setWidth(180),
+                                child: AutoSizeText(
+                                  '   $empty',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                )),
                           ],
                         ),
                         Row(
@@ -338,16 +344,19 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                                 color: green,
                               ),
                             ),
-                            Text(
-                              '   $selected',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
+                            Container(
+                                width: ScreenUtil().setWidth(170),
+                                child: AutoSizeText(
+                                  '   $selected',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                )),
                           ],
                         ),
                       ],
-                    ),
+                    )
                   ],
                 ),
               ),
