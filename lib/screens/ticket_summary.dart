@@ -976,50 +976,6 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                     ],
                   ),
                 ),
-                Container(
-                    width: 729,
-                    height: 90,
-                    child: Center(
-                      child: Container(
-                        height: 90,
-                        width: 649,
-                        decoration: BoxDecoration(
-                          color: Colors.yellow,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40.0),
-                            bottomRight: Radius.circular(40.0),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Center(
-                              child: Text(
-                                '',
-                                style: TextStyle(
-                                  fontSize: 25,
-                                  fontFamily: 'MyriadPro',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Text(
-                                '',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'MyriadPro',
-                                  fontWeight: FontWeight.w600,
-                                  color: red,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ))
               ],
             )
           ],

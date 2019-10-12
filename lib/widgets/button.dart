@@ -36,8 +36,9 @@ class GunselButton extends StatelessWidget {
         ),
         buttonColor: Colors.yellow,
         child: RaisedButton(
-          child: Text(
+          child: AutoSizeText(
             "$btnText",
+            maxLines: 1,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: btnTextFontSize == null

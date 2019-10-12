@@ -584,7 +584,7 @@ class _DetailFormState extends State<DetailForm> {
   String name = "Name";
   String surName = "Surname";
   String email = "Email";
-  String seat = "Seat";
+  String seat = "Seat:";
   String enterName = "Please enter your name";
   String enterSur = "Please enter your surname";
   String enterEmail = "Please enter your email";
@@ -601,7 +601,7 @@ class _DetailFormState extends State<DetailForm> {
         name = "Ім'я";
         surName = "Прізвище";
         email = "Електронна пошта";
-        seat = "Сидіння";
+        seat = "Сидіння:";
         enterName = "Введіть своє ім’я";
         surName = "Введіть своє прізвище";
         enterEmail = "Будь ласка, введіть свій електронний лист";
@@ -610,7 +610,7 @@ class _DetailFormState extends State<DetailForm> {
         name = "Name";
         surName = "Surname";
         email = "Email";
-        seat = "Seat";
+        seat = "Seat:";
         enterName = "Please enter your name";
         enterSur = "Please enter your surname";
         enterEmail = "Please enter your email";
@@ -619,7 +619,7 @@ class _DetailFormState extends State<DetailForm> {
         name = "имя";
         surName = "Фамилия";
         email = "Электронное письмо";
-        seat = "сиденье";
+        seat = "сиденье:";
         enterName = "Пожалуйста, введите Ваше имя";
         enterSur = "Пожалуйста, введите вашу фамилию";
         enterEmail = "Пожалуйста, введите ваш адрес электронной почты";
