@@ -84,10 +84,12 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
         null)
       total += widget.ticketData['FirstLeg']['TicketData']['TravelVariantLeg2']
           ['TicketPrice'];
-    if (widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] !=
-        null)
-      total += widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2']
-          ['TicketPrice'];
+    if (widget.ticketData['BuyTicketData']['RoundWayCheck']) {
+      if (widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] !=
+          null)
+        total += widget.ticketData['SecondLeg']['TicketData']
+            ['TravelVariantLeg2']['TicketPrice'];
+    }
     userData = Map();
   }
 
@@ -309,7 +311,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                               ['SeatCount'],
                         ),
                       ))
-                  : SliverToBoxAdapter,
+                  : SliverToBoxAdapter(),
               (widget.ticketData['BuyTicketData']['RoundWayCheck'] &&
                       (widget.ticketData['SecondLeg']['TicketData']
                               ['TravelVariantLeg2'] !=
