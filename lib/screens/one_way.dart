@@ -534,15 +534,7 @@ class _OneWayFormState extends State<OneWayForm> {
   Future<List<String>> filterStations(String pattern) async {
     List<String> list = [];
     //if list is null{
-    pattern = pattern.toUpperCase();
-    if (this.stationListFetched) {
-      for (String station in this.stationList) {
-        if ((station.toUpperCase()).contains(pattern))
-          list.add(
-            station,
-          );
-      }
-    } else {
+    if (!this.stationListFetched) {
       this.stationListFetched = await setStationList();
       if (this.stationListFetched) {
         for (String station in this.stationList) {
@@ -553,6 +545,16 @@ class _OneWayFormState extends State<OneWayForm> {
         }
       }
     }
+    if (stationListFetched && stationList != null) {
+      pattern = pattern.toUpperCase();
+      for (String station in this.stationList) {
+        if ((station.toUpperCase()).contains(pattern))
+          list.add(
+            station,
+          );
+      }
+    }
+
     return list;
   }
 
