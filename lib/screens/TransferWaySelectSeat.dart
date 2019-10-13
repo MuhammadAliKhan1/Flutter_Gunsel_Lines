@@ -48,49 +48,67 @@ class _SelectSeat_TransferWayState extends State<SelectSeat_TransferWay> {
 
   @override
   Widget build(BuildContext context) {
-    return GunselScaffold(
-      appBarIcon: backArrow,
-      appBarIncluded: true,
-      backgroundImage: scaffoldImg,
-      bodyWidget: Stack(
-        children: <Widget>[
-          SelectSeatScreen(
-            ticketData: this.widget.ticketData,
-          ),
-          unblockLoad
-              ? Container(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  color: Colors.black.withOpacity(0.5),
-                )
-              : Container(),
-        ],
-      ),
-      appBarTitle: selectTicket,
-      customFunction: () async {
-        if (selectedSeats.length > 0) {
-          List pointNumbers = selectedSeats.keys.toList();
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          String token = prefs.getString('Token');
-          unblockLoad = true;
-          setState(() {});
-          for (int pointNumber in pointNumbers) {
-            http.Response response = await http.delete(
-              'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
-              headers: {'token': token},
-            );
-            print(response.body);
+    return WillPopScope(
+        onWillPop: () async {
+          if (selectedSeats.length > 0) {
+            List pointNumbers = selectedSeats.keys.toList();
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            String token = prefs.getString('Token');
+            unblockLoad = true;
+            setState(() {});
+            for (int pointNumber in pointNumbers) {
+              http.Response response = await http.delete(
+                'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
+                headers: {'token': token},
+              );
+            }
+            selectedSeats.clear();
           }
-          selectedSeats.clear();
-        }
-        Navigator.of(context).pop();
-      },
-      appBarTitleIncluded: true,
-      drawerIncluded: false,
-    );
+          Navigator.pop(context);
+        },
+        child: GunselScaffold(
+          appBarIcon: backArrow,
+          appBarIncluded: true,
+          backgroundImage: scaffoldImg,
+          bodyWidget: Stack(
+            children: <Widget>[
+              SelectSeatScreen(
+                ticketData: this.widget.ticketData,
+              ),
+              unblockLoad
+                  ? Container(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      color: Colors.black.withOpacity(0.5),
+                    )
+                  : Container(),
+            ],
+          ),
+          appBarTitle: selectTicket,
+          customFunction: () async {
+            if (selectedSeats.length > 0) {
+              List pointNumbers = selectedSeats.keys.toList();
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              String token = prefs.getString('Token');
+              unblockLoad = true;
+              setState(() {});
+              for (int pointNumber in pointNumbers) {
+                http.Response response = await http.delete(
+                  'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
+                  headers: {'token': token},
+                );
+                print(response.body);
+              }
+              selectedSeats.clear();
+            }
+            Navigator.of(context).pop();
+          },
+          appBarTitleIncluded: true,
+          drawerIncluded: false,
+        ));
   }
 }
 
