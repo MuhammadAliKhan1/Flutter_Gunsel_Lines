@@ -151,7 +151,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   String details = "Details";
   String purchaseDetails = "Purchase Details";
   String purchase = "Purchase";
-  String search = "Search";
+  String search = "Continue";
   String busInfo = "Bus Info::";
   String selected = "Selected";
   String empty = "Free";
@@ -169,7 +169,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         details = "Деталі";
         purchaseDetails = "Деталі придбання";
         purchase = "Купівля";
-        search = "Пошук";
+        search = "Продовжуйте";
         busInfo = "Інформація про автобус ::";
         selected = "Вибрано";
         empty = "Безкоштовно";
@@ -179,7 +179,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         details = "Details";
         purchaseDetails = "Purchase Details";
         purchase = "Purchase";
-        search = "Search";
+        search = "Continue";
         busInfo = "Bus info::";
         selected = "Selected";
         empty = "Free";
@@ -189,7 +189,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
         details = "подробности";
         purchaseDetails = "Детали покупки";
         purchase = "покупка";
-        search = "Поиск";
+        search = "Продолжить";
         busInfo = "Информация об автобусе ::";
         selected = "выбранный";
         empty = "Свободно";
