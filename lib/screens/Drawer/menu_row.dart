@@ -46,15 +46,18 @@ class _MenuRowState extends State<MenuRow> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            AutoSizeText(
-              "${widget.title}",
-              style: TextStyle(
-                fontFamily: "Helvetica",
-                fontWeight: FontWeight.w600,
-                color: gunselColor,
-                fontSize: ScreenUtil().setSp(31),
-              ),
-            ),
+            Container(
+                width: ScreenUtil().setWidth(300),
+                child: AutoSizeText(
+                  "${widget.title}",
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontFamily: "Helvetica",
+                    fontWeight: FontWeight.w600,
+                    color: gunselColor,
+                    fontSize: ScreenUtil().setSp(40),
+                  ),
+                )),
           ],
         ),
       ),

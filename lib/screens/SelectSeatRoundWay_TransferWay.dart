@@ -318,9 +318,11 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Row(
+                        Text("  "),
+                        Expanded(
+                            child: Row(
                           children: <Widget>[
                             Container(
                               height: 20,
@@ -330,15 +332,17 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                                 color: red,
                               ),
                             ),
-                            Text(
+                            AutoSizeText(
                               '   $busy',
+                              maxLines: 2,
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
                           ],
-                        ),
-                        Row(
+                        )),
+                        Expanded(
+                            child: Row(
                           children: <Widget>[
                             Container(
                               height: 20,
@@ -348,15 +352,17 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                                 color: Colors.white,
                               ),
                             ),
-                            Text(
+                            AutoSizeText(
                               '   $empty',
+                              maxLines: 2,
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
                           ],
-                        ),
-                        Row(
+                        )),
+                        Expanded(
+                            child: Row(
                           children: <Widget>[
                             Container(
                               height: 20,
@@ -366,14 +372,15 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                                 color: green,
                               ),
                             ),
-                            Text(
+                            AutoSizeText(
                               '   $selected',
+                              maxLines: 2,
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
                           ],
-                        ),
+                        )),
                       ],
                     )
                   ],

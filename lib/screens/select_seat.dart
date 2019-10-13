@@ -306,9 +306,11 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Row(
+                        Text("  "),
+                        Expanded(
+                            child: Row(
                           children: <Widget>[
                             Container(
                               height: 20,
@@ -318,18 +320,17 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                                 color: red,
                               ),
                             ),
-                            Container(
-                                width: ScreenUtil().setWidth(140),
-                                child: AutoSizeText(
-                                  '   $busy',
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                )),
+                            AutoSizeText(
+                              '   $busy',
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
                           ],
-                        ),
-                        Row(
+                        )),
+                        Expanded(
+                            child: Row(
                           children: <Widget>[
                             Container(
                               height: 20,
@@ -339,18 +340,17 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                                 color: Colors.white,
                               ),
                             ),
-                            Container(
-                                width: ScreenUtil().setWidth(180),
-                                child: AutoSizeText(
-                                  '   $empty',
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                )),
+                            AutoSizeText(
+                              '   $empty',
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
                           ],
-                        ),
-                        Row(
+                        )),
+                        Expanded(
+                            child: Row(
                           children: <Widget>[
                             Container(
                               height: 20,
@@ -360,17 +360,15 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                                 color: green,
                               ),
                             ),
-                            Container(
-                                width: ScreenUtil().setWidth(170),
-                                child: AutoSizeText(
-                                  '   $selected',
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                )),
+                            AutoSizeText(
+                              '   $selected',
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
                           ],
-                        ),
+                        )),
                       ],
                     )
                   ],

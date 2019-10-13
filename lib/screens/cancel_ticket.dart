@@ -132,15 +132,15 @@ class CancelTicketState extends State<CancelTicket> {
       backgroundImage: scaffoldImg,
       bodyWidget: Column(children: <Widget>[
         Container(
-            height: 200.0,
-            margin: EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),
+            height: 230.0,
+            margin: EdgeInsets.only(right: 10.0, left: 10.0, top: 15.0),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.white),
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: ListView(children: <Widget>[
               Padding(
-                  padding: EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),
+                  padding: EdgeInsets.only(right: 15.0, left: 15.0, top: 15.0),
                   child: TextFormField(
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 18.0),
@@ -151,12 +151,12 @@ class CancelTicketState extends State<CancelTicket> {
                         filled: true,
                         hintText: secureHint,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                            borderRadius: BorderRadius.circular(7.0))),
                   )),
 
               //Ticket number
               Padding(
-                  padding: EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),
+                  padding: EdgeInsets.only(right: 15.0, left: 15.0, top: 15.0),
                   child: TextFormField(
                     style: TextStyle(fontSize: 18.0),
                     textAlign: TextAlign.center,
@@ -167,11 +167,11 @@ class CancelTicketState extends State<CancelTicket> {
                         filled: true,
                         hintText: ticketNumberHint,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                            borderRadius: BorderRadius.circular(7.0))),
                   )),
               Container(
                 width: 340.0,
-                margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                margin: EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
                 child: RaisedButton(
                   child: Text(
                     btnCancel,
@@ -184,8 +184,8 @@ class CancelTicketState extends State<CancelTicket> {
                   color: Colors.yellow,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0)),
+                        bottomRight: Radius.circular(15.0),
+                        topLeft: Radius.circular(15.0)),
                   ),
                   onPressed: () {
                     getticketInformation();

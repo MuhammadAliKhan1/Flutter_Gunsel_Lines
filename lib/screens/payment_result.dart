@@ -98,9 +98,9 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
       'You received an email for download ticket please check your address.';
   String sendmail = "Send ticket to email";
   String mailAgain = "Please write your email address";
-  String email = "Your email";
+  String email = "  Your email";
   String sendEmail = "Send email";
-  String sendmailAgain = "Send email again.";
+  String sendmailAgain = "Send email again";
 
   void detailslan() async {
     int b;
@@ -121,9 +121,9 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
             "Ви отримали електронний лист для завантаження квитка, будь ласка, перевірте свою адресу.";
         sendmail = "Надішліть квиток на електронну пошту";
         mailAgain = "Будь ласка, напишіть свою електронну адресу";
-        email = "Твоя електронна пошта";
+        email = "  Твоя електронна пошта";
         sendEmail = "Відправити лист";
-        sendmailAgain = "Ще раз надішліть електронний лист.";
+        sendmailAgain = "Ще раз надішліть електронний лист";
       } else if (b == 2) {
         yourSeat = "Your seat";
         details = "Details";
@@ -136,9 +136,9 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
             'You received an email for download ticket please check your address.';
         sendmail = "Send ticket to email";
         mailAgain = "Please write your email address";
-        email = "Your email";
+        email = "  Your email";
         sendEmail = "Send email";
-        sendmailAgain = "Send email again.";
+        sendmailAgain = "Send email again";
       } else if (b == 3) {
         yourSeat = "Ваше место";
         details = "подробности";
@@ -150,10 +150,10 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
         received =
             "Вы получили письмо для загрузки билета, пожалуйста, проверьте свой адрес.";
         sendmail = "Отправить билет на электронную почту";
-        mailAgain = "Пожалуйста, напишите свой адрес электронной почты";
-        email = "Ваш адрес электронной почты";
+        mailAgain = "Пожалуйста, напишите свой адрес электронной почты\n";
+        email = "  Ваш адрес электронной почты";
         sendEmail = "Отправить письмо";
-        sendmailAgain = "Отправить письмо еще раз.";
+        sendmailAgain = "Отправить письмо еще раз";
       }
     });
   }
@@ -318,42 +318,44 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                                 barrierDismissible: true,
                                                 context: context,
                                                 builder: (context) {
-                                                  return AlertDialog(
-                                                      backgroundColor:
-                                                          Colors.white,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                          Radius.circular(
-                                                            10.0,
+                                                  return Container(
+                                                      width: double.infinity,
+                                                      child: AlertDialog(
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(
+                                                              Radius.circular(
+                                                                10.0,
+                                                              ),
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      title: Text(
-                                                        sendmail,
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    14,
-                                                                    52,
-                                                                    113,
-                                                                    10)),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                      content: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: <Widget>[
-                                                          Text(mailAgain),
-                                                          Container(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top:
-                                                                          10.0),
-                                                              child:
-                                                                  TextFormField(
+                                                          title: Text(
+                                                            sendmail,
+                                                            style: TextStyle(
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        14,
+                                                                        52,
+                                                                        113,
+                                                                        10)),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                          content: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: <Widget>[
+                                                              Text(mailAgain),
+                                                              SizedBox(
+                                                                  height: 10),
+                                                              Container(
+                                                                  child:
+                                                                      TextFormField(
                                                                 controller:
                                                                     _email,
                                                                 validator:
@@ -366,79 +368,92 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                                                 },
                                                                 keyboardType:
                                                                     TextInputType
-                                                                        .text,
+                                                                        .emailAddress,
                                                                 decoration: InputDecoration(
-                                                                    fillColor:
-                                                                        Colors
-                                                                            .white,
+                                                                    contentPadding: EdgeInsets.symmetric(
+                                                                        vertical:
+                                                                            10,
+                                                                        horizontal:
+                                                                            10.0),
+                                                                    fillColor: Color
+                                                                        .fromRGBO(
+                                                                            227,
+                                                                            236,
+                                                                            235,
+                                                                            1),
                                                                     filled:
                                                                         true,
                                                                     hintText:
                                                                         email,
                                                                     border: OutlineInputBorder(
                                                                         borderRadius:
-                                                                            BorderRadius.circular(5.0))),
+                                                                            BorderRadius.circular(
+                                                                                5.0)),
+                                                                    enabledBorder:
+                                                                        OutlineInputBorder(
+                                                                            borderSide:
+                                                                                BorderSide(color: Colors.white))),
                                                               )),
-                                                          Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top:
-                                                                          20.0),
-                                                              child:
-                                                                  RaisedButton(
-                                                                child: Text(
-                                                                  sendEmail,
-                                                                  textScaleFactor:
-                                                                      1.5,
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .yellow),
-                                                                ),
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        14,
-                                                                        52,
-                                                                        113,
-                                                                        10),
-                                                                shape:
-                                                                    RoundedRectangleBorder(
-                                                                  borderRadius: BorderRadius.only(
-                                                                      bottomRight:
-                                                                          Radius.circular(
+                                                              Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  padding: EdgeInsets
+                                                                      .only(
+                                                                          top:
                                                                               10.0),
-                                                                      topLeft: Radius
-                                                                          .circular(
-                                                                              10.0)),
-                                                                ),
-                                                                onPressed:
-                                                                    () async {
-                                                                  loadBlock =
-                                                                      true;
-                                                                  setState(
-                                                                      () {});
-                                                                  await paymentResultModelObj.sendEmail(
-                                                                      paymentResultTicketData[
-                                                                              'Data']
-                                                                          [
-                                                                          'PaymentNo'],
-                                                                      _email
-                                                                          .text);
-                                                                  loadBlock =
-                                                                      false;
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                  setState(
-                                                                      () {});
-                                                                },
-                                                              ))
-                                                        ],
-                                                      ));
+                                                                  child:
+                                                                      RaisedButton(
+                                                                    child: Text(
+                                                                      sendEmail,
+                                                                      textScaleFactor:
+                                                                          1.5,
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.yellow),
+                                                                    ),
+                                                                    color: Color
+                                                                        .fromRGBO(
+                                                                            14,
+                                                                            52,
+                                                                            113,
+                                                                            10),
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.only(
+                                                                          bottomRight: Radius.circular(
+                                                                              15.0),
+                                                                          topLeft:
+                                                                              Radius.circular(15.0)),
+                                                                    ),
+                                                                    onPressed:
+                                                                        () async {
+                                                                      loadBlock =
+                                                                          true;
+                                                                      setState(
+                                                                          () {});
+                                                                      await paymentResultModelObj.sendEmail(
+                                                                          paymentResultTicketData['Data']
+                                                                              [
+                                                                              'PaymentNo'],
+                                                                          _email
+                                                                              .text);
+                                                                      loadBlock =
+                                                                          false;
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                      setState(
+                                                                          () {});
+                                                                    },
+                                                                  ))
+                                                            ],
+                                                          )));
                                                 });
                                           },
                                           child: Container(
                                             width: 35,
-                                            height: 3.5,
+                                            height: 4,
+                                            padding: EdgeInsets.only(bottom: 1),
                                             child: Center(
                                               child: Text(
                                                 sendmailAgain,
@@ -878,50 +893,6 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                     ],
                   ),
                 ),
-                Container(
-                    width: 729,
-                    height: 90,
-                    child: Center(
-                      child: Container(
-                        height: 90,
-                        width: 649,
-                        decoration: BoxDecoration(
-                          color: Colors.yellow,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40.0),
-                            bottomRight: Radius.circular(40.0),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Center(
-                              child: Text(
-                                '',
-                                style: TextStyle(
-                                  fontSize: 25,
-                                  fontFamily: 'MyriadPro',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Text(
-                                '',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'MyriadPro',
-                                  fontWeight: FontWeight.w600,
-                                  color: red,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ))
               ],
             )
           ],

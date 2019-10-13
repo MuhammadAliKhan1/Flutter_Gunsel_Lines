@@ -641,7 +641,7 @@ class _DetailFormState extends State<DetailForm> {
             ),
           ),
           trailing: Text(
-            '$seat: ${widget.seatNumber}',
+            '$seat ${widget.seatNumber}',
             style: TextStyle(
               color: Colors.white,
               fontSize: 17,
