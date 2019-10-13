@@ -297,42 +297,43 @@ class _DetailScreenState extends State<DetailScreen> {
                   height: 60,
                 ),
               ),
+              SliverToBoxAdapter(
+                child: Center(
+                  child: GunselButton(
+                    btnWidth: 500,
+                    btnText: cont,
+                    btnTextFontSize: 40,
+                    whenPressed: () {
+                      if (_detailForm.currentState.validate() && checkBox1) {
+                        _detailForm.currentState.save();
+
+                        widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                            ['SeatCount'] = formsData.keys.length;
+                        widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                            ['SeatVoyagerInfo'] = formsData;
+                        widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                            ['AgreementCheckBox'] = checkBox1;
+                        widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                            ['SubscriberCheckBox'] = checkBox2;
+
+                        widget.ticketData['BuyTicketData']['RoundWayCheck']
+                            ? Navigator.pushNamed(
+                                context,
+                                searchTicketRoundWay,
+                                arguments: widget.ticketData,
+                              )
+                            : Navigator.pushNamed(
+                                context,
+                                ticketSummaryScreen,
+                                arguments: widget.ticketData,
+                              );
+                      }
+                    },
+                  ),
+                ),
+              )
             ],
           ),
-        ),
-        Align(
-          child: GunselButton(
-            btnWidth: 500,
-            btnText: cont,
-            btnTextFontSize: 40,
-            whenPressed: () {
-              if (_detailForm.currentState.validate() && checkBox1) {
-                _detailForm.currentState.save();
-
-                widget.ticketData['FirstLeg']['TravelVariantLeg2']
-                    ['SeatCount'] = formsData.keys.length;
-                widget.ticketData['FirstLeg']['TravelVariantLeg2']
-                    ['SeatVoyagerInfo'] = formsData;
-                widget.ticketData['FirstLeg']['TravelVariantLeg2']
-                    ['AgreementCheckBox'] = checkBox1;
-                widget.ticketData['FirstLeg']['TravelVariantLeg2']
-                    ['SubscriberCheckBox'] = checkBox2;
-
-                widget.ticketData['BuyTicketData']['RoundWayCheck']
-                    ? Navigator.pushNamed(
-                        context,
-                        searchTicketRoundWay,
-                        arguments: widget.ticketData,
-                      )
-                    : Navigator.pushNamed(
-                        context,
-                        ticketSummaryScreen,
-                        arguments: widget.ticketData,
-                      );
-              }
-            },
-          ),
-          alignment: Alignment.bottomCenter,
         ),
       ],
     );

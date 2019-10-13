@@ -13,6 +13,8 @@ class Pay extends StatefulWidget {
 }
 
 class _PayState extends State<Pay> {
+  int counter = 0;
+  bool loadScreen = false;
   FlutterWebviewPlugin flutterWebViewPlugin;
   @override
   void initState() {
@@ -20,6 +22,7 @@ class _PayState extends State<Pay> {
     flutterWebViewPlugin = FlutterWebviewPlugin();
 
     flutterWebViewPlugin.onUrlChanged.listen((String url) {
+      ++counter;
       if (url.contains('token')) {
         widget.userData['PaymentToken'] = url.substring(51);
         flutterWebViewPlugin.close();
@@ -30,6 +33,9 @@ class _PayState extends State<Pay> {
           paymentResultScreen,
           arguments: widget.userData,
         );
+      }
+      if (counter == 2) {
+        flutterWebViewPlugin.hide();
       }
 
       if (url == 'https://ecg.test.upc.ua/go/pay?locale=en#') {

@@ -286,48 +286,53 @@ class _DetailScreenState extends State<DetailScreen> {
                   height: 60,
                 ),
               ),
+              SliverToBoxAdapter(
+                child: Align(
+                  child: GunselButton(
+                    btnWidth: 500,
+                    btnText: cont,
+                    btnTextFontSize: 40,
+                    whenPressed: () {
+                      if (_detailForm.currentState.validate() && checkBox1) {
+                        _detailForm.currentState.save();
+
+                        widget.ticketData['FirstLeg']['SeatCount'] =
+                            formsData.keys.length;
+                        widget.ticketData['FirstLeg']['SeatVoyagerInfo'] =
+                            formsData;
+                        widget.ticketData['FirstLeg']['AgreementCheckBox'] =
+                            checkBox1;
+                        widget.ticketData['FirstLeg']['SubscriberCheckBox'] =
+                            checkBox2;
+                        if (widget.ticketData['FirstLeg']['TicketData']
+                                ['TravelVariantLeg2'] ==
+                            null) {
+                          widget.ticketData['BuyTicketData']['RoundWayCheck']
+                              ? Navigator.pushNamed(
+                                  context,
+                                  searchTicketRoundWay,
+                                  arguments: widget.ticketData,
+                                )
+                              : Navigator.pushNamed(
+                                  context,
+                                  ticketSummaryScreen,
+                                  arguments: widget.ticketData,
+                                );
+                        } else {
+                          Navigator.pushNamed(
+                            context,
+                            selectSeats_TransferWay,
+                            arguments: widget.ticketData,
+                          );
+                        }
+                      }
+                    },
+                  ),
+                  alignment: Alignment.bottomCenter,
+                ),
+              ),
             ],
           ),
-        ),
-        Align(
-          child: GunselButton(
-            btnWidth: 500,
-            btnText: cont,
-            btnTextFontSize: 40,
-            whenPressed: () {
-              if (_detailForm.currentState.validate() && checkBox1) {
-                _detailForm.currentState.save();
-
-                widget.ticketData['FirstLeg']['SeatCount'] =
-                    formsData.keys.length;
-                widget.ticketData['FirstLeg']['SeatVoyagerInfo'] = formsData;
-                widget.ticketData['FirstLeg']['AgreementCheckBox'] = checkBox1;
-                widget.ticketData['FirstLeg']['SubscriberCheckBox'] = checkBox2;
-                if (widget.ticketData['FirstLeg']['TicketData']
-                        ['TravelVariantLeg2'] ==
-                    null) {
-                  widget.ticketData['BuyTicketData']['RoundWayCheck']
-                      ? Navigator.pushNamed(
-                          context,
-                          searchTicketRoundWay,
-                          arguments: widget.ticketData,
-                        )
-                      : Navigator.pushNamed(
-                          context,
-                          ticketSummaryScreen,
-                          arguments: widget.ticketData,
-                        );
-                } else {
-                  Navigator.pushNamed(
-                    context,
-                    selectSeats_TransferWay,
-                    arguments: widget.ticketData,
-                  );
-                }
-              }
-            },
-          ),
-          alignment: Alignment.bottomCenter,
         ),
       ],
     );

@@ -18,6 +18,7 @@ class SelectSeat extends StatefulWidget {
 }
 
 class _SelectSeatState extends State<SelectSeat> {
+  Function loadScreen;
   SharePreferencelogin sh = SharePreferencelogin();
   String selectTicket = "Select a Seat";
   bool unblockLoad;
@@ -43,6 +44,13 @@ class _SelectSeatState extends State<SelectSeat> {
   void initState() {
     super.initState();
     selectTicketlan();
+    loadScreen = () {
+      if (unblockLoad)
+        unblockLoad = false;
+      else
+        unblockLoad = true;
+      setState(() {});
+    };
     unblockLoad = false;
   }
 
@@ -57,6 +65,7 @@ class _SelectSeatState extends State<SelectSeat> {
           children: <Widget>[
             SelectSeatScreen(
               ticketData: this.widget.ticketData,
+              loadScreenFunction: loadScreen,
             ),
             unblockLoad
                 ? Container(
@@ -72,7 +81,7 @@ class _SelectSeatState extends State<SelectSeat> {
         ),
         appBarTitle: selectTicket,
         customFunction: () async {
-          if (selectedSeats.length > 0) {
+          if (selectedSeats.length > 0 && !unblockLoad) {
             List pointNumbers = selectedSeats.keys.toList();
             SharedPreferences prefs = await SharedPreferences.getInstance();
             String token = prefs.getString('Token');
@@ -85,14 +94,16 @@ class _SelectSeatState extends State<SelectSeat> {
               );
             }
             selectedSeats.clear();
+            unblockLoad = false;
           }
-          Navigator.of(context).pop();
+
+          if (!unblockLoad) Navigator.of(context).pop();
         },
         appBarTitleIncluded: true,
         drawerIncluded: false,
       ),
       onWillPop: () async {
-        if (selectedSeats.length > 0) {
+        if (selectedSeats.length > 0 && !unblockLoad) {
           List pointNumbers = selectedSeats.keys.toList();
           SharedPreferences prefs = await SharedPreferences.getInstance();
           String token = prefs.getString('Token');
@@ -105,8 +116,9 @@ class _SelectSeatState extends State<SelectSeat> {
             );
           }
           selectedSeats.clear();
+          unblockLoad = false;
         }
-        Navigator.pop(context);
+        if (!unblockLoad) Navigator.pop(context);
       },
     );
   }
@@ -114,8 +126,10 @@ class _SelectSeatState extends State<SelectSeat> {
 
 class SelectSeatScreen extends StatefulWidget {
   Map<String, dynamic> ticketData;
+  Function loadScreenFunction;
   SelectSeatScreen({
     @required this.ticketData,
+    @required this.loadScreenFunction,
   });
 
   @override
@@ -128,6 +142,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   int rows, columns;
   Function refresh;
   Future<dynamic> _dataFetched;
+
   @override
   void initState() {
     selectTicketlan();
@@ -437,6 +452,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                           ? getSpacer()
                           : Container(),
                       Seat(
+                        loadScreen: widget.loadScreenFunction,
                         refresh: this.refresh,
                         seatData: seatMap[(index + 1)],
                         ticketData: widget.ticketData,
@@ -459,11 +475,14 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
 class Seat extends StatefulWidget {
   Map<String, dynamic> seatData;
   Function refresh;
+  Function loadScreen;
+
   Map<String, dynamic> ticketData;
   Seat({
     @required this.refresh,
     @required this.seatData,
     @required this.ticketData,
+    @required this.loadScreen,
   });
   @override
   _SeatState createState() => _SeatState();
@@ -503,6 +522,7 @@ class _SeatState extends State<Seat> {
               });
               String url =
                   'https://test-api.gunsel.ua/Public.svc/BlockTravelSeat';
+              widget.loadScreen();
               http.Response response = await http.post(
                 url,
                 body: body,
@@ -519,23 +539,25 @@ class _SeatState extends State<Seat> {
                     widget.seatData['TravelSeatBlockId'];
 
                 widget.refresh();
+                widget.loadScreen();
                 setState(
                   () {},
                 );
               }
             }
           } else if (makeItGreen) {
+            widget.loadScreen();
             http.Response response = await http.delete(
               'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
               headers: {'token': token},
             );
-            print(response.body);
             if (response.statusCode == 200) {
               makeItGreen = false;
               widget.seatData['SeatStatus'] = 0;
               widget.seatData['TravelSeatBlockId'] = null;
               selectedSeats.remove(widget.seatData['PointNumber']);
               widget.refresh();
+              widget.loadScreen();
               setState(() {});
             }
           }

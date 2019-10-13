@@ -284,42 +284,45 @@ class _DetailScreenState extends State<DetailScreen> {
                   height: 60,
                 ),
               ),
+              SliverToBoxAdapter(
+                child: Center(
+                  child: GunselButton(
+                    btnWidth: 500,
+                    btnText: cont,
+                    btnTextFontSize: 40,
+                    whenPressed: () {
+                      if (_detailForm.currentState.validate() && checkBox1) {
+                        _detailForm.currentState.save();
+                        widget.ticketData['SecondLeg']['SeatCount'] =
+                            formsData.keys.length;
+                        widget.ticketData['SecondLeg']['SeatVoyagerInfo'] =
+                            formsData;
+                        widget.ticketData['SecondLeg']['AgreementCheckBox'] =
+                            checkBox1;
+                        widget.ticketData['SecondLeg']['SubscriberCheckBox'] =
+                            checkBox2;
+                        if (widget.ticketData['SecondLeg']['TicketData']
+                                ['TravelVariantLeg2'] ==
+                            null) {
+                          Navigator.pushNamed(
+                            context,
+                            ticketSummaryScreen,
+                            arguments: widget.ticketData,
+                          );
+                        } else {
+                          Navigator.pushNamed(
+                            context,
+                            selectSeatRoundWay_TransferWay,
+                            arguments: widget.ticketData,
+                          );
+                        }
+                      }
+                    },
+                  ),
+                ),
+              )
             ],
           ),
-        ),
-        Align(
-          child: GunselButton(
-            btnWidth: 500,
-            btnText: cont,
-            btnTextFontSize: 40,
-            whenPressed: () {
-              if (_detailForm.currentState.validate() && checkBox1) {
-                _detailForm.currentState.save();
-                widget.ticketData['SecondLeg']['SeatCount'] =
-                    formsData.keys.length;
-                widget.ticketData['SecondLeg']['SeatVoyagerInfo'] = formsData;
-                widget.ticketData['SecondLeg']['AgreementCheckBox'] = checkBox1;
-                widget.ticketData['SecondLeg']['SubscriberCheckBox'] =
-                    checkBox2;
-                if (widget.ticketData['SecondLeg']['TicketData']
-                        ['TravelVariantLeg2'] ==
-                    null) {
-                  Navigator.pushNamed(
-                    context,
-                    ticketSummaryScreen,
-                    arguments: widget.ticketData,
-                  );
-                } else {
-                  Navigator.pushNamed(
-                    context,
-                    selectSeatRoundWay_TransferWay,
-                    arguments: widget.ticketData,
-                  );
-                }
-              }
-            },
-          ),
-          alignment: Alignment.bottomCenter,
         ),
       ],
     );

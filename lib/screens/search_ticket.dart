@@ -3,10 +3,13 @@ import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/travel_list_one_way_model.dart';
 import 'package:gunsel/data/sharedPreference.dart';
 
+GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 class SearchTicket extends StatefulWidget {
   Map<String, dynamic> buyTicketData;
   SearchTicket({
     this.buyTicketData,
+
   });
 
   @override
@@ -21,6 +24,7 @@ class _SearchTicketState extends State<SearchTicket> {
   String changeDate = "Please change the date to get your result";
 
   void searchTicketlan() async {
+    
     int b;
     int a = await sh.getshared1();
 
@@ -49,9 +53,10 @@ class _SearchTicketState extends State<SearchTicket> {
     super.initState();
     searchTicketlan();
   }
-
+  
   Widget build(BuildContext context) {
     return GunselScaffold(
+      key: _scaffoldKey,
       appBarIcon: backArrow,
       appBarIncluded: true,
       backgroundImage: scaffoldImg,

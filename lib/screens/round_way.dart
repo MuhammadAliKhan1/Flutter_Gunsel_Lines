@@ -193,7 +193,6 @@ class _RoundWayFormState extends State<RoundWayForm> {
   void roundWaylan() async {
     int b;
     int a = await sh.getshared1();
-    //print("Name is" + nameProfile);
 
     setState(() {
       b = a;
@@ -541,10 +540,12 @@ class _RoundWayFormState extends State<RoundWayForm> {
                 buyTicketData['PassengerCount'] = this.passengers;
                 buyTicketData['SecondLegCheck'] = false;
                 buyTicketData['RoundWayCheck'] = true;
-                setState(() {
-                  Navigator.pushNamed(context, searchTicketScreen,
-                      arguments: this.buyTicketData);
-                });
+                if (stationList.isNotEmpty) {
+                  setState(() {
+                    Navigator.pushNamed(context, searchTicketScreen,
+                        arguments: this.buyTicketData);
+                  });
+                }
               }
             },
           ),
@@ -555,16 +556,20 @@ class _RoundWayFormState extends State<RoundWayForm> {
 
   //Functions
   Future<List<String>> getStationsFromAPI() async {
-    print('entered');
+    http.Response response;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String gunselToken = prefs.getString('Token');
     List<String> list = [];
-    http.Response response = await http.get(
-      Uri.encodeFull(stationListAPI),
-      headers: {
-        'token': gunselToken,
-      },
-    );
+    try {
+      response = await http.get(
+        Uri.encodeFull(stationListAPI),
+        headers: {
+          'token': gunselToken,
+        },
+      );
+    } catch (e) {
+      return [];
+    }
     Map<String, dynamic> stationMap = {
       'Data': (jsonDecode(jsonDecode(response.body)['Data']))
     };

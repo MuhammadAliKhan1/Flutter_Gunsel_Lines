@@ -191,7 +191,6 @@ class _OneWayFormState extends State<OneWayForm> {
   void oneWaylan() async {
     int b;
     int a = await sh.getshared1();
-    //print("Name is" + nameProfile);
 
     setState(() {
       b = a;
@@ -486,10 +485,12 @@ class _OneWayFormState extends State<OneWayForm> {
                 buyTicketData['PassengerCount'] = this.passengers;
                 buyTicketData['RoundWayCheck'] = false;
                 buyTicketData['SecondLegCheck'] = false;
-                setState(() {
-                  Navigator.pushNamed(context, searchTicketScreen,
-                      arguments: this.buyTicketData);
-                });
+                if (stationList.isNotEmpty) {
+                  setState(() {
+                    Navigator.pushNamed(context, searchTicketScreen,
+                        arguments: this.buyTicketData);
+                  });
+                }
               }
             },
           ),
@@ -500,21 +501,21 @@ class _OneWayFormState extends State<OneWayForm> {
 
   //Functions
   Future<List<String>> getStationsFromAPI() async {
-    print('entered');
+    http.Response response;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String gunselToken = prefs.getString('Token');
 
-    //String gunselToken ="BB7D3752C7184D51A412D08C03EAA585B1DCB425392B5D6FC6DDEB0E29ACFB41D8AFBE9535B6ECC1E4F018B3307ECBCAE07A113740AD83200EFAADEBB70A18FE5DBB4F695991EF6EAF917836C3C00EBAB55C26D33DE1B3B2B763629D092DA63697B944A037A305BACA2D12F79B1726231DD3032B897F79039C10E5008F1BF6D21202279832AA150A3AF5B68AC4BD6EE1FB884BFC2BC0B195A71DCD964F8FF6CC2CBA901668B9199F34C821BEA780E8AEBF7A8A43874948ABC6003A996A74155FBA2BF184A62DA513FD28312E1395ED7BD201B77EB44CEF9EC1D66037B286417FC02F062B1355E81925DE553B8BE2FBCE6D82C05C1D08CBF67763BC43FF15EAD68D08F27E5E021083CE998AED3E156A5AD6E0BBE22AD0A266D88813CD97C8D67CDBA226F20CF75C9104E5F34C96C9C82D70FA0504852AC382BD0F845DB47457AABE26ACA6B2878B09C47C7B1EB43013FD05B6E5E2CD17E5A2F7DFCBF165C5E8F4";
-
-    print("gunsel token is:" + gunselToken);
-
     List<String> list = [];
-    http.Response response = await http.get(
-      Uri.encodeFull(stationListAPI),
-      headers: {
-        'token': gunselToken,
-      },
-    );
+    try {
+      response = await http.get(
+        Uri.encodeFull(stationListAPI),
+        headers: {
+          'token': gunselToken,
+        },
+      );
+    } catch (e) {
+      return [];
+    }
     Map<String, dynamic> stationMap = {
       'Data': (jsonDecode(jsonDecode(response.body)['Data']))
     };
