@@ -587,15 +587,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
 
   Future<List<String>> filterStations(String pattern) async {
     List<String> list = [];
-    pattern = pattern.toUpperCase();
-    if (this.stationListFetched) {
-      for (String station in this.stationList) {
-        if ((station.toUpperCase()).contains(pattern))
-          list.add(
-            station,
-          );
-      }
-    } else {
+    if (!this.stationListFetched) {
       this.stationListFetched = await setStationList();
       if (this.stationListFetched) {
         for (String station in this.stationList) {
@@ -606,6 +598,16 @@ class _RoundWayFormState extends State<RoundWayForm> {
         }
       }
     }
+    if (this.stationListFetched && stationList != null) {
+      pattern = pattern.toUpperCase();
+      for (String station in this.stationList) {
+        if ((station.toUpperCase()).contains(pattern))
+          list.add(
+            station,
+          );
+      }
+    }
+
     return list;
   }
 
