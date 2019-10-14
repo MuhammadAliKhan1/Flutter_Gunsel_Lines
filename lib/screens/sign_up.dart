@@ -128,6 +128,8 @@ class SignUpState extends State<SignUp> {
     this.value = 0;
     _focusNode.addListener(() {
       number123 = this._number.text.trim();
+
+      //Yaha changes krni ha
       if (this._number.text.length == 9) {
         // The below code gives a range error if not 10.
         RegExp phone = RegExp(r'(\d{2})(\d{3})(\d{2})(\d{2})');
@@ -265,6 +267,7 @@ class SignUpState extends State<SignUp> {
                                     borderRadius: BorderRadius.circular(5.0),
                                     color: Colors.white),
                                 child: TextFormField(
+                                    //Yaha changes krni ha
                                     focusNode: _focusNode,
                                     onChanged: (number) {
                                       if (number.length > 8)
