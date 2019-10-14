@@ -184,6 +184,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
     buyTicketData = Map();
     super.initState();
     this.passengers = 1;
+    stationList = [];
     stationListFetched = false;
     stationID = [];
     setInitialDate();
