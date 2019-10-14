@@ -537,8 +537,10 @@ class _DetailFormState extends State<DetailForm> {
   TextEditingController _name = TextEditingController();
   TextEditingController _surname = TextEditingController();
   TextEditingController _email = TextEditingController();
-  TextEditingController _number =
-      new MaskedTextController(mask: '00)000-00-00');
+  TextEditingController _number = TextEditingController();
+  var phoneNumberFormatter = MaskTextInputFormatter(
+    mask: '##)###-##-##',
+  );
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
   @override
@@ -736,14 +738,18 @@ class _DetailFormState extends State<DetailForm> {
                           Flexible(
                             child: TextFormField(
                               onChanged: (number) {
-                                if (number.length > 8)
+                                if (number.length > 11)
                                   FocusScope.of(context).unfocus();
+                                  if (number.contains(')') ||
+                                    number.contains('-')) {
+                                number =   number.replaceAll(')', '');
+                                number =   number.replaceAll('-', '');
+                                }
                                 formsData[widget.index]['Number'] =
                                     number.trim();
                               },
                               inputFormatters: [
-                                WhitelistingTextInputFormatter.digitsOnly,
-                                LengthLimitingTextInputFormatter(9)
+                                phoneNumberFormatter,
                               ],
                               controller: this._number,
                               keyboardType: TextInputType.number,
