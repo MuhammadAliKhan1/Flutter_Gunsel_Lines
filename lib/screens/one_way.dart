@@ -180,6 +180,7 @@ class _OneWayFormState extends State<OneWayForm> {
     this.passengers = 1;
     stationListFetched = false;
     stationID = [];
+    stationList = [];
     setInitialDate();
     oneWaylan();
   }
