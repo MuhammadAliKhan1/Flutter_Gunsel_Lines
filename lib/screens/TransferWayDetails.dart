@@ -553,8 +553,9 @@ class _DetailFormState extends State<DetailForm> {
   TextEditingController _name = TextEditingController();
   TextEditingController _surname = TextEditingController();
   TextEditingController _email = TextEditingController();
-  TextEditingController _number =
-      new MaskedTextController(mask: '00)000-00-00');
+  TextEditingController _number = new MaskedTextController(
+    mask: '00)000-00-00',
+  );
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
   @override
