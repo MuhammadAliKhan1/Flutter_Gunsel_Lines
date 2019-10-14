@@ -1,4 +1,4 @@
-#Sat Oct 12 16:34:12 PKT 2019
+#Sun Oct 13 23:10:58 PKT 2019
 base.0=C\:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\build\\intermediates\\transforms\\dexMerger\\release\\0
 path.1=classes2.dex
 renamed.1=classes2.dex
