@@ -537,10 +537,10 @@ class _DetailFormState extends State<DetailForm> {
   TextEditingController _name = TextEditingController();
   TextEditingController _surname = TextEditingController();
   TextEditingController _email = TextEditingController();
-  TextEditingController _number = TextEditingController();
+  TextEditingController _number =
+      new MaskedTextController(mask: '00)000-00-00');
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
-  final FocusNode _focusNode = FocusNode();
   @override
   void initState() {
     searchTicketlan();
@@ -549,19 +549,6 @@ class _DetailFormState extends State<DetailForm> {
     _currentCode = countryCode.keys
         .firstWhere((k) => countryCode[k] == _currentFlag, orElse: () => '');
     super.initState();
-    _focusNode.addListener(() {
-      formsData[widget.index]['Number'] = this._number.text.trim();
-      if (this._number.text.length == 9) {
-        // The below code gives a range error if not 10.
-        RegExp phone = RegExp(r'(\d{2})(\d{3})(\d{2})(\d{2})');
-        var matches = phone.allMatches(_number.text.trim());
-        var match = matches.elementAt(0);
-        var newText =
-            '${match.group(1)})${match.group(2)}-${match.group(3)}-${match.group(4)}';
-        formsData[widget.index]['Number'] = this._number.text;
-        this._number.text = newText;
-      }
-    });
   }
 
   SharePreferencelogin sh = SharePreferencelogin();
@@ -748,10 +735,11 @@ class _DetailFormState extends State<DetailForm> {
                           ),
                           Flexible(
                             child: TextFormField(
-                              focusNode: _focusNode,
                               onChanged: (number) {
                                 if (number.length > 8)
                                   FocusScope.of(context).unfocus();
+                                formsData[widget.index]['Number'] =
+                                    number.trim();
                               },
                               inputFormatters: [
                                 WhitelistingTextInputFormatter.digitsOnly,
