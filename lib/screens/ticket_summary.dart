@@ -566,7 +566,6 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                   'token': token,
                 },
               );
-
               if (jsonDecode(response.body)['Data'] != null) {
                 String payFormHtml =
                     '<html>${jsonDecode(jsonDecode(response.body)['Data'])['HTML']}</html>';

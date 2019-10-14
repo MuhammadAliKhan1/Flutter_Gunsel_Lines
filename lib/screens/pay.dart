@@ -20,27 +20,27 @@ class _PayState extends State<Pay> {
   void initState() {
     super.initState();
     flutterWebViewPlugin = FlutterWebviewPlugin();
+    debugPrint(widget.userData['PayFormHTML'], wrapWidth: 1024);
 
     flutterWebViewPlugin.onUrlChanged.listen((String url) {
       ++counter;
       if (url.contains('token')) {
         widget.userData['PaymentToken'] = url.substring(51);
-        flutterWebViewPlugin.close();
+
         Navigator.of(context).pushNamedAndRemoveUntil(
             oneWayScreen, (Route<dynamic> route) => false);
+        flutterWebViewPlugin.close();
+        flutterWebViewPlugin.dispose();
         Navigator.pushNamed(
           context,
           paymentResultScreen,
           arguments: widget.userData,
         );
       }
-      if (counter == 2) {
-        flutterWebViewPlugin.hide();
-      }
-
       if (url == 'https://ecg.test.upc.ua/go/pay?locale=en#') {
         setState(() {
           flutterWebViewPlugin.close();
+          flutterWebViewPlugin.dispose();
           Navigator.of(context).pushNamedAndRemoveUntil(
               oneWayScreen, (Route<dynamic> route) => false);
         });
@@ -50,16 +50,23 @@ class _PayState extends State<Pay> {
 
   @override
   Widget build(BuildContext context) {
-    return WebviewScaffold(
-      url: Uri.dataFromString(
-        widget.userData['PayFormHTML'],
-        mimeType: 'text/html',
-        encoding: Encoding.getByName('utf-8'),
-      ).toString(),
-      withJavascript: true,
-      withLocalUrl: true,
-      allowFileURLs: true,
-      withLocalStorage: true,
+    return WillPopScope(
+      child: WebviewScaffold(
+        url: Uri.dataFromString(
+          widget.userData['PayFormHTML'],
+          mimeType: 'text/html',
+          encoding: Encoding.getByName('utf-8'),
+        ).toString(),
+        withJavascript: true,
+        withLocalUrl: true,
+        allowFileURLs: true,
+        withLocalStorage: true,
+      ),
+      onWillPop: () {
+        flutterWebViewPlugin.dispose();
+        flutterWebViewPlugin.close();
+        Navigator.of(context).pop();
+      },
     );
   }
 }
