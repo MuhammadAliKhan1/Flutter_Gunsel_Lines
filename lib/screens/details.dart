@@ -783,7 +783,7 @@ class _DetailFormState extends State<DetailForm> {
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 contentPadding:
-                                    EdgeInsets.symmetric(vertical: 10.0),
+                                    EdgeInsets.symmetric(horizontal: -4.0),
                                 fillColor: Colors.white,
                                 filled: true,
                               ),

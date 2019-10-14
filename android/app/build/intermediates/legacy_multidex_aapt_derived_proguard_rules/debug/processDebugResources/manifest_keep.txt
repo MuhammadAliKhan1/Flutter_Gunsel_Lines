@@ -1,4 +1,0 @@
-# Referenced at C:\Users\Abdul Mustafa\Desktop\Gunsel Line finalize\android\app\build\intermediates\merged_manifests\debug\AndroidManifest.xml:28
--keep class androidx.core.app.CoreComponentFactory { <init>(); }
-# Referenced at C:\Users\Abdul Mustafa\Desktop\Gunsel Line finalize\android\app\build\intermediates\merged_manifests\debug\AndroidManifest.xml:28
--keep class io.flutter.app.FlutterApplication { <init>(); }
