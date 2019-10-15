@@ -280,7 +280,9 @@ class _LoginFormState extends State<LoginForm> {
                   child: TextFormField(
                     focusNode: _focusNode,
                     onChanged: (number) {
-                      if (number.length > 8) FocusScope.of(context).unfocus();
+                      if (number.length > 8) {
+                        FocusScope.of(context).unfocus();
+                      }
                     },
                     controller: this._number,
                     inputFormatters: [
