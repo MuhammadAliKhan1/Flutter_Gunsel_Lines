@@ -6,6 +6,9 @@ import 'package:gunsel/data/sharedPreference.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 Map<int, dynamic> formsData;
+Map<int, dynamic> formsDataFirstLegVariantLegTwo;
+Map<int, dynamic> secondLegformsData;
+Map<int, dynamic> formsDataSecondLegVariantLegTwo;
 
 class Detail extends StatefulWidget {
   Map<String, dynamic> ticketData;
@@ -70,7 +73,13 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  static GlobalKey<FormState> _detailForm = new GlobalKey<FormState>();
+  static GlobalKey<FormState> _detailForm = GlobalKey<FormState>();
+  static GlobalKey<FormState> _detailFormFirstLegVariantLeg2 =
+      GlobalKey<FormState>();
+  static GlobalKey<FormState> _secondLegdetailForm = GlobalKey<FormState>();
+  static GlobalKey<FormState> _detailFormSecondLegVariantLeg2 =
+      GlobalKey<FormState>();
+  String detailFormType;
   String checked = "assets/checked.png";
   bool checkBox1 = false;
   bool checkBox2 = false;
@@ -80,7 +89,11 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
+    detailFormType = 'FirstLeg';
     formsData = Map();
+    formsDataFirstLegVariantLegTwo = Map();
+    secondLegformsData = Map();
+    formsDataSecondLegVariantLegTwo = Map();
     detailslan();
 
     for (int i = 0;
@@ -93,6 +106,61 @@ class _DetailScreenState extends State<DetailScreen> {
         'Number': 0,
         'SeatNumber': 'null'
       };
+    }
+    if (widget.ticketData['FirstLeg']['TicketData']['TravelVariantLeg2'] !=
+        null) {
+      detailFormType = 'FirstLegVariantLeg2';
+      for (int i = 0;
+          i <
+              (widget
+                  .ticketData['FirstLeg']['TravelVariantLeg2']
+                      ['SelectedSeatsNumber']
+                  .length);
+          ++i) {
+        formsDataFirstLegVariantLegTwo[(i + 1)] = {
+          'Name': 'null',
+          'Surname': 'null',
+          'Email': 'null',
+          'Number': 0,
+          'SeatNumber': 'null',
+          'FirstLegVariantLeg2': true,
+        };
+      }
+    }
+    if (widget.ticketData['BuyTicketData']['RoundWayCheck']) {
+      detailFormType = 'SecondLeg';
+      for (int i = 0;
+          i < (widget.ticketData['SecondLeg']['SelectedSeatsNumber'].length);
+          ++i) {
+        secondLegformsData[(i + 1)] = {
+          'Name': 'null',
+          'Surname': 'null',
+          'Email': 'null',
+          'Number': 0,
+          'SeatNumber': 'null',
+          'SecondLeg': true
+        };
+      }
+      if (widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] !=
+          null) {
+        detailFormType = 'SecondLegVariantLeg2';
+        for (int i = 0;
+            i <
+                (widget
+                    .ticketData['SecondLeg']['TravelVariantLeg2']
+                        ['SelectedSeatsNumber']
+                    .length);
+            ++i) {
+          formsDataSecondLegVariantLegTwo[(i + 1)] = {
+            'Name': 'null',
+            'Surname': 'null',
+            'Email': 'null',
+            'Number': 0,
+            'SeatNumber': 'null',
+            'SecondLegVariantLeg2': true,
+          };
+        }
+      }
     }
   }
 
@@ -228,6 +296,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return DetailForm(
+                          formType: 'FirstLeg',
                           index: index + 1,
                           seatNumber: widget.ticketData['FirstLeg']
                               ['SelectedSeatsNumber'][index],
@@ -237,6 +306,75 @@ class _DetailScreenState extends State<DetailScreen> {
                           .ticketData['FirstLeg']['SelectedSeatsNumber'].length,
                     ),
                   )),
+              (widget.ticketData['FirstLeg']['TicketData']
+                          ['TravelVariantLeg2'] !=
+                      null)
+                  ? Form(
+                      key: _detailFormFirstLegVariantLeg2,
+                      child: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return DetailForm(
+                              formType: 'FirstLegVariantLeg2',
+                              index: index + 1,
+                              seatNumber: widget.ticketData['FirstLeg']
+                                      ['TravelVariantLeg2']
+                                  ['SelectedSeatsNumber'][index],
+                            );
+                          },
+                          childCount: widget
+                              .ticketData['FirstLeg']['TravelVariantLeg2']
+                                  ['SelectedSeatsNumber']
+                              .length,
+                        ),
+                      ),
+                    )
+                  : SliverToBoxAdapter(),
+              widget.ticketData['BuyTicketData']['RoundWayCheck']
+                  ? Form(
+                      key: _secondLegdetailForm,
+                      child: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return DetailForm(
+                              formType: 'SecondLeg',
+                              index: index + 1,
+                              seatNumber: widget.ticketData['SecondLeg']
+                                  ['SelectedSeatsNumber'][index],
+                            );
+                          },
+                          childCount: widget
+                              .ticketData['SecondLeg']['SelectedSeatsNumber']
+                              .length,
+                        ),
+                      ),
+                    )
+                  : SliverToBoxAdapter(),
+              (widget.ticketData['BuyTicketData']['RoundWayCheck'] &&
+                      (widget.ticketData['SecondLeg']['TicketData']
+                              ['TravelVariantLeg2'] !=
+                          null))
+                  ? Form(
+                      key: _detailFormSecondLegVariantLeg2,
+                      child: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return DetailForm(
+                              formType: 'SecondLegVariantLeg2',
+                              index: index + 1,
+                              seatNumber: widget.ticketData['SecondLeg']
+                                      ['TravelVariantLeg2']
+                                  ['SelectedSeatsNumber'][index],
+                            );
+                          },
+                          childCount: widget
+                              .ticketData['SecondLeg']['TravelVariantLeg2']
+                                  ['SelectedSeatsNumber']
+                              .length,
+                        ),
+                      ),
+                    )
+                  : SliverToBoxAdapter(),
               SliverList(
                 delegate: SliverChildListDelegate([
                   ListTile(
@@ -293,39 +431,118 @@ class _DetailScreenState extends State<DetailScreen> {
                     btnText: cont,
                     btnTextFontSize: 40,
                     whenPressed: () {
-                      if (_detailForm.currentState.validate() && checkBox1) {
-                        _detailForm.currentState.save();
+                      switch (detailFormType) {
+                        case 'FirstLeg':
+                          if (_detailForm.currentState.validate() &&
+                              checkBox1) {
+                            _detailForm.currentState.save();
 
-                        widget.ticketData['FirstLeg']['SeatCount'] =
-                            formsData.keys.length;
-                        widget.ticketData['FirstLeg']['SeatVoyagerInfo'] =
-                            formsData;
-                        widget.ticketData['FirstLeg']['AgreementCheckBox'] =
-                            checkBox1;
-                        widget.ticketData['FirstLeg']['SubscriberCheckBox'] =
-                            checkBox2;
-                        print(formsData);
-                        if (widget.ticketData['FirstLeg']['TicketData']
-                                ['TravelVariantLeg2'] ==
-                            null) {
-                          widget.ticketData['BuyTicketData']['RoundWayCheck']
-                              ? Navigator.pushNamed(
-                                  context,
-                                  searchTicketRoundWay,
-                                  arguments: widget.ticketData,
-                                )
-                              : Navigator.pushNamed(
-                                  context,
-                                  ticketSummaryScreen,
-                                  arguments: widget.ticketData,
-                                );
-                        } else {
-                          Navigator.pushNamed(
-                            context,
-                            selectSeats_TransferWay,
-                            arguments: widget.ticketData,
-                          );
-                        }
+                            widget.ticketData['FirstLeg']['SeatCount'] =
+                                formsData.keys.length;
+                            widget.ticketData['FirstLeg']['SeatVoyagerInfo'] =
+                                formsData;
+                            widget.ticketData['AgreementCheckBox'] = checkBox1;
+                            widget.ticketData['SubscriberCheckBox'] = checkBox2;
+                            Navigator.pushNamed(
+                              context,
+                              ticketSummaryScreen,
+                              arguments: widget.ticketData,
+                            );
+                          }
+                          break;
+                        case 'FirstLegVariantLeg2':
+                          if (_detailForm.currentState.validate() &&
+                              _detailFormFirstLegVariantLeg2.currentState
+                                  .validate() &&
+                              checkBox1) {
+                            _detailForm.currentState.save();
+                            _detailFormFirstLegVariantLeg2.currentState.save();
+
+                            widget.ticketData['FirstLeg']['SeatCount'] =
+                                formsData.keys.length;
+                            widget.ticketData['FirstLeg']['SeatVoyagerInfo'] =
+                                formsData;
+                            widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                                    ['SeatCount'] =
+                                formsDataFirstLegVariantLegTwo.keys.length;
+                            widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                                    ['SeatVoyagerInfo'] =
+                                formsDataFirstLegVariantLegTwo;
+                            widget.ticketData['AgreementCheckBox'] = checkBox1;
+                            widget.ticketData['SubscriberCheckBox'] = checkBox2;
+                            Navigator.pushNamed(
+                              context,
+                              ticketSummaryScreen,
+                              arguments: widget.ticketData,
+                            );
+                          }
+                          break;
+                        case 'SecondLeg':
+                          if (_detailForm.currentState.validate() &&
+                              _secondLegdetailForm.currentState.validate() &&
+                              checkBox1) {
+                            _detailForm.currentState.save();
+                            _secondLegdetailForm.currentState.save();
+
+                            widget.ticketData['FirstLeg']['SeatCount'] =
+                                formsData.keys.length;
+                            widget.ticketData['FirstLeg']['SeatVoyagerInfo'] =
+                                formsData;
+                            widget.ticketData['SecondLeg']['SeatCount'] =
+                                secondLegformsData.keys.length;
+                            widget.ticketData['SecondLeg']['SeatVoyagerInfo'] =
+                                secondLegformsData;
+                            widget.ticketData['AgreementCheckBox'] = checkBox1;
+                            widget.ticketData['SubscriberCheckBox'] = checkBox2;
+                            Navigator.pushNamed(
+                              context,
+                              ticketSummaryScreen,
+                              arguments: widget.ticketData,
+                            );
+                          }
+                          break;
+                        case 'SecondLegVariantLeg2':
+                          if (_detailForm.currentState.validate() &&
+                              _detailFormFirstLegVariantLeg2.currentState
+                                  .validate() &&
+                              _detailFormSecondLegVariantLeg2.currentState
+                                  .validate() &&
+                              _secondLegdetailForm.currentState.validate() &&
+                              checkBox1) {
+                            _detailForm.currentState.save();
+                            _secondLegdetailForm.currentState.save();
+                            _detailFormFirstLegVariantLeg2.currentState.save();
+                            _detailFormSecondLegVariantLeg2.currentState.save();
+                            widget.ticketData['FirstLeg']['SeatCount'] =
+                                formsData.keys.length;
+                            widget.ticketData['FirstLeg']['SeatVoyagerInfo'] =
+                                formsData;
+                            widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                                    ['SeatCount'] =
+                                formsDataFirstLegVariantLegTwo.keys.length;
+                            widget.ticketData['FirstLeg']['TravelVariantLeg2']
+                                    ['SeatVoyagerInfo'] =
+                                formsDataFirstLegVariantLegTwo;
+                            widget.ticketData['SecondLeg']['SeatCount'] =
+                                secondLegformsData.keys.length;
+                            widget.ticketData['SecondLeg']['SeatVoyagerInfo'] =
+                                secondLegformsData;
+                            widget.ticketData['SecondLeg']['TravelVariantLeg2']
+                                    ['SeatCount'] =
+                                formsDataSecondLegVariantLegTwo.keys.length;
+                            widget.ticketData['SecondLeg']['TravelVariantLeg2']
+                                    ['SeatVoyagerInfo'] =
+                                formsDataSecondLegVariantLegTwo;
+                            widget.ticketData['AgreementCheckBox'] = checkBox1;
+                            widget.ticketData['SubscriberCheckBox'] = checkBox2;
+                            Navigator.pushNamed(
+                              context,
+                              ticketSummaryScreen,
+                              arguments: widget.ticketData,
+                            );
+                          }
+                          break;
+                        default:
                       }
                     },
                   ),
@@ -537,12 +754,13 @@ class _DetailTicketState extends State<DetailTicket> {
 class DetailForm extends StatefulWidget {
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
-  String _currentCode = '';
+  String _currentCode = '', formType;
   int index;
   int seatNumber;
   DetailForm({
     @required this.index,
     @required this.seatNumber,
+    @required this.formType,
   });
   @override
   _DetailFormState createState() => _DetailFormState();
@@ -627,7 +845,7 @@ class _DetailFormState extends State<DetailForm> {
         ListTile(
           contentPadding: EdgeInsets.all(20),
           title: Text(
-            '${widget.index}.$information',
+            '$information',
             style: TextStyle(
               color: Colors.white,
               fontSize: 17,
@@ -657,8 +875,30 @@ class _DetailFormState extends State<DetailForm> {
                 },
                 controller: this._name,
                 onSaved: (name) {
-                  formsData[widget.index]['Name'] = name.trim();
-                  formsData[widget.index]['SeatNumber'] = widget.seatNumber;
+                  switch (widget.formType) {
+                    case 'FirstLeg':
+                      formsData[widget.index]['Name'] = name.trim();
+                      formsData[widget.index]['SeatNumber'] = widget.seatNumber;
+                      break;
+                    case 'FirstLegVariantLeg2':
+                      formsDataFirstLegVariantLegTwo[widget.index]['Name'] =
+                          name.trim();
+                      formsDataFirstLegVariantLegTwo[widget.index]
+                          ['SeatNumber'] = widget.seatNumber;
+                      break;
+                    case 'SecondLeg':
+                      secondLegformsData[widget.index]['Name'] = name.trim();
+                      secondLegformsData[widget.index]['SeatNumber'] =
+                          widget.seatNumber;
+                      break;
+                    case 'SecondLegVariantLeg2':
+                      formsDataSecondLegVariantLegTwo[widget.index]['Name'] =
+                          name.trim();
+                      formsDataSecondLegVariantLegTwo[widget.index]
+                          ['SeatNumber'] = widget.seatNumber;
+                      break;
+                    default:
+                  }
                 },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(
@@ -681,7 +921,25 @@ class _DetailFormState extends State<DetailForm> {
                 },
                 controller: this._surname,
                 onSaved: (surname) {
-                  formsData[widget.index]['Surname'] = surname.trim();
+                  switch (widget.formType) {
+                    case 'FirstLeg':
+                      formsData[widget.index]['Surname'] = surname.trim();
+                      break;
+                    case 'FirstLegVariantLeg2':
+                      formsDataFirstLegVariantLegTwo[widget.index]['Surname'] =
+                          surname.trim();
+                      break;
+                    case 'SecondLeg':
+                      secondLegformsData[widget.index]['Surname'] =
+                          surname.trim();
+
+                      break;
+                    case 'SecondLegVariantLeg2':
+                      formsDataSecondLegVariantLegTwo[widget.index]['Surname'] =
+                          surname.trim();
+                      break;
+                    default:
+                  }
                 },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(
@@ -712,7 +970,23 @@ class _DetailFormState extends State<DetailForm> {
                   }
                 },
                 onSaved: (email) {
-                  formsData[widget.index]['Email'] = email.trim();
+                  switch (widget.formType) {
+                    case 'FirstLeg':
+                      formsData[widget.index]['Email'] = email.trim();
+                      break;
+                    case 'FirstLegVariantLeg2':
+                      formsDataFirstLegVariantLegTwo[widget.index]['Email'] =
+                          email.trim();
+                      break;
+                    case 'SecondLeg':
+                      secondLegformsData[widget.index]['Email'] = email.trim();
+                      break;
+                    case 'SecondLegVariantLeg2':
+                      formsDataSecondLegVariantLegTwo[widget.index]['Email'] =
+                          email.trim();
+                      break;
+                    default:
+                  }
                 },
                 keyboardType: TextInputType.emailAddress,
                 controller: this._email,
@@ -761,8 +1035,27 @@ class _DetailFormState extends State<DetailForm> {
                                   number = number.replaceAll(')', '');
                                   number = number.replaceAll('-', '');
                                 }
-                                formsData[widget.index]['Number'] =
-                                    number.trim();
+
+                                switch (widget.formType) {
+                                  case 'FirstLeg':
+                                    formsData[widget.index]['Number'] =
+                                        number.trim();
+                                    break;
+                                  case 'FirstLegVariantLeg2':
+                                    formsDataFirstLegVariantLegTwo[widget.index]
+                                        ['Number'] = number.trim();
+                                    break;
+                                  case 'SecondLeg':
+                                    secondLegformsData[widget.index]['Number'] =
+                                        number.trim();
+
+                                    break;
+                                  case 'SecondLegVariantLeg2':
+                                    formsDataSecondLegVariantLegTwo[
+                                        widget.index]['Number'] = number.trim();
+                                    break;
+                                  default:
+                                }
                               },
                               validator: (value) {
                                 if (value.isEmpty) {
