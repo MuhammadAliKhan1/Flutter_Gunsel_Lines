@@ -193,15 +193,7 @@ class AboutCompanyState extends State<AboutCompany> {
                         fontFamily: "Helvetica")),
               ])),
             ),
-            Container(
-              height: 15.0,
-              width: double.infinity,
-              color: gunselColor,
-              child: Text(
-                "Version 2.0.6",
-                textAlign: TextAlign.center,
-              ),
-            )
+
           ],
         )
       ])),

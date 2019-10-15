@@ -8,6 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as paths;
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:gunsel/data/language_model.dart';
+
 
 
 
@@ -206,8 +208,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
     print("Check Image is:"+checkImage);
   }
 
-  void languageChange(BuildContext context,int number)
+  void languageChange(BuildContext context,int number) async
   {
+
+    String token = await sh.gettokens();
+    String url = 'https://test-api.gunsel.ua/Translation.svc/GetLanguageList';
+
+    Map<String, String> headers = {"token": token};
+    Response response = await get(url, headers: headers);
+    // check the status code for the result
+    int statusCode = response.statusCode;
+    //String body = response.body;
+    //print("response body is:" + response.body);
+    //print("Status code is:"+statusCode.toString());
+
+    Map<String, dynamic> lanapiData = {
+      'Data': jsonDecode(jsonDecode(response.body)['Data'])
+    };
+    //print(lanapiData);
+    languageModel lanapimodelobj = languageModel.fromJson(lanapiData);
+    var lanapifinalData = lanapimodelobj.toJson();
+
+      print("Data is:"+lanapifinalData["Data"][0]['LanguageId'].toString());
+
+      if(statusCode == 200)
+        {
+          if(number == 1)
+            {
+              shPref.setshared1(lanapifinalData["Data"][1]['LanguageId']);
+            }
+          else if(number == 2)
+          {
+            shPref.setshared1(lanapifinalData["Data"][0]['LanguageId']+2);
+          }
+
+          else if(number == 3)
+          {
+            shPref.setshared1(lanapifinalData["Data"][2]['LanguageId']+1);
+          }
+
+        }
+
     //shPref.setshared("", "", "", "", "","","","");
     //shPref.setmobileImage("");
     shPref.setshared1(number);
@@ -521,10 +562,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                   ),
                                 ),
-                                Center(
-                                    child: Text(
+                                Container(
+                                  width: ScreenUtil().setWidth(250),
+                                    child: AutoSizeText(
                                       firstnameProfileset+" "+lastnameProfileset,
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
+                                        
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: "Helvetica"),
@@ -994,138 +1039,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 }
 
-/*
-class ProfileScreen extends StatefulWidget {
-  @override
-  _ProfileScreenState createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-        child: Container(
-      width: ScreenUtil().setWidth(700),
-      height: 550,
-      child: Stack(
-        children: <Widget>[
-          Center(
-            child: Image(
-              image: personImage,
-            ),
-          ),
-          Align(
-            alignment:
-                Alignment.lerp(Alignment.topCenter, Alignment.center, 0.01),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(
-                Radius.circular(70),
-              ),
-              child: Image(
-                image: profileHolder,
-                height: ScreenUtil(
-                  allowFontScaling: true,
-                ).setSp(130),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(right: ScreenUtil().setSp(50)),
-            height: 60,
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Image(
-                image: editProfileIcon,
-                height: ScreenUtil().setSp(40),
-              ),
-            ),
-          ),
-          Container(
-            height: ScreenUtil().setHeight(210),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                'Erhan Ozturk',
-                style: TextStyle(
-                    fontSize: ScreenUtil().setSp(40),
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Helvetica"),
-              ),
-            ),
-          ),
-          Container(
-            height: ScreenUtil().setHeight(235),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                'eozturk782@gmail.com',
-                style: TextStyle(
-                  fontSize: ScreenUtil().setSp(20),
-                  fontFamily: "Helvetica",
-                ),
-              ),
-            ),
-          ),
-          Container(
-            height: ScreenUtil().setHeight(265),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                '+380677331606',
-                style: TextStyle(
-                  fontSize: ScreenUtil().setSp(20),
-                  fontFamily: "Helvetica",
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-              height: ScreenUtil().setHeight(380),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Image(
-                            image: profileScreenLanguageIcon,
-                            height:
-                                ScreenUtil(allowFontScaling: true).setSp(50),
-                          ),
-                          Text('RU', style: TextStyle(fontFamily: "Helvetica")),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Image(
-                            image: profileScreenLanguageIcon,
-                            height:
-                                ScreenUtil(allowFontScaling: true).setSp(50),
-                          ),
-                          Text('UA', style: TextStyle(fontFamily: "Helvetica")),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Image(
-                            image: profileScreenLanguageIcon,
-                            height:
-                                ScreenUtil(allowFontScaling: true).setSp(50),
-                          ),
-                          Text('EN', style: TextStyle(fontFamily: "Helvetica")),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ))
-        ],
-      ),
-    ));
-  }
-}
- */

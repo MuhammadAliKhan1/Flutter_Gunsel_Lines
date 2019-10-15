@@ -147,6 +147,7 @@ class OneWayForm extends StatefulWidget {
 }
 
 class _OneWayFormState extends State<OneWayForm> {
+  String gunselToken="";
   final _oneWayForm = GlobalKey<FormState>();
   TextEditingController _arrivalStation = TextEditingController();
   TextEditingController _departureStation = TextEditingController();
@@ -175,6 +176,7 @@ class _OneWayFormState extends State<OneWayForm> {
 
   @override
   void initState() {
+    token();
     buyTicketData = Map();
     super.initState();
     this.passengers = 1;
@@ -184,6 +186,24 @@ class _OneWayFormState extends State<OneWayForm> {
     setInitialDate();
     oneWaylan();
   }
+
+
+  void token() async
+  {
+    SharePreferencelogin prefs = SharePreferencelogin();
+    gunselToken = await prefs.gettokens();
+    //print(gunselToken);
+
+    if(gunselToken == null)
+    {
+      TokenGetter token = TokenGetter();
+      token.getToken();
+    }
+    //print("data");
+    //print(gunselToken);
+  }
+
+
 
   setInitialDate() async {
     picker = DateTime.now();
@@ -503,8 +523,8 @@ class _OneWayFormState extends State<OneWayForm> {
   //Functions
   Future<List<String>> getStationsFromAPI() async {
     http.Response response;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String gunselToken = prefs.getString('Token');
+    SharePreferencelogin prefs = SharePreferencelogin();
+    gunselToken = await prefs.gettokens();
 
     List<String> list = [];
     try {

@@ -112,6 +112,11 @@ class SignUpState extends State<SignUp> {
   TextEditingController _password = TextEditingController();
   TextEditingController _repassword = TextEditingController();
 
+
+  var phoneNumberFormatter = MaskTextInputFormatter(
+    mask: '##)###-##-##',
+  );
+
   int value;
   @override
   void initState() {
@@ -126,21 +131,21 @@ class SignUpState extends State<SignUp> {
 
     super.initState();
     this.value = 0;
-    _focusNode.addListener(() {
-      number123 = this._number.text.trim();
-
-      //Yaha changes krni ha
-      if (this._number.text.length == 9) {
-        // The below code gives a range error if not 10.
-        RegExp phone = RegExp(r'(\d{2})(\d{3})(\d{2})(\d{2})');
-        var matches = phone.allMatches(_number.text);
-        var match = matches.elementAt(0);
-        var newText =
-            '${match.group(1)})${match.group(2)}-${match.group(3)}-${match.group(4)}';
-        number123 = this._number.text.trim();
-        this._number.text = newText;
-      }
-    });
+//    _focusNode.addListener(() {
+//      number123 = this._number.text.trim();
+//
+//      //Yaha changes krni ha
+//      if (this._number.text.length == 9) {
+//        // The below code gives a range error if not 10.
+//        RegExp phone = RegExp(r'(\d{2})(\d{3})(\d{2})(\d{2})');
+//        var matches = phone.allMatches(_number.text);
+//        var match = matches.elementAt(0);
+//        var newText =
+//            '${match.group(1)})${match.group(2)}-${match.group(3)}-${match.group(4)}';
+//        number123 = this._number.text.trim();
+//        this._number.text = newText;
+//      }
+//    });
   }
 
   bool switchValue = false;
@@ -268,16 +273,21 @@ class SignUpState extends State<SignUp> {
                                     color: Colors.white),
                                 child: TextFormField(
                                     //Yaha changes krni ha
-                                    focusNode: _focusNode,
+//                                    focusNode: _focusNode,
                                     onChanged: (number) {
-                                      if (number.length > 8)
+                                      if (number.length > 11)
                                         FocusScope.of(context).unfocus();
+                                      if (number.contains(')') ||
+                                          number.contains('-')) {
+                                        number = number.replaceAll(')', '');
+                                        number = number.replaceAll('-', '');
+                                      }
+                                      number123 =
+                                          number.trim();
                                     },
                                     controller: this._number,
                                     keyboardType: TextInputType.phone,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(9)
-                                    ],
+                                    inputFormatters: [phoneNumberFormatter],
                                     decoration: InputDecoration(
                                       contentPadding:
                                           EdgeInsets.symmetric(vertical: 15.0),
@@ -503,6 +513,10 @@ class SignUpState extends State<SignUp> {
       String names = _name.text;
       String surnames = _surname.text;
 
+//      print("Numbers:"+_number.text);
+//      print("Numbers second"+number123);
+
+
       String json =
           '{"Platform":34,"Language":0,"DeviceToken":null,"UserId":"$emails","FirstName":"$names","MiddleName":"","LastName":"$surnames","PhoneNumber":"$number123","BirthDate":null,"Gender":"","Password":"$passwords","CountryId": "$_currentId"}';
       print("${_currentId}");
@@ -512,13 +526,13 @@ class SignUpState extends State<SignUp> {
 
       // check the status code for the result
       int statusCode = response.statusCode;
-      String body = response.body;
-      print("status code:" + statusCode.toString());
-      print("Body is:" + body);
-      print("Number" + number123);
+      //String body = response.body;
+//      print("status code:" + statusCode.toString());
+//      print("Body is:" + body);
+      //print("Number" + number123);
 
       if (statusCode == 200) {
-        Navigator.pushNamed(context, oneWayScreen);
+        Navigator.pushNamed(context, loginScreen);
       } else {
         showDialog(
             context: context,
