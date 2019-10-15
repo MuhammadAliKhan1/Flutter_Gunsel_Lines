@@ -661,6 +661,7 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
     return FittedBox(
       child: Container(
         height: 490,
+        width: 700,
         margin: EdgeInsets.only(
           top: 10.0,
           bottom: 20.0,
@@ -668,7 +669,9 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
         child: Stack(
           children: <Widget>[
             Image(
-              image: purchasedTicket,
+              image: purchasedTicket2,
+              width: ScreenUtil().setWidth(1300),
+              height: ScreenUtil().setHeight(700),
             ),
             Column(
               children: <Widget>[
