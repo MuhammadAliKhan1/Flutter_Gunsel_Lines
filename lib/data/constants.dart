@@ -80,6 +80,7 @@ const AssetImage historyOfTravelIcon = AssetImage('assets/history_icon.png');
 const AssetImage emptySeat = AssetImage('assets/free_seat.png');
 const AssetImage busySeat = AssetImage('assets/busy_seat.png');
 const AssetImage selectedSeat = AssetImage('assets/selected_seat.png');
+const AssetImage purchasedTicket2 = AssetImage("assets/purchasedticket2.png");
 const countryId = {
   'a1a1a4b5-d1c8-4aec-bd08-2a3ff55440db': ukraineFlag,
   'fcbee315-ff04-4923-8130-3bdcca48ecbd': polandFlag,

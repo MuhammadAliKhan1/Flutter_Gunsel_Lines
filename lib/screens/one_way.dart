@@ -147,7 +147,7 @@ class OneWayForm extends StatefulWidget {
 }
 
 class _OneWayFormState extends State<OneWayForm> {
-  String gunselToken="";
+  String gunselToken = "";
   final _oneWayForm = GlobalKey<FormState>();
   TextEditingController _arrivalStation = TextEditingController();
   TextEditingController _departureStation = TextEditingController();
@@ -161,8 +161,8 @@ class _OneWayFormState extends State<OneWayForm> {
   bool stationListFetched;
   DateTime picker;
   SharePreferencelogin sh = SharePreferencelogin();
-  String arrivalHint = "Enter arrival station",
-      departHint = "Enter departure station",
+  String arrivalHint = "Enter arrival city",
+      departHint = "Enter departure city",
       calenderHint = "Select the travel date",
       numOfPassengers = "Number of passengers:",
       btnSearch = "Search",
@@ -187,23 +187,18 @@ class _OneWayFormState extends State<OneWayForm> {
     oneWaylan();
   }
 
-
-  void token() async
-  {
+  void token() async {
     SharePreferencelogin prefs = SharePreferencelogin();
     gunselToken = await prefs.gettokens();
     //print(gunselToken);
 
-    if(gunselToken == null)
-    {
+    if (gunselToken == null) {
       TokenGetter token = TokenGetter();
       token.getToken();
     }
     //print("data");
     //print(gunselToken);
   }
-
-
 
   setInitialDate() async {
     picker = DateTime.now();
@@ -228,8 +223,8 @@ class _OneWayFormState extends State<OneWayForm> {
         selectArrivalValidStation = "Виберіть дійсну станцію прибуття";
         selectDifferentStation = "Виберіть інші станції.";
       } else if (b == 2) {
-        arrivalHint = "Enter arrival station";
-        departHint = "Enter departure station";
+        arrivalHint = "Enter arrival city";
+        departHint = "Enter departure city";
         calenderHint = "Select the travel date";
         numOfPassengers = "Number of passengers:";
         btnSearch = "Search";

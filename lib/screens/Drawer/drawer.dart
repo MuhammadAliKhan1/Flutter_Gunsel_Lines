@@ -114,7 +114,7 @@ class _SideDrawerState extends State<SideDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width / 1.2,
+      width: MediaQuery.of(context).size.width / 1.3,
       height: double.infinity,
       child: Stack(
         children: <Widget>[
@@ -129,7 +129,7 @@ class _SideDrawerState extends State<SideDrawer> {
               Container(
                 padding: EdgeInsets.all(15.0),
                 height: MediaQuery.of(context).size.height /
-                    (accountIncluded ? 2.8 : 4.5),
+                    (accountIncluded ? 3.3 : 5.4),
                 child: (accountIncluded
                     ? getAccount(context)
                     : getWihoutAccount(context)),
@@ -160,8 +160,8 @@ class _SideDrawerState extends State<SideDrawer> {
               ),
               checkImage
                   ? Container(
-                      height: 80.0,
-                      width: 80.0,
+                      height: 85.0,
+                      width: 85.0,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.white,
@@ -202,9 +202,11 @@ class _SideDrawerState extends State<SideDrawer> {
           SizedBox(
             height: 10,
           ),
-          Center(
-            child: Text(
+          Container(
+            width: ScreenUtil().setWidth(250),
+            child: AutoSizeText(
               "$profilefirstName" + " " + "$profileLastName",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: ScreenUtil().setSp(
@@ -426,6 +428,7 @@ class _SideDrawerState extends State<SideDrawer> {
           alignment:
               Alignment.lerp(Alignment.centerLeft, Alignment.center, 0.8),
           child: Container(
+            margin: EdgeInsets.only(top: ScreenUtil().setSp(40)),
             width: ScreenUtil().setWidth(450),
             height: 40.0,
             child: ButtonTheme(
