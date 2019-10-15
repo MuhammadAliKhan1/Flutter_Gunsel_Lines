@@ -46,7 +46,7 @@ dependencies:
   firebase_auth: ^0.14.0+5
   cloud_firestore: ^0.12.9+4
   auto_size_text: ^2.1.0
-  flutter_masked_text: ^0.8.0
+  mask_text_input_formatter: ^1.0.2
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.2"

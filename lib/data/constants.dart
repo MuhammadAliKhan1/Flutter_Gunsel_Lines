@@ -9,7 +9,7 @@ export 'package:gunsel/data/stationlist_model.dart';
 export 'package:gunsel/data/data_model.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:auto_size_text/auto_size_text.dart';
-export 'package:flutter_masked_text/flutter_masked_text.dart';
+export 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 const int defaultScreenWidth = 640;
 const int defaultScreenHeight = 1136;
