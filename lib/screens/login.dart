@@ -98,7 +98,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final FocusNode _focusNode = FocusNode();
+//  final FocusNode _focusNode = FocusNode();
   SharePreferencelogin shPref = SharePreferencelogin();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = new GoogleSignIn();
@@ -120,6 +120,9 @@ class _LoginFormState extends State<LoginForm> {
   String data;
   int index;
   String number123 = "";
+  var phoneNumberFormatter = MaskTextInputFormatter(
+    mask: '##)###-##-##',
+  );
 
   Map userProfile;
   final facebookLogin = FacebookLogin();
@@ -155,19 +158,20 @@ class _LoginFormState extends State<LoginForm> {
 
     loginlan();
     publicToken();
-    _focusNode.addListener(() {
-      number123 = this._number.text.trim();
-      if (this._number.text.length == 9) {
-        // The below code gives a range error if not 10.
-        RegExp phone = RegExp(r'(\d{2})(\d{3})(\d{2})(\d{2})');
-        var matches = phone.allMatches(_number.text);
-        var match = matches.elementAt(0);
-        var newText =
-            '${match.group(1)})${match.group(2)}-${match.group(3)}-${match.group(4)}';
-        number123 = this._number.text.trim();
-        this._number.text = newText;
-      }
-    });
+    //ye code sara erase hoga
+//    _focusNode.addListener(() {
+//      number123 = this._number.text.trim();
+//      if (this._number.text.length == 9) {
+//        // The below code gives a range error if not 10.
+//        RegExp phone = RegExp(r'(\d{2})(\d{3})(\d{2})(\d{2})');
+//        var matches = phone.allMatches(_number.text);
+//        var match = matches.elementAt(0);
+//        var newText =
+//            '${match.group(1)})${match.group(2)}-${match.group(3)}-${match.group(4)}';
+//        number123 = this._number.text.trim();
+//        this._number.text = newText;
+//      }
+//    });
   }
 
   void loginlan() async {
@@ -278,15 +282,19 @@ class _LoginFormState extends State<LoginForm> {
                   width: 220,
                   height: 40,
                   child: TextFormField(
-                    focusNode: _focusNode,
                     onChanged: (number) {
-                      if (number.length > 8) FocusScope.of(context).unfocus();
+                      if (number.length > 11)
+                        FocusScope.of(context).unfocus();
+                      if (number.contains(')') ||
+                          number.contains('-')) {
+                        number = number.replaceAll(')', '');
+                        number = number.replaceAll('-', '');
+                      }
+                      number123 = number.trim();
                     },
                     controller: this._number,
-                    inputFormatters: [
-                      WhitelistingTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(9)
-                    ],
+                    //yahan changes krni hain
+                    inputFormatters: [phoneNumberFormatter],
                     keyboardType: TextInputType.number,
                     style: TextStyle(color: Colors.white, fontSize: 25),
                     decoration: InputDecoration(
@@ -579,7 +587,7 @@ class _LoginFormState extends State<LoginForm> {
 
     // make POST request
 
-    print("Numbers are:" + number123);
+    //print("Numbers are:" + number123);
 
     if (!(number123 == "" || passwordSignins == "")) {
       String json =
@@ -588,7 +596,7 @@ class _LoginFormState extends State<LoginForm> {
 
       // check the status code for the result
       int statusCode = response.statusCode;
-      //String body = response.body;
+      String body = response.body;
       // print("status code:" + statusCode.toString());
       //print("Body is:" + body);
 

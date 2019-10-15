@@ -5,6 +5,7 @@ import 'package:gunsel/widgets/button.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:gunsel/data/sharedPreference.dart';
+import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 
 class RoundWay extends StatefulWidget {
   @override
@@ -92,7 +93,7 @@ class SearchTicketContainerState extends State<SearchTicketContainer> {
         alignment:
             Alignment.lerp(Alignment.topCenter, Alignment.bottomCenter, 0.2),
         child: Container(
-          height: ScreenUtil().setHeight(820),
+          height: ScreenUtil().setHeight(730),
           child: Stack(
             children: <Widget>[
               Align(
@@ -102,7 +103,7 @@ class SearchTicketContainerState extends State<SearchTicketContainer> {
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(color: Colors.white),
                       color: Colors.black26),
-                  height: ScreenUtil().setHeight(790),
+                  height: ScreenUtil().setHeight(700),
                   width: ScreenUtil().setWidth(610),
                   child: ListView(
                     children: <Widget>[
@@ -165,7 +166,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
   SharePreferencelogin sh = SharePreferencelogin();
   String departHint = "Enter departure city",
       arrivalHint = "Enter arrival city",
-      departCalHint = "Select the departure date",
+      departCalHint = "Select the departure and return date",
       returnCalHint = "Select the return date",
       numOfpassenger = "Number of passengers:",
       btnSearch = "Search",
@@ -217,7 +218,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
       } else if (b == 2) {
         departHint = "Enter departure city";
         arrivalHint = "Enter arrival city";
-        departCalHint = "Select the departure date";
+        departCalHint = "Select the departure and return date";
         returnCalHint = "Select the return date";
         numOfpassenger = "Number of passengers:";
         btnSearch = "Search";
@@ -422,48 +423,46 @@ class _RoundWayFormState extends State<RoundWayForm> {
           SizedBox(
             height: 10.0,
           ),
-          Container(
-            width: ScreenUtil().setWidth(550),
-            child: InkWell(
-              onTap: () {
-                _selectReturnDate(context);
-              },
-              child: AbsorbPointer(
-                child: TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty)
-                      return enterEmptyReturnDate;
-                    else if (buyTicketData['DepartureDay'] ==
-                        buyTicketData['ReturnDay']) {
-                      if (buyTicketData['DepartureMonth'] ==
-                          buyTicketData['ReturnMonth']) {
-                        if (buyTicketData['DepartureYear'] ==
-                            buyTicketData['ReturnYear'])
-                          return inputDifferentDate;
-                      }
-                    } else if (buyTicketData['ReturnDay'] <
-                        buyTicketData['DepartureDay']) {
-                      return dateLessthan;
-                    }
-                  },
-                  style: TextStyle(color: Colors.blue, fontSize: 17.0),
-                  keyboardType: TextInputType.datetime,
-                  controller: this._returnInputDate,
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
-                      fillColor: Colors.white,
-                      filled: true,
-                      prefixIcon: Image(image: calendarIcon),
-                      hintText: returnCalHint,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0))),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
+          // Container(
+          //   width: ScreenUtil().setWidth(550),
+          //   child: InkWell(
+          //     onTap: () {
+          //       _selectReturnDate(context);
+          //     },
+          //     child: AbsorbPointer(
+          //       child: TextFormField(
+          //         validator: (value) {
+          //           if (value.isEmpty)
+          //             return enterEmptyReturnDate;
+          //           else if (buyTicketData['DepartureDay'] ==
+          //               buyTicketData['ReturnDay']) {
+          //             if (buyTicketData['DepartureMonth'] ==
+          //                 buyTicketData['ReturnMonth']) {
+          //               if (buyTicketData['DepartureYear'] ==
+          //                   buyTicketData['ReturnYear'])
+          //                 return inputDifferentDate;
+          //             }
+          //           } else if (buyTicketData['ReturnDay'] <
+          //               buyTicketData['DepartureDay']) {
+          //             return dateLessthan;
+          //           }
+          //         },
+          //         style: TextStyle(color: Colors.blue, fontSize: 17.0),
+          //         keyboardType: TextInputType.datetime,
+          //         controller: this._returnInputDate,
+          //         decoration: InputDecoration(
+          //             contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+          //             fillColor: Colors.white,
+          //             filled: true,
+          //             prefixIcon: Image(image: calendarIcon),
+          //             hintText: returnCalHint,
+          //             border: OutlineInputBorder(
+          //                 borderRadius: BorderRadius.circular(5.0))),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+
           Container(
             width: ScreenUtil().setWidth(550),
             child: Row(
@@ -613,20 +612,23 @@ class _RoundWayFormState extends State<RoundWayForm> {
   }
 
   Future _selectDepartureDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final List<DateTime> picked = await DateRagePicker.showDatePicker(
       context: context,
-      initialDate: DateTime.now().add(Duration(days: 0)),
+      initialFirstDate: DateTime.now().add(Duration(days: 0)),
+      initialLastDate: DateTime.now().add(Duration(days: 3)),
       firstDate: DateTime.now().add(Duration(days: -1)),
       lastDate: DateTime.now().add(Duration(days: 730)),
     );
-    if (picked != null)
-      setState(() {
-        this._departureInputDate = new TextEditingController(
-            text: "${picked.day}.${picked.month}.${picked.year}");
-        buyTicketData['DepartureDay'] = picked.day;
-        buyTicketData['DepartureMonth'] = picked.month;
-        buyTicketData['DepartureYear'] = picked.year;
-      });
+
+    if (picked == null) {}
+    // if (picked != null)
+    //   setState(() {
+    //     this._departureInputDate = new TextEditingController(
+    //         text: "${picked.day}.${picked.month}.${picked.year}");
+    //     buyTicketData['DepartureDay'] = picked.day;
+    //     buyTicketData['DepartureMonth'] = picked.month;
+    //     buyTicketData['DepartureYear'] = picked.year;
+    //   });
   }
 
   Future _selectReturnDate(BuildContext context) async {

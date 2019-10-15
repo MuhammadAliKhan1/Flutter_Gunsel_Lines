@@ -525,23 +525,24 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
     print("status code is:" + statuscode.toString());
 
     if (statuscode == 200) {
-//      showDialog(
-//          context: context,
-//          builder: (context) {
-//            return AlertDialog(
-//              content: Text("Ticket has been cancelled"),
-//              actions: <Widget>[
-//                FlatButton(
-//                  child: Text("OK"),
-//                  onPressed: () {
-//                    Navigator.pop(context);
-//                  },
-//                )
-//              ],
-//            );
-//          });
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text("Ticket has been Successfully Cancelled"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(context, oneWayScreen);
+                  },
+                )
+              ],
+            );
+          });
 
-      Navigator.pushReplacementNamed(context, oneWayScreen);
+
     } else {
       showDialog(
           context: context,

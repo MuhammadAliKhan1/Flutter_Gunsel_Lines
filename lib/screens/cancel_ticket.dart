@@ -209,9 +209,9 @@ class CancelTicketState extends State<CancelTicket> {
     try {
       String tokens = await shPref.gettokens();
 
-      print("Token is:" + tokens);
-      print("Ticket number is:" + _ticketNumber.text);
-      print("Security code is:" + _secureCode.text);
+//      print("Token is:" + tokens);
+//      print("Ticket number is:" + _ticketNumber.text);
+//      print("Security code is:" + _secureCode.text);
 
       String ticketNumber, secureCode;
       ticketNumber = _ticketNumber.text;

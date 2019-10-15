@@ -147,6 +147,7 @@ class OneWayForm extends StatefulWidget {
 }
 
 class _OneWayFormState extends State<OneWayForm> {
+  String gunselToken = "";
   final _oneWayForm = GlobalKey<FormState>();
   TextEditingController _arrivalStation = TextEditingController();
   TextEditingController _departureStation = TextEditingController();
@@ -160,8 +161,8 @@ class _OneWayFormState extends State<OneWayForm> {
   bool stationListFetched;
   DateTime picker;
   SharePreferencelogin sh = SharePreferencelogin();
-  String arrivalHint = "Enter arrival station",
-      departHint = "Enter departure station",
+  String arrivalHint = "Enter arrival city",
+      departHint = "Enter departure city",
       calenderHint = "Select the travel date",
       numOfPassengers = "Number of passengers:",
       btnSearch = "Search",
@@ -175,6 +176,7 @@ class _OneWayFormState extends State<OneWayForm> {
 
   @override
   void initState() {
+    token();
     buyTicketData = Map();
     super.initState();
     this.passengers = 1;
@@ -183,6 +185,19 @@ class _OneWayFormState extends State<OneWayForm> {
     stationList = [];
     setInitialDate();
     oneWaylan();
+  }
+
+  void token() async {
+    SharePreferencelogin prefs = SharePreferencelogin();
+    gunselToken = await prefs.gettokens();
+    //print(gunselToken);
+
+    if (gunselToken == null) {
+      TokenGetter token = TokenGetter();
+      token.getToken();
+    }
+    //print("data");
+    //print(gunselToken);
   }
 
   setInitialDate() async {
@@ -208,8 +223,8 @@ class _OneWayFormState extends State<OneWayForm> {
         selectArrivalValidStation = "Виберіть дійсну станцію прибуття";
         selectDifferentStation = "Виберіть інші станції.";
       } else if (b == 2) {
-        arrivalHint = "Enter arrival station";
-        departHint = "Enter departure station";
+        arrivalHint = "Enter arrival city";
+        departHint = "Enter departure city";
         calenderHint = "Select the travel date";
         numOfPassengers = "Number of passengers:";
         btnSearch = "Search";
@@ -503,8 +518,8 @@ class _OneWayFormState extends State<OneWayForm> {
   //Functions
   Future<List<String>> getStationsFromAPI() async {
     http.Response response;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String gunselToken = prefs.getString('Token');
+    SharePreferencelogin prefs = SharePreferencelogin();
+    gunselToken = await prefs.gettokens();
 
     List<String> list = [];
     try {
