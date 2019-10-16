@@ -431,8 +431,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                   "LastName": widget.ticketData['FirstLeg']['SeatVoyagerInfo']
                       [i]['Surname'],
                   "PhoneNumber": widget.ticketData['FirstLeg']
-                          ['SeatVoyagerInfo'][i]['Number']
-                      .substring(1),
+                          ['SeatVoyagerInfo'][i]['Number'],
                   "Email": widget.ticketData['FirstLeg']['SeatVoyagerInfo'][i]
                       ['Email'],
                   "ChairNumber": widget.ticketData['FirstLeg']
@@ -463,8 +462,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                         ['TravelVariantLeg2']['SeatVoyagerInfo'][i]['Surname'],
                     "PhoneNumber": widget.ticketData['FirstLeg']
                                 ['TravelVariantLeg2']['SeatVoyagerInfo'][i]
-                            ['Number']
-                        .substring(1),
+                            ['Number'],
                     "Email": widget.ticketData['FirstLeg']['TravelVariantLeg2']
                         ['SeatVoyagerInfo'][i]['Email'],
                     "ChairNumber": widget.ticketData['FirstLeg']
@@ -492,8 +490,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                     "LastName": widget.ticketData['SecondLeg']
                         ['SeatVoyagerInfo'][i]['Surname'],
                     "PhoneNumber": widget.ticketData['SecondLeg']
-                            ['SeatVoyagerInfo'][i]['Number']
-                        .substring(1),
+                            ['SeatVoyagerInfo'][i]['Number'],
                     "Email": widget.ticketData['SecondLeg']['SeatVoyagerInfo']
                         [i]['Email'],
                     "ChairNumber": widget.ticketData['SecondLeg']
@@ -527,8 +524,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                         ['TravelVariantLeg2']['SeatVoyagerInfo'][i]['Surname'],
                     "PhoneNumber": widget.ticketData['SecondLeg']
                                 ['TravelVariantLeg2']['SeatVoyagerInfo'][i]
-                            ['Number']
-                        .substring(1),
+                            ['Number'],
                     "Email": widget.ticketData['SecondLeg']['TravelVariantLeg2']
                         ['SeatVoyagerInfo'][i]['Email'],
                     "ChairNumber": widget.ticketData['SecondLeg']
@@ -555,8 +551,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                     ['SelectedSeatsBlockIds'][0],
                 "PaymentChannel": 40,
                 "TicketItems": tickets,
-                "AddSubscriber": widget.ticketData['FirstLeg']
-                    ['SubscriberCheckBox'],
+                "AddSubscriber": widget.ticketData['SubscriberCheckBox'],
               });
               String url = 'https://test-api.gunsel.ua/Public.svc/SellTicket';
               http.Response response = await http.post(

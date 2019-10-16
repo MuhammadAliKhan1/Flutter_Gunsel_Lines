@@ -411,8 +411,24 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                           selectedSeats.keys.toList();
                       widget.ticketData['FirstLeg']['SelectedSeatsBlockIds'] =
                           selectedSeats.values.toList();
-                      Navigator.pushNamed(context, detailScreen,
-                          arguments: widget.ticketData);
+                      if (widget.ticketData['FirstLeg']['TicketData']
+                              ['TravelVariantLeg2'] ==
+                          null) {
+                        widget.ticketData['BuyTicketData']['RoundWayCheck']
+                            ? Navigator.pushNamed(
+                                context,
+                                searchTicketRoundWay,
+                                arguments: widget.ticketData,
+                              )
+                            : Navigator.pushNamed(context, detailScreen,
+                                arguments: widget.ticketData);
+                      } else {
+                        Navigator.pushNamed(
+                          context,
+                          selectSeats_TransferWay,
+                          arguments: widget.ticketData,
+                        );
+                      }
                     }
                   },
                 ),

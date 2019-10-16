@@ -125,12 +125,8 @@ const String paymentResultScreen = '/paymentresultscreen';
 const String facebookLoginScreen = '/facebookLoginScreen';
 const String searchTicketRoundWay = '/searchTicketRoundWay';
 const String selectSeatRoundWay = '/selectSeatRoundWay';
-const String detailsRoundWay = '/detailsRoundWay';
 const String selectSeats_TransferWay = '/selectSeatsTransferWay';
-const String details_TransferWay = '/detailsTransferWay';
 const String selectSeatRoundWay_TransferWay = '/selectSeatRoundWayTransferWay';
-const String detailsRoundWay_TransferWay = '/detailsRoundWayTransferWay';
-
 //Colors
 const gunselColor = Color(0xff035EA7);
 const darkBlue = Color(0xff000080);
