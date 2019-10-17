@@ -300,7 +300,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                               arrivalTime,
                               style: TextStyle(
                                   color: darkBlue,
-                                  fontSize: 60.0,
+                                  fontSize: 50,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "Helvetica"),
                             ))
@@ -408,7 +408,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                               fontWeight: FontWeight.bold),
                         )),
                     Padding(
-                        padding: EdgeInsets.only(left: 90.0, top: 2.0),
+                        padding: EdgeInsets.only(left: 60.0, top: 2.0),
                         child: AutoSizeText(
                           totalCut,
                           style: TextStyle(
