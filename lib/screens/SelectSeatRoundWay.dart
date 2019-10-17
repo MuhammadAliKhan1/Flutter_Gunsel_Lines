@@ -518,9 +518,9 @@ class _SeatState extends State<Seat> {
     return InkWell(
       onTap: () async {
         if (selectedSeats.length < 4 || makeItGreen) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          String token = prefs.getString('Token');
           if (widget.seatData['SeatStatus'] == 0) {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            String token = prefs.getString('Token');
             if (!makeItGreen) {
               var body = json.encode({
                 "SeatNo": widget.seatData['PointNumber'].toString(),
@@ -544,8 +544,8 @@ class _SeatState extends State<Seat> {
                   'token': token,
                 },
               );
-              widget.seatData['SeatStatus'] = 10;
               if (jsonDecode(response.body)['Data'] != null) {
+                widget.seatData['SeatStatus'] = 10;
                 makeItGreen = true;
                 widget.seatData['TravelSeatBlockId'] = (jsonDecode(
                     jsonDecode(response.body)['Data'])['TravelSeatBlockId']);
@@ -559,16 +559,20 @@ class _SeatState extends State<Seat> {
                 );
               }
             } else if (makeItGreen) {
-              makeItGreen = false;
+              widget.loadScreen();
               http.Response response = await http.delete(
                 'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
                 headers: {'token': token},
               );
-              widget.seatData['TravelSeatBlockId'] = null;
-              selectedSeats.remove(widget.seatData['PointNumber']);
-              widget.refresh();
-              widget.loadScreen();
-              setState(() {});
+              if (response.statusCode == 200) {
+                makeItGreen = false;
+                widget.seatData['SeatStatus'] = 0;
+                widget.seatData['TravelSeatBlockId'] = null;
+                selectedSeats.remove(widget.seatData['PointNumber']);
+                widget.refresh();
+                widget.loadScreen();
+                setState(() {});
+              }
             }
           }
         }
@@ -593,11 +597,7 @@ class _SeatState extends State<Seat> {
             height: 40.0,
             child: Center(
               child: Text(
-                makeItGreen
-                    ? widget.seatData['PointNumber'].toString()
-                    : selectedSeats.length < 4
-                        ? widget.seatData['PointNumber'].toString()
-                        : '',
+                widget.seatData['PointNumber'].toString(),
                 // commented code is for disappearing seats number when 4 seats are selected
                 style: TextStyle(
                   fontSize: 20.0,
@@ -719,7 +719,7 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                     ],
                   ),
                   SizedBox(
-                    width: (widget.day > 9 ? 90.0 : 100.0),
+                    width: (widget.day > 9 ? 60.0 : 100.0),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -778,7 +778,7 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                             ),
                           ),
                           SizedBox(
-                            width: ScreenUtil().setSp(80),
+                            width: ScreenUtil().setSp(100),
                           ),
                         ],
                       ),

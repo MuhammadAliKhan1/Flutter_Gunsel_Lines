@@ -307,7 +307,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                         right: 50.0,
                       ),
                       title: Text(
-                        busInfo,
+                        '$busInfo',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Helvetica',
@@ -455,7 +455,10 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
           return SliverPadding(
             sliver: SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                crossAxisCount: 4,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   return GridTile(
