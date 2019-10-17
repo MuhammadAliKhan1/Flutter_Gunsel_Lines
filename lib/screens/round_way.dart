@@ -178,7 +178,10 @@ class _RoundWayFormState extends State<RoundWayForm> {
       enterEmptyDepartureDate = "Please input departure date",
       enterEmptyReturnDate = "Please input return date",
       dateLessthan = "Return date less than departure date",
-      inputDifferentDate = "Please input different dates";
+      inputDifferentDate = "Please input different dates",
+      error = "Error",
+      returnDate = "You also need to select return date",
+      ok = "Ok";
 
   @override
   void initState() {
@@ -215,6 +218,9 @@ class _RoundWayFormState extends State<RoundWayForm> {
         enterEmptyReturnDate = "Введіть дату повернення";
         dateLessthan = "Дата повернення менше дати вильоту";
         inputDifferentDate = "Введіть різні дати";
+        error = "Помилка";
+        returnDate = "Вам також потрібно вибрати дату повернення";
+        ok = "Гаразд";
       } else if (b == 2) {
         departHint = "Enter departure city";
         arrivalHint = "Enter arrival city";
@@ -231,6 +237,9 @@ class _RoundWayFormState extends State<RoundWayForm> {
         enterEmptyReturnDate = "Please input return date";
         dateLessthan = "Return date less than departure date";
         inputDifferentDate = "Please input different dates";
+        error = "Error";
+        returnDate = "You also need to select return date";
+        ok = "Ok";
       } else if (b == 3) {
         departHint = "Введите город отправления";
         arrivalHint = "Введите город прибытия";
@@ -249,6 +258,9 @@ class _RoundWayFormState extends State<RoundWayForm> {
         enterEmptyReturnDate = "Пожалуйста, введите дату возврата";
         dateLessthan = "Дата возвращения меньше даты вылета";
         inputDifferentDate = "Пожалуйста, введите разные даты";
+        error = "ошибка";
+        returnDate = "Вам также необходимо выбрать дату возвращения";
+        ok = "Хорошо";
       }
     });
   }
@@ -619,13 +631,52 @@ class _RoundWayFormState extends State<RoundWayForm> {
       firstDate: DateTime.now().add(Duration(days: -1)),
       lastDate: DateTime.now().add(Duration(days: 730)),
     );
-    // Yahan pe date extract krne k liye kaam hoga
 
-    if (picked == null) {}
+    if (picked != null && picked.length == 2) {
+      print(picked);
+      print("Day:" +
+          picked[0].day.toString() +
+          "Month:" +
+          picked[0].month.toString() +
+          "Year:" +
+          picked[0].year.toString());
+
+      setState(() {
+        this._departureInputDate = new TextEditingController(
+            text:
+                "${picked[0].day}.${picked[0].month}.${picked[0].year}      ${picked[1].day}.${picked[1].month}.${picked[1].year}");
+        buyTicketData['DepartureDay'] = picked[0].day;
+        buyTicketData['DepartureMonth'] = picked[0].month;
+        buyTicketData['DepartureYear'] = picked[0].year;
+        buyTicketData['ReturnDay'] = picked[1].day;
+        buyTicketData['ReturnMonth'] = picked[1].month;
+        buyTicketData['ReturnYear'] = picked[1].year;
+      });
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                error,
+              ),
+              content: Text(returnDate),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text(ok),
+                  onPressed: () {
+                    this._departureInputDate.text = " ";
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
+    }
+
     // if (picked != null)
     //   setState(() {
-    //     this._departureInputDate = new TextEditingController(
-    //         text: "${picked.day}.${picked.month}.${picked.year}");
+    //
     //     buyTicketData['DepartureDay'] = picked.day;
     //     buyTicketData['DepartureMonth'] = picked.month;
     //     buyTicketData['DepartureYear'] = picked.year;

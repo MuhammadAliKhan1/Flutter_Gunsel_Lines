@@ -408,7 +408,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                           selectedSeats.keys.toList();
                       widget.ticketData['SecondLeg']['SelectedSeatsBlockIds'] =
                           selectedSeats.values.toList();
-                          
+
                       if (widget.ticketData['SecondLeg']['TicketData']
                               ['TravelVariantLeg2'] ==
                           null) {
@@ -778,7 +778,7 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                             ),
                           ),
                           SizedBox(
-                            width: ScreenUtil().setSp(100),
+                            width: ScreenUtil().setSp(80),
                           ),
                         ],
                       ),
