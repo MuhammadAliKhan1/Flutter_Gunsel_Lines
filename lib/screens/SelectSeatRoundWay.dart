@@ -558,21 +558,21 @@ class _SeatState extends State<Seat> {
                   () {},
                 );
               }
-            } else if (makeItGreen) {
+            }
+          } else if (makeItGreen) {
+            widget.loadScreen();
+            http.Response response = await http.delete(
+              'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
+              headers: {'token': token},
+            );
+            if (response.statusCode == 200) {
+              makeItGreen = false;
+              widget.seatData['SeatStatus'] = 0;
+              widget.seatData['TravelSeatBlockId'] = null;
+              selectedSeats.remove(widget.seatData['PointNumber']);
+              widget.refresh();
               widget.loadScreen();
-              http.Response response = await http.delete(
-                'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
-                headers: {'token': token},
-              );
-              if (response.statusCode == 200) {
-                makeItGreen = false;
-                widget.seatData['SeatStatus'] = 0;
-                widget.seatData['TravelSeatBlockId'] = null;
-                selectedSeats.remove(widget.seatData['PointNumber']);
-                widget.refresh();
-                widget.loadScreen();
-                setState(() {});
-              }
+              setState(() {});
             }
           }
         }
