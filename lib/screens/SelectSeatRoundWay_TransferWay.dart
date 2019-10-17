@@ -408,8 +408,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
           ),
         ),
         selectedSeats.length !=
-                widget.ticketData['FirstLeg']['TravelVariantLeg2']
-                    ['SelectedSeatsNumber']
+                widget.ticketData['SecondLeg']['SelectedSeatsNumber'].length
             ? Container()
             : Align(
                 child: GunselButton(
