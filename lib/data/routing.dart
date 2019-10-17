@@ -70,8 +70,9 @@ class Router {
         return CustomRoute(builder: (_) => LoginScreen());
       case searchTicketScreen:
         return CustomRoute(
-            builder: (_) =>
-                new SearchTicket(buyTicketData: settings.arguments));
+            builder: (_) => new SearchTicket(
+                  buyTicketData: settings.arguments,
+                ));
       case selectSeatScreen:
         return CustomRoute(
             builder: (_) => SelectSeat(
