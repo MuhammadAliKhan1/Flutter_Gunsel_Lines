@@ -395,7 +395,8 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
             ],
           ),
         ),
-        selectedSeats.length == 0
+        selectedSeats.length !=
+                widget.ticketData['FirstLeg']['SelectedSeatsNumber'].length
             ? Container()
             : Align(
                 child: GunselButton(
