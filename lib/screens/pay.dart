@@ -20,7 +20,6 @@ class _PayState extends State<Pay> {
   void initState() {
     super.initState();
     flutterWebViewPlugin = FlutterWebviewPlugin();
-    debugPrint(widget.userData['PayFormHTML'], wrapWidth: 1024);
 
     flutterWebViewPlugin.onUrlChanged.listen((String url) {
       ++counter;
