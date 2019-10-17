@@ -714,7 +714,7 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                     ],
                   ),
                   SizedBox(
-                    width: (widget.day > 9 ? 90.0 : 100.0),
+                    width: (widget.day > 9 ? 60.0 : 100.0),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
