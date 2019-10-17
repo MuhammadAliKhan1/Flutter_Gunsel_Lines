@@ -3,7 +3,6 @@ import 'package:gunsel/data/constants.dart';
 import 'package:http/http.dart';
 import 'package:gunsel/data/sharedPreference.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:gunsel/data/cancelticketinfomodel.dart';
 
 class FinalCancelTicket extends StatefulWidget {
   String secureCode,
@@ -102,7 +101,19 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
       this.year);
 
   SharePreferencelogin sh = SharePreferencelogin();
-  String cancelTicket = "Cancel Ticket";
+  String cancelTicket = "Cancel Ticket",
+      ticket = "Ticket ",
+      busType = "Bus type: comfort+",
+      departure = "DEPARTURE",
+      seatNo = "Seat no: ",
+      arrival = "ARRIVAL",
+      totalcut = "Total cut:",
+      paidback = "Paid back:",
+      cancelticket = "Cancel ticket",
+      successfulCancel = "Ticket has been successfully cancelled",
+      notCancel = "Ticket can not be cancelled",
+      error = "Error",
+      ok = "OK";
   @override
   void initState() {
     super.initState();
@@ -121,10 +132,46 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
 
       if (b == 1) {
         cancelTicket = "Скасувати квиток";
+        ticket = "Квиток ";
+        busType = "Тип автобуса: комфорт +";
+        departure = "ВИДАЛЕННЯ";
+        seatNo = "Ні місця: ";
+        arrival = "ПРИЙНЯТТЯ";
+        totalcut = "Загальний обріз:";
+        paidback = "Оплачено:";
+        cancelticket = "Скасувати квиток";
+        successfulCancel = "Квиток успішно скасовано";
+        notCancel = "Квиток не можна скасувати";
+        error = "Помилка";
+        ok = "гаразд";
       } else if (b == 2) {
         cancelTicket = "Cancel Ticket";
+        ticket = "Ticket ";
+        busType = "Bus type: comfort+";
+        departure = "DEPARTURE";
+        seatNo = "Seat no: ";
+        arrival = "ARRIVAL";
+        totalcut = "Total cut:";
+        paidback = "Paid back:";
+        cancelticket = "Cancel ticket";
+        successfulCancel = "Ticket has been successfully cancelled";
+        notCancel = "Ticket can not be cancelled";
+        error = "Error";
+        ok = "OK";
       } else if (b == 3) {
         cancelTicket = "Отменить билет";
+        ticket = "Проездной билет ";
+        busType = "Тип автобуса: комфорт +";
+        departure = "ВЫЕЗД";
+        seatNo = "Место нет: ";
+        arrival = "ПРИБЫТИЕ";
+        totalcut = "Общий срез:";
+        paidback = "Отомстил:";
+        cancelticket = "Отменить билет";
+        successfulCancel = "Билет был успешно отменен";
+        notCancel = "Билет не может быть отменен";
+        error = "ошибка";
+        ok = "Хорошо";
       }
     });
   }
@@ -155,7 +202,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                 height: 50.0,
                 child: Center(
                     child: AutoSizeText(
-                  "Ticket " + ticketId,
+                  ticket + ticketId,
                   maxLines: 1,
                   style: TextStyle(
                       color: Colors.white,
@@ -174,7 +221,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                         Padding(
                             padding: EdgeInsets.only(left: 10.0, top: 10.0),
                             child: AutoSizeText(
-                              "Bus type comfort+",
+                              busType,
                               style: TextStyle(color: darkBlue),
                             )),
                         Padding(
@@ -213,7 +260,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                             padding: EdgeInsets.only(
                               left: 85.0,
                             ),
-                            child: AutoSizeText("DEPARTURE",
+                            child: AutoSizeText(departure,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -244,7 +291,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                         Padding(
                             padding: EdgeInsets.only(left: 10.0, bottom: 20.0),
                             child: AutoSizeText(
-                              "Seat no: " + seatNumber,
+                              seatNo + seatNumber,
                               style: TextStyle(fontSize: 15.0),
                             )),
                         Padding(
@@ -253,7 +300,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                               arrivalTime,
                               style: TextStyle(
                                   color: darkBlue,
-                                  fontSize: 60.0,
+                                  fontSize: 50,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "Helvetica"),
                             ))
@@ -270,7 +317,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                                     fontWeight: FontWeight.bold))),
                         Padding(
                             padding: EdgeInsets.only(left: 90.0),
-                            child: AutoSizeText("ARRIVAL",
+                            child: AutoSizeText(arrival,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -354,14 +401,14 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                     Padding(
                         padding: EdgeInsets.only(left: 10.0, top: 2.0),
                         child: AutoSizeText(
-                          "Total cut:",
+                          totalcut,
                           style: TextStyle(
                               color: Colors.red,
                               fontSize: 25.0,
                               fontWeight: FontWeight.bold),
                         )),
                     Padding(
-                        padding: EdgeInsets.only(left: 90.0, top: 2.0),
+                        padding: EdgeInsets.only(left: 60.0, top: 2.0),
                         child: AutoSizeText(
                           totalCut,
                           style: TextStyle(
@@ -389,7 +436,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                       Padding(
                           padding: EdgeInsets.only(left: 30.0, top: 5.0),
                           child: AutoSizeText(
-                            "Paid back:",
+                            paidback,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.0,
@@ -423,7 +470,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
             margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
             child: RaisedButton(
               child: AutoSizeText(
-                "Cancel ticket",
+                cancelticket,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 30.0,
@@ -529,10 +576,10 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              content: Text("Ticket has been Successfully Cancelled"),
+              content: Text(successfulCancel),
               actions: <Widget>[
                 FlatButton(
-                  child: Text("OK"),
+                  child: Text(ok),
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.pushReplacementNamed(context, oneWayScreen);
@@ -541,20 +588,18 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
               ],
             );
           });
-
-
     } else {
       showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
               title: Text(
-                "Error",
+                error,
               ),
-              content: Text("Sorry sir,Ticket can not be cancelled."),
+              content: Text(notCancel),
               actions: <Widget>[
                 FlatButton(
-                  child: Text("OK"),
+                  child: Text(ok),
                   onPressed: () {
                     Navigator.pop(context);
                   },
