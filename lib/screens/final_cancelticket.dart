@@ -218,14 +218,16 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        Padding(
+                        Container(
+                            width: ScreenUtil().setWidth(300),
                             padding: EdgeInsets.only(left: 10.0, top: 10.0),
                             child: AutoSizeText(
                               busType,
                               style: TextStyle(color: darkBlue),
                             )),
-                        Padding(
-                            padding: EdgeInsets.only(left: 80.0),
+                        Container(
+                            width: ScreenUtil().setWidth(300),
+                            padding: EdgeInsets.only(left: 40.0),
                             child: Text(departPlace,
                                 style: TextStyle(
                                     color: Colors.black,
@@ -235,7 +237,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                     ),
                     Row(
                       children: <Widget>[
-                        Padding(
+                        Container(
+                            width: ScreenUtil().setWidth(600),
                             padding: EdgeInsets.only(left: 200.0),
                             child: AutoSizeText(
                               departTime,
@@ -308,14 +311,14 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                     ),
                     Row(
                       children: <Widget>[
-                        Padding(
+                        Container(
                             padding: EdgeInsets.only(left: 10.0),
                             child: AutoSizeText(name,
                                 style: TextStyle(
                                     fontSize: 18.0,
                                     color: darkBlue,
                                     fontWeight: FontWeight.bold))),
-                        Padding(
+                        Container(
                             padding: EdgeInsets.only(left: 90.0),
                             child: AutoSizeText(arrival,
                                 style: TextStyle(
@@ -336,18 +339,22 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                         bottomLeft: Radius.circular(10.0),
                         bottomRight: Radius.circular(10.0))),
                 child: Center(
-                    child: Padding(
-                        padding: EdgeInsets.only(left: 120.0),
+                    child: Container(
+                        width: ScreenUtil().setWidth(400),
+                        padding: EdgeInsets.only(left: 50.0),
                         child: Row(
                           children: <Widget>[
                             AutoSizeText(paidBack,
+                                maxLines: 1,
                                 style: TextStyle(
                                     color: darkBlue,
                                     fontSize: 35.0,
                                     fontWeight: FontWeight.bold)),
-                            Padding(
+                            Container(
+                                width: ScreenUtil().setWidth(100),
                                 padding: EdgeInsets.only(top: 10.0),
                                 child: AutoSizeText(currencyName,
+                                    maxLines: 1,
                                     style: TextStyle(
                                         color: darkBlue,
                                         fontSize: 15.0,
@@ -398,7 +405,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
 //                ),
                 Row(
                   children: <Widget>[
-                    Padding(
+                    Container(
+                        width: ScreenUtil().setWidth(240),
                         padding: EdgeInsets.only(left: 10.0, top: 2.0),
                         child: AutoSizeText(
                           totalcut,
@@ -407,7 +415,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                               fontSize: 25.0,
                               fontWeight: FontWeight.bold),
                         )),
-                    Padding(
+                    Container(
+                        width: ScreenUtil().setWidth(200),
                         padding: EdgeInsets.only(left: 60.0, top: 2.0),
                         child: AutoSizeText(
                           totalCut,
@@ -416,7 +425,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                               color: Colors.red,
                               fontWeight: FontWeight.bold),
                         )),
-                    Padding(
+                    Container(
+                        width: ScreenUtil().setWidth(100),
                         padding: EdgeInsets.only(top: 7.0),
                         child: AutoSizeText(
                           currencyName,
@@ -433,26 +443,32 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                   height: 50.0,
                   child: Row(
                     children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(left: 30.0, top: 5.0),
+                      Container(
+                          width: ScreenUtil().setWidth(200),
+                          padding: EdgeInsets.only(left: 20.0, top: 5.0),
                           child: AutoSizeText(
                             paidback,
+                            maxLines: 1,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold),
                           )),
-                      Padding(
+                      Container(
+                          width: ScreenUtil().setWidth(270),
                           padding: EdgeInsets.only(left: 80.0),
                           child: AutoSizeText(paidBack,
+                              maxLines: 1,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 35.0,
                                   fontFamily: "Helvetica"))),
-                      Padding(
+                      Container(
+                          width: ScreenUtil().setWidth(70),
                           padding: EdgeInsets.only(top: 5.0),
                           child: AutoSizeText(currencyName,
+                              maxLines: 1,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
