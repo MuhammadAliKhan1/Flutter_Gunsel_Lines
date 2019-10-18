@@ -773,6 +773,9 @@ class _DetailFormState extends State<DetailForm> {
   void initState() {
     searchTicketlan();
     switch (widget.formType) {
+      case 'FirstLeg':
+        seatNumber = '${widget.seatNumber}';
+        break;
       case 'FirstLegVariantLeg2':
         seatNumber =
             '${widget.seatNumber},${widget.data['FirstLeg']['TravelVariantLeg2']['SelectedSeatsNumber'][(widget.index) - 1]}';
