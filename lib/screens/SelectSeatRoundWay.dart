@@ -518,12 +518,13 @@ class _SeatState extends State<Seat> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        if ((selectedSeats.length < 4 || makeItGreen) &&
-            (selectedSeats.length <
-                widget.ticketData['FirstLeg']['SelectedSeatsNumber'].length)) {
+        if ((selectedSeats.length < 4 || makeItGreen)) {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           String token = prefs.getString('Token');
-          if (widget.seatData['SeatStatus'] == 0) {
+          if ((widget.seatData['SeatStatus'] == 0) &&
+              (selectedSeats.length <
+                  widget
+                      .ticketData['FirstLeg']['SelectedSeatsNumber'].length)) {
             if (!makeItGreen) {
               var body = json.encode({
                 "SeatNo": widget.seatData['PointNumber'].toString(),
