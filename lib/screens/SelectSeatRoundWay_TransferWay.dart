@@ -325,7 +325,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                       ),
                       trailing: Image(
                         image: bus,
-                        height: ScreenUtil().setSp(50),
+                        height: ScreenUtil().setSp(55),
                       ),
                     ),
                     Row(
