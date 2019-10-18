@@ -291,10 +291,12 @@ class _DetailScreenState extends State<DetailScreen> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return DetailForm(
-                          formType: 'FirstLeg',
+                          formType: this.detailFormType,
                           index: index + 1,
-                          seatNumber: widget.ticketData['FirstLeg']
-                              ['SelectedSeatsNumber'][index],
+                          seatNumber: (widget.ticketData['FirstLeg']
+                                  ['SelectedSeatsNumber'][index])
+                              .toString(),
+                          data: widget.ticketData,
                         );
                       },
                       childCount: widget
@@ -740,14 +742,17 @@ class _DetailTicketState extends State<DetailTicket> {
 class DetailForm extends StatefulWidget {
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
-  String _currentCode = '', formType;
+  String _currentCode = '', formType, seatNumber;
   int index;
-  int seatNumber;
+  Map data;
+
   DetailForm({
     @required this.index,
     @required this.seatNumber,
     @required this.formType,
+    @required this.data,
   });
+
   @override
   _DetailFormState createState() => _DetailFormState();
 }
@@ -763,9 +768,26 @@ class _DetailFormState extends State<DetailForm> {
   );
   List<DropdownMenuItem<AssetImage>> _dropDownMenuItems;
   AssetImage _currentFlag;
+  String seatNumber;
   @override
   void initState() {
     searchTicketlan();
+    switch (widget.formType) {
+      case 'FirstLegVariantLeg2':
+        seatNumber =
+            '${widget.seatNumber},${widget.data['FirstLeg']['TravelVariantLeg2']['SelectedSeatsNumber'][(widget.index) - 1]}';
+
+        break;
+      case 'SecondLeg':
+        seatNumber =
+            '${widget.seatNumber},${widget.data['SecondLeg']['SelectedSeatsNumber'][(widget.index) - 1]}';
+        break;
+      case 'SecondLegVariantLeg2':
+        seatNumber =
+            '${widget.seatNumber},${widget.data['FirstLeg']['TravelVariantLeg2']['SelectedSeatsNumber'][(widget.index) - 1]},${widget.data['SecondLeg']['SelectedSeatsNumber'][(widget.index) - 1]},${widget.data['SecondLeg']['TravelVariantLeg2']['SelectedSeatsNumber'][(widget.index) - 1]}';
+        break;
+      default:
+    }
     _dropDownMenuItems = getDropDownMenuItems();
     _currentFlag = _dropDownMenuItems[0].value;
     _currentCode = countryCode.keys
@@ -839,7 +861,7 @@ class _DetailFormState extends State<DetailForm> {
             ),
           ),
           trailing: Text(
-            '$seat ${widget.seatNumber}',
+            '$seat $seatNumber',
             style: TextStyle(
               color: Colors.white,
               fontSize: 17,
