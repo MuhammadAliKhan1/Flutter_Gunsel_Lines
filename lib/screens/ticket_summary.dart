@@ -16,22 +16,38 @@ class TicketSummary extends StatefulWidget {
 }
 
 class _TicketSummaryState extends State<TicketSummary> {
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   SharePreferencelogin sh = SharePreferencelogin();
   String paymentInfo = "Payment Info";
 
   void selectTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        paymentInfo = "Платіжна інформація";
-      } else if (b == 2) {
+      if (b == 0) {
         paymentInfo = "Payment Info";
+      } else if (b == 1) {
+        paymentInfo = "Інформація Про Платіж";
+      } else if (b == 2) {
+        paymentInfo = "Информация Об Оплате";
       } else if (b == 3) {
-        paymentInfo = "Информация о платеже";
+        paymentInfo = "Informacje O Płatności";
       }
     });
   }
@@ -94,6 +110,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
   }
 
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String yourSeat = "Your seat";
   String details = "Details";
   String purchaseDetails = "Purchase Details";
@@ -102,33 +119,53 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
   String pay = "Pay";
 
   void detailslan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        yourSeat = "Ваше місце";
-        details = "Деталі";
-        purchaseDetails = "Деталі придбання";
-        purchase = "Купівля";
-        totalPrice = "Загальна сума";
-        pay = "Платити";
-      } else if (b == 2) {
-        yourSeat = "Your seat";
-        details = "Details";
+      if (b == 0) {
+        yourSeat = enData["your_seat"];
+        details = enData["details"];
         purchaseDetails = "Purchase Details";
         purchase = "Purchase";
         totalPrice = "Total Price";
-        pay = "Pay";
-      } else if (b == 3) {
-        yourSeat = "Ваше место";
-        details = "подробности";
+        pay = enData["pay"];
+      } else if (b == 1) {
+        yourSeat = uaData["your_seat"];
+        details = uaData["details"];
+        purchaseDetails = "Деталі придбання";
+        purchase = "Купівля";
+        totalPrice = "Повна Вартість";
+        pay = uaData["pay"];
+      } else if (b == 2) {
+        yourSeat = ruData["your_seat"];
+        details = ruData["details"];
         purchaseDetails = "Детали покупки";
         purchase = "покупка";
-        totalPrice = "Итоговая цена";
-        pay = "платить";
+        totalPrice = "Полная Стоимость";
+        pay = ruData["pay"];
+      } else if (b == 3) {
+        yourSeat = plData["your_seat"];
+        details = plData["details"];
+        purchaseDetails = "Szczegóły zakupu";
+        purchase = "Zakup";
+        totalPrice = "Wartość Całkowita";
+        pay = plData["pay"];
       }
     });
   }
@@ -431,7 +468,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                   "LastName": widget.ticketData['FirstLeg']['SeatVoyagerInfo']
                       [i]['Surname'],
                   "PhoneNumber": widget.ticketData['FirstLeg']
-                          ['SeatVoyagerInfo'][i]['Number'],
+                      ['SeatVoyagerInfo'][i]['Number'],
                   "Email": widget.ticketData['FirstLeg']['SeatVoyagerInfo'][i]
                       ['Email'],
                   "ChairNumber": widget.ticketData['FirstLeg']
@@ -461,8 +498,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                     "LastName": widget.ticketData['FirstLeg']
                         ['TravelVariantLeg2']['SeatVoyagerInfo'][i]['Surname'],
                     "PhoneNumber": widget.ticketData['FirstLeg']
-                                ['TravelVariantLeg2']['SeatVoyagerInfo'][i]
-                            ['Number'],
+                        ['TravelVariantLeg2']['SeatVoyagerInfo'][i]['Number'],
                     "Email": widget.ticketData['FirstLeg']['TravelVariantLeg2']
                         ['SeatVoyagerInfo'][i]['Email'],
                     "ChairNumber": widget.ticketData['FirstLeg']
@@ -490,7 +526,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                     "LastName": widget.ticketData['SecondLeg']
                         ['SeatVoyagerInfo'][i]['Surname'],
                     "PhoneNumber": widget.ticketData['SecondLeg']
-                            ['SeatVoyagerInfo'][i]['Number'],
+                        ['SeatVoyagerInfo'][i]['Number'],
                     "Email": widget.ticketData['SecondLeg']['SeatVoyagerInfo']
                         [i]['Email'],
                     "ChairNumber": widget.ticketData['SecondLeg']
@@ -523,8 +559,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                     "LastName": widget.ticketData['SecondLeg']
                         ['TravelVariantLeg2']['SeatVoyagerInfo'][i]['Surname'],
                     "PhoneNumber": widget.ticketData['SecondLeg']
-                                ['TravelVariantLeg2']['SeatVoyagerInfo'][i]
-                            ['Number'],
+                        ['TravelVariantLeg2']['SeatVoyagerInfo'][i]['Number'],
                     "Email": widget.ticketData['SecondLeg']['TravelVariantLeg2']
                         ['SeatVoyagerInfo'][i]['Email'],
                     "ChairNumber": widget.ticketData['SecondLeg']
@@ -614,33 +649,52 @@ class TicketSummaryTicket extends StatefulWidget {
 
 class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String bustype = "Bus Type: Comfort";
   String seats = "Seats";
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
 
   void detailsBarlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        bustype = "Тип автобуса: Комфорт";
-        seats = "Сидіння";
-        departure = "ВИДАЛЕННЯ";
-        arrival = "ПРИЙНЯТТЯ";
-      } else if (b == 2) {
-        bustype = "Bus Type: Comfort";
-        seats = "Seats";
+      if (b == 0) {
+        bustype = "Bus Type: Comfort+";
+        seats = enData["seats"];
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
-      } else if (b == 3) {
-        bustype = "Тип автобуса: Комфорт";
-        seats = "места";
-        departure = "ВЫЕЗД";
+      } else if (b == 1) {
+        bustype = "Тип автобуса: Комфорт+";
+        seats = uaData["seats"];
+        departure = "ВИХІДНА ПОЗИЦІЯ";
+        arrival = "ПРИБУТТЯ";
+      } else if (b == 2) {
+        bustype = "Тип автобуса: Комфорт+";
+        seats = ruData["seats"];
+        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
         arrival = "ПРИБЫТИЕ";
+      } else if (b == 3) {
+        seats = plData["seats"];
+        departure = "POZYCJA WYJŚCIOWA";
+        arrival = "PRZYJAZD";
+        bustype = "Typ autobusu: Comfort+";
       }
     });
   }
