@@ -26,7 +26,7 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   SharePreferencelogin sh = SharePreferencelogin();
-  String login = "Login";
+  String login = " Login";
   @override
   void initState() {
     loginAppbarlan();
@@ -40,12 +40,15 @@ class LoginScreenState extends State<LoginScreen> {
     setState(() {
       b = a;
 
-      if (b == 1) {
-        login = "Вхід";
+      if(b == 0)
+        {
+          login = " Login";
+        } else if (b == 1) {
+        login = " Вхід";
       } else if (b == 2) {
-        login = "Login";
+        login = " Вход";
       } else if (b == 3) {
-        login = "Авторизоваться";
+        login = "Wejście";
       }
     });
   }
@@ -128,22 +131,21 @@ class _LoginFormState extends State<LoginForm> {
   final facebookLogin = FacebookLogin();
   //SharePreferencelogin sh = SharePreferencelogin();
   String passwordHint = "Password",
-      forgetPassword = "Forgot Password?",
-      signIn = "Sign In",
+      forgetPassword = "Forgot password?",
       dontHaveAccount = "Don't have an account?",
-      signUp = "Sign Up",
-      forgetYourPassword = "Forgot your password?",
+      signUp = " Sign up",
       emailHint = "Your email",
-      btnSend = "Send",
-      login = "Login",
+      btnSend = " Send",
+      login = " Login",
       sendPassword = "Sending Password",
-      noDatafound = "No Data Found",
-      ok = "Ok",
-      error = "Sign in Error",
+      noDatafound = " No data found",
+      ok = " Ok",
+      error = "Login Error",
       err = "Error",
       passworderr = "Password field should not be empty",
-      logError = "Login error",
+      logError = "Login Error",
       invalidData = "-UserId or Phone Number Required!";
+  String enJson="",uaJson="",ruJson="",plJson="";
 
   @override
   void initState() {
@@ -175,66 +177,88 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void loginlan() async {
+
+    enJson = await DefaultAssetBundle.of(context).loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context).loadString("languagefiles/pl-PL.json");
+
+    Map<String , dynamic> enData = json.decode(enJson);
+    Map<String , dynamic> uaData = json.decode(uaJson);
+    Map<String , dynamic> ruData = json.decode(ruJson);
+    Map<String , dynamic> plData = json.decode(plJson);
+
+
     int b;
     int a = await shPref.getshared1();
 
     setState(() {
       b = a;
-
-      if (b == 1) {
-        passwordHint = "Пароль";
-        forgetPassword = "Забули пароль?";
-        signIn = "Увійти";
+      if (b == 0) {
+      passwordHint = enData["password_holder"];
+      forgetPassword = enData["forgot_password"];
+      login = enData["login"];
+      dontHaveAccount = "Don't have an account?";
+      signUp = enData["sign_up"];
+      emailHint = enData["email"];
+      btnSend = enData["forgot_password_button"];
+      sendPassword = "Sending Password";
+      noDatafound = enData["no_data_found"];
+      ok = enData["ok"];
+      error = "Login Error";
+      err = enData["error"];
+      passworderr = "Password field should not be empty";
+      logError = "Login Error";
+      invalidData = "-UserId or Phone Number Required!";
+      }if (b == 1) {
+        passwordHint = uaData["password_holder"];
+        forgetPassword = uaData["forgot_password"];
+        login = uaData["login"];
         dontHaveAccount = "У вас немає облікового запису?";
-        signUp = "Зареєструйтесь";
-        forgetYourPassword = "Забули свій пароль?";
-        emailHint = "Твоя електронна пошта";
-        btnSend = "Надіслати";
-        login = "Вхід";
+        signUp = uaData["sign_up"];
+        emailHint = uaData["email"];
+        btnSend = uaData["forgot_password_button"];
         sendPassword = "Відправлення пароля";
-        noDatafound = "Даних не знайдено";
-        ok = "Гаразд";
+        noDatafound = uaData["no_data_found"];;
+        ok = uaData["ok"];
         error = "Помилка входу";
-        err = "Помилка";
+        err = uaData["error"];
         passworderr = "Поле пароля не повинно бути порожнім";
         logError = "Помилка входу";
         invalidData = "-Використовується номер або номер телефону!";
-      } else if (b == 2) {
-        login = "Login";
-        passwordHint = "Password";
-        forgetPassword = "Forgot Password?";
-        signIn = "Sign In";
-        dontHaveAccount = "Don't have an account?";
-        signUp = "Sign Up";
-        forgetYourPassword = "Forgot your password?";
-        emailHint = "Your email";
-        btnSend = "Send";
-        sendPassword = "Sending Password";
-        noDatafound = "No Data Found";
-        ok = "Ok";
-        error = "Sign in Error";
-        err = "Error";
-        passworderr = "Password field should not be empty";
-        logError = "Login error";
-        invalidData = "-UserId or Phone Number Required!";
-      } else if (b == 3) {
-        login = "Авторизоваться";
-        passwordHint = "пароль";
-        forgetPassword = "Забыл пароль?";
-        signIn = "Войти в систему";
+      }  else if (b == 2) {
+        passwordHint = ruData["password_holder"];
+        forgetPassword = ruData["forgot_password"];
+        login = ruData["login"];
         dontHaveAccount = "У вас нет аккаунта?";
-        signUp = "Зарегистрироваться";
-        forgetYourPassword = "Забыли свой пароль?";
-        emailHint = "Ваш адрес электронной почты";
-        btnSend = "послать";
+        signUp = ruData["sign_up"];
+        emailHint = ruData["email"];
+        btnSend = ruData["forgot_password_button"];
         sendPassword = "Отправка пароля";
-        noDatafound = "Данные не найдены";
-        ok = "Хорошо";
+        noDatafound = ruData["no_data_found"];;
+        ok = ruData["ok"];
         error = "Ошибка входа";
-        err = "ошибка";
+        err = ruData["error"];
         passworderr = "Поле пароля не должно быть пустым";
         logError = "Ошибка входа";
         invalidData = "-UserId или номер телефона требуется!";
+      }
+      else if (b == 3) {
+        passwordHint = plData["password_holder"];
+        forgetPassword = plData["forgot_password"];
+        login = plData["login"];
+        dontHaveAccount = "Nie masz konta?";
+        signUp = plData["sign_up"];
+        emailHint = plData["email"];
+        btnSend = plData["forgot_password_button"];
+        sendPassword = "Wysyłanie hasła";
+        noDatafound = plData["no_data_found"];
+        ok = plData["ok"];
+        error = "Błąd logowania";
+        err = plData["error"];
+        passworderr = "Pole hasła nie powinno być puste";
+        logError = "Błąd logowania";
+        invalidData = "-UserId lub numer telefonu wymagany!";
       }
     });
   }
@@ -476,7 +500,7 @@ class _LoginFormState extends State<LoginForm> {
                 },
                 btnFontFamily: 'SFProText',
                 textWeight: FontWeight.w500,
-                btnText: signIn,
+                btnText: login,
                 btnTextFontSize: 45,
                 btnHeight: 45,
               ),

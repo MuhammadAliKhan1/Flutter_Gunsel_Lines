@@ -11,7 +11,7 @@ class History extends StatefulWidget {
 
 class _HistoryState extends State<History> {
   SharePreferencelogin sh = SharePreferencelogin();
-  String history = "History";
+  String history = " Travel history";
 
   void historyTicketlan() async {
     int b;
@@ -20,12 +20,14 @@ class _HistoryState extends State<History> {
     setState(() {
       b = a;
 
-      if (b == 1) {
-        history = "Історія";
+      if (b == 0) {
+        history = " Travel history";
+      } else if (b == 1) {
+        history = " Історію рейсу";
       } else if (b == 2) {
-        history = "History";
+        history = " Историю рейса";
       } else if (b == 3) {
-        history = "история";
+        history = "Historia podróży";
       }
     });
   }
@@ -62,13 +64,15 @@ class _HistoryTicketState extends State<HistoryTicket> {
   var travelProfData;
   bool checkdata = false;
   //SharePreferencelogin sh = SharePreferencelogin();
-  String departure = "DEPARTURE";
-  String arrival = "ARRIVAL";
-  String seats = "Seat No";
-  String noTickets = "You have no tickets available";
+  String departure = "Departure";
+  String arrival = " Arrival";
+  String seats = "Seat no";
+  String noTickets = "You have no available tickets";
   String ticketDes = "You have a destination? Find out the best tickets";
-  String here = "Here";
-  //String ticketError = "OOPS! You have not bought any Ticket";
+  String here = " Here";
+
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
+
   @override
   void initState() {
     //getToken();
@@ -84,35 +88,58 @@ class _HistoryTicketState extends State<HistoryTicket> {
 //  }
 
   void historyTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
+
     int b;
     int a = await shPref.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        departure = "ВИДАЛЕННЯ";
-        arrival = "ПРИЙНЯТТЯ";
-        seats = "Сидіння №";
-        noTickets = "У вас немає квитків";
-        ticketDes = "У вас є місце призначення? Дізнайтеся найкращі квитки";
-        here = "Ось";
+      if (b == 0) {
+        departure = enData["departure"];
+        arrival = enData["arrival"];
+        seats = enData["seat_no"];
+        noTickets = enData["no_tickets_available_profile"];
+        ticketDes = "You have a destination? Find out the best tickets";
+        here = enData["here"];
+        //ticketError = "OOPS! You have not bought any Ticket";
+      } else if (b == 1) {
+        departure = uaData["departure"];
+        arrival = uaData["arrival"];
+        seats = uaData["seat_no"];
+        noTickets = uaData["no_tickets_available_profile"];
+        ticketDes = uaData["is_destination"];
+        here = uaData["here"];
         //ticketError = "OOPS! Ви не купили жодного квитка";
       } else if (b == 2) {
-        departure = "DEPARTURE";
-        arrival = "ARRIVAL";
-        seats = "Seat No";
-        noTickets = "You have no tickets available";
-        ticketDes = "You have a destination? Find out the best tickets";
-        here = "Here";
-        //ticketError = "OOPS! You have not bought any Ticket";
+        departure = ruData["departure"];
+        arrival = ruData["arrival"];
+        seats = ruData["seat_no"];
+        noTickets = ruData["no_tickets_available_profile"];
+        ticketDes = ruData["is_destination"];
+        here = ruData["here"];
+        //ticketError = "OOPS! Вы не купили билет";
       } else if (b == 3) {
-        departure = "ВЫЕЗД";
-        arrival = "ПРИБЫТИЕ";
-        seats = "Сиденье №";
-        noTickets = "У вас нет доступных билетов";
-        ticketDes = "У вас есть пункт назначения? Узнайте лучшие билеты";
-        here = "Вот";
+        departure = plData["departure"];
+        arrival = plData["arrival"];
+        ;
+        seats = "Miejsce nr";
+        noTickets = "Nie masz dostępnych biletów";
+        ticketDes = plData["is_destination"];
+        here = plData["here"];
         //ticketError = "OOPS! Вы не купили билет";
       }
     });
@@ -198,7 +225,8 @@ class _HistoryTicketState extends State<HistoryTicket> {
                           },
                           child: FittedBox(
                               child: Container(
-                            margin: EdgeInsets.only(top: 10.0),
+                            margin: EdgeInsets.only(
+                                top: 10.0, left: 5.0, right: 5.0),
                             height: 112,
                             child: Stack(
                               children: <Widget>[
@@ -247,14 +275,14 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                                               ['DepartureDate'])
                                                       .day
                                                       .toString() +
-                                                  " . " +
+                                                  "." +
                                                   DateTime.parse(
                                                           travelProfData['Data']
                                                                   [index]
                                                               ['DepartureDate'])
                                                       .month
                                                       .toString() +
-                                                  " . " +
+                                                  "." +
                                                   DateTime.parse(
                                                           travelProfData['Data']
                                                                   [index]

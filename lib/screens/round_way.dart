@@ -16,6 +16,7 @@ class RoundWay extends StatefulWidget {
 
 class RoundWayState extends State<RoundWay> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String searchTicket = "Search Ticket";
   @override
   void initState() {
@@ -24,18 +25,33 @@ class RoundWayState extends State<RoundWay> {
   }
 
   void searchTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        searchTicket = "Пошуковий квиток";
-      } else if (b == 2) {
+      if (b == 0) {
         searchTicket = "Seach Ticket";
+      } else if (b == 1) {
+        searchTicket = "Пошук Квитку";
+      } else if (b == 2) {
+        searchTicket = "Поиск Билета";
       } else if (b == 3) {
-        searchTicket = "Поиск билета";
+        searchTicket = "Wyszukaj Bilet";
       }
     });
   }
@@ -63,6 +79,7 @@ class SearchTicketContainer extends StatefulWidget {
 
 class SearchTicketContainerState extends State<SearchTicketContainer> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String roundWay = "ROUND WAY";
   @override
   void initState() {
@@ -71,18 +88,33 @@ class SearchTicketContainerState extends State<SearchTicketContainer> {
   }
 
   void roundWayButtonlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        roundWay = "КРУГЛИЙ ШЛЯХ";
-      } else if (b == 2) {
+      if (b == 0) {
         roundWay = "ROUND WAY";
+      } else if (b == 1) {
+        roundWay = "В ОБИДВІ СТОРОНИ";
+      } else if (b == 2) {
+        roundWay = "В ОБЕ СТОРОНЫ";
       } else if (b == 3) {
-        roundWay = "КРУГЛЫЙ ПУТЬ";
+        roundWay = "OBA SPOSOBY";
       }
     });
   }
@@ -164,6 +196,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
   bool stationListFetched;
 
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String departHint = "Enter departure city",
       arrivalHint = "Enter arrival city",
       departCalHint = "Select the departure and return date",
@@ -196,38 +229,32 @@ class _RoundWayFormState extends State<RoundWayForm> {
   }
 
   void roundWaylan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        departHint = "Введіть місто відправлення";
-        arrivalHint = "Введіть місто відправлення";
-        departCalHint = "Виберіть дату відправлення";
-        returnCalHint = "Виберіть дату повернення";
-        numOfpassenger = "Кількість пасажирів:";
-        btnSearch = "Пошук";
-        selectDepartureStation = "Виберіть пункт відправлення";
-        selectValidStation = "Виберіть дійсну станцію відправлення";
-        selectArrivalStation = "Виберіть станцію прибуття";
-        selectArrivalValidStation = "Виберіть дійсну станцію прибуття";
-        selectDifferentStation = "Виберіть інші станції.";
-        enterEmptyDepartureDate = "Введіть дату відправлення";
-        enterEmptyReturnDate = "Введіть дату повернення";
-        dateLessthan = "Дата повернення менше дати вильоту";
-        inputDifferentDate = "Введіть різні дати";
-        error = "Помилка";
-        returnDate = "Вам також потрібно вибрати дату повернення";
-        ok = "Гаразд";
-      } else if (b == 2) {
+      if (b == 0) {
         departHint = "Enter departure city";
         arrivalHint = "Enter arrival city";
         departCalHint = "Select the departure and return date";
         returnCalHint = "Select the return date";
         numOfpassenger = "Number of passengers:";
-        btnSearch = "Search";
+        btnSearch = enData["bus_search"];
         selectDepartureStation = "Please select an departure station";
         selectValidStation = "Please select a valid departure station";
         selectArrivalStation = "Please select an arrival station";
@@ -237,16 +264,35 @@ class _RoundWayFormState extends State<RoundWayForm> {
         enterEmptyReturnDate = "Please input return date";
         dateLessthan = "Return date less than departure date";
         inputDifferentDate = "Please input different dates";
-        error = "Error";
+        error = enData["error"];
         returnDate = "You also need to select return date";
-        ok = "Ok";
-      } else if (b == 3) {
+        ok = enData["ok"];
+      } else if (b == 1) {
+        departHint = "Введіть місто відправлення";
+        arrivalHint = "Введіть місто відправлення";
+        departCalHint = "Виберіть дату відправлення";
+        returnCalHint = "Виберіть дату повернення";
+        numOfpassenger = "Кількість пасажирів:";
+        btnSearch = uaData["bus_search"];
+        selectDepartureStation = "Виберіть пункт відправлення";
+        selectValidStation = "Виберіть дійсну станцію відправлення";
+        selectArrivalStation = "Виберіть станцію прибуття";
+        selectArrivalValidStation = "Виберіть дійсну станцію прибуття";
+        selectDifferentStation = "Виберіть інші станції.";
+        enterEmptyDepartureDate = "Введіть дату відправлення";
+        enterEmptyReturnDate = "Введіть дату повернення";
+        dateLessthan = "Дата повернення менше дати вильоту";
+        inputDifferentDate = "Введіть різні дати";
+        error = uaData["error"];
+        returnDate = "Вам також потрібно вибрати дату повернення";
+        ok = uaData["ok"];
+      } else if (b == 2) {
         departHint = "Введите город отправления";
         arrivalHint = "Введите город прибытия";
         departCalHint = "Выберите дату отъезда";
         returnCalHint = "Выберите дату возвращения";
         numOfpassenger = "Количество пассажиров:";
-        btnSearch = "Поиск";
+        btnSearch = ruData["bus_search"];
         selectDepartureStation = "Пожалуйста, выберите станцию ​​отправления";
         selectValidStation =
             "Пожалуйста, выберите действующую станцию ​​отправления";
@@ -258,9 +304,28 @@ class _RoundWayFormState extends State<RoundWayForm> {
         enterEmptyReturnDate = "Пожалуйста, введите дату возврата";
         dateLessthan = "Дата возвращения меньше даты вылета";
         inputDifferentDate = "Пожалуйста, введите разные даты";
-        error = "ошибка";
+        error = ruData["error"];
         returnDate = "Вам также необходимо выбрать дату возвращения";
-        ok = "Хорошо";
+        ok = ruData["ok"];
+      } else if (b == 3) {
+        btnSearch = plData["bus_search"];
+        ok = plData["ok"];
+        error = plData["error"];
+        departHint = "Podaj miasto wylotu";
+        arrivalHint = "Wprowadź miasto przyjazdu";
+        departCalHint = "Wybierz datę wyjazdu i powrotu";
+        returnCalHint = "Wybierz datę powrotu";
+        numOfpassenger = "Liczba pasażerów:";
+        selectDepartureStation = "Wybierz stację wyjściową";
+        selectValidStation = "Wybierz prawidłową stację odjazdu";
+        selectArrivalStation = "Wybierz stację przyjazdu";
+        selectArrivalValidStation = "Wybierz prawidłową stację przyjazdu";
+        selectDifferentStation = "Wybierz różne stacje";
+        enterEmptyDepartureDate = "Proszę podać datę wyjazdu";
+        enterEmptyReturnDate = "Podaj datę powrotu";
+        dateLessthan = "Data powrotu krótsza niż data wyjazdu";
+        inputDifferentDate = "Wprowadź inne daty";
+        returnDate = "Musisz także wybrać datę powrotu";
       }
     });
   }
@@ -711,6 +776,7 @@ class OneWayButton extends StatefulWidget {
 
 class OneWayButtonState extends State<OneWayButton> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String oneWay = "ONE WAY";
   @override
   void initState() {
@@ -719,18 +785,33 @@ class OneWayButtonState extends State<OneWayButton> {
   }
 
   void oneWayButtonlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        oneWay = "ОДНОСТОРОННІЙ";
-      } else if (b == 2) {
+      if (b == 0) {
         oneWay = "ONE WAY";
-      } else if (b == 3) {
+      } else if (b == 1) {
         oneWay = "В ОДНУ СТОРОНУ";
+      } else if (b == 2) {
+        oneWay = "В ОДНУ СТОРОНУ";
+      } else if (b == 3) {
+        oneWay = "W JEDNĄ STRONĘ";
       }
     });
   }

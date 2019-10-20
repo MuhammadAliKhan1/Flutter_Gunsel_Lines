@@ -12,6 +12,7 @@ class AboutCompany extends StatefulWidget {
 
 class AboutCompanyState extends State<AboutCompany> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String aboutCompany = "About Gunsel Lines",
       aboutGunsel = "About Gunsel",
       line1 =
@@ -38,6 +39,20 @@ class AboutCompanyState extends State<AboutCompany> {
   }
 
   void aboutCompanylan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
+
     int b;
     int a = await sh.getshared1();
     //print("Name is" + nameProfile);
@@ -45,9 +60,28 @@ class AboutCompanyState extends State<AboutCompany> {
     setState(() {
       b = a;
 
-      if (b == 1) {
-        aboutCompany = "Про гюнзельні лінії";
-        aboutGunsel = "Про Гунзеля";
+      if (b == 0) {
+        aboutCompany = enData["about_gunsel_lines"];
+        aboutGunsel = enData["about_gunsel"];
+        line1 =
+            "<<Gunsel Group>> company was formed in 1997, by starting its first transportation of passengers.\n\n";
+        line2 =
+            "Due to high professionalism of the team of the team and modern technical equipment the company soon diversified its activities by adding express- delivery of the email all over Ukraine.\n\n";
+        line3 =
+            "Late in 2015 the company got the license of \"Ukrainian Aviation Service\" for excercising international transits, and it began business with \"Turkish Airline Inc.\" that has largest covering in the world.\n\n";
+        line4 =
+            "As a result we deliver the cargo to every destination in the world at reasonable tariffs and with high-quality service\n\n";
+        line5 =
+            "A year later <<Gunsel Group>> comes to the world market of passenger transportation. In 2016 the first route \"KIEV - WARSAW\" started on regular basis.\n\n";
+        line6 =
+            "Having reached best results the <<Gunsel Group>> continues to expand routes map to perform transportation to other European countries\n\n";
+        line7 =
+            "We have been a leading company in road transportation for over 20 years.\n\n";
+        line8 =
+            "Professionalism, high quolity, performance responsibility, high level comfort and service in the main policy for <<Gunsel Group>> staff\n\n";
+      } else if (b == 1) {
+        aboutCompany = uaData["about_gunsel_lines"];
+        aboutGunsel = uaData["about_gunsel"];
         line1 =
             "<< Компанія Gunsel Group >> була створена в 1997 році, розпочавши перші перевезення пасажирів.\n\n";
         line2 =
@@ -65,27 +99,8 @@ class AboutCompanyState extends State<AboutCompany> {
         line8 =
             "Професіоналізм, висока якість, відповідальність за виконання, високий рівень комфорту та сервіс в основній політиці для << Gunsel Group >> співробітників \n\n";
       } else if (b == 2) {
-        aboutCompany = "About Gunsel Lines";
-        aboutGunsel = "About Gunsel";
-        line1 =
-            "<<Gunsel Group>> company was formed in 1997, by starting its first transportation of passengers.\n\n";
-        line2 =
-            "Due to high professionalism of the team of the team and modern technical equipment the company soon diversified its activities by adding express- delivery of the email all over Ukraine.\n\n";
-        line3 =
-            "Late in 2015 the company got the license of \"Ukrainian Aviation Service\" for excercising international transits, and it began business with \"Turkish Airline Inc.\" that has largest covering in the world.\n\n";
-        line4 =
-            "As a result we deliver the cargo to every destination in the world at reasonable tariffs and with high-quality service\n\n";
-        line5 =
-            "A year later <<Gunsel Group>> comes to the world market of passenger transportation. In 2016 the first route \"KIEV - WARSAW\" started on regular basis.\n\n";
-        line6 =
-            "Having reached best results the <<Gunsel Group>> continues to expand routes map to perform transportation to other European countries\n\n";
-        line7 =
-            "We have been a leading company in road transportation for over 20 years.\n\n";
-        line8 =
-            "Professionalism, high quolity, performance responsibility, high level comfort and service in the main policy for <<Gunsel Group>> staff\n\n";
-      } else if (b == 3) {
-        aboutCompany = "О Gunsel Линии";
-        aboutGunsel = "О Гюнсел";
+        aboutCompany = ruData["about_gunsel_lines"];
+        aboutGunsel = ruData["about_gunsel"];
         line1 =
             "Компания << Gunsel Group >> была основана в 1997 году, начав свою первую перевозку пассажиров.";
         line2 =
@@ -103,6 +118,25 @@ class AboutCompanyState extends State<AboutCompany> {
 
         line8 =
             "Профессионализм, высокое качество, ответственность за производительность, высокий уровень комфорта и сервиса в основной политике для сотрудников << Gunsel Group >> \n\n";
+      } else if (b == 3) {
+        aboutCompany = plData["about_gunsel_lines"];
+        aboutGunsel = plData["about_gunsel"];
+        line1 =
+            "Firma << Gunsel Group >> powstała w 1997 roku, rozpoczynając pierwszy transport pasażerów.\n\n";
+        line2 =
+            "Ze względu na wysoki profesjonalizm zespołu i nowoczesny sprzęt techniczny firma szybko zdywersyfikowała działalność, dodając ekspresową dostawę wiadomości e-mail na całą Ukrainę.\n\n";
+        line3 =
+            "Pod koniec 2015 roku firma uzyskała licencję \"Ukraińska służba lotnicza\" na wykonywanie międzynarodowych tranzytów i rozpoczęła działalność z \"Turkish Airline Inc.\", która ma największe pokrycie na świecie. \n\n";
+        line4 =
+            "W rezultacie dostarczamy ładunek do każdego miejsca na świecie po rozsądnych taryfach i wysokiej jakości usługach \n\n";
+        line5 =
+            "Rok później << Gunsel Group >> wchodzi na światowy rynek transportu pasażerskiego. W 2016 r. Regularnie kursowała pierwsza trasa „KIJÓW - WARSZAWA”. \n\n";
+        line6 =
+            "Po osiągnięciu najlepszych wyników << Gunsel Group >> rozszerza mapę tras w celu wykonania transportu do innych krajów europejskich \n\n";
+        line7 =
+            "Od ponad 20 lat jesteśmy wiodącą firmą w transporcie drogowym. \n\n";
+        line8 =
+            "Profesjonalizm, wysoka jakość, odpowiedzialność za wydajność, wysoki poziom komfortu i obsługi w głównej polityce dla personelu << Gunsel Group >> \n\n";
       }
     });
   }
@@ -193,7 +227,6 @@ class AboutCompanyState extends State<AboutCompany> {
                         fontFamily: "Helvetica")),
               ])),
             ),
-
           ],
         )
       ])),

@@ -9,7 +9,6 @@ class SearchTicket extends StatefulWidget {
   Map<String, dynamic> buyTicketData;
   SearchTicket({
     this.buyTicketData,
-
   });
 
   @override
@@ -17,33 +16,50 @@ class SearchTicket extends StatefulWidget {
 }
 
 class _SearchTicketState extends State<SearchTicket> {
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   SharePreferencelogin sh = SharePreferencelogin();
-  String searchTicket = "Search Ticket";
-  String busNotAvailable =
-      "Looks like there are no buses available on this date";
-  String changeDate = "Please change the date to get your result";
+  String searchTicket = "Search Ticket",
+      busNotAvailable = "Looks like there are no buses available on this date",
+      changeDate = "Please change the date to get your result";
 
   void searchTicketlan() async {
-    
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        searchTicket = "Пошуковий квиток";
-        busNotAvailable = "Схоже, немає автобусів на цю дату";
-        changeDate = "Будь ласка, змініть дату, щоб отримати результат";
-      } else if (b == 2) {
+      if (b == 0) {
         searchTicket = "Search Ticket";
         busNotAvailable =
             "Looks like there are no buses available on this date";
         changeDate = "Please change the date to get your result";
-      } else if (b == 3) {
-        searchTicket = "Поиск билета";
+      } else if (b == 1) {
+        searchTicket = "Пошук Квитку";
+        busNotAvailable = "Схоже, немає автобусів на цю дату";
+        changeDate = "Будь ласка, змініть дату, щоб отримати результат";
+      } else if (b == 2) {
+        searchTicket = "Поиск Билета";
         busNotAvailable = "Похоже, что на эту дату нет автобусов";
         changeDate = "Пожалуйста, измените дату, чтобы получить свой результат";
+      } else if (b == 3) {
+        searchTicket = "Wyszukaj Bilet";
+        busNotAvailable =
+            "Wygląda na to, że w tym dniu nie ma dostępnych autobusów";
+        changeDate = "Zmień datę, aby uzyskać wynik";
       }
     });
   }
@@ -53,7 +69,7 @@ class _SearchTicketState extends State<SearchTicket> {
     super.initState();
     searchTicketlan();
   }
-  
+
   Widget build(BuildContext context) {
     return GunselScaffold(
       key: _scaffoldKey,
@@ -85,10 +101,9 @@ class SearchTicketScreen extends StatefulWidget {
 
 class SearchTicketScreenState extends State<SearchTicketScreen> {
   SharePreferencelogin sh = SharePreferencelogin();
-  String searchTicket = "Search Ticket";
-  String busNotAvailable =
-      "Looks like there are no buses available on this date";
-  String changeDate = "Please change the date to get your result";
+  String searchTicket = "Search Ticket",
+      busNotAvailable = "Looks like there are no buses available on this date",
+      changeDate = "Please change the date to get your result";
 
   void searchTicketlan() async {
     int b;
@@ -97,19 +112,24 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
     setState(() {
       b = a;
 
-      if (b == 1) {
-        searchTicket = "Пошуковий квиток";
-        busNotAvailable = "Схоже, немає автобусів на цю дату";
-        changeDate = "Будь ласка, змініть дату, щоб отримати результат";
-      } else if (b == 2) {
+      if (b == 0) {
         searchTicket = "Search Ticket";
         busNotAvailable =
             "Looks like there are no buses available on this date";
         changeDate = "Please change the date to get your result";
-      } else if (b == 3) {
-        searchTicket = "Поиск билета";
+      } else if (b == 1) {
+        searchTicket = "Пошук Квитку";
+        busNotAvailable = "Схоже, немає автобусів на цю дату";
+        changeDate = "Будь ласка, змініть дату, щоб отримати результат";
+      } else if (b == 2) {
+        searchTicket = "Поиск Билета";
         busNotAvailable = "Похоже, что на эту дату нет автобусов";
         changeDate = "Пожалуйста, измените дату, чтобы получить свой результат";
+      } else if (b == 3) {
+        searchTicket = "Wyszukaj Bilet";
+        busNotAvailable =
+            "Wygląda na to, że w tym dniu nie ma dostępnych autobusów";
+        changeDate = "Zmień datę, aby uzyskać wynik";
       }
     });
   }
@@ -456,29 +476,48 @@ class Ticket extends StatefulWidget {
 
 class _TicketState extends State<Ticket> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
   String seats = "seats";
 
   void searchTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
+
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        departure = "ВИДАЛЕННЯ";
-        arrival = "ПРИЙНЯТТЯ";
-        seats = "місць";
-      } else if (b == 2) {
+      if (b == 0) {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
         seats = "seats";
-      } else if (b == 3) {
-        departure = "ВЫЕЗД";
+      } else if (b == 1) {
+        departure = "ВИХІДНА ПОЗИЦІЯ";
+        arrival = "ПРИБУТТЯ";
+        seats = "місць";
+      } else if (b == 2) {
+        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
         arrival = "ПРИБЫТИЕ";
-        seats = "места";
+        seats = "мест";
+      } else if (b == 3) {
+        departure = "POZYCJA WYJŚCIOWA";
+        arrival = "PRZYJAZD";
+        seats = "siedzenia";
       }
     });
   }

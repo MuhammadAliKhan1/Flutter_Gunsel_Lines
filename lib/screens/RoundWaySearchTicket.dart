@@ -15,25 +15,42 @@ class SearchTicket_RoundWay extends StatefulWidget {
 }
 
 class _SearchTicket_RoundWayState extends State<SearchTicket_RoundWay> {
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   SharePreferencelogin sh = SharePreferencelogin();
   String information = "Passenger details", searchTicket = "Search Ticket";
 
   void detailsBarlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        information = "Реквізити пасажира";
-        searchTicket = "Поиск билета";
-      } else if (b == 2) {
+      if (b == 0) {
         information = "Passenger details";
         searchTicket = "Search Ticket";
-      } else if (b == 3) {
+      } else if (b == 1) {
+        information = "Реквізити пасажира";
+        searchTicket = "Пошук Квитку";
+      } else if (b == 2) {
         information = "Пассажирские данные";
-        searchTicket = "Пошуковий квиток";
+        searchTicket = "Поиск Билета";
+      } else if (b == 3) {
+        searchTicket = "Wyszukaj Bilet";
+        information = "Dane pasażera";
       }
     });
   }
@@ -73,6 +90,7 @@ class SearchTicketScreen extends StatefulWidget {
 }
 
 class SearchTicketScreenState extends State<SearchTicketScreen> {
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   SharePreferencelogin sh = SharePreferencelogin();
   String busNotAvailable =
       "Looks like there are no buses available on this date";
@@ -80,25 +98,43 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
   String departure = "DEPARTURE";
 
   void detailsBarlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        busNotAvailable = "Схоже, немає автобусів на цю дату";
-        changeDate = "Будь ласка, змініть дату, щоб отримати результат";
-        departure = "ВИДАЛЕННЯ";
-      } else if (b == 2) {
+      if (b == 0) {
         busNotAvailable =
             "Looks like there are no buses available on this date";
         changeDate = "Please change the date to get your result";
         departure = "DEPARTURE";
-      } else if (b == 3) {
+      } else if (b == 1) {
+        busNotAvailable = "Схоже, немає автобусів на цю дату";
+        changeDate = "Будь ласка, змініть дату, щоб отримати результат";
+        departure = "ВИХІДНА ПОЗИЦІЯ";
+      } else if (b == 2) {
         busNotAvailable = "Похоже, что на эту дату нет автобусов";
         changeDate = "Пожалуйста, измените дату, чтобы получить свой результат";
-        departure = "ВЫЕЗД";
+        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
+      } else if (b == 3) {
+        busNotAvailable =
+            "Wygląda na to, że w tym dniu nie ma dostępnych autobusów";
+        changeDate = "Zmień datę, aby uzyskać wynik";
+        departure = "POZYCJA WYJŚCIOWA";
       }
     });
   }
@@ -440,25 +476,42 @@ class Ticket extends StatefulWidget {
 
 class _TicketState extends State<Ticket> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
 
   void detailsBarlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        departure = "ВИДАЛЕННЯ";
-        arrival = "ПРИЙНЯТТЯ";
-      } else if (b == 2) {
+      if (b == 0) {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
-      } else if (b == 3) {
-        departure = "ВЫЕЗД";
+      } else if (b == 1) {
+        departure = "ВИХІДНА ПОЗИЦІЯ";
+        arrival = "ПРИБУТТЯ";
+      } else if (b == 2) {
+        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
         arrival = "ПРИБЫТИЕ";
+      } else if (b == 3) {
+        departure = "POZYCJA WYJŚCIOWA";
+        arrival = "PRZYJAZD";
       }
     });
   }

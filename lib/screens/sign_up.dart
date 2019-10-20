@@ -18,80 +18,115 @@ class SignUpState extends State<SignUp> {
   String number123 = "";
   final FocusNode _focusNode = FocusNode();
   SharePreferencelogin sh = SharePreferencelogin();
-  String nameHint = "Name",
-      surNameHint = "Surename",
+  String nameHint = " Name",
+      surNameHint = " Surname",
       emailHint = "E-mail",
       passwordHint = "Password",
       rePasswordHint = "Re-password",
       agreementText = "I read and agree with this agreement",
-      signUp = "Sign Up",
+      signUp = " Sign up",
       backToLogin = "Back to login",
       passwordValidation = "Password and repassword does not match",
       error = "Error",
-      oktext = "Ok",
-      requiredField = "This field is required",
-      emailInvalid = "Email is invalid",
+      oktext = " Ok",
+      requiredField = " This field is required",
+      emailInvalid = " Incorrect email",
       correctData = "Enter correct data",
       acceptAgreement = "You need to accept this agreement",
       signUpR = "Registration";
 
+  String enJson="",uaJson="",ruJson="",plJson="";
+
+
   void signUplan() async {
+
+    enJson = await DefaultAssetBundle.of(context).loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context).loadString("languagefiles/pl-PL.json");
+
+    Map<String , dynamic> enData = json.decode(enJson);
+    Map<String , dynamic> uaData = json.decode(uaJson);
+    Map<String , dynamic> ruData = json.decode(ruJson);
+    Map<String , dynamic> plData = json.decode(plJson);
+
+
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
-      if (b == 1) {
+      if (b == 0) {
+      signUpR = "Registration";
+      nameHint = enData["name"];
+      surNameHint = enData["surname"];
+      emailHint = "E-mail";
+      passwordHint = enData["password_holder"];
+      rePasswordHint = "Re-password";
+      agreementText = "I read and agree with this agreement";
+      signUp = enData["sign_up"];
+      backToLogin = "Back to login";
+      passwordValidation = "Password and repassword does not match";
+      error = enData["error"];
+      oktext = enData["ok"];
+      requiredField = enData["this_field_required"];
+      emailInvalid = enData["email_validation"];
+      correctData = "Enter correct data";
+      acceptAgreement = "You need to accept this agreement";
+      }
+      else if (b == 1) {
         signUpR = "Реєстрація";
-        nameHint = "Ім'я";
-        surNameHint = "Прізвище";
+        nameHint = uaData["name"];
+        surNameHint = uaData["surname"];
         emailHint = "Електронна пошта";
-        passwordHint = "Пароль";
+        passwordHint = uaData["password_holder"];
         rePasswordHint = "Повторний пароль";
         agreementText = "Я читаю і погоджуюся з цією угодою";
-        signUp = "Зареєструйтесь";
+        signUp = uaData["sign_up"];
         backToLogin = "Назад до входу";
         passwordValidation = "Пароль і повторне слово не збігаються";
-        error = "Помилка";
-        oktext = "гаразд";
-        requiredField = "Це поле є обов'язковим";
-        emailInvalid = "Електронна пошта недійсна";
+        error = uaData["error"];
+        oktext = uaData["ok"];
+        requiredField = uaData["this_field_required"];
+        emailInvalid = uaData["email_validation"];
         correctData = "Введіть правильні дані";
         acceptAgreement = "Вам потрібно прийняти цю угоду";
-      } else if (b == 2) {
-        signUpR = "Registration";
-        nameHint = "Name";
-        surNameHint = "Surname";
-        emailHint = "E-mail";
-        passwordHint = "Password";
-        rePasswordHint = "Re-password";
-        agreementText = "I read and agree with this agreement";
-        signUp = "Sign Up";
-        backToLogin = "Back to login";
-        passwordValidation = "Password and repassword does not match";
-        error = "Error";
-        oktext = "Ok";
-        requiredField = "This field is required";
-        emailInvalid = "Email is invalid";
-        correctData = "Enter correct data";
-        acceptAgreement = "You need to accept this agreement";
-      } else if (b == 3) {
+      }
+      else if (b == 2) {
         signUpR = "Регистрация";
-        nameHint = "имя";
-        surNameHint = "Фамилия";
+        nameHint = ruData["name"];
+        surNameHint = ruData["surname"];
         emailHint = "Эл. почта";
-        passwordHint = "пароль";
+        passwordHint = ruData["password_holder"];
         rePasswordHint = "Re-пароль";
         agreementText = "Я прочитал и согласен с этим соглашением";
-        signUp = "Зарегистрироваться";
+        signUp = ruData["sign_up"];
         backToLogin = "Вернуться на страницу входа";
         passwordValidation = "Пароль и пароль не совпадают";
-        error = "ошибка";
-        oktext = "Хорошо";
-        requiredField = "Это поле обязательно к заполнению";
-        emailInvalid = "адрес электронной почты недействителен";
+        error = ruData["error"];
+        oktext = ruData["ok"];
+        requiredField = ruData["this_field_required"];
+        emailInvalid = ruData["email_validation"];
         correctData = "Введите правильные данные";
         acceptAgreement = "Вы должны принять это соглашение";
+      }
+      else if (b == 3) {
+        signUpR = "Rejestracja";
+        nameHint = plData["name"];
+        surNameHint = plData["surname"];
+        emailHint = "E-mail";
+        passwordHint = plData["password_holder"];
+        rePasswordHint = "Hasło ponownie";
+        agreementText = "Przeczytałem i zgadzam się z tą umową";
+        signUp = plData["sign_up"];
+        backToLogin = "Powrót do logowania";
+        passwordValidation = "Hasło i hasło nie są zgodne";
+        error = plData["error"];
+        oktext = plData["ok"];
+        requiredField = plData["this_field_required"];
+        emailInvalid = plData["email_validation"];
+        correctData = "Wprowadź poprawne dane";
+        acceptAgreement = "Musisz zaakceptować tę umowę";
       }
     });
   }

@@ -16,11 +16,12 @@ class _SideDrawerState extends State<SideDrawer> {
   SharePreferencelogin sh = SharePreferencelogin();
   String myProfile = "My Profile",
       buyTicket = "Buy Ticket",
-      cancelTicket = "Cancel Ticket",
+      cancelTicket = " Cancel ticket",
       news = "News",
       language = "Language",
-      company = "About Gunsel Lines",
+      company = "About Günsel",
       history = "History of travels";
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
 
   bool accountIncluded = true;
   String checkprofileImage = "";
@@ -41,36 +42,57 @@ class _SideDrawerState extends State<SideDrawer> {
   }
 
   void drawerlan() async {
+    //Ya files json sa data lari ha ya kaam har file ma hoga
+
+//    enJson = await DefaultAssetBundle.of(context).loadString("languagefiles/en-US.json");
+//    uaJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ua-UA.json");
+//    ruJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ru-RU.json");
+//    plJson = await DefaultAssetBundle.of(context).loadString("languagefiles/pl-PL.json");
+//
+//    Map<String , dynamic> enData = json.decode(enJson);
+//    Map<String , dynamic> uaData = json.decode(uaJson);
+//    Map<String , dynamic> ruData = json.decode(ruJson);
+//    Map<String , dynamic> plData = json.decode(plJson);
+
+    //Yaha tk ha phir iski keys necha ai gi jis language ma krna ha wo
+
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
-
-      if (b == 1) {
-        myProfile = "Мій профіль";
-        buyTicket = "Купуйте квиток";
-        cancelTicket = "Скасувати квиток";
-        news = "Новини";
-        language = "Мова";
-        company = "Про гюнзельні лінії";
-        history = "Історія подорожей";
-      } else if (b == 2) {
+      if (b == 0) {
         myProfile = "My Profile";
         buyTicket = "Buy Ticket";
-        cancelTicket = "Cancel Ticket";
+        cancelTicket = "Cancel ticket";
         news = "News";
         language = "Language";
-        company = "About Gunsel Lines";
+        company = "About Günsel";
         history = "History of travels";
-      } else if (b == 3) {
+      } else if (b == 1) {
+        myProfile = "Мій профіль";
+        buyTicket = "Купуйте квиток";
+        cancelTicket = "Відміна білету";
+        news = "Новини";
+        language = "Мова";
+        company = "Про Günsel";
+        history = "Історія подорожей";
+      } else if (b == 2) {
         myProfile = "Мой профайл";
         buyTicket = "Купить билет";
-        cancelTicket = "Отменить билет";
+        cancelTicket = " Отмена билета";
         news = "Новости";
-        language = "язык";
-        company = "О Gunsel Линии";
+        language = "Язык";
+        company = "О Günsel";
         history = "История путешествий";
+      } else if (b == 3) {
+        myProfile = "Mój profil";
+        buyTicket = "Kup bilet";
+        cancelTicket = "Anuluj bilet";
+        news = "Aktualności";
+        language = "Język";
+        company = "O Günsel";
+        history = "Historia podróży";
       }
     });
   }

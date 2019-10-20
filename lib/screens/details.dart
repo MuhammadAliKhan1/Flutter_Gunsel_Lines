@@ -22,21 +22,38 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String information = "Voyagers Information";
 
   void detailsBarlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
+
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
+      if (b == 0) {
+        information = "Voyagers Information";
+      } else if (b == 1) {
         information = "Інформація про вояджери";
       } else if (b == 2) {
-        information = "Voyagers Information";
-      } else if (b == 3) {
         information = "Информация для путешественников";
+      } else if (b == 3) {
+        information = "Informacje dla podróżujących";
       }
     });
   }
@@ -160,50 +177,73 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   SharePreferencelogin sh = SharePreferencelogin();
-  String yourSeat = "Your seat";
-  String details = "Details";
-  String purchaseDetails = "Purchase Details";
-  String purchase = "Purchase";
-  String search = "Search";
-  String agreement = "I read the agreement and I agree";
-  String sub = "I want to be subscriber";
-  String cont = "Continue";
-  String information = "Voyagers Information";
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
+  String yourSeat = "Your seat",
+      details = "Details",
+      purchaseDetails = "Purchase Details",
+      purchase = "Purchase",
+      search = "Search",
+      agreement = "I read the agreement and I agree",
+      sub = "I want to be subscriber",
+      cont = "Continue",
+      information = "Voyagers Information";
 
   void detailslan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        yourSeat = "Ваше місце";
-        details = "Деталі";
-        purchaseDetails = "Деталі придбання";
-        purchase = "Купівля";
-        search = "Пошук";
-        agreement = "Я читаю угоду і згоден";
-        sub = "Я хочу бути передплатником";
-        cont = "Продовжуйте";
-      } else if (b == 2) {
-        yourSeat = "Your seat";
-        details = "Details";
+      if (b == 0) {
+        yourSeat = enData["your_seat"];
+        details = enData["details"];
         purchaseDetails = "Purchase Details";
         purchase = "Purchase";
-        search = "Search";
+        search = enData["bus_search"];
         agreement = "I read the agreement and I agree";
         sub = "I want to be subscriber";
-        cont = "Continue";
-      } else if (b == 3) {
-        yourSeat = "Ваше место";
-        details = "подробности";
+        cont = enData["continue"];
+      } else if (b == 1) {
+        yourSeat = uaData["your_seat"];
+        details = uaData["details"];
+        purchaseDetails = "Деталі придбання";
+        purchase = "Купівля";
+        search = uaData["bus_search"];
+        agreement = "Я читаю угоду і згоден";
+        sub = "Я хочу бути передплатником";
+        cont = uaData["continue"];
+      } else if (b == 2) {
+        yourSeat = ruData["your_seat"];
+        details = ruData["details"];
         purchaseDetails = "Детали покупки";
         purchase = "покупка";
-        search = "Поиск";
+        search = ruData["bus_search"];
         agreement = "Я прочитал соглашение, и я согласен";
         sub = "Я хочу быть подписчиком";
-        cont = "Продолжить";
+        cont = ruData["continue"];
+      } else if (b == 3) {
+        yourSeat = enData["your_seat"];
+        details = plData["details"];
+        purchaseDetails = "Szczegóły zakupu";
+        purchase = "Zakup";
+        search = plData["bus_search"];
+        agreement = "Przeczytałem umowę i zgadzam się";
+        sub = "Chcę zostać subskrybentem";
+        cont = plData["continue"];
       }
     });
   }
@@ -564,25 +604,42 @@ class DetailTicket extends StatefulWidget {
 
 class _DetailTicketState extends State<DetailTicket> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
 
   void detailsTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        departure = "ВИДАЛЕННЯ";
-        arrival = "ПРИЙНЯТТЯ";
-      } else if (b == 2) {
+      if (b == 0) {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
-      } else if (b == 3) {
-        departure = "ВЫЕЗД";
+      } else if (b == 1) {
+        departure = "ВИХІДНА ПОЗИЦІЯ";
+        arrival = "ПРИБУТТЯ";
+      } else if (b == 2) {
+        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
         arrival = "ПРИБЫТИЕ";
+      } else if (b == 3) {
+        departure = "POZYCJA WYJŚCIOWA";
+        arrival = "PRZYJAZD";
       }
     });
   }
@@ -799,49 +856,72 @@ class _DetailFormState extends State<DetailForm> {
   }
 
   SharePreferencelogin sh = SharePreferencelogin();
-  String information = "Voyager Information";
-  String name = "Name";
-  String surName = "Surname";
-  String email = "Email";
-  String seat = "Seat:";
-  String enterName = "Please enter your name";
-  String enterSur = "Please enter your surname";
-  String enterEmail = "Please enter your email";
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
+  String information = "Voyager Information",
+      name = "Name",
+      surName = "Surname",
+      email = "Email",
+      seat = "Seat:",
+      enterName = "Please enter your name",
+      enterSur = "Please enter your surname",
+      enterEmail = "Please enter your email";
 
   void searchTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        information = "Інформація про Voyager";
-        name = "Ім'я";
-        surName = "Прізвище";
-        email = "Електронна пошта";
-        seat = "Сидіння:";
-        enterName = "Введіть своє ім’я";
-        surName = "Введіть своє прізвище";
-        enterEmail = "Будь ласка, введіть свій електронний лист";
-      } else if (b == 2) {
+      if (b == 0) {
         information = "Voyager Information";
-        name = "Name";
-        surName = "Surname";
+        name = enData["name"];
+        surName = enData["surname"];
         email = "Email";
-        seat = "Seat:";
+        seat = enData["seat"];
         enterName = "Please enter your name";
         enterSur = "Please enter your surname";
         enterEmail = "Please enter your email";
-      } else if (b == 3) {
+      } else if (b == 1) {
+        information = "Інформація про Voyager";
+        name = uaData["name"];
+        surName = uaData["surname"];
+        email = "Електронна пошта";
+        seat = uaData["seat"];
+        enterName = "Введіть своє ім’я";
+        enterSur = "Введіть своє прізвище";
+        enterEmail = "Будь ласка, введіть свій електронний лист";
+      } else if (b == 2) {
         information = "Информация о Вояджере";
-        name = "имя";
-        surName = "Фамилия";
+        name = ruData["name"];
+        surName = ruData["surname"];
         email = "Электронное письмо";
-        seat = "сиденье:";
+        seat = ruData["seat"];
         enterName = "Пожалуйста, введите Ваше имя";
         enterSur = "Пожалуйста, введите вашу фамилию";
         enterEmail = "Пожалуйста, введите ваш адрес электронной почты";
+      } else if (b == 3) {
+        information = "Informacje o Voyager";
+        name = plData["name"];
+        surName = plData["surname"];
+        email = "E-mail";
+        seat = plData["seat"];
+        enterName = "proszę wpisać swoje imię";
+        enterSur = "Proszę podać swoje nazwisko";
+        enterEmail = "Proszę podać swój adres e-mail";
       }
     });
   }
@@ -864,7 +944,7 @@ class _DetailFormState extends State<DetailForm> {
             ),
           ),
           trailing: Text(
-            '$seat $seatNumber',
+            '$seat: $seatNumber',
             style: TextStyle(
               color: Colors.white,
               fontSize: 17,

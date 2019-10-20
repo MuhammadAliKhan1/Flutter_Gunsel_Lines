@@ -19,12 +19,12 @@ class CancelTicketState extends State<CancelTicket> {
   TextEditingController _ticketNumber = TextEditingController();
 
   SharePreferencelogin sh = SharePreferencelogin();
-  String cancelTicket = "Cancel Ticket",
-      secureHint = "Secure code",
-      ticketNumberHint = "Ticket number",
+  String cancelTicket = " Cancel ticket",
+      secureHint = "SECURITY CODE",
+      ticketNumberHint = "TICKET NUMBER",
       btnCancel = "Cancel",
       secureNumberRequired = "Secure code and ticket number is required",
-      ok = "Ok",
+      ok = " Ok",
       error = "Error",
       january = "January",
       feb = "February",
@@ -40,6 +40,9 @@ class CancelTicketState extends State<CancelTicket> {
       dec = "December",
       correnData = "Enter the correct data";
 
+  String enJson="",uaJson="",ruJson="",plJson="";
+
+
   @override
   void initState() {
     super.initState();
@@ -48,41 +51,33 @@ class CancelTicketState extends State<CancelTicket> {
   }
 
   void cancelTicketlan() async {
+
+    enJson = await DefaultAssetBundle.of(context).loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context).loadString("languagefiles/pl-PL.json");
+
+    Map<String , dynamic> enData = json.decode(enJson);
+    Map<String , dynamic> uaData = json.decode(uaJson);
+    Map<String , dynamic> ruData = json.decode(ruJson);
+    Map<String , dynamic> plData = json.decode(plJson);
+
+
+
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        secureHint = "Безпечний код";
-        ticketNumberHint = "Номер квитка";
-        btnCancel = "Скасувати";
-        cancelTicket = "Скасувати квиток";
-        secureNumberRequired = "Потрібні безпечний код та номер квитка";
-        ok = "гаразд";
-        error = "Помилка";
-        january = "Січень";
-        feb = "Лютий";
-        march = "Березень";
-        april = "Квітень";
-        may = "Може";
-        june = "Червень";
-        july = "Липень";
-        august = "Серпень";
-        sep = "Вересень";
-        oct = "Жовтень";
-        nov = "Листопад";
-        dec = "Грудень";
-        correnData = "Введіть правильні дані";
-      } else if (b == 2) {
-        cancelTicket = "Cancel Ticket";
-        secureHint = "Secure code";
-        ticketNumberHint = "Ticket number";
-        btnCancel = "Cancel";
+      if (b == 0) {
+        cancelTicket = enData["cancel_ticket"];
+        secureHint = enData["secure_code"];
+        ticketNumberHint = enData["ticket_number"];
+        btnCancel = enData["cancel"];
         secureNumberRequired = "Secure code and ticket number is required";
-        ok = "OK";
-        error = "Error";
+        ok = enData["ok"];
+        error = enData["error"];
         january = "January";
         feb = "February";
         march = "March";
@@ -96,13 +91,36 @@ class CancelTicketState extends State<CancelTicket> {
         nov = "November";
         dec = "December";
         correnData = "Enter the correct data";
-      } else if (b == 3) {
-        cancelTicket = "Отменить билет";
-        secureHint = "Код безопасности";
-        ticketNumberHint = "Номер билета";
-        btnCancel = "Отмена";
+      }
+      else if (b == 1) {
+        secureHint = uaData["secure_code"];
+        ticketNumberHint = uaData["ticket_number"];
+        btnCancel = uaData["cancel"];
+        cancelTicket = uaData["cancel_ticket"];
+        secureNumberRequired = "Потрібні безпечний код та номер квитка";
+        ok = uaData["ok"];
+        error = uaData["error"];
+        january = "Січень";
+        feb = "Лютий";
+        march = "Березень";
+        april = "Квітень";
+        may = "Може";
+        june = "Червень";
+        july = "Липень";
+        august = "Серпень";
+        sep = "Вересень";
+        oct = "Жовтень";
+        nov = "Листопад";
+        dec = "Грудень";
+        correnData = "Введіть правильні дані";
+      }
+      else if (b == 2) {
+        cancelTicket = ruData["cancel_ticket"];
+        secureHint = ruData["secure_code"];
+        ticketNumberHint = ruData["ticket_number"];
+        btnCancel = ruData["cancel"];
         secureNumberRequired = "Требуется безопасный код и номер билета";
-        ok = "Хорошо";
+        ok = ruData["error"];
         error = "ошибка";
         january = "январь";
         feb = "февраль";
@@ -117,6 +135,28 @@ class CancelTicketState extends State<CancelTicket> {
         nov = "ноябрь";
         dec = "Декабрь";
         correnData = "Введите правильные данные";
+      }
+      else if (b == 3) {
+        cancelTicket = plData["cancel_ticket"];
+        secureHint = plData["secure_code"];
+        ticketNumberHint = plData["ticket_number"];
+        btnCancel = plData["cancel"];
+        secureNumberRequired = "Wymagany jest bezpieczny kod i numer biletu";
+        ok = plData["ok"];
+        error = plData["error"];
+        january = "styczeń";
+        feb = "luty";
+        march = "Marsz";
+        april = "kwiecień";
+        may = "Może";
+        june = "czerwiec";
+        july = "lipiec";
+        august = "sierpień";
+        sep = "wrzesień";
+        oct = "październik";
+        nov = "listopad";
+        dec = "grudzień";
+        correnData = "Wprowadź poprawne dane";
       }
     });
   }

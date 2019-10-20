@@ -104,16 +104,18 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
   String cancelTicket = "Cancel Ticket",
       ticket = "Ticket ",
       busType = "Bus type: comfort+",
-      departure = "DEPARTURE",
+      departure = "Departure",
       seatNo = "Seat no: ",
-      arrival = "ARRIVAL",
-      totalcut = "Total cut:",
-      paidback = "Paid back:",
-      cancelticket = "Cancel ticket",
-      successfulCancel = "Ticket has been successfully cancelled",
-      notCancel = "Ticket can not be cancelled",
+      arrival = " Arrival",
+      totalcut = " Total cut",
+      paidback = " Paid back",
+      cancelticket = "Cancel Ticket",
+      successfulCancel = " The ticket was successfully canceled",
+      notCancel = "Ticket can not be canceled",
       error = "Error",
-      ok = "OK";
+      ok = " Ok";
+
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   @override
   void initState() {
     super.initState();
@@ -124,54 +126,84 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
   }
 
   void finalCancellan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
+
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
-
-      if (b == 1) {
-        cancelTicket = "Скасувати квиток";
-        ticket = "Квиток ";
-        busType = "Тип автобуса: комфорт +";
-        departure = "ВИДАЛЕННЯ";
-        seatNo = "Ні місця: ";
-        arrival = "ПРИЙНЯТТЯ";
-        totalcut = "Загальний обріз:";
-        paidback = "Оплачено:";
-        cancelticket = "Скасувати квиток";
-        successfulCancel = "Квиток успішно скасовано";
-        notCancel = "Квиток не можна скасувати";
-        error = "Помилка";
-        ok = "гаразд";
-      } else if (b == 2) {
-        cancelTicket = "Cancel Ticket";
+      if (b == 0) {
+        cancelTicket = enData["cancel_ticket_page_header"];
         ticket = "Ticket ";
         busType = "Bus type: comfort+";
-        departure = "DEPARTURE";
+        departure = enData["departure"];
         seatNo = "Seat no: ";
-        arrival = "ARRIVAL";
-        totalcut = "Total cut:";
-        paidback = "Paid back:";
-        cancelticket = "Cancel ticket";
-        successfulCancel = "Ticket has been successfully cancelled";
-        notCancel = "Ticket can not be cancelled";
-        error = "Error";
-        ok = "OK";
-      } else if (b == 3) {
-        cancelTicket = "Отменить билет";
+        arrival = enData["arrival"];
+        totalcut = enData["total_cut"];
+        paidback = enData["paid_back"];
+        cancelticket = enData["cancel_ticket_page_header"];
+        successfulCancel = enData["ticket_successfully_canceled"];
+        notCancel = "Ticket can not be canceled";
+        error = enData["error"];
+        ok = enData["ok"];
+      } else if (b == 1) {
+        cancelTicket = uaData["cancel_ticket_page_header"];
+        ticket = "Квиток ";
+        busType = "Тип автобуса: комфорт +";
+        departure = uaData["departure"];
+        seatNo = "Ні місця: ";
+        arrival = uaData["arrival"];
+        totalcut = uaData["total_cut"];
+        paidback = uaData["paid_back"];
+        cancelticket = uaData["cancel_ticket_page_header"];
+        successfulCancel = uaData["ticket_successfully_canceled"];
+        notCancel = "Квиток не можна скасувати";
+        error = uaData["error"];
+        ok = uaData["ok"];
+      } else if (b == 2) {
+        cancelTicket = ruData["cancel_ticket_page_header"];
         ticket = "Проездной билет ";
         busType = "Тип автобуса: комфорт +";
-        departure = "ВЫЕЗД";
+        departure = ruData["departure"];
         seatNo = "Место нет: ";
-        arrival = "ПРИБЫТИЕ";
-        totalcut = "Общий срез:";
-        paidback = "Отомстил:";
-        cancelticket = "Отменить билет";
-        successfulCancel = "Билет был успешно отменен";
+        arrival = ruData["arrival"];
+        totalcut = ruData["total_cut"];
+        paidback = ruData["paid_back"];
+        cancelticket = ruData["cancel_ticket_page_header"];
+        successfulCancel = ruData["ticket_successfully_canceled"];
         notCancel = "Билет не может быть отменен";
-        error = "ошибка";
-        ok = "Хорошо";
+        error = ruData["error"];
+        ok = ruData["ok"];
+      } else if (b == 3) {
+        cancelTicket = "Anuluj bilet";
+        ticket = "Bilet ";
+        busType = "Typ autobusu: komfort +";
+        departure = plData["departure"];
+        seatNo = "Miejsce nr: ";
+        arrival = plData["arrival"];
+        totalcut = plData["total_cut"];
+        paidback = plData["paid_back"];
+        cancelticket = "Anuluj bilet";
+        successfulCancel = plData["ticket_successfully_canceled"];
+        notCancel = "Biletu nie można anulować";
+        error = plData["error"];
+        ok = plData["ok"];
+//
+
+//
       }
     });
   }
@@ -213,7 +245,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
               ),
               Container(
                 color: Colors.white,
-                height: 300.0,
+                height: ScreenUtil().setHeight(500),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -252,18 +284,21 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                     ),
                     Row(
                       children: <Widget>[
-                        Padding(
+                        Container(
+                            width: ScreenUtil().setWidth(260),
                             padding: EdgeInsets.only(left: 10.0),
                             child: AutoSizeText(day,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w900,
                                     fontSize: 90.0))),
-                        Padding(
+                        Container(
+                            width: ScreenUtil().setWidth(340),
                             padding: EdgeInsets.only(
-                              left: 85.0,
+                              left: 60.0,
                             ),
                             child: AutoSizeText(departure,
+                                maxLines: 1,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -272,17 +307,20 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                     ),
                     Row(
                       children: <Widget>[
-                        Padding(
+                        Container(
+                          width: ScreenUtil().setWidth(300),
                           padding: EdgeInsets.only(left: 10.0),
                           child: AutoSizeText(
                             month + " " + year,
                             style: TextStyle(fontSize: 20.0),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 100.0),
+                        Container(
+                          width: ScreenUtil().setWidth(300),
+                          padding: EdgeInsets.only(left: 40.0),
                           child: AutoSizeText(
                             arrivalPlace,
+                            maxLines: 1,
                             style: TextStyle(
                                 fontSize: 20.0, fontFamily: "SFProText"),
                           ),
@@ -291,16 +329,20 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                     ),
                     Row(
                       children: <Widget>[
-                        Padding(
+                        Container(
+                            width: ScreenUtil().setWidth(200),
                             padding: EdgeInsets.only(left: 10.0, bottom: 20.0),
                             child: AutoSizeText(
                               seatNo + seatNumber,
+                              maxLines: 1,
                               style: TextStyle(fontSize: 15.0),
                             )),
-                        Padding(
-                            padding: EdgeInsets.only(left: 120.0),
+                        Container(
+                            width: ScreenUtil().setWidth(400),
+                            padding: EdgeInsets.only(left: 95.0),
                             child: AutoSizeText(
                               arrivalTime,
+                              maxLines: 1,
                               style: TextStyle(
                                   color: darkBlue,
                                   fontSize: 50,
@@ -312,15 +354,19 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                     Row(
                       children: <Widget>[
                         Container(
+                            width: ScreenUtil().setWidth(300),
                             padding: EdgeInsets.only(left: 10.0),
                             child: AutoSizeText(name,
+                                maxLines: 1,
                                 style: TextStyle(
                                     fontSize: 18.0,
                                     color: darkBlue,
                                     fontWeight: FontWeight.bold))),
                         Container(
-                            padding: EdgeInsets.only(left: 90.0),
+                            width: ScreenUtil().setWidth(300),
+                            padding: EdgeInsets.only(left: 40.0),
                             child: AutoSizeText(arrival,
+                                maxLines: 1,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -331,7 +377,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                 ),
               ),
               Container(
-                height: 50.0,
+                height: ScreenUtil().setHeight(60),
                 width: 390,
                 decoration: BoxDecoration(
                     color: Color.fromRGBO(211, 211, 211, 8),
@@ -365,7 +411,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
             ]),
           ),
           Container(
-            height: ScreenUtil().setHeight(130),
+            height: ScreenUtil().setHeight(180),
             margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
@@ -406,20 +452,24 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                 Row(
                   children: <Widget>[
                     Container(
-                        width: ScreenUtil().setWidth(240),
+                        width: ScreenUtil().setWidth(200),
+                        height: ScreenUtil().setHeight(100),
                         padding: EdgeInsets.only(left: 10.0, top: 2.0),
                         child: AutoSizeText(
                           totalcut,
+                          maxLines: 1,
                           style: TextStyle(
                               color: Colors.red,
                               fontSize: 25.0,
                               fontWeight: FontWeight.bold),
                         )),
                     Container(
-                        width: ScreenUtil().setWidth(200),
-                        padding: EdgeInsets.only(left: 60.0, top: 2.0),
+                        width: ScreenUtil().setWidth(250),
+                        height: ScreenUtil().setHeight(100),
+                        padding: EdgeInsets.only(left: 80.0, top: 2.0),
                         child: AutoSizeText(
                           totalCut,
+                          maxLines: 1,
                           style: TextStyle(
                               fontSize: 20.0,
                               color: Colors.red,
@@ -427,9 +477,11 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                         )),
                     Container(
                         width: ScreenUtil().setWidth(100),
+                        height: ScreenUtil().setHeight(100),
                         padding: EdgeInsets.only(top: 7.0),
                         child: AutoSizeText(
                           currencyName,
+                          maxLines: 1,
                           style: TextStyle(color: Colors.red),
                         ))
                   ],
@@ -487,6 +539,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
             child: RaisedButton(
               child: AutoSizeText(
                 cancelticket,
+                maxLines: 1,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 30.0,

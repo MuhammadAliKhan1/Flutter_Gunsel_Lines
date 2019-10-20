@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "D:\\Gunsel Line finalize\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Abdul Mustafa\\.gradle\\caches\\transforms-1\\files-1.1\\media-1.0.0.aar\\31f8a319eb7411d2cb1628f4f5ff2a9a\\res\\values\\values.xml",
@@ -112,23 +112,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\build\\generated\\res\\google-services\\debug\\values\\values.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,198,306,387,491,599,719,816",
-                        "endColumns": "142,107,80,103,107,119,96,73",
-                        "endOffsets": "193,301,382,486,594,714,811,885"
-                    },
-                    "to": {
-                        "startLines": "351,354,355,356,357,358,359,360",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "25452,25726,25834,25915,26019,26127,26247,26344",
-                        "endColumns": "142,107,80,103,107,119,96,73",
-                        "endOffsets": "25590,25829,25910,26014,26122,26242,26339,26413"
-                    }
-                },
-                {
                     "source": "C:\\Users\\Abdul Mustafa\\.gradle\\caches\\transforms-1\\files-1.1\\jetified-facebook-common-4.39.0.aar\\59c643dd3b7eb8d380e9597e999f58e3\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,36,37,38,39,40,41,42,43,44,45,46,47,71,76,82,93,104,15",
@@ -167,6 +150,40 @@
                     }
                 },
                 {
+                    "source": "D:\\Gunsel Line finalize\\android\\app\\build\\generated\\res\\google-services\\debug\\values\\values.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,198,306,387,491,599,719,816",
+                        "endColumns": "142,107,80,103,107,119,96,73",
+                        "endOffsets": "193,301,382,486,594,714,811,885"
+                    },
+                    "to": {
+                        "startLines": "351,354,355,356,357,358,359,360",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "25452,25726,25834,25915,26019,26127,26247,26344",
+                        "endColumns": "142,107,80,103,107,119,96,73",
+                        "endOffsets": "25590,25829,25910,26014,26122,26242,26339,26413"
+                    }
+                },
+                {
+                    "source": "D:\\Gunsel Line finalize\\android\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "2,5,11",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "57,178,393",
+                        "endColumns": "48,59,70",
+                        "endOffsets": "101,233,459"
+                    },
+                    "to": {
+                        "startLines": "309,352,353",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "20933,25595,25655",
+                        "endColumns": "48,59,70",
+                        "endOffsets": "20977,25650,25721"
+                    }
+                },
+                {
                     "source": "C:\\Users\\Abdul Mustafa\\.gradle\\caches\\transforms-1\\files-1.1\\coordinatorlayout-1.0.0.aar\\5cdea2b2ff509b96c88d8e6aa4cc9b1a\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,102,3,13",
@@ -186,24 +203,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "2,5,11",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "57,178,393",
-                        "endColumns": "48,59,70",
-                        "endOffsets": "101,233,459"
-                    },
-                    "to": {
-                        "startLines": "309,352,353",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "20933,25595,25655",
-                        "endColumns": "48,59,70",
-                        "endOffsets": "20977,25650,25721"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Abdul Mustafa\\Desktop\\Gunsel Line finalize\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "D:\\Gunsel Line finalize\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

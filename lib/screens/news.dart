@@ -17,20 +17,37 @@ class News extends StatefulWidget {
 class _NewsState extends State<News> {
   SharePreferencelogin sh = SharePreferencelogin();
   String news = "News";
+  String enJson="",uaJson="",ruJson="",plJson="";
 
   void newslan() async {
+
+    enJson = await DefaultAssetBundle.of(context).loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context).loadString("languagefiles/pl-PL.json");
+
+    Map<String , dynamic> enData = json.decode(enJson);
+    Map<String , dynamic> uaData = json.decode(uaJson);
+    Map<String , dynamic> ruData = json.decode(ruJson);
+    Map<String , dynamic> plData = json.decode(plJson);
+
+
+
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
-
-      if (b == 1) {
-        news = "Новини";
+      if (b == 0) {
+        news = enData["news"];
+      }
+      else if (b == 1) {
+        news = uaData["news"];
       } else if (b == 2) {
-        news = "News";
-      } else if (b == 3) {
-        news = "Новости";
+        news = ruData["news"];
+      }
+      else if (b == 3) {
+        news = plData["news"];
       }
     });
   }

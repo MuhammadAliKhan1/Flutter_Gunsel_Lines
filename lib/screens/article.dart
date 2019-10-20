@@ -23,12 +23,14 @@ class _ArticleScreenState extends State<ArticleScreen> {
     setState(() {
       b = a;
 
-      if (b == 1) {
+      if (b == 0) {
+        searchTicket = "Article";
+      } else if (b == 1) {
         searchTicket = "Стаття";
       } else if (b == 2) {
-        searchTicket = "Article";
-      } else if (b == 3) {
         searchTicket = "Статья";
+      }else if (b == 3) {
+        searchTicket = "Artykuł";
       }
     });
   }

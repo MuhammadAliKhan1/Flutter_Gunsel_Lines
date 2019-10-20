@@ -27,54 +27,88 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final googleSignins = GoogleSignIn();
 
   String editProfileInformation = "Edit Profile Information",
-      firstName = "First Name",
-      lastName = "Last Name",
+      firstName = " First name",
+      lastName = " Last name",
       email = "Email",
-      phoneNumber = "Phone Number",
-      btnSaveChange = "Save Changes",
-      profile = "Profile",
+      phoneNumber = " Phone number",
+      btnSaveChange = " Save changes",
+      profile = " Profile",
       updateInformation = "Data is successfully Updated",
       noupdateInformation = "Data is not Updated",
-      ok = "Ok";
+      ok = " Ok";
+
+  String enJson="",uaJson="",ruJson="",plJson="";
+
+
   void profilelan() async {
+
+
+    enJson = await DefaultAssetBundle.of(context).loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context).loadString("languagefiles/pl-PL.json");
+
+    Map<String , dynamic> enData = json.decode(enJson);
+    Map<String , dynamic> uaData = json.decode(uaJson);
+    Map<String , dynamic> ruData = json.decode(ruJson);
+    Map<String , dynamic> plData = json.decode(plJson);
+
+
+
+
+
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
-      if (b == 1) {
-        editProfileInformation = "Редагувати інформацію профілю";
-        firstName = "Ім'я";
-        lastName = "Прізвище";
-        email = "Електронна пошта";
-        phoneNumber = "Номер телефону";
-        btnSaveChange = "Зберегти зміни";
-        profile = "Профіль";
-        updateInformation = "Дані успішно оновлюються";
-        noupdateInformation = "Дані не оновлюються";
-        ok = "Гаразд";
-      } else if (b == 2) {
+
+      if (b == 0) {
         editProfileInformation = "Edit Profile Information";
-        firstName = "First Name";
-        lastName = "Last Name";
+        firstName = enData["first_name"];
+        lastName = enData["last_name"];
         email = "Email";
-        phoneNumber = "Phone Number";
-        btnSaveChange = "Save Changes";
-        profile = "Profile";
+        phoneNumber = enData["phone_number"];
+        btnSaveChange = enData["save_changes"];
+        profile = enData["my_profile"];
         updateInformation = "Data is successfully Updated";
         noupdateInformation = "Data is not Updated";
-        ok = "Ok";
-      } else if (b == 3) {
+        ok = enData["ok"];
+      }
+      else if (b == 1) {
+        editProfileInformation = "Редагувати інформацію профілю";
+        firstName = uaData["first_name"];
+        lastName = uaData["last_name"];
+        email = "Електронна пошта";
+        phoneNumber = uaData["phone_number"];
+        btnSaveChange = uaData["save_changes"];
+        profile = uaData["my_profile"];
+        updateInformation = "Дані успішно оновлюються";
+        noupdateInformation = "Дані не оновлюються";
+        ok = uaData["ok"];
+      } else if (b == 2) {
         editProfileInformation = "Изменить информацию профиля";
-        firstName = "Имя";
-        lastName = "Фамилия";
+        firstName = ruData["first_name"];
+        lastName = ruData["last_name"];
         email = "Электронное письмо";
-        phoneNumber = "Номер телефона";
-        btnSaveChange = "Сохранить изменения";
-        profile = "Профиль";
+        phoneNumber = ruData["phone_number"];
+        btnSaveChange = ruData["save_changes"];
+        profile = ruData["my_profile"];
         updateInformation = "Данные успешно обновлены";
         noupdateInformation = "Данные не обновляются";
-        ok = "Хорошо";
+        ok = ruData["ok"];
+      }
+      else if (b == 3) {
+        editProfileInformation = "Edytuj informacje o profilu";
+        firstName = plData["first_name"];
+        lastName = plData["last_name"];
+        email = "E-mail";
+        phoneNumber = plData["phone_number"];
+        btnSaveChange = plData["save_changes"];
+        profile = plData["my_profile"];
+        updateInformation = "Dane zostały pomyślnie zaktualizowane";
+        noupdateInformation = "Dane nie są aktualizowane";
+        ok = plData["ok"];
       }
     });
   }
@@ -233,18 +267,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       if(statusCode == 200)
         {
-          if(number == 1)
+          if(number == 0)
             {
-              shPref.setshared1(lanapifinalData["Data"][1]['LanguageId']);
+              shPref.setshared1(lanapifinalData["Data"][0]['LanguageId']);
             }
+          else if(number == 1)
+          {
+            shPref.setshared1(lanapifinalData["Data"][1]['LanguageId']);
+          }
+
           else if(number == 2)
           {
-            shPref.setshared1(lanapifinalData["Data"][0]['LanguageId']+2);
+            shPref.setshared1(lanapifinalData["Data"][2]['LanguageId']);
           }
 
           else if(number == 3)
           {
-            shPref.setshared1(lanapifinalData["Data"][2]['LanguageId']+1);
+            shPref.setshared1(lanapifinalData["Data"][3]['LanguageId']);
           }
 
         }
@@ -611,7 +650,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       children: <Widget>[
                                         GestureDetector(
                                           onTap: (){
-                                            languageChange(context,3);
+                                            languageChange(context,2);
                                           },
                                         child:Column(
                                           children: <Widget>[
@@ -641,7 +680,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         GestureDetector(
                                           onTap: (){
-                                            languageChange(context,2);
+                                            languageChange(context,0);
                                           },
                                         child:Column(
                                           children: <Widget>[
@@ -654,6 +693,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           ],
                                         ),
                                         ),
+
+                                        GestureDetector(
+                                          onTap: (){
+                                            languageChange(context,3);
+                                          },
+                                          child:Column(
+                                            children: <Widget>[
+                                              Image(
+                                                image: profileScreenLanguageIcon,
+                                                height: 35,
+                                              ),
+                                              Text('PL',
+                                                  style: TextStyle(fontFamily: "Helvetica")),
+                                            ],
+                                          ),
+                                        ),
+
+
+
+
                                       ],
                                     )
                                   ],
