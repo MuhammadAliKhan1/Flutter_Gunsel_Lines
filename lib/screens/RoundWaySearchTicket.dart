@@ -479,8 +479,9 @@ class _TicketState extends State<Ticket> {
   String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
+  String seats = "seats";
 
-  void detailsBarlan() async {
+  void searchTicketlan() async {
     enJson = await DefaultAssetBundle.of(context)
         .loadString("languagefiles/en-US.json");
     uaJson = await DefaultAssetBundle.of(context)
@@ -494,6 +495,7 @@ class _TicketState extends State<Ticket> {
     Map<String, dynamic> uaData = json.decode(uaJson);
     Map<String, dynamic> ruData = json.decode(ruJson);
     Map<String, dynamic> plData = json.decode(plJson);
+
     int b;
     int a = await sh.getshared1();
 
@@ -503,15 +505,19 @@ class _TicketState extends State<Ticket> {
       if (b == 0) {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
+        seats = "seats";
       } else if (b == 1) {
         departure = "ВИХІДНА ПОЗИЦІЯ";
         arrival = "ПРИБУТТЯ";
+        seats = "місць";
       } else if (b == 2) {
         departure = "ИСХОДНАЯ ПОЗИЦИЯ";
         arrival = "ПРИБЫТИЕ";
+        seats = "мест";
       } else if (b == 3) {
         departure = "POZYCJA WYJŚCIOWA";
         arrival = "PRZYJAZD";
+        seats = "siedzenia";
       }
     });
   }
@@ -519,166 +525,194 @@ class _TicketState extends State<Ticket> {
   @override
   void initState() {
     super.initState();
-    detailsBarlan();
+    searchTicketlan();
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
-          widget.ticketData['FirstLeg'] = widget.ticketDataFirstLeg;
-          Navigator.pushNamed(
-            context,
-            selectSeatRoundWay,
-            arguments: widget.ticketData,
-          );
-        },
-        child: FittedBox(
-            child: Container(
-          margin: EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
-          height: 112,
-          child: Stack(
-            children: <Widget>[
-              Image(
-                image: smallTicket,
-              ),
-              Padding(
-                  padding: EdgeInsets.only(left: 25.0, top: 5.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      SizedBox(
-                        width: 25,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(
+      onTap: () {
+        widget.ticketData['FirstLeg'] = widget.ticketDataFirstLeg;
+        Navigator.pushNamed(
+          context,
+          selectSeatRoundWay,
+          arguments: widget.ticketData,
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
+        height: 112,
+        child: Stack(
+          children: <Widget>[
+            Image(
+              image: smallTicket,
+            ),
+            Padding(
+                padding: EdgeInsets.only(left: 25.0, top: 5.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Container(
+                          height: ScreenUtil().setSp(65),
+                          child: AutoSizeText(
                             '${widget.departureTime}',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Color.fromRGBO(14, 52, 113, 10),
-                                fontSize: 40,
+                                fontSize: ScreenUtil().setSp(65),
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
                           ),
-                          Text(
+                        ),
+                        Container(
+                          height: ScreenUtil().setHeight(26),
+                          width: ScreenUtil().setWidth(170),
+                          child: AutoSizeText(
                             departure,
+                            textAlign: TextAlign.center,
+                            minFontSize: 11,
+                            maxFontSize: 15,
                             style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 15,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
                           ),
-                          Text(
+                        ),
+                        Container(
+                          height: ScreenUtil().setHeight(25),
+                          child: Text(
                             '${widget.departureDate}',
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 15,
+                              fontSize: ScreenUtil().setHeight(25),
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Text(
-                            '${widget.numberOfSeats} seats',
+                        ),
+                        Container(
+                          height: ScreenUtil().setHeight(23),
+                          child: AutoSizeText(
+                            '${widget.numberOfSeats} $seats',
+                            minFontSize: 15,
                             style: TextStyle(
                               color: Color.fromRGBO(14, 52, 113, 10),
-                              fontSize: 15,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 25,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Container(
+                          height: ScreenUtil().setSp(65),
+                          child: AutoSizeText(
                             '${widget.arrivalTime}',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Color.fromRGBO(14, 52, 113, 10),
-                                fontSize: 40,
+                                fontSize: 1000,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
                           ),
-                          Text(
+                        ),
+                        Container(
+                          height: ScreenUtil().setHeight(26),
+                          width: ScreenUtil().setWidth(170),
+                          child: AutoSizeText(
                             arrival,
+                            textAlign: TextAlign.center,
+                            minFontSize: 11,
+                            maxFontSize: 15,
                             style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 15,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w700),
                           ),
-                          Text(
-                            '${widget.arrivalDate}', //Empty space as to not distur the alignment
+                        ),
+                        Container(
+                          height: ScreenUtil().setHeight(25),
+                          child: Text(
+                            '${widget.departureDate}',
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 15,
+                              fontSize: ScreenUtil().setHeight(25),
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Text(
-                            '',
-                            style: TextStyle(
-                              color: darkBlue,
-                              fontSize: 15,
-                              fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w700,
-                            ),
+                        ),
+                        Text(
+                          '',
+                          style: TextStyle(
+                            color: darkBlue,
+                            fontSize: 15,
+                            fontFamily: 'Helvetica',
+                            fontWeight: FontWeight.w700,
                           ),
-                        ],
-                      ),
-                      SizedBox(width: 45),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                height: 43,
-                                child: Text(
-                                  '${widget.ticketPrice.toStringAsFixed(0)}',
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(14, 52, 113, 10),
-                                    fontSize: 50,
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w800,
-                                  ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              height: ScreenUtil().setSp(80),
+                              child: AutoSizeText(
+                                '${widget.ticketPrice.toStringAsFixed(0)}',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(14, 52, 113, 10),
+                                  fontSize: ScreenUtil().setSp(80),
+                                  fontFamily: 'Helvetica',
+                                  fontWeight: FontWeight.w800,
                                 ),
                               ),
-                              Text(
+                            ),
+                            Container(
+                              height: ScreenUtil().setSp(35),
+                              child: Text(
                                 '${widget.currencyName}', //Empty space as to not distur the alignment
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 20,
+                                  fontSize: ScreenUtil().setSp(35),
                                   fontFamily: 'Helvetica',
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                            ],
-                          ),
-                          Text(
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: ScreenUtil().setSp(17),
+                          child: AutoSizeText(
                             '${widget.vehicleTypeName}', //Empty space as to not distur the alignment
                             style: TextStyle(
                               color: Colors.black.withOpacity(0.5),
-                              fontSize: 12,
+                              fontSize: ScreenUtil().setSp(17),
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ))
-            ],
-          ),
-        )));
+                        ),
+                      ],
+                    ),
+                  ],
+                ))
+          ],
+        ),
+      ),
+    );
   }
 }
