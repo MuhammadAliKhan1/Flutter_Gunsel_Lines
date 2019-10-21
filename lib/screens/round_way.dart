@@ -342,7 +342,7 @@ class _RoundWayFormState extends State<RoundWayForm> {
             alignment: Alignment.lerp(
               Alignment.topLeft,
               Alignment.topRight,
-              0.25,
+              0.1,
             ),
             child: OneWayButton(),
           ),

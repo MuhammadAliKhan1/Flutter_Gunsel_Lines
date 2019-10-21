@@ -320,7 +320,7 @@ class _OneWayFormState extends State<OneWayForm> {
             alignment: Alignment.lerp(
               Alignment.topLeft,
               Alignment.topRight,
-              0.75,
+              0.85,
             ),
             child: RoundWayButton(),
           ),
