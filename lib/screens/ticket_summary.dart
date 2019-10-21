@@ -787,7 +787,7 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                       ),
                                     ),
                                     Text(
-                                      '$bustype +',
+                                      '$bustype',
                                       style: TextStyle(
                                         color: Color.fromRGBO(14, 52, 113, 10),
                                         fontFamily: 'Helvetica',
