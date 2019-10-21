@@ -355,7 +355,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                         right: 50.0,
                       ),
                       title: Text(
-                        '$busInfo::',
+                        '$busInfo',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Helvetica',
@@ -866,7 +866,6 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                       Container(
                         height: ScreenUtil().setHeight(50),
                         width: ScreenUtil().setWidth(250),
-                        
                         child: AutoSizeText(
                           arrival,
                           textAlign: TextAlign.center,
