@@ -605,7 +605,6 @@ class DetailTicket extends StatefulWidget {
 class _DetailTicketState extends State<DetailTicket> {
   String enJson = "", uaJson = "", ruJson = "", plJson = "";
   SharePreferencelogin sh = SharePreferencelogin();
-  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
 
@@ -783,7 +782,6 @@ class _DetailTicketState extends State<DetailTicket> {
                       Container(
                         height: ScreenUtil().setHeight(50),
                         width: ScreenUtil().setWidth(250),
-                        
                         child: AutoSizeText(
                           arrival,
                           textAlign: TextAlign.center,
