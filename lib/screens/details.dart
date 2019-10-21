@@ -603,7 +603,6 @@ class DetailTicket extends StatefulWidget {
 }
 
 class _DetailTicketState extends State<DetailTicket> {
-  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   SharePreferencelogin sh = SharePreferencelogin();
   String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String departure = "DEPARTURE";
