@@ -40,10 +40,9 @@ class LoginScreenState extends State<LoginScreen> {
     setState(() {
       b = a;
 
-      if(b == 0)
-        {
-          login = " Login";
-        } else if (b == 1) {
+      if (b == 0) {
+        login = " Login";
+      } else if (b == 1) {
         login = " Вхід";
       } else if (b == 2) {
         login = " Вход";
@@ -145,7 +144,7 @@ class _LoginFormState extends State<LoginForm> {
       passworderr = "Password field should not be empty",
       logError = "Login Error",
       invalidData = "-UserId or Phone Number Required!";
-  String enJson="",uaJson="",ruJson="",plJson="";
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
 
   @override
   void initState() {
@@ -177,17 +176,19 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void loginlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
 
-    enJson = await DefaultAssetBundle.of(context).loadString("languagefiles/en-US.json");
-    uaJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ua-UA.json");
-    ruJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ru-RU.json");
-    plJson = await DefaultAssetBundle.of(context).loadString("languagefiles/pl-PL.json");
-
-    Map<String , dynamic> enData = json.decode(enJson);
-    Map<String , dynamic> uaData = json.decode(uaJson);
-    Map<String , dynamic> ruData = json.decode(ruJson);
-    Map<String , dynamic> plData = json.decode(plJson);
-
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
 
     int b;
     int a = await shPref.getshared1();
@@ -195,22 +196,23 @@ class _LoginFormState extends State<LoginForm> {
     setState(() {
       b = a;
       if (b == 0) {
-      passwordHint = enData["password_holder"];
-      forgetPassword = enData["forgot_password"];
-      login = enData["login"];
-      dontHaveAccount = "Don't have an account?";
-      signUp = enData["sign_up"];
-      emailHint = enData["email"];
-      btnSend = enData["forgot_password_button"];
-      sendPassword = "Sending Password";
-      noDatafound = enData["no_data_found"];
-      ok = enData["ok"];
-      error = "Login Error";
-      err = enData["error"];
-      passworderr = "Password field should not be empty";
-      logError = "Login Error";
-      invalidData = "-UserId or Phone Number Required!";
-      }if (b == 1) {
+        passwordHint = enData["password_holder"];
+        forgetPassword = enData["forgot_password"];
+        login = enData["login"];
+        dontHaveAccount = "Don't have an account?";
+        signUp = enData["sign_up"];
+        emailHint = enData["email"];
+        btnSend = enData["forgot_password_button"];
+        sendPassword = "Sending Password";
+        noDatafound = enData["no_data_found"];
+        ok = enData["ok"];
+        error = "Login Error";
+        err = enData["error"];
+        passworderr = "Password field should not be empty";
+        logError = "Login Error";
+        invalidData = "-UserId or Phone Number Required!";
+      }
+      if (b == 1) {
         passwordHint = uaData["password_holder"];
         forgetPassword = uaData["forgot_password"];
         login = uaData["login"];
@@ -219,14 +221,15 @@ class _LoginFormState extends State<LoginForm> {
         emailHint = uaData["email"];
         btnSend = uaData["forgot_password_button"];
         sendPassword = "Відправлення пароля";
-        noDatafound = uaData["no_data_found"];;
+        noDatafound = uaData["no_data_found"];
+        ;
         ok = uaData["ok"];
         error = "Помилка входу";
         err = uaData["error"];
         passworderr = "Поле пароля не повинно бути порожнім";
         logError = "Помилка входу";
         invalidData = "-Використовується номер або номер телефону!";
-      }  else if (b == 2) {
+      } else if (b == 2) {
         passwordHint = ruData["password_holder"];
         forgetPassword = ruData["forgot_password"];
         login = ruData["login"];
@@ -235,15 +238,15 @@ class _LoginFormState extends State<LoginForm> {
         emailHint = ruData["email"];
         btnSend = ruData["forgot_password_button"];
         sendPassword = "Отправка пароля";
-        noDatafound = ruData["no_data_found"];;
+        noDatafound = ruData["no_data_found"];
+        ;
         ok = ruData["ok"];
         error = "Ошибка входа";
         err = ruData["error"];
         passworderr = "Поле пароля не должно быть пустым";
         logError = "Ошибка входа";
         invalidData = "-UserId или номер телефона требуется!";
-      }
-      else if (b == 3) {
+      } else if (b == 3) {
         passwordHint = plData["password_holder"];
         forgetPassword = plData["forgot_password"];
         login = plData["login"];
@@ -307,10 +310,8 @@ class _LoginFormState extends State<LoginForm> {
                   height: 40,
                   child: TextFormField(
                     onChanged: (number) {
-                      if (number.length > 11)
-                        FocusScope.of(context).unfocus();
-                      if (number.contains(')') ||
-                          number.contains('-')) {
+                      if (number.length > 11) FocusScope.of(context).unfocus();
+                      if (number.contains(')') || number.contains('-')) {
                         number = number.replaceAll(')', '');
                         number = number.replaceAll('-', '');
                       }
@@ -541,14 +542,16 @@ class _LoginFormState extends State<LoginForm> {
                     signUpScreen,
                   );
                 },
-                child: Text(
-                  signUp,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'SFProText',
-                    color: Colors.yellow,
-                  ),
-                ),
+                child: Container(
+                    width: ScreenUtil().setWidth(250),
+                    child: AutoSizeText(
+                      signUp,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'SFProText',
+                        color: Colors.yellow,
+                      ),
+                    )),
               )
             ],
           ),
