@@ -603,26 +603,43 @@ class DetailTicket extends StatefulWidget {
 }
 
 class _DetailTicketState extends State<DetailTicket> {
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   SharePreferencelogin sh = SharePreferencelogin();
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
 
   void searchTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        departure = "ВИДАЛЕННЯ";
-        arrival = "ПРИЙНЯТТЯ";
-      } else if (b == 2) {
+      if (b == 0) {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
-      } else if (b == 3) {
-        departure = "ВЫЕЗД";
+      } else if (b == 1) {
+        departure = "ВИХІДНА ПОЗИЦІЯ";
+        arrival = "ПРИБУТТЯ";
+      } else if (b == 2) {
+        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
         arrival = "ПРИБЫТИЕ";
+      } else if (b == 3) {
+        departure = "POZYCJA WYJŚCIOWA";
+        arrival = "PRZYJAZD";
       }
     });
   }
