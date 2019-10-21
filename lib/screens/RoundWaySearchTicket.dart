@@ -575,15 +575,13 @@ class _TicketState extends State<Ticket> {
                                 ),
                               ),
                               Container(
-                                height: ScreenUtil().setHeight(26),
-                                width: ScreenUtil().setWidth(170),
+                                width: ScreenUtil().setWidth(150),
                                 child: AutoSizeText(
                                   departure,
                                   textAlign: TextAlign.center,
-                                  minFontSize: 11,
-                                  maxFontSize: 15,
                                   style: TextStyle(
                                       color: Colors.black,
+                                      fontSize: 15,
                                       fontFamily: 'Helvetica',
                                       fontWeight: FontWeight.w700),
                                 ),
@@ -631,15 +629,13 @@ class _TicketState extends State<Ticket> {
                                 ),
                               ),
                               Container(
-                                height: ScreenUtil().setHeight(26),
-                                width: ScreenUtil().setWidth(170),
+                                width: ScreenUtil().setWidth(150),
                                 child: AutoSizeText(
                                   arrival,
                                   textAlign: TextAlign.center,
-                                  minFontSize: 11,
-                                  maxFontSize: 15,
                                   style: TextStyle(
                                       color: Colors.black,
+                                      fontSize: 15,
                                       fontFamily: 'Helvetica',
                                       fontWeight: FontWeight.w700),
                                 ),
