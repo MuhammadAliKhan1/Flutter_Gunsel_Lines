@@ -610,6 +610,9 @@ class _TicketState extends State<Ticket> {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        width: ScreenUtil().setSp(10),
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -662,6 +665,9 @@ class _TicketState extends State<Ticket> {
                             ),
                           ),
                         ],
+                      ),
+                      SizedBox(
+                        width: ScreenUtil().setSp(65),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,

@@ -604,25 +604,42 @@ class DetailTicket extends StatefulWidget {
 
 class _DetailTicketState extends State<DetailTicket> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
 
   void searchTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        departure = "ВИДАЛЕННЯ";
-        arrival = "ПРИЙНЯТТЯ";
-      } else if (b == 2) {
+      if (b == 0) {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
-      } else if (b == 3) {
-        departure = "ВЫЕЗД";
+      } else if (b == 1) {
+        departure = "ВИХІДНА ПОЗИЦІЯ";
+        arrival = "ПРИБУТТЯ";
+      } else if (b == 2) {
+        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
         arrival = "ПРИБЫТИЕ";
+      } else if (b == 3) {
+        departure = "POZYCJA WYJŚCIOWA";
+        arrival = "PRZYJAZD";
       }
     });
   }
@@ -686,7 +703,7 @@ class _DetailTicketState extends State<DetailTicket> {
                     ],
                   ),
                   SizedBox(
-                    width: (widget.day > 9 ? 90.0 : 100.0),
+                    width: (widget.day > 9 ? 80.0 : 90.0),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -717,13 +734,14 @@ class _DetailTicketState extends State<DetailTicket> {
                         ),
                       ),
                       Container(
-                        height: ScreenUtil().setHeight(45),
+                        height: ScreenUtil().setHeight(50),
+                        width: ScreenUtil().setWidth(250),
                         child: AutoSizeText(
                           departure,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: ScreenUtil().setSp(45),
+                              fontSize: ScreenUtil().setHeight(50),
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700),
                         ),
@@ -762,13 +780,15 @@ class _DetailTicketState extends State<DetailTicket> {
                         ),
                       ),
                       Container(
-                        height: ScreenUtil().setHeight(45),
+                        height: ScreenUtil().setHeight(50),
+                        width: ScreenUtil().setWidth(250),
+                        
                         child: AutoSizeText(
                           arrival,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: ScreenUtil().setSp(45),
+                              fontSize: ScreenUtil().setHeight(50),
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700),
                         ),

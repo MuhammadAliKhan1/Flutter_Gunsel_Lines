@@ -819,13 +819,14 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                         ),
                       ),
                       Container(
-                        height: ScreenUtil().setHeight(45),
+                        height: ScreenUtil().setHeight(50),
+                        width: ScreenUtil().setWidth(250),
                         child: AutoSizeText(
                           departure,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: ScreenUtil().setSp(45),
+                              fontSize: ScreenUtil().setHeight(50),
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700),
                         ),
@@ -864,13 +865,15 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                         ),
                       ),
                       Container(
-                        height: ScreenUtil().setHeight(45),
+                        height: ScreenUtil().setHeight(50),
+                        width: ScreenUtil().setWidth(250),
+                        
                         child: AutoSizeText(
-                          departure,
+                          arrival,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: ScreenUtil().setSp(45),
+                              fontSize: ScreenUtil().setHeight(50),
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700),
                         ),
