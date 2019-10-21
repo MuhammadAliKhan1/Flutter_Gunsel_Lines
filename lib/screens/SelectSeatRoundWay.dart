@@ -20,22 +20,39 @@ class SelectSeat_RoundWay extends StatefulWidget {
 class _SelectSeat_RoundWayState extends State<SelectSeat_RoundWay> {
   Function loadScreen;
   SharePreferencelogin sh = SharePreferencelogin();
+
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String selectTicket = "Select a Seat";
   bool unblockLoad;
 
   void selectTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
+      if (b == 0) {
+        selectTicket = "Select a Seat";
+      } else if (b == 2) {
         selectTicket = "Виберіть місце";
       } else if (b == 2) {
-        selectTicket = "Select a Seat";
-      } else if (b == 3) {
         selectTicket = "Выберите место";
+      } else if (b == 3) {
+        selectTicket = "Wybierz miejsce";
       }
     });
   }
@@ -173,6 +190,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   }
 
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String yourSeat = "Your seat";
   String details = "Details";
   String purchaseDetails = "Purchase Details";
@@ -184,43 +202,67 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   String busy = "Occupied";
 
   void selectTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        yourSeat = "Ваше місце";
-        details = "Деталі";
-        purchaseDetails = "Деталі придбання";
-        purchase = "Купівля";
-        search = "Продовжуйте";
-        busInfo = "Інформація про автобус ::";
-        selected = "Вибрано";
-        empty = "Безкоштовно";
-        busy = "Окуповані";
-      } else if (b == 2) {
-        yourSeat = "Your seat";
-        details = "Details";
+      if (b == 0) {
+        yourSeat = enData["your_seat"];
+        details = enData["details"];
         purchaseDetails = "Purchase Details";
         purchase = "Purchase";
-        search = "Continue";
-        busInfo = "Bus info::";
+        search = enData["continue"];
+        busInfo = enData["bus_info"];
         selected = "Selected";
         empty = "Free";
-        busy = "Occupied";
-      } else if (b == 3) {
-        yourSeat = "Ваше место";
-        details = "подробности";
+        busy = enData["seat_taken"];
+      } else if (b == 1) {
+        yourSeat = uaData["your_seat"];
+        details = uaData["details"];
+        purchaseDetails = "Деталі придбання";
+        purchase = "Купівля";
+        search = uaData["continue"];
+
+        busInfo = uaData["bus_info"];
+        selected = "Вибрано";
+        empty = "Безкоштовно";
+        busy = uaData["seat_taken"];
+      } else if (b == 2) {
+        yourSeat = ruData["your_seat"];
+        details = ruData["details"];
         purchaseDetails = "Детали покупки";
         purchase = "покупка";
-        search = "Продолжить";
-        busInfo = "Информация об автобусе";
-        busInfo = "Информация об автобусе ::";
+        search = ruData["continue"];
+
+        busInfo = ruData["bus_info"];
         selected = "выбранный";
         empty = "Свободно";
-        busy = "занятый";
+        busy = ruData["seat_taken"];
+      } else if (b == 3) {
+        yourSeat = plData["your_seat"];
+        details = plData["details"];
+        purchaseDetails = "Szczegóły zakupu";
+        purchase = "Zakup";
+        search = plData["continue"];
+        busInfo = plData["bus_info"];
+        selected = "Wybrany";
+        empty = "Wolny";
+        busy = plData["seat_taken"];
       }
     });
   }
@@ -304,7 +346,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                         right: 50.0,
                       ),
                       title: Text(
-                        '$busInfo',
+                        '$busInfo::',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Helvetica',
@@ -320,67 +362,69 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("  "),
-                        Expanded(
+                        Container(
+                            width: ScreenUtil().setWidth(200),
                             child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: red,
-                              ),
-                            ),
-                            AutoSizeText(
-                              '   $busy',
-                              maxLines: 2,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        )),
-                        Expanded(
+                              children: <Widget>[
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(2),
+                                    color: red,
+                                  ),
+                                ),
+                                AutoSizeText(
+                                  '   $busy',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            )),
+                        Container(
+                            width: ScreenUtil().setWidth(220),
                             child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: Colors.white,
-                              ),
-                            ),
-                            AutoSizeText(
-                              '   $empty',
-                              maxLines: 2,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        )),
-                        Expanded(
+                              children: <Widget>[
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(2),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                AutoSizeText(
+                                  '   $empty',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            )),
+                        Container(
+                            width: ScreenUtil().setWidth(200),
                             child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: green,
-                              ),
-                            ),
-                            AutoSizeText(
-                              '   $selected',
-                              maxLines: 2,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        )),
+                              children: <Widget>[
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(2),
+                                    color: green,
+                                  ),
+                                ),
+                                AutoSizeText(
+                                  '   $selected',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            )),
                       ],
                     )
                   ],
@@ -641,25 +685,42 @@ class SelectSeatTicket extends StatefulWidget {
 
 class _SelectSeatTicketState extends State<SelectSeatTicket> {
   SharePreferencelogin sh = SharePreferencelogin();
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
 
   void searchTicketlan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
+
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 1) {
-        departure = "ВИДАЛЕННЯ";
-        arrival = "ПРИЙНЯТТЯ";
-      } else if (b == 2) {
+      if (b == 0) {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
-      } else if (b == 3) {
-        departure = "ВЫЕЗД";
+      } else if (b == 1) {
+        departure = "ВИХІДНА ПОЗИЦІЯ";
+        arrival = "ПРИБУТТЯ";
+      } else if (b == 2) {
+        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
         arrival = "ПРИБЫТИЕ";
+      } else if (b == 3) {
+        departure = "POZYCJA WYJŚCIOWA";
+        arrival = "PRZYJAZD";
       }
     });
   }
