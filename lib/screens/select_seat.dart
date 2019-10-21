@@ -366,67 +366,77 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("  "),
+                        SizedBox(width: 5),
                         Expanded(
-                            child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: red,
-                              ),
-                            ),
-                            AutoSizeText(
-                              '   $busy',
-                              maxLines: 2,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        )),
+                          child: Container(
+                              width: ScreenUtil().setWidth(200),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(2),
+                                      color: red,
+                                    ),
+                                  ),
+                                  Container(
+                                      child: AutoSizeText(
+                                    '   $busy',
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  )),
+                                ],
+                              )),
+                        ),
                         Expanded(
-                            child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: Colors.white,
-                              ),
-                            ),
-                            AutoSizeText(
-                              '   $empty',
-                              maxLines: 2,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        )),
+                          child: Container(
+                              width: ScreenUtil().setWidth(220),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(2),
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  AutoSizeText(
+                                    '   $empty',
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
                         Expanded(
-                            child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: green,
-                              ),
-                            ),
-                            AutoSizeText(
-                              '   $selected',
-                              maxLines: 2,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        )),
+                          child: Container(
+                              width: ScreenUtil().setWidth(200),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(2),
+                                      color: green,
+                                    ),
+                                  ),
+                                  AutoSizeText(
+                                    '   $selected',
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
                       ],
                     )
                   ],

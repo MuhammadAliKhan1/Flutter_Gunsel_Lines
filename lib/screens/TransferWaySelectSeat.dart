@@ -369,71 +369,71 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: red,
-                              ),
-                            ),
-                            Container(
-                                width: ScreenUtil().setWidth(140),
-                                child: AutoSizeText(
+                        Container(
+                            width: ScreenUtil().setWidth(160),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(2),
+                                    color: red,
+                                  ),
+                                ),
+                                AutoSizeText(
                                   '   $busy',
                                   maxLines: 2,
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
-                                )),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: Colors.white,
-                              ),
-                            ),
-                            Container(
-                                width: ScreenUtil().setWidth(180),
-                                child: AutoSizeText(
+                                ),
+                              ],
+                            )),
+                        Container(
+                            width: ScreenUtil().setWidth(220),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(2),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                AutoSizeText(
                                   '   $empty',
                                   maxLines: 2,
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
-                                )),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: green,
-                              ),
-                            ),
-                            Container(
-                                width: ScreenUtil().setWidth(170),
-                                child: AutoSizeText(
+                                ),
+                              ],
+                            )),
+                        Container(
+                            width: ScreenUtil().setWidth(160),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(2),
+                                    color: green,
+                                  ),
+                                ),
+                                AutoSizeText(
                                   '   $selected',
                                   maxLines: 2,
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
-                                )),
-                          ],
-                        ),
+                                ),
+                              ],
+                            )),
                       ],
                     )
                   ],
