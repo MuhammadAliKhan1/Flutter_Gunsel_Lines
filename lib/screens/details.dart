@@ -604,42 +604,25 @@ class DetailTicket extends StatefulWidget {
 
 class _DetailTicketState extends State<DetailTicket> {
   SharePreferencelogin sh = SharePreferencelogin();
-  String enJson = "", uaJson = "", ruJson = "", plJson = "";
   String departure = "DEPARTURE";
   String arrival = "ARRIVAL";
 
-  void detailsTicketlan() async {
-    enJson = await DefaultAssetBundle.of(context)
-        .loadString("languagefiles/en-US.json");
-    uaJson = await DefaultAssetBundle.of(context)
-        .loadString("languagefiles/ua-UA.json");
-    ruJson = await DefaultAssetBundle.of(context)
-        .loadString("languagefiles/ru-RU.json");
-    plJson = await DefaultAssetBundle.of(context)
-        .loadString("languagefiles/pl-PL.json");
-
-    Map<String, dynamic> enData = json.decode(enJson);
-    Map<String, dynamic> uaData = json.decode(uaJson);
-    Map<String, dynamic> ruData = json.decode(ruJson);
-    Map<String, dynamic> plData = json.decode(plJson);
+  void searchTicketlan() async {
     int b;
     int a = await sh.getshared1();
 
     setState(() {
       b = a;
 
-      if (b == 0) {
+      if (b == 1) {
+        departure = "ВИДАЛЕННЯ";
+        arrival = "ПРИЙНЯТТЯ";
+      } else if (b == 2) {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
-      } else if (b == 1) {
-        departure = "ВИХІДНА ПОЗИЦІЯ";
-        arrival = "ПРИБУТТЯ";
-      } else if (b == 2) {
-        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
-        arrival = "ПРИБЫТИЕ";
       } else if (b == 3) {
-        departure = "POZYCJA WYJŚCIOWA";
-        arrival = "PRZYJAZD";
+        departure = "ВЫЕЗД";
+        arrival = "ПРИБЫТИЕ";
       }
     });
   }
@@ -647,7 +630,7 @@ class _DetailTicketState extends State<DetailTicket> {
   @override
   void initState() {
     super.initState();
-    detailsTicketlan();
+    searchTicketlan();
   }
 
   @override
@@ -728,18 +711,21 @@ class _DetailTicketState extends State<DetailTicket> {
                         '${widget.departureTime}',
                         style: TextStyle(
                           fontSize: 80,
-                          color: Color.fromRGBO(14, 52, 113, 10),
+                          color: lightBlue,
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
-                        departure,
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.black,
-                          fontFamily: 'Helvetica',
-                          fontWeight: FontWeight.w600,
+                      Container(
+                        height: ScreenUtil().setHeight(45),
+                        child: AutoSizeText(
+                          departure,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: ScreenUtil().setSp(45),
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700),
                         ),
                       ),
                     ],
@@ -770,18 +756,21 @@ class _DetailTicketState extends State<DetailTicket> {
                         '${widget.arrivalTime}',
                         style: TextStyle(
                           fontSize: 80,
-                          color: Color.fromRGBO(14, 52, 113, 10),
+                          color: lightBlue,
                           fontFamily: 'Helvetica',
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
-                        arrival,
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.black,
-                          fontFamily: 'Helvetica',
-                          fontWeight: FontWeight.w600,
+                      Container(
+                        height: ScreenUtil().setHeight(45),
+                        child: AutoSizeText(
+                          arrival,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: ScreenUtil().setSp(45),
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700),
                         ),
                       ),
                     ],

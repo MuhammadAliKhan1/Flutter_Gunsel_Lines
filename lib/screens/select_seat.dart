@@ -724,7 +724,7 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                     ],
                   ),
                   SizedBox(
-                    width: (widget.day > 9 ? 90.0 : 100.0),
+                    width: (widget.day > 9 ? 70.0 : 80.0),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -754,13 +754,16 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
-                        departure,
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'Helvetica',
-                          fontWeight: FontWeight.w600,
+                      Container(
+                        height: ScreenUtil().setHeight(45),
+                        child: AutoSizeText(
+                          departure,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: ScreenUtil().setSp(45),
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700),
                         ),
                       ),
                     ],
@@ -796,13 +799,16 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
-                        arrival,
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'Helvetica',
-                          fontWeight: FontWeight.w600,
+                      Container(
+                        height: ScreenUtil().setHeight(45),
+                        child: AutoSizeText(
+                          departure,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: ScreenUtil().setSp(45),
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w700),
                         ),
                       ),
                     ],
