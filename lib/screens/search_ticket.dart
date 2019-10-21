@@ -579,7 +579,7 @@ class _TicketState extends State<Ticket> {
                           ),
                         ),
                         Container(
-                          height: ScreenUtil().setHeight(26),
+                          height: ScreenUtil().setHeight(40),
                           width: ScreenUtil().setWidth(170),
                           child: AutoSizeText(
                             departure,
@@ -593,19 +593,19 @@ class _TicketState extends State<Ticket> {
                           ),
                         ),
                         Container(
-                          height: ScreenUtil().setHeight(25),
+                          height: ScreenUtil().setHeight(20),
                           child: Text(
                             '${widget.departureDate}',
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: ScreenUtil().setHeight(25),
+                              fontSize: ScreenUtil().setHeight(20),
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),
                         Container(
-                          height: ScreenUtil().setHeight(23),
+                          height: ScreenUtil().setHeight(20),
                           child: AutoSizeText(
                             '${widget.numberOfSeats} $seats',
                             minFontSize: 15,

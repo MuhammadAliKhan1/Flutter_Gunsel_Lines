@@ -372,7 +372,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                            width: ScreenUtil().setWidth(160),
+                            width: ScreenUtil().setWidth(200),
                             child: Row(
                               children: <Widget>[
                                 Container(
@@ -414,7 +414,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                               ],
                             )),
                         Container(
-                            width: ScreenUtil().setWidth(160),
+                            width: ScreenUtil().setWidth(200),
                             child: Row(
                               children: <Widget>[
                                 Container(
