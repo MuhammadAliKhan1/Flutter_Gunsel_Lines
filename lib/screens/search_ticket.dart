@@ -145,6 +145,7 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
   @override
   void initState() {
     super.initState();
+    print('hello');
     searchTicketlan();
     travelListTicketData = Map();
     travelListTicketData['BuyTicketData'] = widget.buyTicketMap;
