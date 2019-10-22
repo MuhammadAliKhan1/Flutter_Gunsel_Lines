@@ -236,179 +236,183 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                 Padding(
                                     padding:
                                         EdgeInsets.only(left: 30.0, top: 5.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          width: 25,
-                                        ),
-                                        Column(
+                                    child: FittedBox(
+                                    child: Container(
+                                        height: 112,
+                                        width: 380,
+                                        child: Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Text(
-                                              travelProfData['Data'][index]
-                                                  ['DepartureTime'],
-                                              style: TextStyle(
-                                                  color: darkBlue,
-                                                  fontSize: 40,
-                                                  fontFamily: 'Helvetica',
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                            Text(
-                                              departure,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15,
-                                                  fontFamily: 'Helvetica',
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                            Text(
-                                              DateTime.parse(
-                                                          travelProfData['Data']
-                                                                  [index]
-                                                              ['DepartureDate'])
-                                                      .day
-                                                      .toString() +
-                                                  "." +
-                                                  DateTime.parse(
-                                                          travelProfData['Data']
-                                                                  [index]
-                                                              ['DepartureDate'])
-                                                      .month
-                                                      .toString() +
-                                                  "." +
-                                                  DateTime.parse(
-                                                          travelProfData['Data']
-                                                                  [index]
-                                                              ['DepartureDate'])
-                                                      .year
-                                                      .toString(),
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15,
-                                                fontFamily: 'Helvetica',
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            Text(
-                                              seats +
-                                                  ":" +
-                                                  travelProfData['Data'][index]
-                                                          ['SeatNo']
-                                                      .toString(),
-                                              style: TextStyle(
-                                                color: darkBlue,
-                                                fontSize: 15,
-                                                fontFamily: 'Helvetica',
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: 25,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: <Widget>[
-                                            Text(
-                                              travelProfData['Data'][index]
-                                                  ['ArrivalTime'],
-                                              style: TextStyle(
-                                                  color: darkBlue,
-                                                  fontSize: 40,
-                                                  fontFamily: 'Helvetica',
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                            Text(
-                                              arrival,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15,
-                                                  fontFamily: 'Helvetica',
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                            Text(
-                                              '', //Empty space as to not distur the alignment
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15,
-                                                fontFamily: 'Helvetica',
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            Text(
-                                              '',
-                                              style: TextStyle(
-                                                color: darkBlue,
-                                                fontSize: 15,
-                                                fontFamily: 'Helvetica',
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(width: 45),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: <Widget>[
+                                           
                                             Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: <Widget>[
-                                                Container(
-                                                  height: 43,
-                                                  child: Text(
-                                                    travelProfData['Data']
-                                                                [index]
-                                                            ['TicketPrice']
-                                                        .toString(),
-                                                    style: TextStyle(
+                                                Text(
+                                                  travelProfData['Data'][index]
+                                                      ['DepartureTime'],
+                                                  style: TextStyle(
                                                       color: darkBlue,
-                                                      fontSize: 50,
+                                                      fontSize: 40,
                                                       fontFamily: 'Helvetica',
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                    ),
+                                                      fontWeight: FontWeight.w700),
+                                                ),
+                                                Text(
+                                                  departure,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15,
+                                                      fontFamily: 'Helvetica',
+                                                      fontWeight: FontWeight.w700),
+                                                ),
+                                                Text(
+                                                  DateTime.parse(
+                                                              travelProfData['Data']
+                                                                      [index]
+                                                                  ['DepartureDate'])
+                                                          .day
+                                                          .toString() +
+                                                      "." +
+                                                      DateTime.parse(
+                                                              travelProfData['Data']
+                                                                      [index]
+                                                                  ['DepartureDate'])
+                                                          .month
+                                                          .toString() +
+                                                      "." +
+                                                      DateTime.parse(
+                                                              travelProfData['Data']
+                                                                      [index]
+                                                                  ['DepartureDate'])
+                                                          .year
+                                                          .toString(),
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15,
+                                                    fontFamily: 'Helvetica',
+                                                    fontWeight: FontWeight.w700,
                                                   ),
                                                 ),
                                                 Text(
-                                                  travelProfData['Data'][index][
-                                                      'Currency'], //Empty space as to not distur the alignment
+                                                  seats +
+                                                      ":" +
+                                                      travelProfData['Data'][index]
+                                                              ['SeatNo']
+                                                          .toString(),
+                                                  style: TextStyle(
+                                                    color: darkBlue,
+                                                    fontSize: 15,
+                                                    fontFamily: 'Helvetica',
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              width: 25,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: <Widget>[
+                                                Text(
+                                                  travelProfData['Data'][index]
+                                                      ['ArrivalTime'],
+                                                  style: TextStyle(
+                                                      color: darkBlue,
+                                                      fontSize: 40,
+                                                      fontFamily: 'Helvetica',
+                                                      fontWeight: FontWeight.w700),
+                                                ),
+                                                Text(
+                                                  arrival,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15,
+                                                      fontFamily: 'Helvetica',
+                                                      fontWeight: FontWeight.w700),
+                                                ),
+                                                Text(
+                                                  '', //Empty space as to not distur the alignment
                                                   style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 20,
+                                                    fontSize: 15,
+                                                    fontFamily: 'Helvetica',
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '',
+                                                  style: TextStyle(
+                                                    color: darkBlue,
+                                                    fontSize: 15,
+                                                    fontFamily: 'Helvetica',
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(width: 45),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: <Widget>[
+                                                Column(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      height: 43,
+                                                      child: Text(
+                                                        travelProfData['Data']
+                                                                    [index]
+                                                                ['TicketPrice']
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          color: darkBlue,
+                                                          fontSize: 50,
+                                                          fontFamily: 'Helvetica',
+                                                          fontWeight:
+                                                              FontWeight.w800,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      travelProfData['Data'][index][
+                                                          'Currency'], //Empty space as to not distur the alignment
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 20,
+                                                        fontFamily: 'Helvetica',
+                                                        fontWeight: FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Text(
+                                                  travelProfData['Data'][index]
+                                                          ['VehicleType'][
+                                                      'VehicleTypeName'], //Empty space as to not distur the alignment
+                                                  style: TextStyle(
+                                                    color: Colors.black
+                                                        .withOpacity(0.8),
+                                                    fontSize: 12,
                                                     fontFamily: 'Helvetica',
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                            Text(
-                                              travelProfData['Data'][index]
-                                                      ['VehicleType'][
-                                                  'VehicleTypeName'], //Empty space as to not distur the alignment
-                                              style: TextStyle(
-                                                color: Colors.black
-                                                    .withOpacity(0.8),
-                                                fontSize: 12,
-                                                fontFamily: 'Helvetica',
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
                                           ],
                                         ),
-                                      ],
+                                      ),
                                     ))
                               ],
                             ),
