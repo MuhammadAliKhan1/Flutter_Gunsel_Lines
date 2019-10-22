@@ -866,7 +866,6 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                       Container(
                         height: ScreenUtil().setHeight(50),
                         width: ScreenUtil().setWidth(250),
-                        
                         child: AutoSizeText(
                           arrival,
                           textAlign: TextAlign.center,
