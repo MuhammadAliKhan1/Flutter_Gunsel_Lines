@@ -358,7 +358,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                         right: 50.0,
                       ),
                       title: Text(
-                        '$busInfo',
+                        '$busInfo::',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Helvetica',
