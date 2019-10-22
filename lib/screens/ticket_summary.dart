@@ -786,14 +786,17 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                         ],
                                       ),
                                     ),
-                                    Text(
-                                      '$bustype +',
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(14, 52, 113, 10),
-                                        fontFamily: 'Helvetica',
-                                        fontSize:
-                                            ScreenUtil(allowFontScaling: true)
-                                                .setSp(45),
+                                    Container(
+                                      width: ScreenUtil().setWidth(250),
+                                      child: AutoSizeText(
+                                        '$bustype +',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize:
+                                                ScreenUtil().setHeight(30),
+                                            fontFamily: 'Helvetica',
+                                            fontWeight: FontWeight.w700),
                                       ),
                                     ),
                                     Row(
@@ -890,16 +893,22 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
-                                                Text(
-                                                  departure,
-                                                  style: TextStyle(
-                                                    fontSize: ScreenUtil(
-                                                            allowFontScaling:
-                                                                true)
-                                                        .setSp(45),
-                                                    color: Colors.black,
-                                                    fontFamily: 'Helvetica',
-                                                    fontWeight: FontWeight.w600,
+                                                Container(
+                                                  height: ScreenUtil()
+                                                      .setHeight(50),
+                                                  width: ScreenUtil()
+                                                      .setWidth(250),
+                                                  child: AutoSizeText(
+                                                    departure,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: ScreenUtil()
+                                                          .setHeight(50),
+                                                      fontFamily: 'Helvetica',
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
                                                   ),
                                                 ),
                                               ],
@@ -949,16 +958,21 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
-                                                Text(
-                                                  arrival,
-                                                  style: TextStyle(
-                                                    fontSize: ScreenUtil(
-                                                            allowFontScaling:
-                                                                true)
-                                                        .setSp(45),
-                                                    color: Colors.black,
-                                                    fontFamily: 'Helvetica',
-                                                    fontWeight: FontWeight.w600,
+                                                Container(
+                                                  height: ScreenUtil()
+                                                      .setHeight(50),
+                                                  width: ScreenUtil()
+                                                      .setWidth(250),
+                                                  child: AutoSizeText(
+                                                    arrival,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: ScreenUtil()
+                                                            .setHeight(50),
+                                                        fontFamily: 'Helvetica',
+                                                        fontWeight:
+                                                            FontWeight.w700),
                                                   ),
                                                 ),
                                               ],
