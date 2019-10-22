@@ -423,6 +423,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               checkBox1) {
                             _detailForm.currentState.save();
                             int index = 0;
+                            print(formsData);
                             formsData.forEach((k, v) {
                               formsDataFirstLegVariantLegTwo[k]['Name'] =
                                   v['Name'];
@@ -436,6 +437,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   widget.ticketData['FirstLeg']
                                           ['TravelVariantLeg2']
                                       ['SelectedSeatsNumber'][index];
+
                               ++index;
                             });
                             index = 0;
@@ -974,20 +976,8 @@ class _DetailFormState extends State<DetailForm> {
                 },
                 controller: this._name,
                 onSaved: (name) {
-                  switch (widget.formType) {
-                    case 'FirstLeg':
-                      formsData[widget.index]['Name'] = name.trim();
-                      formsData[widget.index]['SeatNumber'] = widget.seatNumber;
-                      break;
-                    case 'FirstLegVariantLeg2':
-                      formsDataFirstLegVariantLegTwo[widget.index]['Name'] =
-                          name.trim();
-                      formsDataFirstLegVariantLegTwo[widget.index]
-                          ['SeatNumber'] = widget.seatNumber;
-                      break;
-
-                    default:
-                  }
+                  formsData[widget.index]['Name'] = name.trim();
+                  formsData[widget.index]['SeatNumber'] = widget.seatNumber;
                 },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(
@@ -1010,16 +1000,7 @@ class _DetailFormState extends State<DetailForm> {
                 },
                 controller: this._surname,
                 onSaved: (surname) {
-                  switch (widget.formType) {
-                    case 'FirstLeg':
-                      formsData[widget.index]['Surname'] = surname.trim();
-                      break;
-                    case 'FirstLegVariantLeg2':
-                      formsDataFirstLegVariantLegTwo[widget.index]['Surname'] =
-                          surname.trim();
-                      break;
-                    default:
-                  }
+                  formsData[widget.index]['Surname'] = surname.trim();
                 },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(
@@ -1050,16 +1031,7 @@ class _DetailFormState extends State<DetailForm> {
                   }
                 },
                 onSaved: (email) {
-                  switch (widget.formType) {
-                    case 'FirstLeg':
-                      formsData[widget.index]['Email'] = email.trim();
-                      break;
-                    case 'FirstLegVariantLeg2':
-                      formsDataFirstLegVariantLegTwo[widget.index]['Email'] =
-                          email.trim();
-                      break;
-                    default:
-                  }
+                  formsData[widget.index]['Email'] = email.trim();
                 },
                 keyboardType: TextInputType.emailAddress,
                 controller: this._email,
@@ -1108,18 +1080,8 @@ class _DetailFormState extends State<DetailForm> {
                                   number = number.replaceAll(')', '');
                                   number = number.replaceAll('-', '');
                                 }
-
-                                switch (widget.formType) {
-                                  case 'FirstLeg':
-                                    formsData[widget.index]['Number'] =
-                                        number.trim();
-                                    break;
-                                  case 'FirstLegVariantLeg2':
-                                    formsDataFirstLegVariantLegTwo[widget.index]
-                                        ['Number'] = number.trim();
-                                    break;
-                                  default:
-                                }
+                                formsData[widget.index]['Number'] =
+                                    number.trim();
                               },
                               validator: (value) {
                                 if (value.isEmpty) {
