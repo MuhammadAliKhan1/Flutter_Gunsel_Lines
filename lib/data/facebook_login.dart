@@ -21,7 +21,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _MyAppState();
   }
 }
@@ -39,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         {
           final token = result.accessToken.token;
           final graphResponse = await http.get(
-              'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
+              'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token={$token}');
           final profile = JSON.jsonDecode(graphResponse.body);
           print("\nProfile is: " + profile.toString());
           print("Image url is:" + profile["picture"]["data"]["url"]);
@@ -69,7 +68,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MaterialApp(
       home: Scaffold(
           body:

@@ -347,7 +347,11 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                               fontSize: 1.7,
                                               fontFamily: 'Helvetica',
                                               color: Color.fromRGBO(
-                                                  14, 52, 113, 10),
+                                                14,
+                                                52,
+                                                113,
+                                                10,
+                                              ),
                                               fontWeight: FontWeight.w700),
                                         ),
                                         Text(
@@ -361,140 +365,149 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
                                         InkWell(
                                           onTap: () {
                                             showDialog(
-                                                barrierDismissible: true,
-                                                context: context,
-                                                builder: (context) {
-                                                  return Container(
-                                                      width: double.infinity,
-                                                      child: AlertDialog(
-                                                          backgroundColor:
-                                                              Colors.white,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(
-                                                              Radius.circular(
-                                                                10.0,
-                                                              ),
+                                              barrierDismissible: true,
+                                              context: context,
+                                              builder: (context) {
+                                                return Container(
+                                                  width: double.infinity,
+                                                  child: AlertDialog(
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(
+                                                          10.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    title: Text(
+                                                      sendmail,
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                          14,
+                                                          52,
+                                                          113,
+                                                          10,
+                                                        ),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    content: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: <Widget>[
+                                                        Text(mailAgain),
+                                                        SizedBox(height: 10),
+                                                        Container(
+                                                            child:
+                                                                TextFormField(
+                                                          controller: _email,
+                                                          validator:
+                                                              (String value) {
+                                                            if (value.isEmpty) {
+                                                              return "Please enter your email";
+                                                            }
+                                                          },
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .emailAddress,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            contentPadding:
+                                                                EdgeInsets
+                                                                    .symmetric(
+                                                              vertical: 10,
+                                                              horizontal: 10.0,
+                                                            ),
+                                                            fillColor:
+                                                                Color.fromRGBO(
+                                                              227,
+                                                              236,
+                                                              235,
+                                                              1,
+                                                            ),
+                                                            filled: true,
+                                                            hintText: email,
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5.0),
+                                                            ),
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .white),
                                                             ),
                                                           ),
-                                                          title: Text(
-                                                            sendmail,
-                                                            style: TextStyle(
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        14,
-                                                                        52,
-                                                                        113,
-                                                                        10)),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                          content: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: <Widget>[
-                                                              Text(mailAgain),
-                                                              SizedBox(
-                                                                  height: 10),
-                                                              Container(
-                                                                  child:
-                                                                      TextFormField(
-                                                                controller:
-                                                                    _email,
-                                                                validator:
-                                                                    (String
-                                                                        value) {
-                                                                  if (value
-                                                                      .isEmpty) {
-                                                                    return "Please enter your email";
-                                                                  }
-                                                                },
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .emailAddress,
-                                                                decoration: InputDecoration(
-                                                                    contentPadding: EdgeInsets.symmetric(
-                                                                        vertical:
-                                                                            10,
-                                                                        horizontal:
-                                                                            10.0),
-                                                                    fillColor: Color
-                                                                        .fromRGBO(
-                                                                            227,
-                                                                            236,
-                                                                            235,
-                                                                            1),
-                                                                    filled:
-                                                                        true,
-                                                                    hintText:
-                                                                        email,
-                                                                    border: OutlineInputBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                5.0)),
-                                                                    enabledBorder:
-                                                                        OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(color: Colors.white))),
-                                                              )),
-                                                              Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  padding: EdgeInsets
+                                                        )),
+                                                        Container(
+                                                          width:
+                                                              double.infinity,
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 10.0),
+                                                          child: RaisedButton(
+                                                            child: Text(
+                                                              sendEmail,
+                                                              textScaleFactor:
+                                                                  1.5,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .yellow),
+                                                            ),
+                                                            color:
+                                                                Color.fromRGBO(
+                                                              14,
+                                                              52,
+                                                              113,
+                                                              10,
+                                                            ),
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
                                                                       .only(
-                                                                          top:
-                                                                              10.0),
-                                                                  child:
-                                                                      RaisedButton(
-                                                                    child: Text(
-                                                                      sendEmail,
-                                                                      textScaleFactor:
-                                                                          1.5,
-                                                                      style: TextStyle(
-                                                                          color:
-                                                                              Colors.yellow),
-                                                                    ),
-                                                                    color: Color
-                                                                        .fromRGBO(
-                                                                            14,
-                                                                            52,
-                                                                            113,
-                                                                            10),
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadius.only(
-                                                                          bottomRight: Radius.circular(
-                                                                              15.0),
-                                                                          topLeft:
-                                                                              Radius.circular(15.0)),
-                                                                    ),
-                                                                    onPressed:
-                                                                        () async {
-                                                                      loadBlock =
-                                                                          true;
-                                                                      setState(
-                                                                          () {});
-                                                                      await paymentResultModelObj.sendEmail(
-                                                                          paymentResultTicketData['Data']
-                                                                              [
-                                                                              'PaymentNo'],
-                                                                          _email
-                                                                              .text);
-                                                                      loadBlock =
-                                                                          false;
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .pop();
-                                                                      setState(
-                                                                          () {});
-                                                                    },
-                                                                  ))
-                                                            ],
-                                                          )));
-                                                });
+                                                                bottomRight:
+                                                                    Radius
+                                                                        .circular(
+                                                                  15.0,
+                                                                ),
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        15.0),
+                                                              ),
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              loadBlock = true;
+                                                              setState(() {});
+                                                              await paymentResultModelObj
+                                                                  .sendEmail(
+                                                                paymentResultTicketData[
+                                                                        'Data'][
+                                                                    'PaymentNo'],
+                                                                _email.text,
+                                                              );
+                                                              loadBlock = false;
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              setState(() {});
+                                                            },
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
                                           },
                                           child: Container(
                                             width: 35,
@@ -724,14 +737,17 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                         ],
                                       ),
                                     ),
-                                    Text(
-                                      busType,
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(14, 52, 113, 10),
-                                        fontFamily: 'Helvetica',
-                                        fontSize:
-                                            ScreenUtil(allowFontScaling: true)
-                                                .setSp(45),
+                                    Container(
+                                      width: ScreenUtil().setWidth(250),
+                                      child: AutoSizeText(
+                                        busType,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize:
+                                                ScreenUtil().setHeight(30),
+                                            fontFamily: 'Helvetica',
+                                            fontWeight: FontWeight.w700),
                                       ),
                                     ),
                                     Row(
@@ -827,16 +843,21 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
-                                                Text(
-                                                  departure,
-                                                  style: TextStyle(
-                                                    fontSize: ScreenUtil(
-                                                            allowFontScaling:
-                                                                true)
-                                                        .setSp(45),
-                                                    color: Colors.black,
-                                                    fontFamily: 'Helvetica',
-                                                    fontWeight: FontWeight.w600,
+                                                Container(
+                                                  height: ScreenUtil()
+                                                      .setHeight(50),
+                                                  width: ScreenUtil()
+                                                      .setWidth(250),
+                                                  child: AutoSizeText(
+                                                    departure,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: ScreenUtil()
+                                                            .setHeight(50),
+                                                        fontFamily: 'Helvetica',
+                                                        fontWeight:
+                                                            FontWeight.w700),
                                                   ),
                                                 ),
                                               ],
@@ -885,16 +906,21 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
-                                                Text(
-                                                  arrival,
-                                                  style: TextStyle(
-                                                    fontSize: ScreenUtil(
-                                                            allowFontScaling:
-                                                                true)
-                                                        .setSp(45),
-                                                    color: Colors.black,
-                                                    fontFamily: 'Helvetica',
-                                                    fontWeight: FontWeight.w600,
+                                                Container(
+                                                  height: ScreenUtil()
+                                                      .setHeight(50),
+                                                  width: ScreenUtil()
+                                                      .setWidth(250),
+                                                  child: AutoSizeText(
+                                                    arrival,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: ScreenUtil()
+                                                            .setHeight(50),
+                                                        fontFamily: 'Helvetica',
+                                                        fontWeight:
+                                                            FontWeight.w700),
                                                   ),
                                                 ),
                                               ],
