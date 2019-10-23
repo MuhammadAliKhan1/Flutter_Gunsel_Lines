@@ -12,8 +12,8 @@ Future main(List<String> args) async {
       onGenerateRoute: Router().generateRoute,
       initialRoute: splashScreen,
       theme: ThemeData(
-        primaryColor: gunselColor,
-        accentColor: gunselColor,
+        primaryColor: Colors.white,
+        accentColor: Colors.white,
       ),
     ),
   );

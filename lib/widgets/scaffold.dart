@@ -82,6 +82,7 @@ class _GunselScaffoldState extends State<GunselScaffold> {
                           style: TextStyle(
                             fontFamily: "SFProText",
                             fontSize: ScreenUtil().setSp(35),
+                            color: Colors.white,
                           ),
                         )
                       : null,

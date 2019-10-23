@@ -491,10 +491,10 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting)
           return SliverToBoxAdapter(
-              child: Image(
-            image: loadingAnim,
-            height: ScreenUtil().setSp(150),
-          ));
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
 
         if (this.seatsData == null)
           return SliverToBoxAdapter(child: Text('null'));

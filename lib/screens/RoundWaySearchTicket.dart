@@ -360,9 +360,8 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting)
           return Center(
-            child: Image(
-              image: loadingAnim,
-              height: ScreenUtil().setSp(150),
+            child: Center(
+              child: CircularProgressIndicator(),
             ),
           );
         else {

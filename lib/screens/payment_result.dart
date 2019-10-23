@@ -211,10 +211,10 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting)
           return Center(
-              child: Image(
-            image: loadingAnim,
-            height: ScreenUtil().setSp(150),
-          ));
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         else {
           return CustomScrollView(
             slivers: <Widget>[

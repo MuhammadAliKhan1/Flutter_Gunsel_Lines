@@ -45,7 +45,7 @@ class RoundWayState extends State<RoundWay> {
       b = a;
 
       if (b == 0) {
-        searchTicket = "Seach Ticket";
+        searchTicket = "Search Ticket";
       } else if (b == 1) {
         searchTicket = "Пошук Квитку";
       } else if (b == 2) {
