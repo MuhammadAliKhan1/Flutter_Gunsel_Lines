@@ -209,9 +209,8 @@ class _HistoryTicketState extends State<HistoryTicket> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting)
             return Center(
-              child: Image(
-                image: loadingAnim,
-                height: ScreenUtil().setSp(150),
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               ),
             );
           else
@@ -237,7 +236,7 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                     padding:
                                         EdgeInsets.only(left: 30.0, top: 5.0),
                                     child: FittedBox(
-                                    child: Container(
+                                      child: Container(
                                         height: 112,
                                         width: 380,
                                         child: Row(
@@ -246,7 +245,6 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                           
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
@@ -260,7 +258,8 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                                       color: darkBlue,
                                                       fontSize: 40,
                                                       fontFamily: 'Helvetica',
-                                                      fontWeight: FontWeight.w700),
+                                                      fontWeight:
+                                                          FontWeight.w700),
                                                 ),
                                                 Text(
                                                   departure,
@@ -268,20 +267,19 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                                       color: Colors.black,
                                                       fontSize: 15,
                                                       fontFamily: 'Helvetica',
-                                                      fontWeight: FontWeight.w700),
+                                                      fontWeight:
+                                                          FontWeight.w700),
                                                 ),
                                                 Text(
-                                                  DateTime.parse(
-                                                              travelProfData['Data']
-                                                                      [index]
-                                                                  ['DepartureDate'])
+                                                  DateTime.parse(travelProfData[
+                                                                  'Data'][index]
+                                                              ['DepartureDate'])
                                                           .day
                                                           .toString() +
                                                       "." +
-                                                      DateTime.parse(
-                                                              travelProfData['Data']
-                                                                      [index]
-                                                                  ['DepartureDate'])
+                                                      DateTime.parse(travelProfData[
+                                                                  'Data'][index]
+                                                              ['DepartureDate'])
                                                           .month
                                                           .toString() +
                                                       "." +
@@ -301,8 +299,8 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                                 Text(
                                                   seats +
                                                       ":" +
-                                                      travelProfData['Data'][index]
-                                                              ['SeatNo']
+                                                      travelProfData['Data']
+                                                              [index]['SeatNo']
                                                           .toString(),
                                                   style: TextStyle(
                                                     color: darkBlue,
@@ -329,7 +327,8 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                                       color: darkBlue,
                                                       fontSize: 40,
                                                       fontFamily: 'Helvetica',
-                                                      fontWeight: FontWeight.w700),
+                                                      fontWeight:
+                                                          FontWeight.w700),
                                                 ),
                                                 Text(
                                                   arrival,
@@ -337,7 +336,8 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                                       color: Colors.black,
                                                       fontSize: 15,
                                                       fontFamily: 'Helvetica',
-                                                      fontWeight: FontWeight.w700),
+                                                      fontWeight:
+                                                          FontWeight.w700),
                                                 ),
                                                 Text(
                                                   '', //Empty space as to not distur the alignment
@@ -378,20 +378,23 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                                         style: TextStyle(
                                                           color: darkBlue,
                                                           fontSize: 50,
-                                                          fontFamily: 'Helvetica',
+                                                          fontFamily:
+                                                              'Helvetica',
                                                           fontWeight:
                                                               FontWeight.w800,
                                                         ),
                                                       ),
                                                     ),
                                                     Text(
-                                                      travelProfData['Data'][index][
+                                                      travelProfData['Data']
+                                                              [index][
                                                           'Currency'], //Empty space as to not distur the alignment
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 20,
                                                         fontFamily: 'Helvetica',
-                                                        fontWeight: FontWeight.w600,
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                       ),
                                                     ),
                                                   ],
