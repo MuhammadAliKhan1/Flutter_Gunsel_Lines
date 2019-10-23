@@ -200,7 +200,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   String purchaseDetails = "Purchase Details";
   String purchase = "Purchase";
   String search = "Continue";
-  String busInfo = "Bus Info::";
+  String busInfo = "Bus Info";
   String selected = "Selected";
   String empty = "Free";
   String busy = "Occupied";

@@ -346,10 +346,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       onTap: () {
                                         editData();
                                         showDialog(
+                                            barrierDismissible: true,
                                             context: context,
                                             builder: (context) {
-                                              return SingleChildScrollView(
-                                                  child: Container(
+                                              return Container(
                                                       child: AlertDialog(
                                                           backgroundColor: gunselColor,
                                                           title: Text(
@@ -591,7 +591,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                     },
                                                                   ))
                                                             ],
-                                                          ))));
+                                                          )));
                                             });
                                       },
                                       child: Image(
