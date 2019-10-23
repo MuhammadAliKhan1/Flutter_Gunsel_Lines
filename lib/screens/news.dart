@@ -17,21 +17,22 @@ class News extends StatefulWidget {
 class _NewsState extends State<News> {
   SharePreferencelogin sh = SharePreferencelogin();
   String news = "News";
-  String enJson="",uaJson="",ruJson="",plJson="";
+  String enJson = "", uaJson = "", ruJson = "", plJson = "";
 
   void newslan() async {
+    enJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/en-US.json");
+    uaJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ua-UA.json");
+    ruJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/ru-RU.json");
+    plJson = await DefaultAssetBundle.of(context)
+        .loadString("languagefiles/pl-PL.json");
 
-    enJson = await DefaultAssetBundle.of(context).loadString("languagefiles/en-US.json");
-    uaJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ua-UA.json");
-    ruJson = await DefaultAssetBundle.of(context).loadString("languagefiles/ru-RU.json");
-    plJson = await DefaultAssetBundle.of(context).loadString("languagefiles/pl-PL.json");
-
-    Map<String , dynamic> enData = json.decode(enJson);
-    Map<String , dynamic> uaData = json.decode(uaJson);
-    Map<String , dynamic> ruData = json.decode(ruJson);
-    Map<String , dynamic> plData = json.decode(plJson);
-
-
+    Map<String, dynamic> enData = json.decode(enJson);
+    Map<String, dynamic> uaData = json.decode(uaJson);
+    Map<String, dynamic> ruData = json.decode(ruJson);
+    Map<String, dynamic> plData = json.decode(plJson);
 
     int b;
     int a = await sh.getshared1();
@@ -40,13 +41,11 @@ class _NewsState extends State<News> {
       b = a;
       if (b == 0) {
         news = enData["news"];
-      }
-      else if (b == 1) {
+      } else if (b == 1) {
         news = uaData["news"];
       } else if (b == 2) {
         news = ruData["news"];
-      }
-      else if (b == 3) {
+      } else if (b == 3) {
         news = plData["news"];
       }
     });
@@ -84,21 +83,24 @@ class _NewsState extends State<News> {
     conName.clear();
     conText.clear();
     conImage.clear();
-    for(int i=0 ; i<stationListMap['Data'].length;i++) {
-      if (!(stationListMap['Data'][i]['BigImage'] == "" || stationListMap['Data'][i]['BigImage'] == null ||stationListMap['Data'][i]['ContentName'] == "" || stationListMap['Data'][i]['ContentName'] == null || stationListMap['Data'][i]['Text'] == "" || stationListMap['Data'][i]['Text'] == null )){
+    for (int i = 0; i < stationListMap['Data'].length; i++) {
+      if (!(stationListMap['Data'][i]['BigImage'] == "" ||
+          stationListMap['Data'][i]['BigImage'] == null ||
+          stationListMap['Data'][i]['ContentName'] == "" ||
+          stationListMap['Data'][i]['ContentName'] == null ||
+          stationListMap['Data'][i]['Text'] == "" ||
+          stationListMap['Data'][i]['Text'] == null)) {
         conName.add(_parseHtmlString(stationListMap['Data'][i]['ContentName']));
         conText.add(_parseHtmlString(stationListMap['Data'][i]['Text']));
         conImage.add(stationListMap['Data'][i]['BigImage']);
 
-      print(i);
+        print(i);
       }
     }
-      print("Con name is:"+conName.length.toString());
-      for(int j=0; j<conName.length;j++)
-        {
-          print(conName[j]);
-        }
-
+    print("Con name is:" + conName.length.toString());
+    for (int j = 0; j < conName.length; j++) {
+      print(conName[j]);
+    }
 
 //    print(this._parseHtmlString(stationListMap['Data'][0]['ContentName']));
 //    print(imageUrl + stationListMap['Data'][0]['BigImage']);
@@ -125,10 +127,7 @@ class _NewsState extends State<News> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting)
                 return Center(
-                  child: Image(
-                    image: loadingAnim,
-                    height: ScreenUtil().setSp(150),
-                  ),
+                  child: CircularProgressIndicator(),
                 );
               else {
                 return CustomScrollView(
@@ -142,25 +141,15 @@ class _NewsState extends State<News> {
                           width: double.infinity,
                           child: Carousel(
                             images: [
-                              Image.network(
-                                  imageUrl +
-                                      conImage[0],
+                              Image.network(imageUrl + conImage[0],
                                   fit: BoxFit.fill),
-                              Image.network(
-                                  imageUrl +
-                                      conImage[1],
+                              Image.network(imageUrl + conImage[1],
                                   fit: BoxFit.fill),
-                              Image.network(
-                                  imageUrl +
-                                      conImage[2],
+                              Image.network(imageUrl + conImage[2],
                                   fit: BoxFit.fill),
-                              Image.network(
-                                  imageUrl +
-                                      conImage[3],
+                              Image.network(imageUrl + conImage[3],
                                   fit: BoxFit.fill),
-                              Image.network(
-                                  imageUrl +
-                                      conImage[4],
+                              Image.network(imageUrl + conImage[4],
                                   fit: BoxFit.fill)
                             ],
                             autoplay: true,
@@ -186,8 +175,8 @@ class _NewsState extends State<News> {
                                           builder: (context) => ArticleScreen(
                                               title: conName[index],
                                               text: conText[index],
-                                              imageURL: imageUrl +
-                                                  conImage[index])));
+                                              imageURL:
+                                                  imageUrl + conImage[index])));
                                 },
                                 child: Row(
                                   children: <Widget>[
@@ -196,11 +185,10 @@ class _NewsState extends State<News> {
                                             padding: EdgeInsets.only(
                                                 left: 5.0,
                                                 right: 5.0,
-                                            top: 3.0,
-                                            bottom: 10.0),
+                                                top: 3.0,
+                                                bottom: 10.0),
                                             child: Image.network(
-                                                imageUrl +
-                                                    conImage[index],
+                                                imageUrl + conImage[index],
                                                 height: 110.0,
                                                 width: 150.0,
                                                 fit: BoxFit.fill))),
@@ -217,7 +205,8 @@ class _NewsState extends State<News> {
                                                     color: Colors.black,
                                                     fontFamily: "MyriadPro")),
                                             TextSpan(
-                                                text: "\n"+conText[index].trim(),
+                                                text: "\n" +
+                                                    conText[index].trim(),
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontFamily: "MyriadPro"))
