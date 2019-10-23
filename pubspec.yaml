@@ -133,8 +133,6 @@ flutter:
     - assets/password_icon.png
     - assets/england.png
     - assets/payment_thumb.png
-    - images/front.webp
-    - images/news1.webp
     - assets/gradient.png
     - assets/checked.png
     - assets/menu_background.jpg

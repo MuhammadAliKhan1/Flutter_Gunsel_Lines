@@ -196,7 +196,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
   String purchaseDetails = "Purchase Details";
   String purchase = "Purchase";
   String search = "Continue";
-  String busInfo = "Bus Info::";
+  String busInfo = "Bus Info";
   String selected = "Selected";
   String empty = "Free";
   String busy = "Occupied";
@@ -346,7 +346,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                         right: 50.0,
                       ),
                       title: Text(
-                        '$busInfo::',
+                        '$busInfo',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Helvetica',

@@ -871,7 +871,7 @@ class _DetailFormState extends State<DetailForm> {
       name = "Name",
       surName = "Surname",
       email = "Email",
-      seat = "Seat:",
+      seat = "Seat",
       enterName = "Please enter your name",
       enterSur = "Please enter your surname",
       enterEmail = "Please enter your email";
