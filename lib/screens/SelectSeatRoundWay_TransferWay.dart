@@ -483,7 +483,10 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting)
           return SliverToBoxAdapter(
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(
+                child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            )),
           );
 
         if (this.seatsData == null)

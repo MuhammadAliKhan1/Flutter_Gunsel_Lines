@@ -361,7 +361,9 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
         if (snapshot.connectionState == ConnectionState.waiting)
           return Center(
             child: Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
             ),
           );
         else {
