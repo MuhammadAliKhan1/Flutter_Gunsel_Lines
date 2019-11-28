@@ -419,15 +419,25 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                   travelListTicketData['SecondLegTickets']['Data'][index]
                           ['DepartureDate']
                       .substring(0, 10),
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                          ['ArrivalDate']
-                      .substring(0, 10),
+                  ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] ==
+                          null
+                      ? travelListTicketData['SecondLegTickets']['Data'][index]
+                              ['ArrivalDate']
+                          .substring(0, 10)
+                      : travelListTicketData['SecondLegTickets']['Data'][index]
+                              ['TravelVariantLeg2']['ArrivalDate']
+                          .substring(0, 10),
                   travelListTicketData['SecondLegTickets']['Data'][index]
                           ['DepartureTime']
                       .substring(0, 5),
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                          ['ArrivalTime']
-                      .substring(0, 5),
+                  ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] ==
+                          null
+                      ? travelListTicketData['SecondLegTickets']['Data'][index]
+                              ['ArrivalTime']
+                          .substring(0, 5)
+                      : travelListTicketData['SecondLegTickets']['Data'][index]
+                              ['TravelVariantLeg2']['ArrivalTime']
+                          .substring(0, 5),
                   travelListTicketData['SecondLegTickets']['Data'][index]
                       ['TicketPrice'],
                   travelListTicketData['SecondLegTickets']['Data'][index]
@@ -439,9 +449,13 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                   ticketData,
                   travelListTicketData['FirstLeg'],
                   travelListTicketData['SecondLegTickets']['Data'][index]
-                  ['FromStation']['Address'],
-                  travelListTicketData['SecondLegTickets']['Data'][index]
-                  ['ToStation']['Address'],
+                      ['FromStation']['Address'],
+                  ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] ==
+                          null
+                      ? travelListTicketData['SecondLegTickets']['Data'][index]
+                          ['ToStation']['Address']
+                      : travelListTicketData['SecondLegTickets']['Data'][index]
+                          ['TravelVariantLeg2']['ToStation']['Address'],
                 );
               },
             );
@@ -485,10 +499,15 @@ class Ticket extends StatefulWidget {
 
 class _TicketState extends State<Ticket> {
   SharePreferencelogin sh = SharePreferencelogin();
-  String enJson = "", uaJson = "", ruJson = "", plJson = "";
-  String departure = "DEPARTURE";
-  String arrival = "ARRIVAL";
-  String seats = "seats";
+  String departure = '',
+      arrival = '',
+      enJson = "",
+      uaJson = "",
+      ruJson = "",
+      seats = 'seats',
+      transfer = "",
+      waitTime = "",
+      plJson = "";
 
   void searchTicketlan() async {
     enJson = await DefaultAssetBundle.of(context)
@@ -512,20 +531,24 @@ class _TicketState extends State<Ticket> {
       b = a;
 
       if (b == 0) {
-        departure = "DEPARTURE";
-        arrival = "ARRIVAL";
+        //English
         seats = "seats";
+        transfer = "Transfer";
+        waitTime = "Wait Time";
       } else if (b == 1) {
-        departure = "ВІДХОД";
-        arrival = "ПРИБУТТЯ";
+        //Ukrainian
+        transfer = "Передача";
+        waitTime = "Зачекайте часу";
         seats = "місць";
       } else if (b == 2) {
-        departure = "ВЫЕЗД";
-        arrival = "ПРИБЫТИЕ";
+        //Russian
+        transfer = "Перечислить";
         seats = "мест";
+        waitTime = "Время ожидания";
       } else if (b == 3) {
-        departure = "SAÍDA";
-        arrival = "PRZYJAZD";
+        //Polski
+        waitTime = "Czas oczekiwania";
+        transfer = "Przeniesienie";
         seats = "siedzenia";
       }
     });
@@ -533,9 +556,19 @@ class _TicketState extends State<Ticket> {
 
   @override
   void initState() {
-    print(widget.ticketDataFirstLeg.toString());
+    print(DateTime.parse(widget.departureDate).month);
     super.initState();
     searchTicketlan();
+    departure =
+        widget.ticketData['SecondLeg']['TicketData']['FromStation']['CityName'];
+    if (widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] ==
+        null) {
+      arrival =
+          widget.ticketData['SecondLeg']['TicketData']['ToStation']['CityName'];
+    } else {
+      arrival = widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2']
+          ['ToStation']['CityName'];
+    }
   }
 
   @override
@@ -559,176 +592,218 @@ class _TicketState extends State<Ticket> {
                 image: smallTicket,
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 30.0, top: 5.0),
+                  padding: EdgeInsets.only(left: 35.0, top: 5.0),
                   child: FittedBox(
                     child: Container(
-                      height: 112,
-                      width: 380,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      height: 120,
+                      width: 390,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          Column(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Container(
-                                height: ScreenUtil().setSp(60),
-                                child: AutoSizeText(
-                                  '${widget.departureTime}',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(14, 52, 113, 10),
-                                      fontSize: ScreenUtil().setSp(60),
-                                      fontFamily: 'Helvetica',
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ),
-                              Container(
-                                width: ScreenUtil().setWidth(150),
-                                child: AutoSizeText(
-                                  departure,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15,
-                                      fontFamily: 'Helvetica',
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ),
-                              //Departure Address
-                              Container(
-                                height: ScreenUtil().setHeight(22),
-                                child: Text(
-                                  '${widget.departureAddress}',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: ScreenUtil().setHeight(22),
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: ScreenUtil().setHeight(22),
-                                child: Text(
-                                    DateTime.parse(widget.departureDate).day.toString()+"/"+DateTime.parse(widget.departureDate).month.toString()+"/"+DateTime.parse(widget.departureDate).year.toString(),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: ScreenUtil().setHeight(22),
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: ScreenUtil().setHeight(20),
-                                child: AutoSizeText(
-                                  '${widget.numberOfSeats} $seats',
-                                  minFontSize: 14,
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(14, 52, 113, 10),
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(top: 2.0),
-                                height: ScreenUtil().setSp(60),
-                                child: AutoSizeText(
-                                  '${widget.arrivalTime}',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(14, 52, 113, 10),
-                                      fontSize: ScreenUtil().setSp(60),
-                                      fontFamily: 'Helvetica',
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 1.0),
-                                width: ScreenUtil().setWidth(140),
-                                child: AutoSizeText(
-                                  arrival,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Helvetica',
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ),
-                              //Arrival Address
-                              Container(
-                                margin: EdgeInsets.only(top: 1.0),
-                                height: ScreenUtil().setHeight(22),
-                                child: Text(
-                                  '${widget.arrivalAddress}',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: ScreenUtil().setHeight(22),
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top:2.0),
-                                margin: EdgeInsets.only(top: 1.0),
-                                height: ScreenUtil().setHeight(22),
-                                child: Text(
-                                    DateTime.parse(widget.arrivalDate).day.toString()+"/"+DateTime.parse(widget.arrivalDate).month.toString()+"/"+DateTime.parse(widget.arrivalDate).year.toString(),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: ScreenUtil().setHeight(22),
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                '',
-                                style: TextStyle(
-                                  color: darkBlue,
-                                  fontSize: 15,
-                                  fontFamily: 'Helvetica',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   Container(
-                                    height: ScreenUtil().setSp(80),
+                                    height: ScreenUtil().setSp(60),
                                     child: AutoSizeText(
-                                      '${widget.ticketPrice.toStringAsFixed(0)}',
+                                      '${widget.departureTime}',
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        color: Color.fromRGBO(14, 52, 113, 10),
-                                        fontSize: ScreenUtil().setSp(80),
+                                          color:
+                                              Color.fromRGBO(14, 52, 113, 10),
+                                          fontSize: ScreenUtil().setSp(60),
+                                          fontFamily: 'Helvetica',
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: ScreenUtil().setWidth(150),
+                                    child: AutoSizeText(
+                                      departure,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontFamily: 'Helvetica',
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                  //Departure Address
+                                  Container(
+                                    height: ScreenUtil().setHeight(22),
+                                    child: Text(
+                                      '${widget.departureAddress}',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: ScreenUtil().setHeight(22),
                                         fontFamily: 'Helvetica',
-                                        fontWeight: FontWeight.w800,
+                                        fontWeight: FontWeight.w700,
                                       ),
                                     ),
                                   ),
                                   Container(
-                                    height: ScreenUtil().setSp(35),
+                                    height: ScreenUtil().setHeight(22),
                                     child: Text(
-                                      '${widget.currencyName}', //Empty space as to not distur the alignment
+                                      DateTime.parse(widget.departureDate)
+                                              .day
+                                              .toString() +
+                                          "/" +
+                                          DateTime.parse(widget.departureDate)
+                                              .month
+                                              .toString() +
+                                          "/" +
+                                          DateTime.parse(widget.departureDate)
+                                              .year
+                                              .toString(),
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: ScreenUtil().setSp(35),
+                                        fontSize: ScreenUtil().setHeight(22),
+                                        fontFamily: 'Helvetica',
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: ScreenUtil().setHeight(20),
+                                    child: AutoSizeText(
+                                      '${widget.numberOfSeats} $seats',
+                                      minFontSize: 14,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(14, 52, 113, 10),
+                                        fontFamily: 'Helvetica',
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Container(
+                                    height: ScreenUtil().setSp(60),
+                                    child: AutoSizeText(
+                                      '${widget.arrivalTime}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(14, 52, 113, 10),
+                                          fontSize: ScreenUtil().setSp(60),
+                                          fontFamily: 'Helvetica',
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: ScreenUtil().setWidth(150),
+                                    child: AutoSizeText(
+                                      arrival,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontFamily: 'Helvetica',
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                  //Arrival Address
+                                  Container(
+                                    height: ScreenUtil().setHeight(22),
+                                    child: Text(
+                                      '${widget.arrivalAddress}',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: ScreenUtil().setHeight(22),
+                                        fontFamily: 'Helvetica',
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: ScreenUtil().setHeight(22),
+                                    child: Text(
+                                      DateTime.parse(widget.arrivalDate)
+                                              .day
+                                              .toString() +
+                                          "/" +
+                                          DateTime.parse(widget.arrivalDate)
+                                              .month
+                                              .toString() +
+                                          "/" +
+                                          DateTime.parse(widget.arrivalDate)
+                                              .year
+                                              .toString(),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: ScreenUtil().setHeight(22),
+                                        fontFamily: 'Helvetica',
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: ScreenUtil().setHeight(20),
+                                    child: AutoSizeText(
+                                      '',
+                                      minFontSize: 14,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(14, 52, 113, 10),
+                                        fontFamily: 'Helvetica',
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Column(
+                                    children: <Widget>[
+                                      Container(
+                                        height: ScreenUtil().setSp(80),
+                                        child: AutoSizeText(
+                                          '${widget.ticketPrice.toStringAsFixed(0)}',
+                                          style: TextStyle(
+                                            color:
+                                                Color.fromRGBO(14, 52, 113, 10),
+                                            fontSize: ScreenUtil().setSp(80),
+                                            fontFamily: 'Helvetica',
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        height: ScreenUtil().setSp(35),
+                                        child: Text(
+                                          '${widget.currencyName}', //Empty space as to not distur the alignment
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: ScreenUtil().setSp(35),
+                                            fontFamily: 'Helvetica',
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: ScreenUtil().setSp(17),
+                                    child: AutoSizeText(
+                                      '${widget.vehicleTypeName}', //Empty space as to not distur the alignment
+                                      style: TextStyle(
+                                        color: Colors.black.withOpacity(0.5),
+                                        fontSize: ScreenUtil().setSp(17),
                                         fontFamily: 'Helvetica',
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -736,20 +811,26 @@ class _TicketState extends State<Ticket> {
                                   ),
                                 ],
                               ),
-                              Container(
-                                height: ScreenUtil().setSp(17),
-                                child: AutoSizeText(
-                                  '${widget.vehicleTypeName}', //Empty space as to not distur the alignment
-                                  style: TextStyle(
-                                    color: Colors.black.withOpacity(0.5),
-                                    fontSize: ScreenUtil().setSp(17),
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
+                          widget.ticketData['SecondLeg']['TicketData']
+                                      ['TravelVariantLeg2'] ==
+                                  null
+                              ? Container(
+                                  width: 0,
+                                  height: 0,
+                                )
+                              : Container(
+                                  child: AutoSizeText(
+                                    '$transfer: ${widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2']['FromStation']['CityName']} (${widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2']['FromStation']['Address']}) $waitTime: ${widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2']['WaitingHours']}:${widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2']['WaitingMinutes']}',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 12,
+                                      fontFamily: 'Helvetica',
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                )
                         ],
                       ),
                     ),

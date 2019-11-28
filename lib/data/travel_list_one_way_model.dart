@@ -30,16 +30,17 @@ class TravelListOneWayModel {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     //language change
-    int languageint =  prefs.getInt("languageIndicator");
+    int languageint = prefs.getInt("languageIndicator");
     String languageChange = languageint.toString();
-    print("language is:"+languageChange);
-    print("https://api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c3=true&c4=true");
+    print("language is:" + languageChange);
+    print(
+        "https://api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c3=true&c4=true");
     http.Response response = await http.get(
       Uri.encodeFull(
           'https://api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c4=true'),
       headers: {
         'token': prefs.getString('Token'),
-        'language' : languageChange,
+        'language': languageChange,
       },
     );
 
@@ -54,10 +55,16 @@ class TravelListOneWayModel {
       if (map['Data'][0]['TravelVariantLeg2'] == null) {
         TravelListOneWayModel travelListModelObj =
             TravelListOneWayModel.fromJson(map);
-
         return travelListModelObj.toJson();
       } else {
         transferWayModelObj = TransferWayModel.fromJson(map);
+        print('Yo');
+        debugPrint(
+            transferWayModelObj
+                .toJson()['Data'][0]['TravelVariantLeg2']['ToStation']
+                    ['StationName']
+                .toString(),
+            wrapWidth: 1024);
         return transferWayModelObj.toJson();
       }
     } else
@@ -67,16 +74,16 @@ class TravelListOneWayModel {
   Future getRoundWaySecondLegList(String arrivalStationID,
       String departureStationID, int year, int month, int day) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int languageint =  prefs.getInt("languageIndicator");
+    int languageint = prefs.getInt("languageIndicator");
     String languageChange = languageint.toString();
-    print("language is:"+languageChange);
+    print("language is:" + languageChange);
 
     http.Response response = await http.get(
       Uri.encodeFull(
           'https://api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c3=true&c4=true'),
       headers: {
         'token': prefs.getString('Token'),
-        'language' : languageChange,
+        'language': languageChange,
       },
     );
     DataStatusSeperator seperator =

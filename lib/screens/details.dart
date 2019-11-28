@@ -317,53 +317,70 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ['TicketData']['DepartureDate']
                             .substring(0, 4)),
                         arrivalStation: widget.ticketData['FirstLeg']
-                            ['TicketData']['ToStation']['StationName'],
+                                    ['TicketData']['TravelVariantLeg2'] ==
+                                null
+                            ? widget.ticketData['FirstLeg']['TicketData']
+                                ['ToStation']['CityName']
+                            : widget.ticketData['FirstLeg']['TicketData']
+                                ['TravelVariantLeg2']['ToStation']['CityName'],
                         departureStation: widget.ticketData['FirstLeg']
-                            ['TicketData']['FromStation']['StationName'],
+                            ['TicketData']['FromStation']['CityName'],
                         departureTime: widget.ticketData['FirstLeg']
                                 ['TicketData']['DepartureTime']
                             .substring(0, 5),
                         arrivalTime: widget.ticketData['FirstLeg']['TicketData']
-                                ['ArrivalTime']
-                            .substring(0, 5),
+                                    ['TravelVariantLeg2'] ==
+                                null
+                            ? widget.ticketData['FirstLeg']['TicketData']
+                                    ['ArrivalTime']
+                                .substring(0, 5)
+                            : widget.ticketData['FirstLeg']['TicketData']
+                                    ['TravelVariantLeg2']['ArrivalTime']
+                                .substring(0, 5),
                       ),
                     ),
-    (detailFormType == 'SecondLeg' || detailFormType == 'SecondLegVariantLeg2')?  Padding(
-    padding: EdgeInsets.all(5.0),
-    child: DetailTicket(
-    day: int.parse(widget.ticketData['SecondLeg']
-    ['TicketData']['DepartureDate']
-        .substring(8, 10)),
-    month: int.parse(widget.ticketData['SecondLeg']
-    ['TicketData']['DepartureDate']
-        .substring(5, 7)),
-    year: int.parse(widget.ticketData['SecondLeg']
-    ['TicketData']['DepartureDate']
-        .substring(0, 4)),
-    arrivalStation: widget.ticketData['SecondLeg']
-    ['TicketData']['ToStation']['StationName'],
-    departureStation: widget.ticketData['SecondLeg']
-    ['TicketData']['FromStation']['StationName'],
-    departureTime: widget.ticketData['SecondLeg']
-    ['TicketData']['DepartureTime']
-        .substring(0, 5),
-    arrivalTime: widget.ticketData['SecondLeg']['TicketData']
-    ['ArrivalTime']
-        .substring(0, 5),
-    ),
-    ) :Text("")
-
+                    (detailFormType == 'SecondLeg' ||
+                            detailFormType == 'SecondLegVariantLeg2')
+                        ? Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: DetailTicket(
+                              day: int.parse(widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureDate']
+                                  .substring(8, 10)),
+                              month: int.parse(widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureDate']
+                                  .substring(5, 7)),
+                              year: int.parse(widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureDate']
+                                  .substring(0, 4)),
+                              arrivalStation: widget.ticketData['SecondLeg']
+                                          ['TicketData']['TravelVariantLeg2'] ==
+                                      null
+                                  ? widget.ticketData['SecondLeg']['TicketData']
+                                      ['ToStation']['CityName']
+                                  : widget.ticketData['SecondLeg']['TicketData']
+                                          ['TravelVariantLeg2']['ToStation']
+                                      ['CityName'],
+                              departureStation: widget.ticketData['SecondLeg']
+                                  ['TicketData']['FromStation']['CityName'],
+                              departureTime: widget.ticketData['SecondLeg']
+                                      ['TicketData']['DepartureTime']
+                                  .substring(0, 5),
+                              arrivalTime: widget.ticketData['SecondLeg']
+                                          ['TicketData']['TravelVariantLeg2'] ==
+                                      null
+                                  ? widget.ticketData['SecondLeg']['TicketData']
+                                          ['ArrivalTime']
+                                      .substring(0, 5)
+                                  : widget.ticketData['SecondLeg']['TicketData']
+                                          ['TravelVariantLeg2']['ArrivalTime']
+                                      .substring(0, 5),
+                            ),
+                          )
+                        : Text("")
                   ],
                 ),
               ),
-
-
-
-
-
-
-
-
               Form(
                   key: _detailForm,
                   child: SliverList(
@@ -385,50 +402,48 @@ class _DetailScreenState extends State<DetailScreen> {
               SliverList(
                 delegate: SliverChildListDelegate([
                   ListTile(
-                    leading: GestureDetector(
-                      child: Image.asset(path2, height: 20.0),
-                      onTap: () {
-                        setState(() {
-                          if (checkBox2 == false) {
-                            path2 = "assets/checked.png";
-                            checkBox2 = true;
-                          } else {
-                            path2 = "assets/unchecked.png";
-                            checkBox2 = false;
-                          }
-                        });
-                      },
-                    ),
-                    title: Column(
-                      children: <Widget>[
-                        Row(
-                          children:<Widget>[
-                        Text(
-                          agreement+" ",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                    ],
-                        ),
-                        Row(
-                        children:<Widget>[
-                        GestureDetector(
-                          onTap: (){
-                            launchUrl();
-                          },
-                          child:Text(
-                            terms,
-                            style: TextStyle(color: Color.fromARGB(0xFF,0xFF, 0xBB,0x00),fontWeight: FontWeight.bold),
-
+                      leading: GestureDetector(
+                        child: Image.asset(path2, height: 20.0),
+                        onTap: () {
+                          setState(() {
+                            if (checkBox2 == false) {
+                              path2 = "assets/checked.png";
+                              checkBox2 = true;
+                            } else {
+                              path2 = "assets/unchecked.png";
+                              checkBox2 = false;
+                            }
+                          });
+                        },
+                      ),
+                      title: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                agreement + " ",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
-                        ),
+                          Row(
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: () {
+                                  launchUrl();
+                                },
+                                child: Text(
+                                  terms,
+                                  style: TextStyle(
+                                      color: Color.fromARGB(
+                                          0xFF, 0xFF, 0xBB, 0x00),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
-                        ),
-
-
-                      ],
-                    )
-
-                  ),
+                      )),
                   ListTile(
                     leading: GestureDetector(
                       child: Image.asset(path1, height: 20.0),
@@ -456,234 +471,250 @@ class _DetailScreenState extends State<DetailScreen> {
                   height: 60,
                 ),
               ),
-
-               checkBox2 == false ?
-                  SliverToBoxAdapter(
-                  child: Align(
-                    child:Container(
-                      width: ScreenUtil().setWidth(500),
-                      child: ButtonTheme(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(17.0),
-                            topLeft: Radius.circular(17.0),
-                          ),
-                        ),
-                        buttonColor: Colors.grey,
-                        child: RaisedButton(
-                          child: AutoSizeText(
-                            cont,
-                            maxLines: 1,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: ScreenUtil(allowFontScaling: true).setSp(40),
+              checkBox2 == false
+                  ? SliverToBoxAdapter(
+                      child: Align(
+                        child: Container(
+                          width: ScreenUtil().setWidth(500),
+                          child: ButtonTheme(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(17.0),
+                                topLeft: Radius.circular(17.0),
+                              ),
+                            ),
+                            buttonColor: Colors.grey,
+                            child: RaisedButton(
+                              child: AutoSizeText(
+                                cont,
+                                maxLines: 1,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: ScreenUtil(allowFontScaling: true)
+                                      .setSp(40),
+                                ),
+                              ),
+                              onPressed: () {
+                                print("button disabled");
+                              },
                             ),
                           ),
-                          onPressed: () {
-                            print("button disabled");
+                        ),
+                        alignment: Alignment.bottomCenter,
+                      ),
+                    )
+                  : SliverToBoxAdapter(
+                      child: Align(
+                        child: GunselButton(
+                          btnWidth: 500,
+                          btnText: cont,
+                          btnTextFontSize: 40,
+                          whenPressed: () {
+                            switch (detailFormType) {
+                              case 'FirstLeg':
+                                if (_detailForm.currentState.validate()) {
+                                  _detailForm.currentState.save();
+
+                                  widget.ticketData['FirstLeg']['SeatCount'] =
+                                      formsData.keys.length;
+                                  widget.ticketData['FirstLeg']
+                                      ['SeatVoyagerInfo'] = formsData;
+                                  widget.ticketData['AgreementCheckBox'] =
+                                      checkBox1;
+                                  widget.ticketData['SubscriberCheckBox'] =
+                                      checkBox2;
+                                  Navigator.pushNamed(
+                                    context,
+                                    ticketSummaryScreen,
+                                    arguments: widget.ticketData,
+                                  );
+                                }
+                                break;
+                              case 'FirstLegVariantLeg2':
+                                if (_detailForm.currentState.validate()) {
+                                  _detailForm.currentState.save();
+                                  int index = 0;
+                                  print(formsData);
+                                  formsData.forEach((k, v) {
+                                    formsDataFirstLegVariantLegTwo[k]['Name'] =
+                                        v['Name'];
+                                    formsDataFirstLegVariantLegTwo[k]
+                                        ['Surname'] = v['Surname'];
+                                    formsDataFirstLegVariantLegTwo[k]['Email'] =
+                                        v['Email'];
+                                    formsDataFirstLegVariantLegTwo[k]
+                                        ['Number'] = v['Number'];
+                                    formsDataFirstLegVariantLegTwo[k]
+                                            ['SeatNumber'] =
+                                        widget.ticketData['FirstLeg']
+                                                ['TravelVariantLeg2']
+                                            ['SelectedSeatsNumber'][index];
+
+                                    ++index;
+                                  });
+                                  index = 0;
+                                  widget.ticketData['FirstLeg']['SeatCount'] =
+                                      formsData.keys.length;
+                                  widget.ticketData['FirstLeg']
+                                      ['SeatVoyagerInfo'] = formsData;
+                                  widget.ticketData['FirstLeg']
+                                          ['TravelVariantLeg2']['SeatCount'] =
+                                      formsDataFirstLegVariantLegTwo
+                                          .keys.length;
+                                  widget.ticketData['FirstLeg']
+                                              ['TravelVariantLeg2']
+                                          ['SeatVoyagerInfo'] =
+                                      formsDataFirstLegVariantLegTwo;
+                                  widget.ticketData['AgreementCheckBox'] =
+                                      checkBox1;
+                                  widget.ticketData['SubscriberCheckBox'] =
+                                      checkBox2;
+                                  Navigator.pushNamed(
+                                    context,
+                                    ticketSummaryScreen,
+                                    arguments: widget.ticketData,
+                                  );
+                                }
+                                break;
+                              case 'SecondLeg':
+                                if (_detailForm.currentState.validate()) {
+                                  _detailForm.currentState.save();
+                                  int index = 0;
+                                  formsData.forEach((k, v) {
+                                    secondLegformsData[k]['Name'] = v['Name'];
+                                    secondLegformsData[k]['Surname'] =
+                                        v['Surname'];
+                                    secondLegformsData[k]['Email'] = v['Email'];
+                                    secondLegformsData[k]['Number'] =
+                                        v['Number'];
+                                    secondLegformsData[k]['SeatNumber'] =
+                                        widget.ticketData['SecondLeg']
+                                            ['SelectedSeatsNumber'][index];
+                                    ++index;
+                                  });
+                                  index = 0;
+                                  widget.ticketData['FirstLeg']['SeatCount'] =
+                                      formsData.keys.length;
+                                  widget.ticketData['FirstLeg']
+                                      ['SeatVoyagerInfo'] = formsData;
+
+                                  widget.ticketData['SecondLeg']['SeatCount'] =
+                                      secondLegformsData.keys.length;
+                                  widget.ticketData['SecondLeg']
+                                      ['SeatVoyagerInfo'] = secondLegformsData;
+
+                                  widget.ticketData['AgreementCheckBox'] =
+                                      checkBox1;
+                                  widget.ticketData['SubscriberCheckBox'] =
+                                      checkBox2;
+                                  Navigator.pushNamed(
+                                    context,
+                                    ticketSummaryScreen,
+                                    arguments: widget.ticketData,
+                                  );
+                                }
+                                break;
+                              case 'SecondLegVariantLeg2':
+                                if (_detailForm.currentState.validate()) {
+                                  _detailForm.currentState.save();
+                                  int index = 0;
+                                  formsData.forEach((k, v) {
+                                    formsDataFirstLegVariantLegTwo[k]['Name'] =
+                                        v['Name'];
+                                    formsDataFirstLegVariantLegTwo[k]
+                                        ['Surname'] = v['Surname'];
+                                    formsDataFirstLegVariantLegTwo[k]['Email'] =
+                                        v['Email'];
+                                    formsDataFirstLegVariantLegTwo[k]
+                                        ['Number'] = v['Number'];
+                                    formsDataFirstLegVariantLegTwo[k]
+                                            ['SeatNumber'] =
+                                        widget.ticketData['FirstLeg']
+                                                ['TravelVariantLeg2']
+                                            ['SelectedSeatsNumber'][index];
+                                    ++index;
+                                  });
+                                  index = 0;
+                                  formsData.forEach((k, v) {
+                                    secondLegformsData[k]['Name'] = v['Name'];
+                                    secondLegformsData[k]['Surname'] =
+                                        v['Surname'];
+                                    secondLegformsData[k]['Email'] = v['Email'];
+                                    secondLegformsData[k]['Number'] =
+                                        v['Number'];
+                                    secondLegformsData[k]['SeatNumber'] =
+                                        widget.ticketData['SecondLeg']
+                                            ['SelectedSeatsNumber'][index];
+                                    ++index;
+                                  });
+                                  index = 0;
+                                  formsData.forEach((k, v) {
+                                    formsDataSecondLegVariantLegTwo[k]['Name'] =
+                                        v['Name'];
+                                    formsDataSecondLegVariantLegTwo[k]
+                                        ['Surname'] = v['Surname'];
+                                    formsDataSecondLegVariantLegTwo[k]
+                                        ['Email'] = v['Email'];
+                                    formsDataSecondLegVariantLegTwo[k]
+                                        ['Number'] = v['Number'];
+                                    formsDataSecondLegVariantLegTwo[k]
+                                            ['SeatNumber'] =
+                                        widget.ticketData['SecondLeg']
+                                                ['TravelVariantLeg2']
+                                            ['SelectedSeatsNumber'][index];
+                                    ++index;
+                                  });
+                                  index = 0;
+                                  widget.ticketData['FirstLeg']['SeatCount'] =
+                                      formsData.keys.length;
+                                  widget.ticketData['FirstLeg']
+                                      ['SeatVoyagerInfo'] = formsData;
+                                  widget.ticketData['FirstLeg']
+                                          ['TravelVariantLeg2']['SeatCount'] =
+                                      formsDataFirstLegVariantLegTwo
+                                          .keys.length;
+                                  widget.ticketData['FirstLeg']
+                                              ['TravelVariantLeg2']
+                                          ['SeatVoyagerInfo'] =
+                                      formsDataFirstLegVariantLegTwo;
+                                  widget.ticketData['SecondLeg']['SeatCount'] =
+                                      secondLegformsData.keys.length;
+                                  widget.ticketData['SecondLeg']
+                                      ['SeatVoyagerInfo'] = secondLegformsData;
+                                  widget.ticketData['SecondLeg']
+                                          ['TravelVariantLeg2']['SeatCount'] =
+                                      formsDataSecondLegVariantLegTwo
+                                          .keys.length;
+                                  widget.ticketData['SecondLeg']
+                                              ['TravelVariantLeg2']
+                                          ['SeatVoyagerInfo'] =
+                                      formsDataSecondLegVariantLegTwo;
+                                  widget.ticketData['AgreementCheckBox'] =
+                                      checkBox1;
+                                  widget.ticketData['SubscriberCheckBox'] =
+                                      checkBox2;
+                                  Navigator.pushNamed(
+                                    context,
+                                    ticketSummaryScreen,
+                                    arguments: widget.ticketData,
+                                  );
+                                }
+                                break;
+                              default:
+                            }
                           },
                         ),
+                        alignment: Alignment.bottomCenter,
                       ),
                     ),
-                  alignment: Alignment.bottomCenter,
-                  ),
-                  )
-
-              :SliverToBoxAdapter(
-                child: Align(
-                  child:GunselButton(
-                    btnWidth: 500,
-                    btnText: cont,
-                    btnTextFontSize: 40,
-                    whenPressed: () {
-                      switch (detailFormType) {
-                        case 'FirstLeg':
-                          if (_detailForm.currentState.validate() &&
-                              checkBox1) {
-                            _detailForm.currentState.save();
-
-                            widget.ticketData['FirstLeg']['SeatCount'] =
-                                formsData.keys.length;
-                            widget.ticketData['FirstLeg']['SeatVoyagerInfo'] =
-                                formsData;
-                            widget.ticketData['AgreementCheckBox'] = checkBox1;
-                            widget.ticketData['SubscriberCheckBox'] = checkBox2;
-                            Navigator.pushNamed(
-                              context,
-                              ticketSummaryScreen,
-                              arguments: widget.ticketData,
-                            );
-                          }
-                          break;
-                        case 'FirstLegVariantLeg2':
-                          if (_detailForm.currentState.validate() &&
-                              checkBox1) {
-                            _detailForm.currentState.save();
-                            int index = 0;
-                            print(formsData);
-                            formsData.forEach((k, v) {
-                              formsDataFirstLegVariantLegTwo[k]['Name'] =
-                                  v['Name'];
-                              formsDataFirstLegVariantLegTwo[k]['Surname'] =
-                                  v['Surname'];
-                              formsDataFirstLegVariantLegTwo[k]['Email'] =
-                                  v['Email'];
-                              formsDataFirstLegVariantLegTwo[k]['Number'] =
-                                  v['Number'];
-                              formsDataFirstLegVariantLegTwo[k]['SeatNumber'] =
-                                  widget.ticketData['FirstLeg']
-                                          ['TravelVariantLeg2']
-                                      ['SelectedSeatsNumber'][index];
-
-                              ++index;
-                            });
-                            index = 0;
-                            widget.ticketData['FirstLeg']['SeatCount'] =
-                                formsData.keys.length;
-                            widget.ticketData['FirstLeg']['SeatVoyagerInfo'] =
-                                formsData;
-                            widget.ticketData['FirstLeg']['TravelVariantLeg2']
-                                    ['SeatCount'] =
-                                formsDataFirstLegVariantLegTwo.keys.length;
-                            widget.ticketData['FirstLeg']['TravelVariantLeg2']
-                                    ['SeatVoyagerInfo'] =
-                                formsDataFirstLegVariantLegTwo;
-                            widget.ticketData['AgreementCheckBox'] = checkBox1;
-                            widget.ticketData['SubscriberCheckBox'] = checkBox2;
-                            Navigator.pushNamed(
-                              context,
-                              ticketSummaryScreen,
-                              arguments: widget.ticketData,
-                            );
-                          }
-                          break;
-                        case 'SecondLeg':
-                          if (_detailForm.currentState.validate() &&
-                              checkBox1) {
-                            _detailForm.currentState.save();
-                            int index = 0;
-                            formsData.forEach((k, v) {
-                              secondLegformsData[k]['Name'] = v['Name'];
-                              secondLegformsData[k]['Surname'] = v['Surname'];
-                              secondLegformsData[k]['Email'] = v['Email'];
-                              secondLegformsData[k]['Number'] = v['Number'];
-                              secondLegformsData[k]['SeatNumber'] =
-                                  widget.ticketData['SecondLeg']
-                                      ['SelectedSeatsNumber'][index];
-                              ++index;
-                            });
-                            index = 0;
-                            widget.ticketData['FirstLeg']['SeatCount'] =
-                                formsData.keys.length;
-                            widget.ticketData['FirstLeg']['SeatVoyagerInfo'] =
-                                formsData;
-
-                            widget.ticketData['SecondLeg']['SeatCount'] =
-                                secondLegformsData.keys.length;
-                            widget.ticketData['SecondLeg']['SeatVoyagerInfo'] =
-                                secondLegformsData;
-
-                            widget.ticketData['AgreementCheckBox'] = checkBox1;
-                            widget.ticketData['SubscriberCheckBox'] = checkBox2;
-                            Navigator.pushNamed(
-                              context,
-                              ticketSummaryScreen,
-                              arguments: widget.ticketData,
-                            );
-                          }
-                          break;
-                        case 'SecondLegVariantLeg2':
-                          if (_detailForm.currentState.validate() &&
-                              checkBox1) {
-                            _detailForm.currentState.save();
-                            int index = 0;
-                            formsData.forEach((k, v) {
-                              formsDataFirstLegVariantLegTwo[k]['Name'] =
-                                  v['Name'];
-                              formsDataFirstLegVariantLegTwo[k]['Surname'] =
-                                  v['Surname'];
-                              formsDataFirstLegVariantLegTwo[k]['Email'] =
-                                  v['Email'];
-                              formsDataFirstLegVariantLegTwo[k]['Number'] =
-                                  v['Number'];
-                              formsDataFirstLegVariantLegTwo[k]['SeatNumber'] =
-                                  widget.ticketData['FirstLeg']
-                                          ['TravelVariantLeg2']
-                                      ['SelectedSeatsNumber'][index];
-                              ++index;
-                            });
-                            index = 0;
-                            formsData.forEach((k, v) {
-                              secondLegformsData[k]['Name'] = v['Name'];
-                              secondLegformsData[k]['Surname'] = v['Surname'];
-                              secondLegformsData[k]['Email'] = v['Email'];
-                              secondLegformsData[k]['Number'] = v['Number'];
-                              secondLegformsData[k]['SeatNumber'] =
-                                  widget.ticketData['SecondLeg']
-                                      ['SelectedSeatsNumber'][index];
-                              ++index;
-                            });
-                            index = 0;
-                            formsData.forEach((k, v) {
-                              formsDataSecondLegVariantLegTwo[k]['Name'] =
-                                  v['Name'];
-                              formsDataSecondLegVariantLegTwo[k]['Surname'] =
-                                  v['Surname'];
-                              formsDataSecondLegVariantLegTwo[k]['Email'] =
-                                  v['Email'];
-                              formsDataSecondLegVariantLegTwo[k]['Number'] =
-                                  v['Number'];
-                              formsDataSecondLegVariantLegTwo[k]['SeatNumber'] =
-                                  widget.ticketData['SecondLeg']
-                                          ['TravelVariantLeg2']
-                                      ['SelectedSeatsNumber'][index];
-                              ++index;
-                            });
-                            index = 0;
-                            widget.ticketData['FirstLeg']['SeatCount'] =
-                                formsData.keys.length;
-                            widget.ticketData['FirstLeg']['SeatVoyagerInfo'] =
-                                formsData;
-                            widget.ticketData['FirstLeg']['TravelVariantLeg2']
-                                    ['SeatCount'] =
-                                formsDataFirstLegVariantLegTwo.keys.length;
-                            widget.ticketData['FirstLeg']['TravelVariantLeg2']
-                                    ['SeatVoyagerInfo'] =
-                                formsDataFirstLegVariantLegTwo;
-                            widget.ticketData['SecondLeg']['SeatCount'] =
-                                secondLegformsData.keys.length;
-                            widget.ticketData['SecondLeg']['SeatVoyagerInfo'] =
-                                secondLegformsData;
-                            widget.ticketData['SecondLeg']['TravelVariantLeg2']
-                                    ['SeatCount'] =
-                                formsDataSecondLegVariantLegTwo.keys.length;
-                            widget.ticketData['SecondLeg']['TravelVariantLeg2']
-                                    ['SeatVoyagerInfo'] =
-                                formsDataSecondLegVariantLegTwo;
-                            widget.ticketData['AgreementCheckBox'] = checkBox1;
-                            widget.ticketData['SubscriberCheckBox'] = checkBox2;
-                            Navigator.pushNamed(
-                              context,
-                              ticketSummaryScreen,
-                              arguments: widget.ticketData,
-                            );
-                          }
-                          break;
-                        default:
-                      }
-                    },
-                  ),
-
-                  alignment: Alignment.bottomCenter,
-                ),
-              ),
             ],
           ),
         ),
       ],
     );
   }
- void launchUrl() async {
+
+  void launchUrl() async {
     const url = "https://lines.gunsel.ua/privacy-and-policy";
     if (await canLaunch(url)) {
       await launch(url);
@@ -691,7 +722,6 @@ class _DetailScreenState extends State<DetailScreen> {
       throw 'Could not launch $url';
     }
   }
-
 }
 
 class DetailTicket extends StatefulWidget {
@@ -1241,7 +1271,4 @@ class _DetailFormState extends State<DetailForm> {
           .firstWhere((k) => countryCode[k] == selectedFlag, orElse: () => '');
     });
   }
-
-
-
 }
