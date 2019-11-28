@@ -125,7 +125,7 @@ class SearchTicketContainerState extends State<SearchTicketContainer> {
         alignment:
             Alignment.lerp(Alignment.topCenter, Alignment.bottomCenter, 0.2),
         child: Container(
-          height: ScreenUtil().setHeight(730),
+          height: ScreenUtil().setHeight(790),
           child: Stack(
             children: <Widget>[
               Align(
@@ -135,7 +135,7 @@ class SearchTicketContainerState extends State<SearchTicketContainer> {
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(color: Colors.white),
                       color: Colors.black26),
-                  height: ScreenUtil().setHeight(700),
+                  height: ScreenUtil().setHeight(760),
                   width: ScreenUtil().setWidth(610),
                   child: ListView(
                     children: <Widget>[
@@ -636,12 +636,20 @@ class _RoundWayFormState extends State<RoundWayForm> {
     http.Response response;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String gunselToken = prefs.getString('Token');
+
+    //language change
+    int languageint = prefs.getInt("languageIndicator");
+    String languageChange = languageint.toString();
+
+    print("language is:"+languageChange);
+
     List<String> list = [];
     try {
       response = await http.get(
         Uri.encodeFull(stationListAPI),
         headers: {
           'token': gunselToken,
+          'language' : languageChange,
         },
       );
     } catch (e) {

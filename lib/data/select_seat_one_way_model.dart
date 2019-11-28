@@ -21,9 +21,13 @@ class SelectSeatModel {
   Future getSeatsData(String travelVariantId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    //For language change
+    print("variant id is:"+travelVariantId);
+    print("'https://api.gunsel.ua/Public.svc/GetTravelVariantDetails/$travelVariantId?c1=true");
+
     http.Response response = await http.get(
       Uri.encodeFull(
-          'https://test-api.gunsel.ua/Public.svc/GetTravelVariantDetails/$travelVariantId?c1=true'),
+          'https://api.gunsel.ua/Public.svc/GetTravelVariantDetails/$travelVariantId?c1=true'),
       headers: {
         'token': prefs.getString('Token'),
       },

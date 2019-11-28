@@ -92,10 +92,10 @@ const countryCode = {
   '+48': polandFlag,
   '+42(0': czechFlag,
 };
-const facebookAPI = 'https://test-api.gunsel.ua/Public.svc/LoginWithFacebook';
+const facebookAPI = 'https://api.gunsel.ua/Public.svc/LoginWithFacebook';
 const tokenAPI =
-    'https://test-api.gunsel.ua/Public.svc/GetPublicToken?c0=30&c1=0';
-const stationListAPI = 'https://test-api.gunsel.ua/Public.svc/GetStationList';
+    'https://api.gunsel.ua/Public.svc/GetPublicToken?c0=30&c1=0';
+const stationListAPI = 'https://api.gunsel.ua/Public.svc/GetStationList';
 
 // a1a1a4b5-d1c8-4aec-bd08-2a3ff55440db = 48
 // a1a1a4b5-d1c8-2aec-bd08-2a3ff55440db = 42

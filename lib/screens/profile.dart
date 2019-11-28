@@ -33,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       phoneNumber = " Phone number",
       btnSaveChange = " Save changes",
       profile = " Profile",
-      updateInformation = "Data is successfully Updated",
+      updateInformation = "Your informations are successfully updated",
       noupdateInformation = "Data is not Updated",
       ok = " Ok";
 
@@ -71,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         phoneNumber = enData["phone_number"];
         btnSaveChange = enData["save_changes"];
         profile = enData["my_profile"];
-        updateInformation = "Data is successfully Updated";
+        updateInformation = "Your informations are successfully updated";
         noupdateInformation = "Data is not Updated";
         ok = enData["ok"];
       }
@@ -83,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         phoneNumber = uaData["phone_number"];
         btnSaveChange = uaData["save_changes"];
         profile = uaData["my_profile"];
-        updateInformation = "Дані успішно оновлюються";
+        updateInformation = "Ваша інформація успішно оновлюється";
         noupdateInformation = "Дані не оновлюються";
         ok = uaData["ok"];
       } else if (b == 2) {
@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         phoneNumber = ruData["phone_number"];
         btnSaveChange = ruData["save_changes"];
         profile = ruData["my_profile"];
-        updateInformation = "Данные успешно обновлены";
+        updateInformation = "Ваша информация успешно обновлена";
         noupdateInformation = "Данные не обновляются";
         ok = ruData["ok"];
       }
@@ -106,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         phoneNumber = plData["phone_number"];
         btnSaveChange = plData["save_changes"];
         profile = plData["my_profile"];
-        updateInformation = "Dane zostały pomyślnie zaktualizowane";
+        updateInformation = "Twoje informacje zostały pomyślnie zaktualizowane";
         noupdateInformation = "Dane nie są aktualizowane";
         ok = plData["ok"];
       }
@@ -246,7 +246,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   {
 
     String token = await sh.gettokens();
-    String url = 'https://test-api.gunsel.ua/Translation.svc/GetLanguageList';
+    String url = 'https://api.gunsel.ua/Translation.svc/GetLanguageList';
 
     Map<String, String> headers = {"token": token};
     Response response = await get(url, headers: headers);
@@ -861,7 +861,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String tokenData = await shPref.gettokens();
     print(tokenData);
 
-    String url = 'https://test-api.gunsel.ua/Membership.svc/SetMemberInfo';
+    String url = 'https://api.gunsel.ua/Membership.svc/SetMemberInfo';
     Map<String,String> headers = {"token": tokenData};
     String json = '{"FirstName":"$editFirstname","LastName":"$editLastname","CountryId":"$editCountryid","PhoneNumber":"$editPhonenumber","Email":"$editEmail"}';
 

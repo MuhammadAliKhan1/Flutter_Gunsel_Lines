@@ -6,9 +6,9 @@ import 'sharedPreference.dart';
 class NewDataModel {
   SharePreferencelogin shPref = SharePreferencelogin();
   List<Data> data;
-  String token ="";
-        String StationListAPI =
-      'https://test-lines-api.gunsel.ua/Public.svc/GetContentList?c0=1040,1041';
+  String token = "";
+  String StationListAPI = 'https://'
+      'lines-api.gunsel.ua/Public.svc/GetContentList?c0=1040,1041';
   NewDataModel({this.data});
 
   NewDataModel.fromJson(Map<String, dynamic> json) {
@@ -29,16 +29,19 @@ class NewDataModel {
   }
 
   Future<Map<String, dynamic>> getStationListFromAPI() async {
-
     token = await shPref.gettokens();
+    int languageint = await shPref.getshared1();
+    String languageChange = languageint.toString();
 
-    print("news token is:"+token.toString());
+    print("news token is:" + token.toString());
+    print("Language is:" + languageChange);
 
     http.Response response = await http.get(
       Uri.encodeFull(
-          'https://test-lines-api.gunsel.ua/Public.svc/GetContentList?c0=1040,1041'),
+          'https://lines-api.gunsel.ua/Public.svc/GetContentList?c0=1040,1041'),
       headers: {
         'token': token,
+        'language': languageChange,
       },
     );
     Map<String, dynamic> map = {

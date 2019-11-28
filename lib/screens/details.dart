@@ -4,6 +4,7 @@ import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/widgets/button.dart';
 import 'package:gunsel/data/sharedPreference.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Map<int, dynamic> formsData;
 Map<int, dynamic> formsDataFirstLegVariantLegTwo;
@@ -93,9 +94,9 @@ class _DetailScreenState extends State<DetailScreen> {
   static GlobalKey<FormState> _detailForm = GlobalKey<FormState>();
   String detailFormType;
   String checked = "assets/checked.png";
-  bool checkBox1 = false;
+  bool checkBox1 = true;
   bool checkBox2 = false;
-  String path1 = "assets/unchecked.png";
+  String path1 = "assets/checked.png";
   String path2 = "assets/unchecked.png";
   var number;
   @override
@@ -183,10 +184,11 @@ class _DetailScreenState extends State<DetailScreen> {
       purchaseDetails = "Purchase Details",
       purchase = "Purchase",
       search = "Search",
-      agreement = "I read the agreement and I agree",
-      sub = "I want to be subscriber",
+      agreement = "I have read and agree with the",
+      sub = "Stay updated on the latest orders",
       cont = "Continue",
-      information = "Voyagers Information";
+      information = "Voyagers Information",
+      terms = "Terms and conditions";
 
   void detailslan() async {
     enJson = await DefaultAssetBundle.of(context)
@@ -214,36 +216,40 @@ class _DetailScreenState extends State<DetailScreen> {
         purchaseDetails = "Purchase Details";
         purchase = "Purchase";
         search = enData["bus_search"];
-        agreement = "I read the agreement and I agree";
-        sub = "I want to be subscriber";
+        agreement = enData["register_checkbox_1"];
+        sub = enData["become_subscribed"];
         cont = enData["continue"];
+        terms = enData["register_checkbox_2"];
       } else if (b == 1) {
         yourSeat = uaData["your_seat"];
         details = uaData["details"];
         purchaseDetails = "Деталі придбання";
         purchase = "Купівля";
         search = uaData["bus_search"];
-        agreement = "Я читаю угоду і згоден";
-        sub = "Я хочу бути передплатником";
+        agreement = uaData["register_checkbox_1"];
+        sub = uaData["become_subscribed"];
         cont = uaData["continue"];
+        terms = uaData["register_checkbox_2"];
       } else if (b == 2) {
         yourSeat = ruData["your_seat"];
         details = ruData["details"];
         purchaseDetails = "Детали покупки";
         purchase = "покупка";
         search = ruData["bus_search"];
-        agreement = "Я прочитал соглашение, и я согласен";
-        sub = "Я хочу быть подписчиком";
+        agreement = ruData["register_checkbox_1"];
+        sub = ruData["become_subscribed"];
         cont = ruData["continue"];
+        terms = ruData["register_checkbox_2"];
       } else if (b == 3) {
         yourSeat = enData["your_seat"];
         details = plData["details"];
         purchaseDetails = "Szczegóły zakupu";
         purchase = "Zakup";
         search = plData["bus_search"];
-        agreement = "Przeczytałem umowę i zgadzam się";
-        sub = "Chcę zostać subskrybentem";
+        agreement = plData["register_checkbox_1"];
+        sub = plData["become_subscribed"];
         cont = plData["continue"];
+        terms = plData["register_checkbox_2"];
       }
     });
   }
@@ -322,9 +328,42 @@ class _DetailScreenState extends State<DetailScreen> {
                             .substring(0, 5),
                       ),
                     ),
+    (detailFormType == 'SecondLeg' || detailFormType == 'SecondLegVariantLeg2')?  Padding(
+    padding: EdgeInsets.all(5.0),
+    child: DetailTicket(
+    day: int.parse(widget.ticketData['SecondLeg']
+    ['TicketData']['DepartureDate']
+        .substring(8, 10)),
+    month: int.parse(widget.ticketData['SecondLeg']
+    ['TicketData']['DepartureDate']
+        .substring(5, 7)),
+    year: int.parse(widget.ticketData['SecondLeg']
+    ['TicketData']['DepartureDate']
+        .substring(0, 4)),
+    arrivalStation: widget.ticketData['SecondLeg']
+    ['TicketData']['ToStation']['StationName'],
+    departureStation: widget.ticketData['SecondLeg']
+    ['TicketData']['FromStation']['StationName'],
+    departureTime: widget.ticketData['SecondLeg']
+    ['TicketData']['DepartureTime']
+        .substring(0, 5),
+    arrivalTime: widget.ticketData['SecondLeg']['TicketData']
+    ['ArrivalTime']
+        .substring(0, 5),
+    ),
+    ) :Text("")
+
                   ],
                 ),
               ),
+
+
+
+
+
+
+
+
               Form(
                   key: _detailForm,
                   child: SliverList(
@@ -360,29 +399,54 @@ class _DetailScreenState extends State<DetailScreen> {
                         });
                       },
                     ),
-                    title: Text(
-                      agreement,
-                      style: TextStyle(color: Colors.red),
-                    ),
+                    title: Column(
+                      children: <Widget>[
+                        Row(
+                          children:<Widget>[
+                        Text(
+                          agreement+" ",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                    ],
+                        ),
+                        Row(
+                        children:<Widget>[
+                        GestureDetector(
+                          onTap: (){
+                            launchUrl();
+                          },
+                          child:Text(
+                            terms,
+                            style: TextStyle(color: Color.fromARGB(0xFF,0xFF, 0xBB,0x00),fontWeight: FontWeight.bold),
+
+                          ),
+                        ),
+                        ],
+                        ),
+
+
+                      ],
+                    )
+
                   ),
                   ListTile(
                     leading: GestureDetector(
                       child: Image.asset(path1, height: 20.0),
                       onTap: () {
                         setState(() {
-                          if (checkBox1 == false) {
-                            path1 = "assets/checked.png";
-                            checkBox1 = true;
-                          } else {
+                          if (checkBox1 == true) {
                             path1 = "assets/unchecked.png";
                             checkBox1 = false;
+                          } else {
+                            path1 = "assets/checked.png";
+                            checkBox1 = true;
                           }
                         });
                       },
                     ),
                     title: Text(
                       sub,
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ]),
@@ -392,9 +456,42 @@ class _DetailScreenState extends State<DetailScreen> {
                   height: 60,
                 ),
               ),
-              SliverToBoxAdapter(
+
+               checkBox2 == false ?
+                  SliverToBoxAdapter(
+                  child: Align(
+                    child:Container(
+                      width: ScreenUtil().setWidth(500),
+                      child: ButtonTheme(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(17.0),
+                            topLeft: Radius.circular(17.0),
+                          ),
+                        ),
+                        buttonColor: Colors.grey,
+                        child: RaisedButton(
+                          child: AutoSizeText(
+                            cont,
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: ScreenUtil(allowFontScaling: true).setSp(40),
+                            ),
+                          ),
+                          onPressed: () {
+                            print("button disabled");
+                          },
+                        ),
+                      ),
+                    ),
+                  alignment: Alignment.bottomCenter,
+                  ),
+                  )
+
+              :SliverToBoxAdapter(
                 child: Align(
-                  child: GunselButton(
+                  child:GunselButton(
                     btnWidth: 500,
                     btnText: cont,
                     btnTextFontSize: 40,
@@ -576,6 +673,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       }
                     },
                   ),
+
                   alignment: Alignment.bottomCenter,
                 ),
               ),
@@ -585,6 +683,15 @@ class _DetailScreenState extends State<DetailScreen> {
       ],
     );
   }
+ void launchUrl() async {
+    const url = "https://lines.gunsel.ua/privacy-and-policy";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
 }
 
 class DetailTicket extends StatefulWidget {
@@ -634,13 +741,13 @@ class _DetailTicketState extends State<DetailTicket> {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
       } else if (b == 1) {
-        departure = "ВИХІДНА ПОЗИЦІЯ";
+        departure = "ВІДХОД";
         arrival = "ПРИБУТТЯ";
       } else if (b == 2) {
-        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
+        departure = "ВЫЕЗД";
         arrival = "ПРИБЫТИЕ";
       } else if (b == 3) {
-        departure = "POZYCJA WYJŚCIOWA";
+        departure = "WYJAZD";
         arrival = "PRZYJAZD";
       }
     });
@@ -717,7 +824,7 @@ class _DetailTicketState extends State<DetailTicket> {
                             width: ScreenUtil().setSp(150),
                             child: AutoSizeText(
                               '${widget.departureStation}',
-                              style: TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: 21),
                               maxLines: 2,
                             ),
                           ),
@@ -763,7 +870,7 @@ class _DetailTicketState extends State<DetailTicket> {
                             width: ScreenUtil().setSp(150),
                             child: AutoSizeText(
                               '${widget.arrivalStation}',
-                              style: TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: 21),
                               maxLines: 2,
                             ),
                           ),
@@ -1094,7 +1201,7 @@ class _DetailFormState extends State<DetailForm> {
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 0.0),
+                                    EdgeInsets.symmetric(horizontal: -4.0),
                                 fillColor: Colors.white,
                                 filled: true,
                               ),
@@ -1134,4 +1241,7 @@ class _DetailFormState extends State<DetailForm> {
           .firstWhere((k) => countryCode[k] == selectedFlag, orElse: () => '');
     });
   }
+
+
+
 }

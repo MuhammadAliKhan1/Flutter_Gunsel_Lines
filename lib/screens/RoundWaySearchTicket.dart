@@ -125,16 +125,16 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
       } else if (b == 1) {
         busNotAvailable = "Схоже, немає автобусів на цю дату";
         changeDate = "Будь ласка, змініть дату, щоб отримати результат";
-        departure = "ВИХІДНА ПОЗИЦІЯ";
+        departure = "ВІДХОД";
       } else if (b == 2) {
         busNotAvailable = "Похоже, что на эту дату нет автобусов";
         changeDate = "Пожалуйста, измените дату, чтобы получить свой результат";
-        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
+        departure = "ВЫЕЗД";
       } else if (b == 3) {
         busNotAvailable =
             "Wygląda na to, że w tym dniu nie ma dostępnych autobusów";
         changeDate = "Zmień datę, aby uzyskać wynik";
-        departure = "POZYCJA WYJŚCIOWA";
+        departure = "WYJAZD";
       }
     });
   }
@@ -438,6 +438,10 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                       ['VehicleType']['VehicleTypeName'],
                   ticketData,
                   travelListTicketData['FirstLeg'],
+                  travelListTicketData['SecondLegTickets']['Data'][index]
+                  ['FromStation']['Address'],
+                  travelListTicketData['SecondLegTickets']['Data'][index]
+                  ['ToStation']['Address'],
                 );
               },
             );
@@ -456,6 +460,8 @@ class Ticket extends StatefulWidget {
   double ticketPrice;
   String currencyName;
   String vehicleTypeName;
+  String departureAddress;
+  String arrivalAddress;
   Map<String, dynamic> ticketData;
   Map<String, dynamic> ticketDataFirstLeg;
   Ticket(
@@ -469,6 +475,8 @@ class Ticket extends StatefulWidget {
     this.vehicleTypeName,
     this.ticketData,
     this.ticketDataFirstLeg,
+    this.departureAddress,
+    this.arrivalAddress,
   );
 
   @override
@@ -508,15 +516,15 @@ class _TicketState extends State<Ticket> {
         arrival = "ARRIVAL";
         seats = "seats";
       } else if (b == 1) {
-        departure = "ВИХІДНА ПОЗИЦІЯ";
+        departure = "ВІДХОД";
         arrival = "ПРИБУТТЯ";
         seats = "місць";
       } else if (b == 2) {
-        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
+        departure = "ВЫЕЗД";
         arrival = "ПРИБЫТИЕ";
         seats = "мест";
       } else if (b == 3) {
-        departure = "POZYCJA WYJŚCIOWA";
+        departure = "SAÍDA";
         arrival = "PRZYJAZD";
         seats = "siedzenia";
       }
@@ -525,6 +533,7 @@ class _TicketState extends State<Ticket> {
 
   @override
   void initState() {
+    print(widget.ticketDataFirstLeg.toString());
     super.initState();
     searchTicketlan();
   }
@@ -550,7 +559,7 @@ class _TicketState extends State<Ticket> {
                 image: smallTicket,
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 25.0, top: 5.0),
+                  padding: EdgeInsets.only(left: 30.0, top: 5.0),
                   child: FittedBox(
                     child: Container(
                       height: 112,
@@ -564,13 +573,13 @@ class _TicketState extends State<Ticket> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Container(
-                                height: ScreenUtil().setSp(65),
+                                height: ScreenUtil().setSp(60),
                                 child: AutoSizeText(
                                   '${widget.departureTime}',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Color.fromRGBO(14, 52, 113, 10),
-                                      fontSize: ScreenUtil().setSp(65),
+                                      fontSize: ScreenUtil().setSp(60),
                                       fontFamily: 'Helvetica',
                                       fontWeight: FontWeight.w700),
                                 ),
@@ -587,23 +596,36 @@ class _TicketState extends State<Ticket> {
                                       fontWeight: FontWeight.w700),
                                 ),
                               ),
+                              //Departure Address
                               Container(
-                                height: ScreenUtil().setHeight(25),
+                                height: ScreenUtil().setHeight(22),
                                 child: Text(
-                                  '${widget.departureDate}',
+                                  '${widget.departureAddress}',
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: ScreenUtil().setHeight(25),
+                                    fontSize: ScreenUtil().setHeight(22),
                                     fontFamily: 'Helvetica',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
                               Container(
-                                height: ScreenUtil().setHeight(23),
+                                height: ScreenUtil().setHeight(22),
+                                child: Text(
+                                    DateTime.parse(widget.departureDate).day.toString()+"/"+DateTime.parse(widget.departureDate).month.toString()+"/"+DateTime.parse(widget.departureDate).year.toString(),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: ScreenUtil().setHeight(22),
+                                    fontFamily: 'Helvetica',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: ScreenUtil().setHeight(20),
                                 child: AutoSizeText(
                                   '${widget.numberOfSeats} $seats',
-                                  minFontSize: 15,
+                                  minFontSize: 14,
                                   style: TextStyle(
                                     color: Color.fromRGBO(14, 52, 113, 10),
                                     fontFamily: 'Helvetica',
@@ -618,36 +640,54 @@ class _TicketState extends State<Ticket> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Container(
-                                height: ScreenUtil().setSp(65),
+                                margin: EdgeInsets.only(top: 2.0),
+                                height: ScreenUtil().setSp(60),
                                 child: AutoSizeText(
                                   '${widget.arrivalTime}',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Color.fromRGBO(14, 52, 113, 10),
-                                      fontSize: 1000,
+                                      fontSize: ScreenUtil().setSp(60),
                                       fontFamily: 'Helvetica',
                                       fontWeight: FontWeight.w700),
                                 ),
                               ),
                               Container(
-                                width: ScreenUtil().setWidth(150),
+                                margin: EdgeInsets.only(top: 1.0),
+                                width: ScreenUtil().setWidth(140),
                                 child: AutoSizeText(
                                   arrival,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 15,
+                                      fontSize: 14,
                                       fontFamily: 'Helvetica',
                                       fontWeight: FontWeight.w700),
                                 ),
                               ),
+                              //Arrival Address
                               Container(
-                                height: ScreenUtil().setHeight(25),
+                                margin: EdgeInsets.only(top: 1.0),
+                                height: ScreenUtil().setHeight(22),
                                 child: Text(
-                                  '${widget.departureDate}',
+                                  '${widget.arrivalAddress}',
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: ScreenUtil().setHeight(25),
+                                    fontSize: ScreenUtil().setHeight(22),
+                                    fontFamily: 'Helvetica',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(top:2.0),
+                                margin: EdgeInsets.only(top: 1.0),
+                                height: ScreenUtil().setHeight(22),
+                                child: Text(
+                                    DateTime.parse(widget.arrivalDate).day.toString()+"/"+DateTime.parse(widget.arrivalDate).month.toString()+"/"+DateTime.parse(widget.arrivalDate).year.toString(),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: ScreenUtil().setHeight(22),
                                     fontFamily: 'Helvetica',
                                     fontWeight: FontWeight.w700,
                                   ),

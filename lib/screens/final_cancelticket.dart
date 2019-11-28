@@ -163,7 +163,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
         cancelTicket = uaData["cancel_ticket_page_header"];
         ticket = "Квиток ";
         busType = "Тип автобуса: комфорт +";
-        departure = uaData["departure"];
+        departure = "Виїзд";
         seatNo = "Ні місця: ";
         arrival = uaData["arrival"];
         totalcut = uaData["total_cut"];
@@ -177,7 +177,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
         cancelTicket = ruData["cancel_ticket_page_header"];
         ticket = "Проездной билет ";
         busType = "Тип автобуса: комфорт +";
-        departure = ruData["departure"];
+        departure = "Выезд";
         seatNo = "Место нет: ";
         arrival = ruData["arrival"];
         totalcut = ruData["total_cut"];
@@ -191,7 +191,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
         cancelTicket = "Anuluj bilet";
         ticket = "Bilet ";
         busType = "Typ autobusu: komfort +";
-        departure = plData["departure"];
+        departure = "wyjazd";
         seatNo = "Miejsce nr: ";
         arrival = plData["arrival"];
         totalcut = plData["total_cut"];
@@ -246,7 +246,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
               Container(
                 color: Colors.white,
                 height: ScreenUtil().setHeight(500),
-                child: Column(
+                child:SingleChildScrollView(
+                child:Column(
                   children: <Widget>[
                     Row(
                       children: <Widget>[
@@ -376,6 +377,8 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
                   ],
                 ),
               ),
+              ),
+              //Yaha scrollview
               Container(
                 height: ScreenUtil().setHeight(60),
                 width: 390,
@@ -630,7 +633,7 @@ class FinalCancelTicketState extends State<FinalCancelTicket> {
     String securitycode = secureCode;
 
     String url =
-        'https://test-api.gunsel.ua/Public.svc/CancelTicket?c0=$ticketnum&c1=A1A1A4B5-D1C8-4AEC-BD08-2A3FF55440DB&c2=42 131 23 32&c3=$securitycode';
+        'https://api.gunsel.ua/Public.svc/CancelTicket?c0=$ticketnum&c1=A1A1A4B5-D1C8-4AEC-BD08-2A3FF55440DB&c2=42 131 23 32&c3=$securitycode';
     print("url:" + url.toString());
 
     Map<String, String> headers = {"token": tokens};

@@ -596,7 +596,7 @@ class _LoginFormState extends State<LoginForm> {
 //ya function ha custom login
   void simpleLogin() async {
     // set up POST request arguments
-    String url = 'https://test-api.gunsel.ua/Membership.svc/Login';
+    String url = 'https://api.gunsel.ua/Membership.svc/Login';
     Map<String, String> headers = {"token": maintoken};
     String emailSignins = _emailSignIn.text;
     String passwordSignins = _passwordSignIn.text;
@@ -703,8 +703,9 @@ class _LoginFormState extends State<LoginForm> {
 //Login With Facebook
 
   _loginWithFB() async {
-    final result = await facebookLogin.logInWithReadPermissions(['email']);
+    final result = await facebookLogin.logIn(['email']);
     String loginCategory = "facebook";
+    print(result.status.toString());
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         {
@@ -712,17 +713,12 @@ class _LoginFormState extends State<LoginForm> {
           print("Facebook token is:" + fbtoken);
           final graphResponse = await http.get(
               'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${fbtoken}');
-//          final profile = JSON.jsonDecode(graphResponse.body);
-//          print("\nProfile is: " + profile.toString());
-//          print("Image url is:" + profile["picture"]["data"]["url"]);
-//          print("Name is:" + profile["name"]);
-
           // set up POST request arguments
           String url =
-              'https://test-api.gunsel.ua/Membership.svc/LoginWithFacebook';
+              'https://api.gunsel.ua/Membership.svc/LoginWithFacebook';
           Map<String, String> headers = {"token": maintoken};
           String json =
-              '{"Platform":31,"Language":0,"DeviceToken":null,"Token":"$fbtoken"}';
+              '{"Platform":30,"Language":0,"DeviceToken":null,"Token":"$fbtoken"}';
 
           // make POST request
           Response response = await post(url, headers: headers, body: json);
@@ -806,7 +802,7 @@ class _LoginFormState extends State<LoginForm> {
 
   void forgotPassword() async {
     // set up POST request arguments
-    String url = 'https://test-api.gunsel.ua/Membership.svc/ForgotPassword';
+    String url = 'https://api.gunsel.ua/Membership.svc/ForgotPassword';
     Map<String, String> headers = {"token": maintoken};
     String emailForForgetPassword = _emailForForgetPassword.text;
 
@@ -892,7 +888,7 @@ class _LoginFormState extends State<LoginForm> {
 //      content: new Text('Sign In'),
 //    ));
     //debugPrint('-----------------Im here 1');
-    //print('--------- ________________________________$nane');
+    //print('--------- ___f_____________________________$nane');
 
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     //debugPrint('-----------------Im here 2');
@@ -907,10 +903,10 @@ class _LoginFormState extends State<LoginForm> {
     String googleToken = googleAuth.accessToken;
 
 //print("google token is:"+googleToken.toString());
-    String url = 'https://test-api.gunsel.ua/Membership.svc/LoginWithGoogle';
+    String url = 'https://api.gunsel.ua/Membership.svc/LoginWithGoogle';
     Map<String, String> headers = {"token": maintoken};
     String json =
-        '{"Platform":31,"Language":0,"DeviceToken":null,"Token":"$googleToken"}';
+        '{"Platform":30,"Language":0,"DeviceToken":null,"Token":"$googleToken"}';
     Response response = await post(url, headers: headers, body: json);
     // check the status code for the result
     int statusCode = response.statusCode;

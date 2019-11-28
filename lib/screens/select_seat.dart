@@ -87,7 +87,9 @@ class _SelectSeatState extends State<SelectSeat> {
             unblockLoad
                 ? Container(
                     child: Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white)),
                     ),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
@@ -106,7 +108,7 @@ class _SelectSeatState extends State<SelectSeat> {
             setState(() {});
             for (int pointNumber in pointNumbers) {
               http.Response response = await http.delete(
-                'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
+                'https://api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
                 headers: {'token': token},
               );
             }
@@ -128,7 +130,7 @@ class _SelectSeatState extends State<SelectSeat> {
           setState(() {});
           for (int pointNumber in pointNumbers) {
             http.Response response = await http.delete(
-              'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
+              'https://api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
               headers: {'token': token},
             );
           }
@@ -589,7 +591,7 @@ class _SeatState extends State<Seat> {
                     ['TravelVariantId'],
               });
               String url =
-                  'https://test-api.gunsel.ua/Public.svc/BlockTravelSeat';
+                  'https://api.gunsel.ua/Public.svc/BlockTravelSeat';
               widget.loadScreen();
               http.Response response = await http.post(
                 url,
@@ -616,7 +618,7 @@ class _SeatState extends State<Seat> {
           } else if (makeItGreen) {
             widget.loadScreen();
             http.Response response = await http.delete(
-              'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
+              'https://api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
               headers: {'token': token},
             );
             if (response.statusCode == 200) {
@@ -712,6 +714,8 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
     int b;
     int a = await sh.getshared1();
 
+    print(widget.departureStation);
+
     setState(() {
       b = a;
 
@@ -719,13 +723,13 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
       } else if (b == 1) {
-        departure = "ВИХІДНА ПОЗИЦІЯ";
+        departure = "ВІДХОД";
         arrival = "ПРИБУТТЯ";
       } else if (b == 2) {
-        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
+        departure = "ВЫЕЗД";
         arrival = "ПРИБЫТИЕ";
       } else if (b == 3) {
-        departure = "POZYCJA WYJŚCIOWA";
+        departure = "SAÍDA";
         arrival = "PRZYJAZD";
       }
     });
@@ -802,7 +806,7 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                             width: ScreenUtil().setSp(150),
                             child: AutoSizeText(
                               '${widget.departureStation}',
-                              style: TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: 21),
                               maxLines: 2,
                             ),
                           ),
@@ -848,7 +852,7 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
                             width: ScreenUtil().setSp(150),
                             child: AutoSizeText(
                               '${widget.arrivalStation}',
-                              style: TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: 21),
                               maxLines: 2,
                             ),
                           ),

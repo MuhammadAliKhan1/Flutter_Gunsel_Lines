@@ -86,6 +86,7 @@ class PaymentResultScreen extends StatefulWidget {
 class _PaymentResultScreenState extends State<PaymentResultScreen> {
   Future _dataFetched;
   bool loadBlock = false;
+  bool checkpayment = true;
   Map<String, dynamic> paymentResultTicketData;
   TextEditingController _email = TextEditingController();
   PaymentResultModel paymentResultModelObj;
@@ -96,11 +97,22 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
     paymentResultModelObj = PaymentResultModel();
     paymentResultTicketData = Map();
     _dataFetched = getData();
+    print("data");
   }
 
   getData() async {
-    paymentResultTicketData = await paymentResultModelObj
-        .getPaymentResult(widget.ticketData['PaymentToken']);
+    try {
+      paymentResultTicketData = await paymentResultModelObj
+          .getPaymentResult(widget.ticketData['PaymentToken']);
+
+      print("data is");
+      checkpayment = false;
+    }
+    catch(e)
+    {
+      print("Te error is"+e.toString());
+      checkpayment = true;
+    }
   }
 
   SharePreferencelogin sh = SharePreferencelogin();
@@ -119,6 +131,7 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
   String email = "  Your email";
   String sendEmail = "Send email";
   String sendmailAgain = "Send email again";
+
 
   void detailslan() async {
     enJson = await DefaultAssetBundle.of(context)
@@ -218,7 +231,14 @@ class _PaymentResultScreenState extends State<PaymentResultScreen> {
             ),
           );
         else {
-          return CustomScrollView(
+          return checkpayment ?
+               Center(
+                 child:Text("Your ticket can not be bought because you enter wrong card credentials",
+                   textAlign: TextAlign.center,
+                   style: TextStyle(fontSize: 20.0),),
+               )
+
+          :  CustomScrollView(
             slivers: <Widget>[
               SliverList(
                 delegate: SliverChildListDelegate(
@@ -634,19 +654,19 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
         busType = "Bus Type: Comfort +";
         ticketNumber = "Ticket number";
       } else if (b == 1) {
-        departure = "ВИХІДНА ПОЗИЦІЯ";
+        departure = "ВІДХОД";
         arrival = "ПРИБУТТЯ";
         seat = uaData["seat"];
         busType = "Тип автобуса: Комфорт +";
         ticketNumber = "Номер квитка";
       } else if (b == 2) {
-        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
+        departure = "ВЫЕЗД";
         arrival = "ПРИБЫТИЕ";
         seat = ruData["seat"];
         busType = "Тип автобуса: Комфорт +";
         ticketNumber = "Номер билета";
       } else if (b == 3) {
-        departure = "POZYCJA WYJŚCIOWA";
+        departure = "WYJAZD";
         arrival = "PRZYJAZD";
         seat = plData["seat"];
         busType = "yp autobusu: Comfort +";
@@ -813,7 +833,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                                   child: AutoSizeText(
                                                     '${widget.departureStation}',
                                                     style:
-                                                        TextStyle(fontSize: 25),
+                                                        TextStyle(fontSize: 21),
                                                     maxLines: 2,
                                                   ),
                                                 ),
@@ -876,7 +896,7 @@ class _PaymentResultTicketState extends State<PaymentResultTicket> {
                                                   child: AutoSizeText(
                                                     '${widget.arrivalStation}',
                                                     style:
-                                                        TextStyle(fontSize: 25),
+                                                        TextStyle(fontSize: 21),
                                                     maxLines: 2,
                                                   ),
                                                 ),

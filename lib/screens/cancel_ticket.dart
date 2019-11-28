@@ -257,11 +257,19 @@ class CancelTicketState extends State<CancelTicket> {
       ticketNumber = _ticketNumber.text;
       secureCode = _secureCode.text;
 
+
+      //language change
+      int languageint = await shPref.getshared1();
+      String languageChange = languageint.toString();
+
+      print("language is:"+languageChange);
+
+
       String url =
-          'https://test-api.gunsel.ua/Public.svc/GetTicketInformation?1=1&c0=$ticketNumber&c3=$secureCode';
+          'https://api.gunsel.ua/Public.svc/GetTicketInformation?1=1&c0=$ticketNumber&c3=$secureCode';
       print("url is:" + url.toString());
 
-      Map<String, String> headers = {"token": tokens};
+      Map<String, String> headers = {"token": tokens,'language' : languageChange};
       Response response = await get(url, headers: headers);
       // check the status code for the result
       int statusCode = response.statusCode;

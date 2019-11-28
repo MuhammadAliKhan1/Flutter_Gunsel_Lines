@@ -83,7 +83,7 @@ class _SelectSeat_TransferWayState extends State<SelectSeat_TransferWay> {
             setState(() {});
             for (int pointNumber in pointNumbers) {
               http.Response response = await http.delete(
-                'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
+                'https://api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
                 headers: {'token': token},
               );
             }
@@ -105,7 +105,9 @@ class _SelectSeat_TransferWayState extends State<SelectSeat_TransferWay> {
               unblockLoad
                   ? Container(
                       child: Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white)),
                       ),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
@@ -124,7 +126,7 @@ class _SelectSeat_TransferWayState extends State<SelectSeat_TransferWay> {
               setState(() {});
               for (int pointNumber in pointNumbers) {
                 http.Response response = await http.delete(
-                  'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
+                  'https://api.gunsel.ua/Public.svc/UnblockTravelSeat/${selectedSeats[pointNumber]}',
                   headers: {'token': token},
                 );
               }
@@ -586,7 +588,7 @@ class _SeatState extends State<Seat> {
                     ['TravelVariantLeg2']['TravelVariantId'],
               });
               String url =
-                  'https://test-api.gunsel.ua/Public.svc/BlockTravelSeat';
+                  'https://api.gunsel.ua/Public.svc/BlockTravelSeat';
 
               widget.loadScreen();
               http.Response response = await http.post(
@@ -614,7 +616,7 @@ class _SeatState extends State<Seat> {
           } else if (makeItGreen) {
             widget.loadScreen();
             http.Response response = await http.delete(
-              'https://test-api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
+              'https://api.gunsel.ua/Public.svc/UnblockTravelSeat/${widget.seatData['TravelSeatBlockId']}',
               headers: {'token': token},
             );
             if (response.statusCode == 200) {
@@ -718,13 +720,13 @@ class _SelectSeatTicketState extends State<SelectSeatTicket> {
         departure = "DEPARTURE";
         arrival = "ARRIVAL";
       } else if (b == 1) {
-        departure = "ВИХІДНА ПОЗИЦІЯ";
+        departure = "ВІДХОД";
         arrival = "ПРИБУТТЯ";
       } else if (b == 2) {
-        departure = "ИСХОДНАЯ ПОЗИЦИЯ";
+        departure = "ВЫЕЗД";
         arrival = "ПРИБЫТИЕ";
       } else if (b == 3) {
-        departure = "POZYCJA WYJŚCIOWA";
+        departure = "SAÍDA";
         arrival = "PRZYJAZD";
       }
     });

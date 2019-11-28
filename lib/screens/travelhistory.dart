@@ -117,7 +117,7 @@ class _HistoryTicketState extends State<HistoryTicket> {
         here = enData["here"];
         //ticketError = "OOPS! You have not bought any Ticket";
       } else if (b == 1) {
-        departure = uaData["departure"];
+        departure ="Виїзд";
         arrival = uaData["arrival"];
         seats = uaData["seat_no"];
         noTickets = uaData["no_tickets_available_profile"];
@@ -125,7 +125,7 @@ class _HistoryTicketState extends State<HistoryTicket> {
         here = uaData["here"];
         //ticketError = "OOPS! Ви не купили жодного квитка";
       } else if (b == 2) {
-        departure = ruData["departure"];
+        departure = "Выезд";
         arrival = ruData["arrival"];
         seats = ruData["seat_no"];
         noTickets = ruData["no_tickets_available_profile"];
@@ -133,7 +133,7 @@ class _HistoryTicketState extends State<HistoryTicket> {
         here = ruData["here"];
         //ticketError = "OOPS! Вы не купили билет";
       } else if (b == 3) {
-        departure = plData["departure"];
+        departure = "Saída";
         arrival = plData["arrival"];
         ;
         seats = "Miejsce nr";
@@ -149,7 +149,7 @@ class _HistoryTicketState extends State<HistoryTicket> {
     try {
       token = await shPref.gettokens();
       String url =
-          'https://test-api.gunsel.ua/Membership.svc/GetMemberTicketList?c0=0';
+          'https://api.gunsel.ua/Membership.svc/GetMemberTicketList?c0=0';
       Map<String, String> headers = {"token": token};
       //String json = '{"Platform":31,"Language":0,"DeviceToken":null,"Token":"$fbtoken"}';
 
@@ -180,6 +180,9 @@ class _HistoryTicketState extends State<HistoryTicket> {
       print("Seat no :" + travelProfData['Data'][0]['SeatNo'].toString());
       print("Arrival time is:" +
           travelProfData['Data'][0]['ArrivalTime'].toString());
+      print("Arrival date is:" +
+          travelProfData['Data'][0]['ArrivalDate'].toString());
+
       print("Ticket Price is:" +
           travelProfData['Data'][0]['TicketPrice'].toString());
       print("Currency Name is:" +
@@ -340,7 +343,24 @@ class _HistoryTicketState extends State<HistoryTicket> {
                                                           FontWeight.w700),
                                                 ),
                                                 Text(
-                                                  '', //Empty space as to not distur the alignment
+                                                  DateTime.parse(travelProfData[
+                                                  'Data'][index]
+                                                  ['ArrivalDate'])
+                                                      .day
+                                                      .toString() +
+                                                      "." +
+                                                      DateTime.parse(travelProfData[
+                                                      'Data'][index]
+                                                      ['ArrivalDate'])
+                                                          .month
+                                                          .toString() +
+                                                      "." +
+                                                      DateTime.parse(
+                                                          travelProfData['Data']
+                                                          [index]
+                                                          ['ArrivalDate'])
+                                                          .year
+                                                          .toString(), //Empty space as to not distur the alignment
                                                   style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 15,

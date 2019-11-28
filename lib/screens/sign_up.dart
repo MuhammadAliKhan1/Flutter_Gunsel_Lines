@@ -540,7 +540,7 @@ class SignUpState extends State<SignUp> {
   _makePostRequest() async {
     if (switchOnoff == true) {
       // set up POST request arguments
-      String url = 'https://test-api.gunsel.ua/Membership.svc/SignUp';
+      String url = 'https://api.gunsel.ua/Membership.svc/SignUp';
       Map<String, String> headers = {"token": token};
       String emails = _email.text;
       String numbers = _number.text;

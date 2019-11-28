@@ -29,14 +29,22 @@ class TravelListOneWayModel {
       String departureStationID, int year, int month, int day) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    //language change
+    int languageint =  prefs.getInt("languageIndicator");
+    String languageChange = languageint.toString();
+    print("language is:"+languageChange);
+    print("https://api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c3=true&c4=true");
     http.Response response = await http.get(
       Uri.encodeFull(
-          'https://test-api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c4=true'),
+          'https://api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c4=true'),
       headers: {
         'token': prefs.getString('Token'),
+        'language' : languageChange,
       },
     );
-   
+
+    print(response);
+
     DataStatusSeperator seperator =
         DataStatusSeperator.fromJson(jsonDecode(response.body));
     if ((seperator.toJson()['Data']) != null) {
@@ -59,12 +67,16 @@ class TravelListOneWayModel {
   Future getRoundWaySecondLegList(String arrivalStationID,
       String departureStationID, int year, int month, int day) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    int languageint =  prefs.getInt("languageIndicator");
+    String languageChange = languageint.toString();
+    print("language is:"+languageChange);
 
     http.Response response = await http.get(
       Uri.encodeFull(
-          'https://test-api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c3=true&c4=true'),
+          'https://api.gunsel.ua/Public.svc/GetTravelVariantList?c0=$departureStationID&c1=$arrivalStationID&c2=$year-$month-$day&c3=true&c4=true'),
       headers: {
         'token': prefs.getString('Token'),
+        'language' : languageChange,
       },
     );
     DataStatusSeperator seperator =

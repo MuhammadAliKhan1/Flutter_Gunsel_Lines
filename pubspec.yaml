@@ -11,7 +11,7 @@ description: Project by Günsel Lines.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.4.6+21
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -29,7 +29,7 @@ dependencies:
   url_launcher: ^5.0.3
   http: ^0.12.0
   shared_preferences: ^0.5.3+4
-  flutter_facebook_login: ^2.0.0
+  flutter_facebook_login: ^3.0.0
   flutter_widget_from_html_core: ^0.2.3+3
   flutter_typeahead: ^1.6.1
   carousel_pro: ^1.0.0
@@ -72,10 +72,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - languagefiles/en-US.json
-    - languagefiles/ua-UA.json
-    - languagefiles/ru-RU.json
-    - languagefiles/pl-PL.json
     - assets/calendar_icon_1.png
     - assets/swapping_icon.png
     - assets/splash_image.jpg
@@ -133,10 +129,16 @@ flutter:
     - assets/password_icon.png
     - assets/england.png
     - assets/payment_thumb.png
+    - images/front.webp
+    - images/news1.webp
     - assets/gradient.png
     - assets/checked.png
     - assets/menu_background.jpg
     - assets/purchasedticket2.png
+    - languagefiles/en-US.json
+    - languagefiles/pl-PL.json
+    - languagefiles/ru-RU.json
+    - languagefiles/ua-UA.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -22,9 +22,12 @@ class PaymentResultModel {
   getPaymentResult(paymentToken) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('Token');
+
+    print("MAin token is:"+token.toString());
+    print("PaymentToken is:"+paymentToken.toString());
     http.Response response = await http.get(
       Uri.encodeFull(
-          'https://test-api.gunsel.ua/Public.svc/GetPaymentResult/$paymentToken'),
+          'https://api.gunsel.ua/Public.svc/GetPaymentResult/$paymentToken'),
       headers: {
         'token': token,
       },
@@ -32,7 +35,7 @@ class PaymentResultModel {
     Map<String, dynamic> responseData = {
       'Data': jsonDecode(jsonDecode(response.body)['Data']),
     };
-
+print("https://api.gunsel.ua/Public.svc/GetPaymentResult/$paymentToken");
     PaymentResultModel paymentResultModelObj =
         PaymentResultModel.fromJson(responseData);
     return paymentResultModelObj.toJson();
@@ -43,7 +46,7 @@ class PaymentResultModel {
     String token = prefs.getString('Token');
     http.Response response = await http.get(
       Uri.encodeFull(
-          'https://test-api.gunsel.ua/Public.svc/SendTicketAsEmail?c0=$paymentNumber&c1=$email'),
+          'https://api.gunsel.ua/Public.svc/SendTicketAsEmail?c0=$paymentNumber&c1=$email'),
       headers: {
         'token': token,
       },

@@ -588,7 +588,8 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                 "TicketItems": tickets,
                 "AddSubscriber": widget.ticketData['SubscriberCheckBox'],
               });
-              String url = 'https://test-api.gunsel.ua/Public.svc/SellTicket';
+              String url = 'https://api.gunsel.ua/Public.svc/SellTicket';
+              print("body is"+body.toString());
               http.Response response = await http.post(
                 url,
                 body: body,
@@ -605,7 +606,10 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                   oneWayScreen,
                   (Route<dynamic> route) => false,
                 );
+
+                print("Json Decode data is:"+jsonDecode(response.body)['Data'].toString());
                 Navigator.pushNamed(context, payScreen, arguments: userData);
+
               } else {
                 print('Data is null');
                 print(response.body);
@@ -860,7 +864,7 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                                   child: AutoSizeText(
                                                     '${widget.departureStation}',
                                                     style:
-                                                        TextStyle(fontSize: 25),
+                                                        TextStyle(fontSize: 21),
                                                     maxLines: 2,
                                                   ),
                                                 ),
@@ -925,7 +929,7 @@ class _TicketSummaryTicketState extends State<TicketSummaryTicket> {
                                                   child: AutoSizeText(
                                                     '${widget.arrivalStation}',
                                                     style:
-                                                        TextStyle(fontSize: 25),
+                                                        TextStyle(fontSize: 21),
                                                     maxLines: 2,
                                                   ),
                                                 ),

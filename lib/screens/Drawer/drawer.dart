@@ -16,11 +16,11 @@ class _SideDrawerState extends State<SideDrawer> {
   SharePreferencelogin sh = SharePreferencelogin();
   String myProfile = "My Profile",
       buyTicket = "Buy Ticket",
-      cancelTicket = " Cancel ticket",
+      cancelTicket = "Cancel Ticket",
       news = "News",
       language = "Language",
       company = "About Günsel",
-      history = "History of travels";
+      history = "Travel History";
   String enJson = "", uaJson = "", ruJson = "", plJson = "";
 
   bool accountIncluded = true;
@@ -64,15 +64,15 @@ class _SideDrawerState extends State<SideDrawer> {
       if (b == 0) {
         myProfile = "My Profile";
         buyTicket = "Buy Ticket";
-        cancelTicket = "Cancel ticket";
+        cancelTicket = "Cancel Ticket";
         news = "News";
         language = "Language";
         company = "About Günsel";
-        history = "History of travels";
+        history = "Travel History";
       } else if (b == 1) {
         myProfile = "Мій профіль";
         buyTicket = "Купуйте квиток";
-        cancelTicket = "Відміна білету";
+        cancelTicket = "Скасувати квиток";
         news = "Новини";
         language = "Мова";
         company = "Про Günsel";
@@ -80,7 +80,7 @@ class _SideDrawerState extends State<SideDrawer> {
       } else if (b == 2) {
         myProfile = "Мой профайл";
         buyTicket = "Купить билет";
-        cancelTicket = " Отмена билета";
+        cancelTicket = "Отменить билет";
         news = "Новости";
         language = "Язык";
         company = "О Günsel";

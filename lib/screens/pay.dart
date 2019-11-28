@@ -24,7 +24,9 @@ class _PayState extends State<Pay> {
     flutterWebViewPlugin.onUrlChanged.listen((String url) {
       ++counter;
       if (url.contains('token')) {
-        widget.userData['PaymentToken'] = url.substring(51);
+        widget.userData['PaymentToken'] = url.substring(url.lastIndexOf('=')+1);
+        print("Pay payment token  is:"+url.toString());
+        print("Pay payment token sub string is:"+url.substring(url.lastIndexOf('=')+1));
 
         Navigator.of(context).pushNamedAndRemoveUntil(
             oneWayScreen, (Route<dynamic> route) => false);
@@ -56,10 +58,10 @@ class _PayState extends State<Pay> {
           mimeType: 'text/html',
           encoding: Encoding.getByName('utf-8'),
         ).toString(),
-        withJavascript: true,
-        withLocalUrl: true,
-        allowFileURLs: true,
-        withLocalStorage: true,
+        // withJavascript: true,
+        // withLocalUrl: true,
+        // allowFileURLs: true,
+        // withLocalStorage: true,
       ),
       onWillPop: () {
         flutterWebViewPlugin.dispose();

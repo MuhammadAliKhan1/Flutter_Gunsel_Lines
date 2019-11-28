@@ -66,7 +66,7 @@ class _NewsState extends State<News> {
   List conImage = [];
   NewDataModel stationListObj = NewDataModel();
   bool dataFetched = false;
-  String imageUrl = "https://test-lines-api.gunsel.ua/Files/";
+  String imageUrl = "https://lines-api.gunsel.ua/Files/";
   @override
   void initState() {
     super.initState();

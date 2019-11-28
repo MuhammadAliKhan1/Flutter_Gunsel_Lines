@@ -123,7 +123,7 @@ class SearchTicketContainerState extends State<SearchTicketContainer> {
         alignment:
             Alignment.lerp(Alignment.topCenter, Alignment.bottomCenter, 0.2),
         child: Container(
-          height: ScreenUtil().setHeight(730),
+          height: ScreenUtil().setHeight(790),
           child: Stack(
             children: <Widget>[
               Align(
@@ -133,7 +133,7 @@ class SearchTicketContainerState extends State<SearchTicketContainer> {
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(color: Colors.white),
                       color: Colors.black26),
-                  height: ScreenUtil().setHeight(700),
+                  height: ScreenUtil().setHeight(760),
                   width: ScreenUtil().setWidth(610),
                   child: ListView(
                     children: <Widget>[
@@ -581,12 +581,19 @@ class _OneWayFormState extends State<OneWayForm> {
     SharePreferencelogin prefs = SharePreferencelogin();
     gunselToken = await prefs.gettokens();
 
+    //language change
+    int languageint = await prefs.getshared1();
+    String languageChange = languageint.toString();
+
+    print("language is:"+languageChange);
+
     List<String> list = [];
     try {
       response = await http.get(
         Uri.encodeFull(stationListAPI),
         headers: {
           'token': gunselToken,
+          'language' : languageChange,
         },
       );
     } catch (e) {
@@ -595,6 +602,11 @@ class _OneWayFormState extends State<OneWayForm> {
     Map<String, dynamic> stationMap = {
       'Data': (jsonDecode(jsonDecode(response.body)['Data']))
     };
+
+
+    print(stationMap['Data'].toString());
+
+
     for (var station in (StationList.fromJson(stationMap).toJson()['Data'])) {
       list.add(station['StationName']);
       stationID.add(station['StationId']);
@@ -618,6 +630,7 @@ class _OneWayFormState extends State<OneWayForm> {
             list.add(
               station,
             );
+          print("Station is:"+station.toString());
         }
       }
     }
