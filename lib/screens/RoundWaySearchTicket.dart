@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gunsel/data/constants.dart';
 import 'package:gunsel/data/travel_list_one_way_model.dart';
-
 import 'package:gunsel/data/sharedPreference.dart';
 
 class SearchTicket_RoundWay extends StatefulWidget {
@@ -143,9 +142,10 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
   int initialMonth;
   int initialYear;
   bool makeItGrey;
-  bool stopClick;
+  bool stopClick, isLeapYear;
   Map<String, dynamic> travelListTicketData;
   Future<dynamic> _datafetched;
+  List<int> thirtyOneDays, thirtyDays;
   @override
   void initState() {
     detailsBarlan();
@@ -155,7 +155,12 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
     initialDay = travelListTicketData['BuyTicketData']['ReturnDay'];
     initialMonth = travelListTicketData['BuyTicketData']['ReturnMonth'];
     initialYear = travelListTicketData['BuyTicketData']['ReturnYear'];
-
+    isLeapYear = (initialYear % 400 == 0 || initialYear % 100 != 0) &&
+            (initialYear % 4 == 0)
+        ? true
+        : false;
+    thirtyOneDays = [1, 3, 5, 7, 8, 10, 12];
+    thirtyDays = [4, 6, 9, 11];
     makeItGrey = true;
     stopClick = false;
   }
@@ -226,6 +231,18 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                 label: Text(""),
                 onPressed: () async {
                   if (!stopClick) {
+                    int lastDay;
+                    lastDay = thirtyOneDays.contains(
+                            travelListTicketData['BuyTicketData']
+                                    ['DepartureMonth'] -
+                                1)
+                        ? 31
+                        : (thirtyDays.contains(
+                                travelListTicketData['BuyTicketData']
+                                        ['DepartureMonth'] -
+                                    1))
+                            ? 30
+                            : isLeapYear ? 29 : 28;
                     if (!makeItGrey) {
                       if (travelListTicketData['BuyTicketData']['ReturnDay'] >=
                           1) {
@@ -238,14 +255,14 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
                             travelListTicketData['BuyTicketData']
                                 ['ReturnYear']--;
                             travelListTicketData['BuyTicketData']['ReturnDay'] =
-                                31;
+                                lastDay;
                             travelListTicketData['BuyTicketData']
                                 ['ReturnMonth'] = 12;
                           } else {
                             travelListTicketData['BuyTicketData']
                                 ['ReturnMonth']--;
                             travelListTicketData['BuyTicketData']['ReturnDay'] =
-                                31;
+                                lastDay;
                           }
                         } else {
                           travelListTicketData['BuyTicketData']['ReturnDay']--;
@@ -296,10 +313,20 @@ class SearchTicketScreenState extends State<SearchTicketScreen> {
               label: Text(""),
               onPressed: () async {
                 if (!stopClick) {
+                  int lastDay;
+                  lastDay = thirtyOneDays.contains(
+                          travelListTicketData['BuyTicketData']
+                              ['DepartureMonth'])
+                      ? 31
+                      : (thirtyDays.contains(
+                              travelListTicketData['BuyTicketData']
+                                  ['DepartureMonth']))
+                          ? 30
+                          : isLeapYear ? 29 : 28;
                   if (travelListTicketData['BuyTicketData']['ReturnDay'] <=
-                      31) {
+                      lastDay) {
                     if (travelListTicketData['BuyTicketData']['ReturnDay'] ==
-                        31) {
+                        lastDay) {
                       if (travelListTicketData['BuyTicketData']
                               ['ReturnMonth'] ==
                           12) {
@@ -498,16 +525,16 @@ class Ticket extends StatefulWidget {
 }
 
 class _TicketState extends State<Ticket> {
-  SharePreferencelogin sh = SharePreferencelogin();
   String departure = '',
       arrival = '',
       enJson = "",
       uaJson = "",
       ruJson = "",
-      seats = 'seats',
-      transfer = "",
-      waitTime = "",
+      seats = 'Available Seats',
+      transfer = "Transfer",
+      waitTime = "Wait Time",
       plJson = "";
+  bool disableTicket, arrivalDateIsGreat;
 
   void searchTicketlan() async {
     enJson = await DefaultAssetBundle.of(context)
@@ -524,39 +551,38 @@ class _TicketState extends State<Ticket> {
     Map<String, dynamic> ruData = json.decode(ruJson);
     Map<String, dynamic> plData = json.decode(plJson);
 
-    int b;
-    int a = await sh.getshared1();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int languageint = prefs.getInt("languageIndicator");
 
     setState(() {
-      b = a;
-
-      if (b == 0) {
+      if (languageint == 0) {
         //English
-        seats = "seats";
+        seats = "Available Seats";
         transfer = "Transfer";
         waitTime = "Wait Time";
-      } else if (b == 1) {
+      } else if (languageint == 1) {
         //Ukrainian
         transfer = "Передача";
         waitTime = "Зачекайте часу";
-        seats = "місць";
-      } else if (b == 2) {
+        seats = "Вільних місць";
+      } else if (languageint == 2) {
         //Russian
         transfer = "Перечислить";
-        seats = "мест";
+        seats = "Свободных мест";
         waitTime = "Время ожидания";
-      } else if (b == 3) {
+      } else if (languageint == 3) {
         //Polski
         waitTime = "Czas oczekiwania";
         transfer = "Przeniesienie";
-        seats = "siedzenia";
+        seats = "Puste siedzenia";
       }
     });
   }
 
   @override
   void initState() {
-    print(DateTime.parse(widget.departureDate).month);
+    disableTicket = widget.numberOfSeats > 0 ? false : true;
+    arrivalDateIsGreat = arrivalDateGreaterThanDepartureDate();
     super.initState();
     searchTicketlan();
     departure =
@@ -566,8 +592,8 @@ class _TicketState extends State<Ticket> {
       arrival =
           widget.ticketData['SecondLeg']['TicketData']['ToStation']['CityName'];
     } else {
-      arrival = widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2']
-          ['ToStation']['CityName'];
+      arrival = widget.ticketData['SecondLeg']['TicketData']
+          ['TravelVariantLeg2']['ToStation']['CityName'];
     }
   }
 
@@ -575,12 +601,14 @@ class _TicketState extends State<Ticket> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        widget.ticketData['FirstLeg'] = widget.ticketDataFirstLeg;
-        Navigator.pushNamed(
-          context,
-          selectSeatRoundWay,
-          arguments: widget.ticketData,
-        );
+        if (!disableTicket) {
+          widget.ticketData['FirstLeg'] = widget.ticketDataFirstLeg;
+          Navigator.pushNamed(
+            context,
+            selectSeatRoundWay,
+            arguments: widget.ticketData,
+          );
+        }
       },
       child: FittedBox(
         child: Container(
@@ -590,6 +618,7 @@ class _TicketState extends State<Ticket> {
             children: <Widget>[
               Image(
                 image: smallTicket,
+                color: disableTicket ? Colors.grey : Colors.white,
               ),
               Padding(
                   padding: EdgeInsets.only(left: 35.0, top: 5.0),
@@ -673,10 +702,12 @@ class _TicketState extends State<Ticket> {
                                   Container(
                                     height: ScreenUtil().setHeight(20),
                                     child: AutoSizeText(
-                                      '${widget.numberOfSeats} $seats',
+                                      '$seats:${widget.numberOfSeats}',
                                       minFontSize: 14,
                                       style: TextStyle(
-                                        color: Color.fromRGBO(14, 52, 113, 10),
+                                        color: disableTicket
+                                            ? Colors.red
+                                            : Color.fromRGBO(14, 52, 113, 10),
                                         fontFamily: 'Helvetica',
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -742,7 +773,9 @@ class _TicketState extends State<Ticket> {
                                               .year
                                               .toString(),
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: arrivalDateIsGreat
+                                            ? Colors.red
+                                            : Colors.black,
                                         fontSize: ScreenUtil().setHeight(22),
                                         fontFamily: 'Helvetica',
                                         fontWeight: FontWeight.w700,
@@ -840,5 +873,19 @@ class _TicketState extends State<Ticket> {
         ),
       ),
     );
+  }
+
+  bool arrivalDateGreaterThanDepartureDate() {
+    int departureDay = DateTime.parse(widget.departureDate).day;
+    int departureMonth = DateTime.parse(widget.departureDate).month;
+    int departureYear = DateTime.parse(widget.departureDate).year;
+    int arrivalDay = DateTime.parse(widget.arrivalDate).day;
+    int arrivalMonth = DateTime.parse(widget.arrivalDate).month;
+    int arrivalYear = DateTime.parse(widget.arrivalDate).year;
+    return (arrivalYear > departureYear
+        ? true
+        : (arrivalMonth > departureMonth
+            ? true
+            : (arrivalDay > departureDay ? true : false)));
   }
 }

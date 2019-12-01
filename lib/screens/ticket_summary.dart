@@ -86,6 +86,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
   double total;
   Map<String, dynamic> userData;
   void initState() {
+    debugPrint(widget.ticketData['FirstLeg'].toString(), wrapWidth: 1024);
     detailslan();
     super.initState();
     widget.ticketData['BuyTicketData']['RoundWayCheck']
@@ -96,16 +97,6 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
         : total = (widget.ticketData['FirstLeg']['TicketData']['TicketPrice'] *
             widget.ticketData['FirstLeg']['SeatCount']);
 
-    if (widget.ticketData['FirstLeg']['TicketData']['TravelVariantLeg2'] !=
-        null)
-      total += widget.ticketData['FirstLeg']['TicketData']['TravelVariantLeg2']
-          ['TicketPrice'];
-    if (widget.ticketData['BuyTicketData']['RoundWayCheck']) {
-      if (widget.ticketData['SecondLeg']['TicketData']['TravelVariantLeg2'] !=
-          null)
-        total += widget.ticketData['SecondLeg']['TicketData']
-            ['TravelVariantLeg2']['TicketPrice'];
-    }
     userData = Map();
   }
 
@@ -251,7 +242,14 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                           seatsDetail: widget.ticketData['FirstLeg']
                               ['SeatVoyagerInfo'][(index + 1)],
                           ticketPrice: widget.ticketData['FirstLeg']
-                              ['TicketData']['TicketPrice'],
+                                      ['TicketData']['TravelVariantLeg2'] !=
+                                  null
+                              ? (widget.ticketData['FirstLeg']['TicketData']
+                                      ['TicketPrice'] -
+                                  widget.ticketData['FirstLeg']['TicketData']
+                                      ['TravelVariantLeg2']['TicketPrice'])
+                              : widget.ticketData['FirstLeg']['TicketData']
+                                  ['TicketPrice'],
                           currencyType: widget.ticketData['FirstLeg']
                               ['TicketData']['Currency']['CurrencyName'],
                         );
@@ -339,7 +337,15 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                               seatsDetail: widget.ticketData['SecondLeg']
                                   ['SeatVoyagerInfo'][(index + 1)],
                               ticketPrice: widget.ticketData['SecondLeg']
-                                  ['TicketData']['TicketPrice'],
+                                          ['TicketData']['TravelVariantLeg2'] !=
+                                      null
+                                  ? (widget.ticketData['SecondLeg']
+                                          ['TicketData']['TicketPrice'] -
+                                      widget.ticketData['SecondLeg']
+                                              ['TicketData']
+                                          ['TravelVariantLeg2']['TicketPrice'])
+                                  : widget.ticketData['SecondLeg']['TicketData']
+                                      ['TicketPrice'],
                               currencyType: widget.ticketData['SecondLeg']
                                   ['TicketData']['Currency']['CurrencyName'],
                             );
@@ -589,7 +595,7 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                 "AddSubscriber": widget.ticketData['SubscriberCheckBox'],
               });
               String url = 'https://api.gunsel.ua/Public.svc/SellTicket';
-              print("body is"+body.toString());
+              print("body is" + body.toString());
               http.Response response = await http.post(
                 url,
                 body: body,
@@ -607,9 +613,9 @@ class _TicketSummaryScreenState extends State<TicketSummaryScreen> {
                   (Route<dynamic> route) => false,
                 );
 
-                print("Json Decode data is:"+jsonDecode(response.body)['Data'].toString());
+                print("Json Decode data is:" +
+                    jsonDecode(response.body)['Data'].toString());
                 Navigator.pushNamed(context, payScreen, arguments: userData);
-
               } else {
                 print('Data is null');
                 print(response.body);
