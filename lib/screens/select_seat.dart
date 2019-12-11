@@ -157,19 +157,20 @@ class SelectSeatScreen extends StatefulWidget {
 
 class _SelectSeatScreenState extends State<SelectSeatScreen> {
   Map<String, dynamic> seatsData;
-  Map<int, dynamic> seatMap;
   int rows, columns;
   Function refresh;
   Future<dynamic> _dataFetched;
-
+  List<Map<String, dynamic>> seatsList;
+  bool dataFetched;
   @override
   void initState() {
     selectTicketlan();
     getData();
     super.initState();
+    dataFetched = false;
     _dataFetched = getData();
-    seatMap = Map();
     selectedSeats = Map();
+    seatsList = List();
     refresh = () {
       setState(() {});
     };
@@ -183,14 +184,19 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
     );
     rows = this.seatsData['Data']['VehicleTypeModel']['ColumnCount'];
     columns = this.seatsData['Data']['VehicleTypeModel']['RowCount'];
-
-    for (var seat in this.seatsData['Data']['VehicleTypeModel']
-        ['VehicleTypePlanItems']) {
-      if (seat['PointType'] == 10) {
-        seatMap[seat['PointNumber']] = seat;
+    if (!dataFetched)
+      for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+          for (var seat in this.seatsData['Data']['VehicleTypeModel']
+              ['VehicleTypePlanItems']) {
+            if (seat['RowIndex'] == j && seat['ColumnIndex'] == i) {
+              seatsList.add(seat);
+              break;
+            }
+          }
+        }
       }
-    }
-
+    if (!dataFetched) dataFetched = !dataFetched;
     return true;
   }
 
@@ -506,34 +512,30 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
           return SliverPadding(
             sliver: SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
+                crossAxisCount: 5,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
               ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return GridTile(
-                      child: Row(
-                    children: <Widget>[
-                      (index == 2 || (index / 2) % 2 == 0)
-                          ? getSpacer()
-                          : Container(),
-                      (index == 2 || (index / 2) % 2 == 1)
-                          ? getSpacer()
-                          : Container(),
-                      Seat(
-                        loadScreen: widget.loadScreenFunction,
-                        refresh: this.refresh,
-                        seatData: seatMap[(index + 1)],
-                        ticketData: widget.ticketData,
-                      ),
-                    ],
-                  ));
+                  return Container(
+                    child: GridTile(
+                      child: Container(
+                          child: seatsList[index]['PointType'] == 10
+                              ? Seat(
+                                  loadScreen: widget.loadScreenFunction,
+                                  refresh: this.refresh,
+                                  seatData: seatsList[index],
+                                  ticketData: widget.ticketData,
+                                )
+                              : Container()),
+                    ),
+                  );
                 },
-                childCount: seatMap.length,
+                childCount: seatsList.length,
               ),
             ),
-            padding: EdgeInsets.only(left: 30.0, right: 40.0, top: 10.0),
+            padding: EdgeInsets.only(left: 30.0, right: 20.0,top: 10.0),
           );
       },
     );
@@ -590,8 +592,7 @@ class _SeatState extends State<Seat> {
                 "TravelVariantId": widget.ticketData['FirstLeg']['TicketData']
                     ['TravelVariantId'],
               });
-              String url =
-                  'https://api.gunsel.ua/Public.svc/BlockTravelSeat';
+              String url = 'https://api.gunsel.ua/Public.svc/BlockTravelSeat';
               widget.loadScreen();
               http.Response response = await http.post(
                 url,
