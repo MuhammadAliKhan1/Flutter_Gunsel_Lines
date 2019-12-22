@@ -184,7 +184,7 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
     columns = this.seatsData['Data']['VehicleTypeModel']['RowCount'];
       if (!dataFetched)
       for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < columns; ++j) {
+        for (int j = 4; j >= 0; --j) {
           for (var seat in this.seatsData['Data']['VehicleTypeModel']
               ['VehicleTypePlanItems']) {
             if (seat['RowIndex'] == j && seat['ColumnIndex'] == i) {

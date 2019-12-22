@@ -186,17 +186,21 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
     columns = this.seatsData['Data']['VehicleTypeModel']['RowCount'];
     if (!dataFetched)
       for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < columns; ++j) {
+        for (int j = 4; j >= 0; --j) {
           for (var seat in this.seatsData['Data']['VehicleTypeModel']
               ['VehicleTypePlanItems']) {
             if (seat['RowIndex'] == j && seat['ColumnIndex'] == i) {
               seatsList.add(seat);
+              print(seat);
               break;
             }
           }
         }
       }
-    if (!dataFetched) dataFetched = !dataFetched;
+
+    if (!dataFetched) {
+      dataFetched = !dataFetched;
+    }
     return true;
   }
 
@@ -521,21 +525,22 @@ class _SelectSeatScreenState extends State<SelectSeatScreen> {
                   return Container(
                     child: GridTile(
                       child: Container(
-                          child: seatsList[index]['PointType'] == 10
-                              ? Seat(
-                                  loadScreen: widget.loadScreenFunction,
-                                  refresh: this.refresh,
-                                  seatData: seatsList[index],
-                                  ticketData: widget.ticketData,
-                                )
-                              : Container()),
+                        child: seatsList[index]['PointType'] == 10
+                            ? Seat(
+                                loadScreen: widget.loadScreenFunction,
+                                refresh: this.refresh,
+                                seatData: seatsList[index],
+                                ticketData: widget.ticketData,
+                              )
+                            : Container(),
+                      ),
                     ),
                   );
                 },
                 childCount: seatsList.length,
               ),
             ),
-            padding: EdgeInsets.only(left: 30.0, right: 20.0,top: 10.0),
+            padding: EdgeInsets.only(left: 30.0, right: 20.0, top: 10.0),
           );
       },
     );
